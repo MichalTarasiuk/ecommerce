@@ -12,6 +12,7 @@ specifiers:
   husky: ^8.0.3
   lint-staged: ^13.1.0
   next: 13.1.4
+  next-translate: ^1.6.0
   prettier: ^2.8.3
   react: 18.2.0
   react-dom: 18.2.0
@@ -25,6 +26,7 @@ dependencies:
   eslint: 8.32.0
   eslint-config-next: 13.1.4_7uibuqfxkfaozanbtbziikiqje
   next: 13.1.4_biqbaboplfbrettd7655fr4n2y
+  next-translate: 1.6.0_next@13.1.4+react@18.2.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   typescript: 4.9.4
@@ -2399,6 +2401,16 @@ packages:
 
   /natural-compare/1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
+    dev: false
+
+  /next-translate/1.6.0_next@13.1.4+react@18.2.0:
+    resolution: {integrity: sha512-rmRBYOwPHvokN+5uH3O/SZqfRUVORLkgt/097mSaq3+CWcEtXEjkVrfBZpYwZ8W3og4QVd+uphYX//qegnIbRg==}
+    peerDependencies:
+      next: '>= 10.0.0'
+      react: '>= 16.8.0'
+    dependencies:
+      next: 13.1.4_biqbaboplfbrettd7655fr4n2y
+      react: 18.2.0
     dev: false
 
   /next/13.1.4_biqbaboplfbrettd7655fr4n2y:
