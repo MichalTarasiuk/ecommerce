@@ -12,10 +12,14 @@ const i18nConfig = {
     '*': ['common'] as const,
     '/': ['home'] as const,
   },
-  loadLocaleFrom: async (language, namespace) =>
-    import(`./src/app/locales/${language}/${namespace}.json`).then(
-      (module) => module.default,
-    ),
+  loadLocaleFrom: async () => {
+    // @TODO
+    // Add logic of dynamic locale
+
+    const locale = await import(`./src/app/locales/en/common.json`);
+
+    return locale;
+  },
 } satisfies Omit<I18nConfig, 'pages'> & {pages: ReadonlyPages};
 
 module.exports = i18nConfig;
