@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "make-i18n": "pnpm tsc --module CommonJS --target ESNext --resolveJsonModule true i18n && pnpm prettier --write i18n.js",
+    "dev": "pnpm make-i18n && next dev",
+    "build": "pnpm make-i18n && next build",
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky install",
@@ -18,6 +19,7 @@
     "eslint": "8.32.0",
     "eslint-config-next": "13.1.4",
     "next": "13.1.4",
+    "next-translate": "^1.6.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "typescript": "4.9.4"
