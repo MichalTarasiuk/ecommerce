@@ -18,4 +18,5 @@ const i18nConfig = {
     ),
 } satisfies Omit<I18nConfig, 'pages'> & {pages: ReadonlyPages};
 
+module.exports = i18nConfig;
 export default i18nConfig;

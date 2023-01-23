@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "make-i18n": "pnpm tsc --module CommonJS --target ESNext --pretty i18n && pnpm prettier --write i18n.js",
+    "dev": "pnpm make-i18n && next dev",
+    "build": "pnpm make-i18n && next build",
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky install",
