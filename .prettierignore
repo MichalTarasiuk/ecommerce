@@ -35,3 +35,6 @@ next-env.d.ts
 # git
 .gitignore
 .gitkeep
+
+# graphql codegen
+src/common/graphql/generated/**

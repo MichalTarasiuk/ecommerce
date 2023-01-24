@@ -3,7 +3,11 @@ import {useTranslate} from '@/common/hooks';
 const HomePage = () => {
   const {translate} = useTranslate('common');
 
-  return <h1>{translate('variable-example.first.value')}</h1>;
+  return (
+    <main>
+      <h1>{translate('title')}</h1>
+    </main>
+  );
 };
 
 export default HomePage;
