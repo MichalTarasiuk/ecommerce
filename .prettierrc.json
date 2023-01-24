@@ -1,6 +1,7 @@
 {
   "bracketSpacing": false,
   "singleQuote": true,
+  "jsxSingleQuote": true,
   "proseWrap": "never",
   "trailingComma": "all"
 }
