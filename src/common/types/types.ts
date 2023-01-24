@@ -8,7 +8,7 @@ export type Tail<AnyArray extends Array<unknown>> = AnyArray extends [
 export type ObjectKeyPaths<Value> = Value extends Record<string, unknown>
   ? {
       [Key in keyof Value]: Value[Key] extends Record<string, unknown>
-        ? `${Key & string}.${ObjectKeyPaths<Value[Key]>}`
+        ? Key | `${Key & string}.${ObjectKeyPaths<Value[Key]>}`
         : Key;
     }[keyof Value]
   : never;
