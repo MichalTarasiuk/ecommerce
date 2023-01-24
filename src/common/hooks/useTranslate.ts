@@ -1,8 +1,8 @@
 import useTranslation from 'next-translate/useTranslation';
-import i18nConfig from '@/i18n';
+import i18nConfig from '@root/i18n';
 
-import type {ReadonlyPages} from '@/i18n';
-import type {ObjectKeyPaths, Tail} from '@/src/common/types/types';
+import type {ReadonlyPages} from '@root/i18n';
+import type {ObjectKeyPaths, Tail} from '@/common/types/types';
 
 type InferNamespaceKey<AnyReadonlyPages extends ReadonlyPages> = {
   [Key in keyof AnyReadonlyPages]: AnyReadonlyPages[Key] extends ReadonlyArray<string>

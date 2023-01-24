@@ -1,4 +1,4 @@
-import {useTranslate} from 'src/common/hooks';
+import {useTranslate} from '@/common/hooks';
 
 const HomePage = () => {
   const {translate} = useTranslate('common');
