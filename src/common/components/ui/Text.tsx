@@ -1,5 +1,6 @@
+import classNames from 'classnames';
+
 import type {ReactNode} from 'react';
-import classnames from 'classnames';
 
 type TextSize = 'small' | 'medium' | 'large';
 type TextPosition = 'left' | 'center' | 'right';
@@ -24,7 +25,7 @@ export const Text = ({
 }: TextProps) => {
   return (
     <Tag
-      className={classnames(
+      className={classNames(
         {
           'text-sm': size === 'small',
           'text-base': size === 'medium',
