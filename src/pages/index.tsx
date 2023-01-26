@@ -1,14 +1,14 @@
 import {useTranslate} from '@/common/hooks';
-import {Text} from '@/common/components';
+import {Heading} from '@/common/components';
 
 const HomePage = () => {
   const {translate} = useTranslate('common');
 
   return (
     <main>
-      <Text tag='p' size='medium'>
+      <Heading tag='h1' size='large'>
         {translate('title')}
-      </Text>
+      </Heading>
     </main>
   );
 };
