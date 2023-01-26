@@ -5,7 +5,7 @@ const HomePage = () => {
 
   return (
     <main>
-      <h1>{translate('title')}</h1>
+      <h1 className='text-[red]'>{translate('title')}</h1>
     </main>
   );
 };
