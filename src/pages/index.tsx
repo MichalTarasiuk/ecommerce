@@ -1,11 +1,14 @@
 import {useTranslate} from '@/common/hooks';
+import {Text} from '@/common/components';
 
 const HomePage = () => {
   const {translate} = useTranslate('common');
 
   return (
     <main>
-      <h1 className='text-[red]'>{translate('title')}</h1>
+      <Text tag='p' size='medium'>
+        {translate('title')}
+      </Text>
     </main>
   );
 };
