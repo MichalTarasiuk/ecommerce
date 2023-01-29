@@ -5,9 +5,9 @@ import type {ReactNode} from 'react';
 type VisuallyHiddenTag = keyof Pick<JSX.IntrinsicElements, 'div' | 'span'>;
 
 type VisuallyHiddenProps = {
-  tag?: VisuallyHiddenTag;
-  visibleOnFocus?: boolean;
-  children: ReactNode;
+  readonly tag?: VisuallyHiddenTag;
+  readonly visibleOnFocus?: boolean;
+  readonly children: ReactNode;
 };
 
 export const VisuallyHidden = ({

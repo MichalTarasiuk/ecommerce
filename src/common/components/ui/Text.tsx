@@ -9,11 +9,11 @@ type Variants = 'default' | 'error';
 type TextTag = keyof Pick<JSX.IntrinsicElements, 'p' | 'span'>;
 
 type TextProps = {
-  tag: TextTag;
-  children: ReactNode;
-  size: TextSize;
-  position?: TextPosition;
-  variant?: Variants;
+  readonly tag: TextTag;
+  readonly children: ReactNode;
+  readonly size: TextSize;
+  readonly position?: TextPosition;
+  readonly variant?: Variants;
 };
 
 export const Text = ({

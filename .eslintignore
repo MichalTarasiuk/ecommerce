@@ -1,5 +1,4 @@
-# dependencies
-/node_modules
+# dependencies - node_modules is ignored by default
 pnpm-lock.yaml
 
 # next.js
@@ -38,6 +37,3 @@ next-env.d.ts
 
 # graphql codegen
 src/common/graphql/generated/**
-
-# eslint
-.eslintignore

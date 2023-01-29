@@ -10,9 +10,9 @@ type HeadingTag = keyof Pick<
 >;
 
 type HeadingProps = {
-  children: ReactNode;
-  tag: HeadingTag;
-  size: TextSize;
+  readonly children: ReactNode;
+  readonly tag: HeadingTag;
+  readonly size: TextSize;
 } & HTMLAttributes<HTMLHeadingElement>;
 
 export const Heading = ({tag: Tag, size, ...props}: HeadingProps) => {

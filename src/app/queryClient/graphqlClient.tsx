@@ -1,6 +1,8 @@
-import {ReactNode} from 'react';
 import {Provider, createClient} from 'urql';
+
 import {graphqlUrl as url} from './consts';
+
+import type {ReactNode} from 'react';
 
 type GraphqlClientProviderProps = {
   readonly children: ReactNode;

@@ -1,5 +1,5 @@
-import {useTranslate} from '@/common/hooks';
 import {Heading} from '@/common/components';
+import {useTranslate} from '@/common/hooks';
 
 const HomePage = () => {
   const {translate} = useTranslate('common');

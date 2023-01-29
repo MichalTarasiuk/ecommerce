@@ -1,5 +1,6 @@
-import {ReactNode} from 'react';
 import {GraphqlClientProvider} from './queryClient/graphqlClient';
+
+import type {ReactNode} from 'react';
 
 type AppProvidersProps = {
   readonly children: ReactNode;

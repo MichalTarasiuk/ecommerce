@@ -1,11 +1,11 @@
 import useTranslation from 'next-translate/useTranslation';
-import i18nConfig from '@root/i18n';
 
-import type {ReadonlyPages} from '@root/i18n';
 import type {ObjectKeyPaths, Tail} from '@/common/types/types';
+import type i18nConfig from '@root/i18n';
+import type {ReadonlyPages} from '@root/i18n';
 
 type InferNamespaceKey<AnyReadonlyPages extends ReadonlyPages> = {
-  [Key in keyof AnyReadonlyPages]: AnyReadonlyPages[Key] extends ReadonlyArray<string>
+  readonly [Key in keyof AnyReadonlyPages]: AnyReadonlyPages[Key] extends ReadonlyArray<string>
     ? AnyReadonlyPages[Key][number]
     : AnyReadonlyPages[Key] extends ((
         context: Record<string, unknown>,
@@ -16,7 +16,7 @@ type InferNamespaceKey<AnyReadonlyPages extends ReadonlyPages> = {
 type NamespaceKeyUnion = InferNamespaceKey<(typeof i18nConfig)['pages']>;
 
 type Namespaces = {
-  common: typeof import('src/app/locales/en/common.json');
+  readonly common: typeof import('src/app/locales/en/common.json');
 };
 
 /**
