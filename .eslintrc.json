@@ -87,6 +87,13 @@
       "rules": {
         "import/no-default-export": "off"
       }
+    },
+    {
+      "files": ["./**.js", "./**.mjs"],
+      "rules": {
+        "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/no-unsafe-member-access": "off"
+      }
     }
   ]
 }
