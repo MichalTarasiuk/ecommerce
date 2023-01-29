@@ -20,7 +20,7 @@ const i18nConfig = {
 
     return locale;
   },
-} satisfies Omit<I18nConfig, 'pages'> & {pages: ReadonlyPages};
+} satisfies Omit<I18nConfig, 'pages'> & {readonly pages: ReadonlyPages};
 
 module.exports = i18nConfig;
 export default i18nConfig;

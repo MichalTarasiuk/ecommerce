@@ -81,6 +81,12 @@
       "rules": {
         "import/no-default-export": "off"
       }
+    },
+    {
+      "files": ["./**.ts", "./**.js", "./**.mjs"],
+      "rules": {
+        "import/no-default-export": "off"
+      }
     }
   ]
 }
