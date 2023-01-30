@@ -1,4 +1,4 @@
-import {ssrExchange} from 'urql';
+import {fetchExchange, ssrExchange} from 'urql';
 
 import {createUrqlClient, dehydrate} from '@/app/queryClient/queryClient';
 import FETCH_PRODUCTS_LIST from '@/common/graphql/queries/fetchProductsList.graphql';
@@ -9,7 +9,7 @@ import type {GetStaticPropsContext, GetStaticPropsResult} from 'next';
 export const getStaticProps = async (_context: GetStaticPropsContext) => {
   const ssrCache = ssrExchange({isClient: false});
   const urqlClient = createUrqlClient({
-    exchanges: [ssrCache],
+    exchanges: [ssrCache, fetchExchange],
   });
 
   await urqlClient
