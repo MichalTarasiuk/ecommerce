@@ -1,3 +1,4 @@
+import {produce} from 'immer';
 import {useCallback, useMemo, useRef, useSyncExternalStore} from 'react';
 
 import {createEventHub} from './createEventHub';
@@ -5,6 +6,7 @@ import {createSafeContext} from './createSafeContext';
 import {isObject} from './typeof';
 
 import type {Equals, UnknownFunction} from '../types/types';
+import type {Draft} from 'immer';
 import type {ReactNode} from 'react';
 
 type FastContextProviderProps<Store extends Record<PropertyKey, unknown>> = {
@@ -15,7 +17,7 @@ type FastContextProviderProps<Store extends Record<PropertyKey, unknown>> = {
 type CreateFastContext<Store extends Record<PropertyKey, unknown>> = {
   readonly get: () => Store;
   readonly setStore: (
-    nextStore: Partial<Store> | ((store: Store) => Partial<Store>),
+    nextStore: Partial<Store> | ((draft: Draft<Store>) => void),
   ) => void;
   readonly subscribe: (onStoreChange: UnknownFunction) => () => void;
 };
@@ -48,10 +50,14 @@ export const createFastContext = <Store extends Record<PropertyKey, unknown>>(
     }, []);
 
     const setStore = useCallback(
-      (nextStore: Partial<Store> | ((store: Store) => Partial<Store>)) => {
+      (nextStore: Partial<Store> | ((draft: Draft<Store>) => void)) => {
+        const resolvedStore = isObject(nextStore)
+          ? nextStore
+          : produce(store.current, nextStore);
+
         store.current = {
           ...store.current,
-          ...(isObject(nextStore) ? nextStore : nextStore(store.current)),
+          ...resolvedStore,
         };
 
         eventHub.emit(name);
