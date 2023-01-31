@@ -14,7 +14,8 @@
     "cypress:headless": "cypress run",
     "e2e": "start-server-and-test start http://localhost:3000 cypress",
     "e2e:headless": "start-server-and-test start http://localhost:3000 cypress:headless",
-    "generate": "graphql-codegen --config codegen.ts"
+    "generate": "graphql-codegen --config codegen.ts",
+    "postinstall": "stale-dep -u"
   },
   "dependencies": {
     "@next/font": "13.1.4",
@@ -56,6 +57,7 @@
     "lint-staged": "^13.1.0",
     "postcss": "^8.4.21",
     "prettier": "^2.8.3",
+    "stale-dep": "^0.3.1",
     "tailwindcss": "^3.2.4",
     "ts-node": "^10.9.1"
   }
