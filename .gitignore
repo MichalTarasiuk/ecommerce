@@ -27,3 +27,6 @@ i18n.js
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# storybook
+public/tailwind.css

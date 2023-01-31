@@ -41,3 +41,6 @@ src/common/graphql/generated/**
 
 # eslint
 .eslintignore
+
+# storybook
+public/tailwind.css

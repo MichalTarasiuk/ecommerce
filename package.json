@@ -15,7 +15,11 @@
     "e2e": "start-server-and-test start http://localhost:3000 cypress",
     "e2e:headless": "start-server-and-test start http://localhost:3000 cypress:headless",
     "generate": "graphql-codegen --config codegen.ts",
-    "postinstall": "stale-dep -u"
+    "postinstall": "stale-dep -u",
+    "storybook": "start-storybook -p 6006 -s public",
+    "watch:storybook": "start-storybook dev -p 6006 -s public",
+    "build:css": "npx tailwindcss -i ./src/app/styles/globals.css -o ./public/tailwind.css",
+    "watch:css": "npx tailwindcss -i ./src/app/styles/globals.css -o ./public/tailwind.css --watch"
   },
   "dependencies": {
     "@next/font": "13.1.4",
@@ -41,10 +45,20 @@
     "@graphql-codegen/cli": "2.16.4",
     "@graphql-codegen/client-preset": "1.2.6",
     "@graphql-typed-document-node/core": "^3.1.1",
+    "@storybook/addon-actions": "^6.5.16",
+    "@storybook/addon-essentials": "^6.5.16",
+    "@storybook/addon-interactions": "^6.5.16",
+    "@storybook/addon-links": "^6.5.16",
+    "@storybook/builder-webpack5": "^6.5.16",
+    "@storybook/manager-webpack5": "^6.5.16",
+    "@storybook/react": "^6.5.16",
+    "@storybook/testing-library": "^0.0.13",
     "@typescript-eslint/eslint-plugin": "^5.49.0",
     "@typescript-eslint/parser": "^5.49.0",
     "@typescript-eslint/type-utils": "^5.49.0",
+    "add": "^2.0.6",
     "autoprefixer": "^10.4.13",
+    "babel-loader": "^9.1.2",
     "cosmiconfig-toml-loader": "^1.0.0",
     "cypress": "^12.3.0",
     "eslint-config-prettier": "^8.6.0",
@@ -52,13 +66,18 @@
     "eslint-plugin-functional": "^5.0.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-storybook": "^0.6.10",
     "graphql-tag": "^2.12.6",
     "husky": "^8.0.3",
     "lint-staged": "^13.1.0",
+    "msw": "^1.0.0",
+    "msw-storybook-addon": "^1.7.0",
     "postcss": "^8.4.21",
     "prettier": "^2.8.3",
+    "require-from-string": "2.0.2",
     "stale-dep": "^0.3.1",
     "tailwindcss": "^3.2.4",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "webpack": "5.75.0"
   }
 }

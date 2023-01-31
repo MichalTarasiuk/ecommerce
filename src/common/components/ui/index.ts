@@ -1,3 +1,3 @@
-export * from './Text';
-export * from './VisuallyHidden';
-export * from './Heading';
+export * from './Text/Text';
+export * from './VisuallyHidden/VisuallyHidden';
+export * from './Heading/Heading';

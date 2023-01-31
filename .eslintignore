@@ -38,3 +38,7 @@ next-env.d.ts
 
 # graphql codegen
 src/common/graphql/generated/**
+
+# storybook
+public/tailwind.css
+public/mockServiceWorker.js
