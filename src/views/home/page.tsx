@@ -3,6 +3,7 @@ import {useQuery} from 'urql';
 import {Heading} from '@/common/components';
 import FETCH_PRODUCTS_LIST from '@/common/graphql/queries/fetchProductsList.graphql';
 import {useTranslate} from '@/common/hooks';
+import {Main} from '@/views/core/core';
 
 import type {getStaticProps} from './propsProvider';
 import type {
@@ -24,7 +25,7 @@ export const HomePage = ({}: HomePageProps) => {
   const {translate} = useTranslate('common');
 
   return (
-    <main>
+    <Main>
       <Heading tag='h1' size='large'>
         {translate('title')}
       </Heading>
@@ -33,6 +34,6 @@ export const HomePage = ({}: HomePageProps) => {
           <li key={name}>name: {name}</li>
         ))}
       </ul>
-    </main>
+    </Main>
   );
 };
