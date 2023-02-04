@@ -21,3 +21,6 @@ export const isObject = (
   operand: unknown,
 ): operand is Record<PropertyKey, unknown> =>
   inferType(operand, true) === 'object';
+
+export const isNumber = (operand: unknown): operand is number =>
+  inferType(operand) === 'number';

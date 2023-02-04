@@ -6,3 +6,8 @@ export * from './createSafeContext';
 export * from './keyIn';
 export * from './typeof';
 export * from './createEventHub';
+export * from './fromEntries';
+export * from './reducers';
+export * from './fromEntries';
+export * from './objectKeys';
+export * from './contextify';

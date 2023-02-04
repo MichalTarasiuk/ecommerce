@@ -1,8 +1,8 @@
 import {useQuery} from 'urql';
 
-import {Heading} from '@/common/components';
+import {Heading} from '@/common/components/components';
 import FETCH_PRODUCTS_LIST from '@/common/graphql/queries/fetchProductsList.graphql';
-import {useTranslate} from '@/common/hooks';
+import {useTranslate} from '@/common/hooks/hooks';
 import {Main} from '@/views/core/core';
 
 import type {getStaticProps} from './propsProvider';
