@@ -38,7 +38,7 @@ const RegisterFullnameStep = () => {
         });
 
         if (token) {
-          registerStep.move(token);
+          registerStep.go(token);
         }
       }}
     >

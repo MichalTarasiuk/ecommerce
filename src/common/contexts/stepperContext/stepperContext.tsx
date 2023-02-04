@@ -35,7 +35,7 @@ export const createStepperContext = <Store extends Record<number, unknown>>(
   type AssertParams = Parameters<ValueOf<typeof steps>['assert']>;
   type StepperContextValue = {
     readonly set: (...params: AssertParams) => symbol | null;
-    readonly move: (nextIndex: number | symbol) => void;
+    readonly go: (nextIndex: number | symbol) => void;
   };
 
   const range = getStepsRange(steps);
@@ -57,7 +57,7 @@ export const createStepperContext = <Store extends Record<number, unknown>>(
 
           state.set(token, value);
 
-          return tokens[state.index + 1] ?? null;
+          return tokens[state.getNextIndex()] ?? null;
         }
 
         return null;
@@ -65,12 +65,12 @@ export const createStepperContext = <Store extends Record<number, unknown>>(
       [state],
     );
 
-    const move = useCallback(
+    const go = useCallback(
       (indexOrToken: number | symbol) => {
         if (isNumber(indexOrToken)) {
           const token = tokens[indexOrToken];
 
-          if (token) {
+          if (state.has(token) && token) {
             state.index = indexOrToken;
 
             stepperContextEventHub.emit(contextName);
@@ -97,9 +97,9 @@ export const createStepperContext = <Store extends Record<number, unknown>>(
     const value = useMemo(
       () => ({
         set,
-        move,
+        go,
       }),
-      [move, set],
+      [go, set],
     );
 
     return (

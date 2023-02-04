@@ -22,7 +22,17 @@ const useStepperStateImpl = (range: ReturnType<typeof getStepsRange>) => {
       rerender();
     };
 
-    const has = (token: symbol) => map.has(token);
+    const has = (token: symbol | undefined) => token && map.has(token);
+
+    const getNextIndex = () => {
+      const nextIndex = index + 1;
+
+      if (nextIndex > range.end) {
+        return index;
+      }
+
+      return nextIndex;
+    };
 
     return {
       get index() {
@@ -35,6 +45,7 @@ const useStepperStateImpl = (range: ReturnType<typeof getStepsRange>) => {
 
         index = nextIndex;
       },
+      getNextIndex,
       has,
       set,
     };
