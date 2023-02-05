@@ -1,6 +1,6 @@
 import useTranslation from 'next-translate/useTranslation';
 
-import type {ArrayType, Common, Custom, ObjectType} from '@/common/types/types';
+import type {ArrayType, Common, ObjectType} from '@/common/types/types';
 import type i18nConfig from '@root/i18n';
 import type {ReadonlyPages} from '@root/i18n';
 
@@ -15,27 +15,13 @@ type InferNamespaceKey<AnyReadonlyPages extends ReadonlyPages> = {
 }[keyof AnyReadonlyPages];
 type NamespaceKeyUnion = InferNamespaceKey<(typeof i18nConfig)['pages']>;
 
-type IntersectionNamespace<
-  Namespace extends Record<PropertyKey, Record<PropertyKey, unknown>>,
-  NamespaceValues extends Record<string, unknown> = Common.ValueOf<Namespace>,
-> = {
-  readonly [Key in Custom.IntersectionKeys<
-    keyof NamespaceValues
-  > as ArrayType.Some<
-    Custom.UnionToTuple<NamespaceValues[Key]>,
-    ArrayType.Any
-  > extends true
-    ? never
-    : Key]: NamespaceValues[Key];
-};
-
 type CommonNamespace = {
   readonly pl: typeof import('src/app/locales/pl/common.json');
   readonly en: typeof import('src/app/locales/en/common.json');
 };
 
 type Namespaces = {
-  readonly common: IntersectionNamespace<CommonNamespace>;
+  readonly common: Common.ValueOf<CommonNamespace>;
 };
 
 /**

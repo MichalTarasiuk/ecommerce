@@ -1,3 +1,5 @@
+import type {Every} from './array';
+
 export type Equals<A1, B2> = (<A>() => A extends B2 ? 1 : 0) extends <
   A,
 >() => A extends A1 ? 1 : 0
@@ -23,6 +25,4 @@ export type UnionToTuple<
       readonly [LastUnion<Union>, ...Result]
     >;
 
-export type IntersectionKeys<Keys extends PropertyKey> = Keys extends Keys
-  ? Keys
-  : never;
+export type And<Union> = Every<UnionToTuple<Union>, true>;
