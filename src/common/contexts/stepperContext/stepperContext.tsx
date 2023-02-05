@@ -14,7 +14,7 @@ import {StepperStateProvider, useStepperState} from './useStepperState';
 import type {ValueOf} from '@/common/types/types';
 import type {ReactNode} from 'react';
 
-export type Steps<
+export type GetSteps<
   Store extends Record<string, unknown>,
   Type extends PropertyKey = keyof Store,
 > = Record<
@@ -30,7 +30,7 @@ const stepperContextEventHub = createEventHub();
 
 export const createStepperContext = <Store extends Record<number, unknown>>(
   name: string,
-  steps: Steps<Store>,
+  steps: GetSteps<Store>,
 ) => {
   type AssertParams = Parameters<ValueOf<typeof steps>['assert']>;
   type StepperContextValue = {
@@ -142,5 +142,5 @@ export const createStepperContext = <Store extends Record<number, unknown>>(
     StepperProvider,
     useRegisterStepper,
     useStep,
-  };
+  } as const;
 };

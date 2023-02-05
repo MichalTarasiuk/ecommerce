@@ -1,8 +1,12 @@
 // eslint-disable-next-line functional/prefer-readonly-type -- union of array variants
 export type AnyArray = Array<unknown> | ReadonlyArray<unknown>;
 
-export type Tail<AnyArray extends ReadonlyArray<unknown>> =
-  AnyArray extends readonly [unknown, ...infer Rest] ? Rest : never;
+export type Tail<Arr extends AnyArray> = Arr extends readonly [
+  unknown,
+  ...infer Rest,
+]
+  ? Rest
+  : never;
 
 export type ObjectKeyPaths<Value> = Value extends Record<string, unknown>
   ? {
@@ -31,3 +35,31 @@ export type AnyFunction<
   Args extends readonly any[] = readonly any[],
   ReturnType = unknown,
 > = (...args: Args) => ReturnType;
+
+type UnionToIntersectionFn<Union> = (
+  Union extends Union ? (union: () => Union) => void : never
+) extends (intersection: infer Intersection) => void
+  ? Intersection
+  : never;
+
+export type LastUnion<Union> =
+  UnionToIntersectionFn<Union> extends () => infer Last ? Last : never;
+
+export type UnionToTuple<
+  Union,
+  Result extends ReadonlyArray<unknown> = readonly [],
+> = readonly Union[] extends readonly never[]
+  ? Result
+  : UnionToTuple<
+      Exclude<Union, LastUnion<Union>>,
+      readonly [LastUnion<Union>, ...Result]
+    >;
+
+export type Some<Arr extends AnyArray, Value> = Arr extends readonly [
+  infer First,
+  ...infer Rest,
+]
+  ? First extends Value
+    ? true
+    : Some<Rest, Value>
+  : false;

@@ -1,6 +1,13 @@
 import useTranslation from 'next-translate/useTranslation';
 
-import type {ObjectKeyPaths, Tail} from '@/common/types/types';
+import type {
+  AnyArray,
+  ObjectKeyPaths,
+  Some,
+  Tail,
+  UnionToTuple,
+  ValueOf,
+} from '@/common/types/types';
 import type i18nConfig from '@root/i18n';
 import type {ReadonlyPages} from '@root/i18n';
 
@@ -15,8 +22,29 @@ type InferNamespaceKey<AnyReadonlyPages extends ReadonlyPages> = {
 }[keyof AnyReadonlyPages];
 type NamespaceKeyUnion = InferNamespaceKey<(typeof i18nConfig)['pages']>;
 
+type IntersectionKeys<Keys extends PropertyKey> = Keys extends Keys
+  ? Keys
+  : never;
+
+type IntersectionNamespace<
+  Namespace extends Record<PropertyKey, Record<PropertyKey, unknown>>,
+  NamespaceValues extends Record<string, unknown> = ValueOf<Namespace>,
+> = {
+  readonly [Key in IntersectionKeys<keyof NamespaceValues> as Some<
+    UnionToTuple<NamespaceValues[Key]>,
+    AnyArray
+  > extends true
+    ? never
+    : Key]: NamespaceValues[Key];
+};
+
+type CommonNamespace = {
+  readonly pl: typeof import('src/app/locales/pl/common.json');
+  readonly en: typeof import('src/app/locales/en/common.json');
+};
+
 type Namespaces = {
-  readonly common: typeof import('src/app/locales/en/common.json');
+  readonly common: IntersectionNamespace<CommonNamespace>;
 };
 
 /**

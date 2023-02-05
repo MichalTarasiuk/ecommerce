@@ -1,16 +1,16 @@
 import {fromEntries, entries} from '@/common/utils/utils';
 
-import type {Steps} from '../stepperContext';
+import type {GetSteps} from '../stepperContext';
 
 const getFirst = (array: ReadonlyArray<unknown>) =>
   array.length === 1 ? array[0] : array;
 
 const generateTokens = <Store extends Record<PropertyKey, unknown>>(
-  steps: Steps<Store>,
+  steps: GetSteps<Store>,
 ) => fromEntries(entries(steps).map(([key]) => [key, Symbol()]));
 
 export const tokenize = <Store extends Record<PropertyKey, unknown>>(
-  steps: Steps<Store>,
+  steps: GetSteps<Store>,
 ) => {
   const tokens = generateTokens(steps);
   const tokenizedSteps = fromEntries(
