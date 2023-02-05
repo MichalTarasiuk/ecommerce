@@ -2,21 +2,23 @@ import {useMemo} from 'react';
 
 import {createSafeContext} from './createSafeContext';
 
-import type {AnyArray, AnyFunction} from '@/common/types/types';
+import type {ArrayType, FunctionType} from '@/common/types/types';
 import type {ReactNode} from 'react';
 
-type InferConfig<Params extends AnyArray> = {
+type InferConfig<Params extends ArrayType.Any> = {
   readonly [Key in Extract<keyof Params, `${number}`>]: Params[Key];
 };
 
-type ContextProvider<Params extends AnyArray> = {
+type ContextProvider<Params extends ArrayType.Any> = {
   readonly children: ReactNode;
   readonly config: InferConfig<Params>;
 };
 
 const none = '';
 
-export const contextify = <UseHook extends AnyFunction>(useHook: UseHook) => {
+export const contextify = <UseHook extends FunctionType.Any>(
+  useHook: UseHook,
+) => {
   const name = useHook.name.replace('use', none);
   const [ContextProviderImpl, useContext] =
     createSafeContext<ReturnType<UseHook>>(name);

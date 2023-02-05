@@ -1,13 +1,6 @@
 import useTranslation from 'next-translate/useTranslation';
 
-import type {
-  AnyArray,
-  ObjectKeyPaths,
-  Some,
-  Tail,
-  UnionToTuple,
-  ValueOf,
-} from '@/common/types/types';
+import type {ArrayType, Common, Custom, ObjectType} from '@/common/types/types';
 import type i18nConfig from '@root/i18n';
 import type {ReadonlyPages} from '@root/i18n';
 
@@ -28,11 +21,11 @@ type IntersectionKeys<Keys extends PropertyKey> = Keys extends Keys
 
 type IntersectionNamespace<
   Namespace extends Record<PropertyKey, Record<PropertyKey, unknown>>,
-  NamespaceValues extends Record<string, unknown> = ValueOf<Namespace>,
+  NamespaceValues extends Record<string, unknown> = Common.ValueOf<Namespace>,
 > = {
-  readonly [Key in IntersectionKeys<keyof NamespaceValues> as Some<
-    UnionToTuple<NamespaceValues[Key]>,
-    AnyArray
+  readonly [Key in IntersectionKeys<keyof NamespaceValues> as ArrayType.Some<
+    Custom.UnionToTuple<NamespaceValues[Key]>,
+    ArrayType.Any
   > extends true
     ? never
     : Key]: NamespaceValues[Key];
@@ -58,11 +51,11 @@ export const useTranslate = <NamespaceKey extends NamespaceKeyUnion>(
   return {
     translate: <
       I18nKey extends NamespaceKey extends keyof Namespaces
-        ? ObjectKeyPaths<Namespaces[NamespaceKey]>
+        ? ObjectType.KeyPaths<Namespaces[NamespaceKey]>
         : never,
     >(
       i18nKey: I18nKey,
-      ...params: Tail<Parameters<(typeof translation)['t']>>
+      ...params: ArrayType.Tail<Parameters<(typeof translation)['t']>>
     ) => translation.t(i18nKey, ...params),
     lang: translation.lang,
   };

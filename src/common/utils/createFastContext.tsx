@@ -5,7 +5,7 @@ import {createEventHub} from './createEventHub';
 import {createSafeContext} from './createSafeContext';
 import {isObject} from './typeof';
 
-import type {Equals, UnknownFunction} from '../types/types';
+import type {Custom, FunctionType} from '../types/types';
 import type {Draft} from 'immer';
 import type {ReactNode} from 'react';
 
@@ -19,7 +19,7 @@ type CreateFastContext<Store extends Record<PropertyKey, unknown>> = {
   readonly setStore: (
     nextStore: Partial<Store> | ((draft: Draft<Store>) => void),
   ) => void;
-  readonly subscribe: (onStoreChange: UnknownFunction) => () => void;
+  readonly subscribe: (onStoreChange: FunctionType.Unknown) => () => void;
 };
 type Selector<Store extends Record<PropertyKey, unknown>, Selected> = (
   store: Store,
@@ -41,7 +41,7 @@ export const createFastContext = <Store extends Record<PropertyKey, unknown>>(
 
     const get = useCallback(() => store.current, []);
 
-    const subscribe = useCallback((onStoreChange: UnknownFunction) => {
+    const subscribe = useCallback((onStoreChange: FunctionType.Unknown) => {
       const subscriber = eventHub.on(name, onStoreChange);
 
       return () => {
@@ -79,7 +79,9 @@ export const createFastContext = <Store extends Record<PropertyKey, unknown>>(
 
   const useFastContext = <
     Selected,
-    SafeSelected = Equals<Selected, unknown> extends 1 ? Store : Selected,
+    SafeSelected = Custom.Equals<Selected, unknown> extends 1
+      ? Store
+      : Selected,
   >(
     selector?: Selector<Store, Selected>,
   ) => {

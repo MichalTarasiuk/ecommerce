@@ -1,4 +1,4 @@
-import type {Debug} from '../types/types';
+import type {ObjectType} from '../types/types';
 
 type KeyIn<
   AnyObject extends Record<PropertyKey, unknown>,
@@ -11,4 +11,5 @@ export const keyIn = <
 >(
   anyObject: AnyObject,
   key: Key,
-): anyObject is Debug<KeyIn<AnyObject, Key>> => Object.hasOwn(anyObject, key);
+): anyObject is ObjectType.Debug<KeyIn<AnyObject, Key>> =>
+  Object.hasOwn(anyObject, key);
