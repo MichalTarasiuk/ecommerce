@@ -20,7 +20,9 @@ export const TextInput = forwardRef<HTMLInputElement, InputProps>(
   ({type = 'text', htmlFor, label, errorMessage, ...props}, ref) => {
     return (
       <div className='my-3'>
-        <label htmlFor={htmlFor}>{label}</label>
+        <label className='block' htmlFor={htmlFor}>
+          {label}
+        </label>
         <input
           className='px-4 w-full border-2 py-2 rounded-md text-sm mb-1'
           ref={ref}

@@ -1,10 +1,11 @@
+import {TextInput, Text, Heading} from '@/common/components/components';
 import {Main} from '@/views/core/core';
 
 import {
   RegisterStepperProvider,
   useRegisterStep,
   useRegisterStepper,
-} from './registerContext';
+} from './consts';
 
 export const RegisterPage = () => {
   return (
@@ -18,10 +19,13 @@ const Register = () => {
   const {step} = useRegisterStepper();
 
   return (
-    <Main>
-      <h1>Register page</h1>
-      {step === 0 && <RegisterFullnameStep />}
-      {step === 1 && <p>age step</p>}
+    <Main className='min-h-screen bg-gradient-to-r from-blue-100 to-blue-500'>
+      <div className='flex justify-center items-center ml-auto min-h-screen w-1/2 bg-white'>
+        <div className='w-2/5'>
+          {step === 0 && <RegisterFullnameStep />}
+          {step === 1 && <p>age step</p>}
+        </div>
+      </div>
     </Main>
   );
 };
@@ -30,19 +34,36 @@ const RegisterFullnameStep = () => {
   const registerStep = useRegisterStep();
 
   return (
-    <button
-      onClick={() => {
-        const token = registerStep.set({
-          firstname: 'Michał',
-          lastname: 'Tarasiuk',
-        });
+    <form>
+      <div>
+        <Text tag='span' size='small'>
+          Welcome,
+        </Text>
+        <Heading tag='h1' size='medium'>
+          Create a new account
+        </Heading>
+      </div>
+      <TextInput type='text' label='Email' placeholder='' htmlFor='email' />
+      <TextInput
+        type='text'
+        label='Password'
+        placeholder=''
+        htmlFor='password'
+      />
+      <button
+        onClick={() => {
+          const token = registerStep.set({
+            firstname: 'Michał',
+            lastname: 'Tarasiuk',
+          });
 
-        if (token) {
-          registerStep.go(token);
-        }
-      }}
-    >
-      set fullname
-    </button>
+          if (token) {
+            registerStep.go(token);
+          }
+        }}
+      >
+        set fullname
+      </button>
+    </form>
   );
 };
