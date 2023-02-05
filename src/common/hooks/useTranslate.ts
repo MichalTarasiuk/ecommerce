@@ -15,15 +15,13 @@ type InferNamespaceKey<AnyReadonlyPages extends ReadonlyPages> = {
 }[keyof AnyReadonlyPages];
 type NamespaceKeyUnion = InferNamespaceKey<(typeof i18nConfig)['pages']>;
 
-type IntersectionKeys<Keys extends PropertyKey> = Keys extends Keys
-  ? Keys
-  : never;
-
 type IntersectionNamespace<
   Namespace extends Record<PropertyKey, Record<PropertyKey, unknown>>,
   NamespaceValues extends Record<string, unknown> = Common.ValueOf<Namespace>,
 > = {
-  readonly [Key in IntersectionKeys<keyof NamespaceValues> as ArrayType.Some<
+  readonly [Key in Custom.IntersectionKeys<
+    keyof NamespaceValues
+  > as ArrayType.Some<
     Custom.UnionToTuple<NamespaceValues[Key]>,
     ArrayType.Any
   > extends true

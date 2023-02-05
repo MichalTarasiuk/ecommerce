@@ -22,3 +22,7 @@ export type UnionToTuple<
       Exclude<Union, LastUnion<Union>>,
       readonly [LastUnion<Union>, ...Result]
     >;
+
+export type IntersectionKeys<Keys extends PropertyKey> = Keys extends Keys
+  ? Keys
+  : never;

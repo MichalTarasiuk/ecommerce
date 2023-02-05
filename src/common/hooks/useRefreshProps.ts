@@ -2,13 +2,13 @@ import {useRouter} from 'next/router';
 import queryString from 'query-string';
 import {useCallback, useEffect, useState} from 'react';
 
-import type {NextRouter} from 'next/router';
+import type {NextRouter as AnyNextRouter} from 'next/router';
 import type {UrlObject} from 'url';
 
 type Url = UrlObject | string;
 
-type InferTransitionOptions<GenericNextRouter extends NextRouter> =
-  GenericNextRouter extends {
+type InferTransitionOptions<NextRouter extends AnyNextRouter> =
+  NextRouter extends {
     readonly push: (
       url: Url,
       as?: Url,
