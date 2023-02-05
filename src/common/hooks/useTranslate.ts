@@ -1,6 +1,6 @@
 import useTranslation from 'next-translate/useTranslation';
 
-import type {ArrayType, Common, ObjectType} from '@/common/types/types';
+import type {ArrayType, ObjectType} from '@/common/types/types';
 import type i18nConfig from '@root/i18n';
 import type {ReadonlyPages} from '@root/i18n';
 
@@ -21,7 +21,10 @@ type CommonNamespace = {
 };
 
 type Namespaces = {
-  readonly common: Common.ValueOf<CommonNamespace>;
+  readonly common: ObjectType.Intersection<
+    CommonNamespace['pl'],
+    CommonNamespace['en']
+  >;
 };
 
 /**
