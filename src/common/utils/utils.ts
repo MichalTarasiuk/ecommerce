@@ -11,3 +11,5 @@ export * from './reducers';
 export * from './fromEntries';
 export * from './objectKeys';
 export * from './contextify';
+export * from './onPromise';
+export * from './nodeEnvironment';
