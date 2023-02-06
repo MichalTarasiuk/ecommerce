@@ -14,10 +14,12 @@ export const tokenize = <Store extends Record<PropertyKey, unknown>>(
 ) => {
   const tokens = generateTokens(steps);
   const tokenizedSteps = fromEntries(
-    entries(steps).map(([stepKey, step]) => {
-      const assert = (...params: Parameters<(typeof step)['assert']>) => {
+    entries(steps).map(([stepKey, {assert: assertImpl, ...restStep}]) => {
+      type Params = Parameters<typeof assertImpl>;
+      const assert = (...params: Params) => {
+        // hard to infer @TODO later
         // @ts-ignore
-        const assertResult = step.assert(...params);
+        const assertResult = assertImpl(...params);
         const token = tokens[stepKey];
 
         if (assertResult && token) {
@@ -29,7 +31,7 @@ export const tokenize = <Store extends Record<PropertyKey, unknown>>(
         return undefined;
       };
 
-      const nextStep = {...step, assert};
+      const nextStep = {...restStep, assert};
 
       return [stepKey, nextStep];
     }),
