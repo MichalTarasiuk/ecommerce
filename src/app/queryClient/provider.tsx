@@ -1,12 +1,9 @@
 import {useMemo} from 'react';
 import {Provider as UrqlProvider} from 'urql';
 
-import {entries} from '@/common/utils/utils';
-
-import {isSRRDataKey} from './dehydrate';
+import {getSrrData, hasSrrData} from './dehydrate';
 import {useHyrate} from './useHydrate';
 
-import type {SRRData} from './dehydrate';
 import type {ReactNode} from 'react';
 
 type GraphqlClientProviderProps = {
@@ -19,11 +16,11 @@ export const GraphqlClientProvider = ({
   pageProps,
 }: GraphqlClientProviderProps) => {
   const srrData = useMemo(() => {
-    const foundEntry = entries(pageProps).find(
-      (entry): entry is readonly [symbol, SRRData] => isSRRDataKey(entry[0]),
-    );
+    if (hasSrrData(pageProps)) {
+      return getSrrData(pageProps);
+    }
 
-    return foundEntry?.[1];
+    return undefined;
   }, [pageProps]);
   const urqlClient = useHyrate(srrData);
 

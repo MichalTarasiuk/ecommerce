@@ -1,5 +1,7 @@
 import {useMemo} from 'react';
 
+import {none} from '@/common/consts/consts';
+
 import {createSafeContext} from './createSafeContext';
 
 import type {ArrayType, FunctionType} from '@/common/types/types';
@@ -13,8 +15,6 @@ type ContextProvider<Params extends ArrayType.Any> = {
   readonly children: ReactNode;
   readonly config: InferConfig<Params>;
 };
-
-const none = '';
 
 export const contextify = <UseHook extends FunctionType.Any>(
   useHook: UseHook,
