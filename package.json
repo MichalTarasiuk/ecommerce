@@ -19,7 +19,8 @@
     "storybook": "start-storybook -p 6006 -s public",
     "watch:storybook": "start-storybook dev -p 6006 -s public",
     "build:css": "npx tailwindcss -i ./src/app/styles/globals.css -o ./public/tailwind.css",
-    "watch:css": "npx tailwindcss -i ./src/app/styles/globals.css -o ./public/tailwind.css --watch"
+    "watch:css": "npx tailwindcss -i ./src/app/styles/globals.css -o ./public/tailwind.css --watch",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@next/font": "13.1.4",

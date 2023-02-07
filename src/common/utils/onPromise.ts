@@ -8,7 +8,7 @@ export const onPromise = <ReturnType>(
   return (event: SyntheticEvent) => {
     promise(event).catch((error) => {
       if (isDevelopment()) {
-        console.log('Unexpected error', error);
+        console.error('Unexpected error', error);
       }
     });
   };
