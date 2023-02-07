@@ -1,4 +1,4 @@
-import {TextInput, Text, Heading} from '@/common/components/components';
+import {TextInput, Text, Heading, Button} from '@/common/components/components';
 import {Main} from '@/views/core/core';
 
 import {
@@ -50,7 +50,9 @@ const RegisterFullnameStep = () => {
         placeholder=''
         htmlFor='password'
       />
-      <button
+      <Button
+        type='submit'
+        variant='green'
         onClick={() => {
           const token = registerStep.set({
             firstname: 'Michał',
@@ -63,7 +65,7 @@ const RegisterFullnameStep = () => {
         }}
       >
         set fullname
-      </button>
+      </Button>
     </form>
   );
 };

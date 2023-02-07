@@ -24,3 +24,6 @@ export const isObject = (
 
 export const isNumber = (operand: unknown): operand is number =>
   inferType(operand) === 'number';
+
+export const isString = (operand: unknown): operand is string =>
+  inferType(operand) === 'string';
