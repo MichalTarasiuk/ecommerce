@@ -116,7 +116,15 @@ export const createStepperContext = <Store extends Record<number, unknown>>(
   const useRegisterStepper = () => {
     const {state} = useStepperState();
 
-    const getStepSnapshot = useCallback(() => state.index, [state.index]);
+    const getStepSnapshot = useCallback(() => {
+      const step = tokenizedSteps[state.index];
+
+      if (!step) {
+        throw Error('step should be defined');
+      }
+
+      return `${state.index}:${String(step.type)}`;
+    }, [state.index]);
 
     const step = useSyncExternalStore(
       (onStoreChange) => {

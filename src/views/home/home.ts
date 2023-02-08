@@ -1,2 +1,2 @@
-export * from './page';
+export * from './Page';
 export * from './propsProvider';

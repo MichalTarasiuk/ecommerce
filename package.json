@@ -7,7 +7,7 @@
     "dev": "pnpm make-i18n && next dev",
     "build": "pnpm make-i18n && next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "next lint .",
     "prepare": "husky install",
     "format": "prettier --write .",
     "cypress": "cypress open",
