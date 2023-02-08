@@ -16,6 +16,7 @@ specifiers:
   '@storybook/manager-webpack5': ^6.5.16
   '@storybook/react': ^6.5.16
   '@storybook/testing-library': ^0.0.13
+  '@types/deep-equal': ^1.0.1
   '@types/node': 18.11.18
   '@types/react': 18.0.27
   '@types/react-dom': 18.0.10
@@ -28,6 +29,7 @@ specifiers:
   classnames: ^2.3.2
   cosmiconfig-toml-loader: ^1.0.0
   cypress: ^12.3.0
+  deep-equal: ^2.2.0
   eslint: 8.32.0
   eslint-config-next: 13.1.4
   eslint-config-prettier: ^8.6.0
@@ -64,6 +66,7 @@ dependencies:
   '@types/react': 18.0.27
   '@types/react-dom': 18.0.10
   classnames: 2.3.2
+  deep-equal: 2.2.0
   eslint: 8.32.0
   eslint-config-next: 13.1.4_7uibuqfxkfaozanbtbziikiqje
   graphql: 16.6.0
@@ -91,6 +94,7 @@ devDependencies:
   '@storybook/manager-webpack5': 6.5.16_72f5ylvv5qyncwuu36nsfplvaa
   '@storybook/react': 6.5.16_eva3rpnemaulribxdkfxya5kq4
   '@storybook/testing-library': 0.0.13_biqbaboplfbrettd7655fr4n2y
+  '@types/deep-equal': 1.0.1
   '@typescript-eslint/eslint-plugin': 5.49.0_iu322prlnwsygkcra5kbpy22si
   '@typescript-eslint/parser': 5.49.0_7uibuqfxkfaozanbtbziikiqje
   '@typescript-eslint/type-utils': 5.49.0_7uibuqfxkfaozanbtbziikiqje
@@ -4455,6 +4459,10 @@ packages:
     resolution: {integrity: sha512-9AonUzyTjXXhEOa0DnqpzZi6VHlqKMswga9EXjpXnnqxwLtdvPPtlO8evrI5D9S6asFRCQ6v+wpiUKbw+vKqyg==}
     dependencies:
       '@types/ms': 0.7.31
+    dev: true
+
+  /@types/deep-equal/1.0.1:
+    resolution: {integrity: sha512-mMUu4nWHLBlHtxXY17Fg6+ucS/MnndyOWyOe7MmwkoMYxvfQU2ajtRaEvqSUv+aVkMqH/C0NCI8UoVfRNQ10yg==}
     dev: true
 
   /@types/eslint-scope/3.7.4:

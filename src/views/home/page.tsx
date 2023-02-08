@@ -1,8 +1,6 @@
-import {useQuery} from 'urql';
-
 import {Heading} from '@/common/components/components';
 import FETCH_PRODUCTS_LIST from '@/common/graphql/queries/fetchProductsList.graphql';
-import {useTranslate} from '@/common/hooks/hooks';
+import {useFetch, useTranslate} from '@/common/hooks/hooks';
 import {Main} from '@/views/core/core';
 
 import type {getStaticProps} from './propsProvider';
@@ -15,11 +13,14 @@ import type {InferGetStaticPropsType} from 'next';
 type HomePageProps = InferGetStaticPropsType<typeof getStaticProps>;
 
 export const HomePage = ({}: HomePageProps) => {
-  const [queryState] = useQuery<
+  const [queryState] = useFetch<
     FetchProductsListQuery,
     FetchProductsListQueryVariables
   >({
     query: FETCH_PRODUCTS_LIST,
+    context: {
+      requestPolicy: 'cache-only',
+    },
   });
 
   const {translate} = useTranslate('common');
