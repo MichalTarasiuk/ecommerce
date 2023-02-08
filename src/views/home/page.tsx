@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import {Heading} from '@/common/components/components';
 import FETCH_PRODUCTS_LIST from '@/common/graphql/queries/fetchProductsList.graphql';
 import {useFetch, useTranslate} from '@/common/hooks/hooks';
@@ -35,6 +37,7 @@ export const HomePage = ({}: HomePageProps) => {
           <li key={name}>name: {name}</li>
         ))}
       </ul>
+      <Link href='/account/register'>create account</Link>
     </Main>
   );
 };

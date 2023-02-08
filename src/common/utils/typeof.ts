@@ -1,4 +1,5 @@
 /* eslint-disable functional/prefer-readonly-type -- just ignore */
+import type {FunctionType} from '@/common/types/types';
 
 const inferType = (operand: unknown, exact = false) => {
   const type = typeof operand;
@@ -27,3 +28,6 @@ export const isNumber = (operand: unknown): operand is number =>
 
 export const isString = (operand: unknown): operand is string =>
   inferType(operand) === 'string';
+
+export const isFunction = (operand: unknown): operand is FunctionType.Any =>
+  inferType(operand) === 'function';

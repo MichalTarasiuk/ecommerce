@@ -13,3 +13,4 @@ export * from './objectKeys';
 export * from './contextify';
 export * from './onPromise';
 export * from './nodeEnvironment';
+export * from './resolve';

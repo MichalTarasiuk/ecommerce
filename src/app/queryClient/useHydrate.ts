@@ -4,11 +4,11 @@ import {ssrExchange} from 'urql';
 import {isClient} from '@/common/utils/utils';
 
 import {createUrqlClient} from './createUrqlClient';
+import {getSrrData, hasSrrData} from './dehydrate';
 
-import type {SRRData} from './dehydrate';
-
-export const useHyrate = (initialState: SRRData | undefined) => {
+export const useHyrate = (pageProps: Record<PropertyKey, unknown>) => {
   const urqlClient = useMemo(() => {
+    const initialState = hasSrrData(pageProps) ? getSrrData(pageProps) : null;
     const ssrExchangeResult = ssrExchange({
       ...(initialState ? {initialState} : null),
       isClient: isClient(),
@@ -17,7 +17,7 @@ export const useHyrate = (initialState: SRRData | undefined) => {
     return createUrqlClient({
       exchanges: [ssrExchangeResult],
     });
-  }, [initialState]);
+  }, [pageProps]);
 
   return urqlClient;
 };

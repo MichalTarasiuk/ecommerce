@@ -1,4 +1,4 @@
-import {forwardRef} from 'react';
+import {forwardRef, useId} from 'react';
 
 import {Text} from '../Text/Text';
 
@@ -11,23 +11,24 @@ type InputProps = InputAttributes & {
     'text' | 'email' | 'password'
   >;
   readonly label: string;
-  readonly htmlFor: string;
   readonly placeholder: string;
   readonly errorMessage?: string;
 };
 
 export const TextInput = forwardRef<HTMLInputElement, InputProps>(
-  ({type = 'text', htmlFor, label, errorMessage, ...props}, ref) => {
+  ({type = 'text', label, errorMessage, ...props}, ref) => {
+    const id = useId();
+
     return (
       <div className='my-3'>
-        <label className='block' htmlFor={htmlFor}>
+        <label className='block' htmlFor={id}>
           {label}
         </label>
         <input
           className='px-4 w-full border-2 py-2 rounded-md text-sm mb-1'
           ref={ref}
           type={type}
-          id={htmlFor}
+          id={id}
           spellCheck={type === ('email' && 'password')}
           autoComplete='off'
           {...props}

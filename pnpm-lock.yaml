@@ -18,6 +18,7 @@ specifiers:
   '@storybook/testing-library': ^0.0.13
   '@types/deep-equal': ^1.0.1
   '@types/node': 18.11.18
+  '@types/nprogress': ^0.2.0
   '@types/react': 18.0.27
   '@types/react-dom': 18.0.10
   '@typescript-eslint/eslint-plugin': ^5.49.0
@@ -47,6 +48,7 @@ specifiers:
   msw-storybook-addon: ^1.7.0
   next: 13.1.4
   next-translate: ^1.6.0
+  nprogress: ^0.2.0
   postcss: ^8.4.21
   prettier: ^2.8.3
   query-string: ^8.1.0
@@ -73,6 +75,7 @@ dependencies:
   immer: 9.0.19
   next: 13.1.4_pjwopsidmaokadturxaafygjp4
   next-translate: 1.6.0_next@13.1.4+react@18.2.0
+  nprogress: 0.2.0
   query-string: 8.1.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -95,6 +98,7 @@ devDependencies:
   '@storybook/react': 6.5.16_eva3rpnemaulribxdkfxya5kq4
   '@storybook/testing-library': 0.0.13_biqbaboplfbrettd7655fr4n2y
   '@types/deep-equal': 1.0.1
+  '@types/nprogress': 0.2.0
   '@typescript-eslint/eslint-plugin': 5.49.0_iu322prlnwsygkcra5kbpy22si
   '@typescript-eslint/parser': 5.49.0_7uibuqfxkfaozanbtbziikiqje
   '@typescript-eslint/type-utils': 5.49.0_7uibuqfxkfaozanbtbziikiqje
@@ -4604,6 +4608,10 @@ packages:
 
   /@types/npmlog/4.1.4:
     resolution: {integrity: sha512-WKG4gTr8przEZBiJ5r3s8ZIAoMXNbOgQ+j/d5O4X3x6kZJRLNvyUJuUK/KoG3+8BaOHPhp2m7WC6JKKeovDSzQ==}
+    dev: true
+
+  /@types/nprogress/0.2.0:
+    resolution: {integrity: sha512-1cYJrqq9GezNFPsWTZpFut/d4CjpZqA0vhqDUPFWYKF1oIyBz5qnoYMzR+0C/T96t3ebLAC1SSnwrVOm5/j74A==}
     dev: true
 
   /@types/parse-json/4.0.0:
@@ -11710,6 +11718,10 @@ packages:
       gauge: 3.0.2
       set-blocking: 2.0.0
     dev: true
+
+  /nprogress/0.2.0:
+    resolution: {integrity: sha512-I19aIingLgR1fmhftnbWWO3dXc0hSxqHQHQb3H8m+K3TnEn/iSeTZZOyvKXWqQESMwuUVnatlCnZdLBZZt2VSA==}
+    dev: false
 
   /nth-check/2.1.1:
     resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}
