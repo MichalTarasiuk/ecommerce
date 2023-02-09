@@ -1,9 +1,15 @@
+import type {Common} from '@/common/types/types';
 import type {I18nConfig} from 'next-translate';
 
-type ReadonlyPageValue =
-  | ReadonlyArray<string>
-  | ((context: Record<string, unknown>) => ReadonlyArray<string>);
-export type ReadonlyPages = Record<string, ReadonlyPageValue>;
+type Pages = I18nConfig extends {
+  readonly pages?: infer Pages;
+}
+  ? Pages
+  : never;
+
+export type ReadonlyPages = {
+  readonly [Key in keyof Pages]: Common.ReadonlyAll<Pages[Key]>;
+};
 
 const i18nConfig = {
   locales: ['en'],
@@ -13,12 +19,15 @@ const i18nConfig = {
     '/': ['home'] as const,
   },
   loadLocaleFrom: async () => {
-    // @TODO
-    // Add logic of dynamic locale
+    try {
+      const locale = await import(`./src/app/locales/en/common.json`);
 
-    const locale = await import(`./src/app/locales/en/common.json`);
+      return locale;
+    } catch (error) {
+      console.log(error);
 
-    return locale;
+      return {};
+    }
   },
 } satisfies Omit<I18nConfig, 'pages'> & {readonly pages: ReadonlyPages};
 

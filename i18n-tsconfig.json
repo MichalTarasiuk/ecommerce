@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "module": "CommonJS",
+    "target": "ESNext",
+    "resolveJsonModule": true
+  },
+  "include": ["i18n.ts"],
+  "extends": "./tsconfig.json"
+}
