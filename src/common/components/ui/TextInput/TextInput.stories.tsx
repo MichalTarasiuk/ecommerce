@@ -14,7 +14,6 @@ export const Primary: ComponentStory<typeof TextInput> = (props) => {
 Primary.args = {
   type: 'text',
   label: 'Text',
-  htmlFor: 'text',
 };
 
 export const Error: ComponentStory<typeof TextInput> = (props) => {
@@ -24,6 +23,5 @@ export const Error: ComponentStory<typeof TextInput> = (props) => {
 Error.args = {
   type: 'text',
   label: 'Text',
-  htmlFor: 'text',
   errorMessage: 'something went wrong',
 };

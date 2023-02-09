@@ -1,4 +1,3 @@
-// @TODO - add storybook story, fix types
 import classNames from 'classnames';
 import {forwardRef} from 'react';
 

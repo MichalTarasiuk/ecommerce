@@ -6,3 +6,5 @@ export * from './useFetch';
 export * from './useEvent';
 export * from './useLayout';
 export * from './useCSS';
+export * from './useClickOutside';
+export * from './useSyncedRef';

@@ -50,7 +50,7 @@ export const Navigation = () => {
             })}
             {isRightColumn && (
               <li onClick={openMenu} className='cursor-pointer block lg:hidden'>
-                <MenuIcon />
+                <MenuIcon className='hover:text-blue-500' />
               </li>
             )}
           </ul>
@@ -61,9 +61,11 @@ export const Navigation = () => {
 };
 
 const NavigationItem = ({title, href}: NavigationItemProps) => {
+  const className = 'hover:text-blue-500';
+
   if (isString(title)) {
     return (
-      <Link href={href} className='hover:text-blue-500 h-max'>
+      <Link href={href} className={className}>
         {title}
       </Link>
     );
@@ -71,7 +73,7 @@ const NavigationItem = ({title, href}: NavigationItemProps) => {
 
   return (
     <Link href={href}>
-      <RenderIcon icon={title} />
+      <RenderIcon icon={title} className={className} />
     </Link>
   );
 };
