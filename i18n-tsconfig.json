@@ -3,8 +3,12 @@
   "compilerOptions": {
     "module": "CommonJS",
     "target": "ESNext",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "noEmit": false,
+    "paths": {
+      "@/*": ["./src/*"],
+      "@root/*": ["./*"]
+    }
   },
-  "include": ["i18n.ts"],
-  "extends": "./tsconfig.json"
+  "files": ["i18n.ts"]
 }
