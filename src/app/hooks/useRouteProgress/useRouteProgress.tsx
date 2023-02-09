@@ -23,7 +23,7 @@ type InferTransitionOptions<NextRouter extends AnyNextRouter> =
 const config = {
   startPosition: 0.3,
   showSpinner: false,
-  color: '#5B68E4' as const,
+  color: 'hsl(234, 72%, 63%)' as const,
   height: `3px` as const,
 };
 

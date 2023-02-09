@@ -1,4 +1,4 @@
-import {UIStateProvider} from './contexts/UIContext';
+import {UIStateProvider} from './contexts';
 import {GraphqlClientProvider} from './queryClient/provider';
 
 import type {ReactNode} from 'react';

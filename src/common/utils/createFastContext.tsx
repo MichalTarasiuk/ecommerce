@@ -105,9 +105,5 @@ export const createFastContext = <Store extends Record<PropertyKey, unknown>>(
     return setStore;
   };
 
-  return {
-    FastContextProvider,
-    useFastContext,
-    useFastContextHandler,
-  };
+  return [FastContextProvider, useFastContext, useFastContextHandler] as const;
 };

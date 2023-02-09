@@ -1,15 +1,15 @@
 import Link from 'next/link';
 import {useRef} from 'react';
 
-import {useUIState} from '@/app/contexts/UIContext';
+import {useUIState} from '@/app/contexts';
 import {useClickOutside} from '@/common/hooks/useClickOutside';
 import CloseIcon from 'public/icons/close.svg';
 
 import {navigationListing} from './consts';
 
 export const Menu = () => {
-  const menuRef = useRef<HTMLDivElement>(null);
   const [isMenuOpen, setUIState] = useUIState((state) => state.isMenuOpen);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   const closeMenu = () => {
     setUIState({isMenuOpen: false});

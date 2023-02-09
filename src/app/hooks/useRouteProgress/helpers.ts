@@ -1,5 +1,5 @@
 type GetStylesConfig = {
-  readonly color: `#${number | string}`;
+  readonly color: `hsl(${number},${number}%,${number}%)`;
   readonly height: `${number}px`;
 };
 
