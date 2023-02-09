@@ -1,6 +1,6 @@
 import {min, max, objectKeys} from '@/common/utils/utils';
 
-import type {GetSteps, AnyStore} from '../stepperContext';
+import type {GetSteps, AnyStore} from '../StepperContext';
 
 export const getStepsRange = <Store extends AnyStore>(
   steps: GetSteps<Store>,

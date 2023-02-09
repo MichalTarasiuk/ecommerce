@@ -1,3 +1,4 @@
+import {UIStateProvider} from './contexts/UIContext';
 import {GraphqlClientProvider} from './queryClient/provider';
 
 import type {ReactNode} from 'react';
@@ -10,7 +11,7 @@ type AppProvidersProps = {
 export const AppProviders = ({children, pageProps}: AppProvidersProps) => {
   return (
     <GraphqlClientProvider pageProps={pageProps}>
-      {children}
+      <UIStateProvider>{children}</UIStateProvider>
     </GraphqlClientProvider>
   );
 };

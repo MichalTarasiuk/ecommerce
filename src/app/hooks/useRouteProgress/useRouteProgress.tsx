@@ -4,7 +4,7 @@ import {useEffect} from 'react';
 
 import {useCSS, useEvent} from '@/common/hooks/hooks';
 
-import {getStyles} from './helpers';
+import {canRunRouteProgress, getStyles} from './helpers';
 
 import type {NextRouter as AnyNextRouter} from 'next/router';
 import type {Url} from 'url';
@@ -38,15 +38,24 @@ export const useRouteProgress = () => {
 
     const routeChangeStartHandler = (
       nextUrl: string,
-      transitionOptions: InferTransitionOptions<typeof router>,
+      {shallow}: InferTransitionOptions<typeof router>,
     ) => {
-      if (!transitionOptions.shallow && getUrl() !== nextUrl) {
+      const url = getUrl();
+
+      if (canRunRouteProgress(url, nextUrl, shallow)) {
         NProgress.set(config.startPosition);
         NProgress.start();
       }
     };
-    const routeChangeCompleteHandler = (_nextUrl: string) => {
-      NProgress.done(true);
+    const routeChangeCompleteHandler = (
+      nextUrl: string,
+      {shallow}: InferTransitionOptions<typeof router>,
+    ) => {
+      const url = getUrl();
+
+      if (canRunRouteProgress(url, nextUrl, shallow)) {
+        NProgress.done(true);
+      }
     };
 
     router.events.on('routeChangeStart', routeChangeStartHandler);

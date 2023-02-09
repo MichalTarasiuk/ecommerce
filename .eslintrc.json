@@ -96,7 +96,7 @@
       }
     },
     {
-      "files": ["*.stories.tsx"],
+      "files": ["*.stories.tsx", "*.d.ts"],
       "rules": {
         "import/no-default-export": "off"
       }

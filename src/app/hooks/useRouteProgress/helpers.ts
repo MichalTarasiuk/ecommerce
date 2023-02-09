@@ -1,9 +1,9 @@
-type Config = {
+type GetStylesConfig = {
   readonly color: `#${number | string}`;
   readonly height: `${number}px`;
 };
 
-export const getStyles = (config: Config) => {
+export const getStyles = (config: GetStylesConfig) => {
   const {color, height} = config;
 
   return `
@@ -74,3 +74,9 @@ export const getStyles = (config: Config) => {
   }
 }`;
 };
+
+export const canRunRouteProgress = (
+  url: string,
+  nextUrl: string,
+  shallow: boolean | undefined,
+) => !shallow && url !== nextUrl;

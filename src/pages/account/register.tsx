@@ -1,1 +1,1 @@
-export {RegisterPage as default} from '@/views/account/register/register';
+export {RegisterPage as default} from '@/modules/account/register/register';

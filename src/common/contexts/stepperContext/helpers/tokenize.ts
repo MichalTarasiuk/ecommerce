@@ -1,6 +1,6 @@
 import {fromEntries, entries} from '@/common/utils/utils';
 
-import type {GetSteps} from '../stepperContext';
+import type {GetSteps} from '../StepperContext';
 
 const getFirst = (array: ReadonlyArray<unknown>) =>
   array.length === 1 ? array[0] : array;

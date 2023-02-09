@@ -14,3 +14,5 @@ export * from './contextify';
 export * from './onPromise';
 export * from './nodeEnvironment';
 export * from './resolve';
+export * from './isLastIndex';
+export * from './createFastContext';

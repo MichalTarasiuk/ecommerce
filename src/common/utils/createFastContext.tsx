@@ -9,8 +9,7 @@ import type {Custom, FunctionType} from '../types/types';
 import type {Draft} from 'immer';
 import type {ReactNode} from 'react';
 
-type FastContextProviderProps<Store extends Record<PropertyKey, unknown>> = {
-  readonly store: Store;
+type FastContextProviderProps = {
   readonly children: ReactNode;
 };
 
@@ -29,14 +28,12 @@ const eventHub = createEventHub();
 
 export const createFastContext = <Store extends Record<PropertyKey, unknown>>(
   name: string,
+  initialStore: Store,
 ) => {
   const [FastContextProviderImpl, useFastContextImpl] =
     createSafeContext<CreateFastContext<Store>>(name);
 
-  const FastContextProvider = ({
-    children,
-    store: initialStore,
-  }: FastContextProviderProps<Store>) => {
+  const FastContextProvider = ({children}: FastContextProviderProps) => {
     const store = useRef(initialStore);
 
     const get = useCallback(() => store.current, []);
@@ -87,14 +84,30 @@ export const createFastContext = <Store extends Record<PropertyKey, unknown>>(
   ) => {
     const {get, setStore, subscribe} = useFastContextImpl();
 
-    const selectedStore = useSyncExternalStore(
-      subscribe,
+    const getSnapshot = useCallback(
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions -- hard to infer
       () => (selector ? selector(get()) : get()) as SafeSelected,
+      [get, selector],
+    );
+
+    const selectedStore = useSyncExternalStore(
+      subscribe,
+      getSnapshot,
+      getSnapshot,
     );
 
     return [selectedStore, setStore] as const;
   };
 
-  return [FastContextProvider, useFastContext] as const;
+  const useFastContextHandler = () => {
+    const {setStore} = useFastContextImpl();
+
+    return setStore;
+  };
+
+  return {
+    FastContextProvider,
+    useFastContext,
+    useFastContextHandler,
+  };
 };

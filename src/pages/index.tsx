@@ -1,1 +1,1 @@
-export {HomePage as default, getStaticProps} from '@/views/home/home';
+export {HomePage as default, getStaticProps} from '@/modules/home/home';

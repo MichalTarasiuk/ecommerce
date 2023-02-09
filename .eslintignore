@@ -42,3 +42,6 @@ src/common/graphql/generated/**
 # storybook
 public/tailwind.css
 public/mockServiceWorker.js
+
+# images
+*.svg

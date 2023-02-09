@@ -44,3 +44,6 @@ src/common/graphql/generated/**
 
 # storybook
 public/tailwind.css
+
+# images
+*.svg
