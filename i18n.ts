@@ -11,6 +11,11 @@ export type ReadonlyPages = {
   readonly [Key in keyof Pages]: Custom.ReadonlyAll<Pages[Key]>;
 };
 
+type ExtendedI18nConfig = Omit<I18nConfig, 'pages'> & {
+  readonly pages: ReadonlyPages;
+  readonly skipInitialProps: boolean;
+};
+
 const defaultLocale = 'en';
 
 export const i18nConfig = {
@@ -23,4 +28,5 @@ export const i18nConfig = {
     return import(`./src/app/locales/${locale}/${namespace}.json`);
   },
   loader: false,
-} satisfies Omit<I18nConfig, 'pages'> & {readonly pages: ReadonlyPages};
+  skipInitialProps: true,
+} satisfies ExtendedI18nConfig;
