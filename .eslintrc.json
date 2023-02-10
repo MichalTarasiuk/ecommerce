@@ -96,7 +96,7 @@
       }
     },
     {
-      "files": ["*.stories.tsx", "*.d.ts"],
+      "files": ["*.stories.tsx", "*.d.ts", "src/app/Page.tsx"],
       "rules": {
         "import/no-default-export": "off"
       }

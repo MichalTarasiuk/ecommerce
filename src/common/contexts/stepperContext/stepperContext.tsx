@@ -11,7 +11,7 @@ import {
 import {getStepsRange, tokenize} from './helpers/helpers';
 import {StepperStateProvider, useStepperState} from './useStepperState';
 
-import type {Common} from '@/common/types/types';
+import type {Custom} from '@/common/types/types';
 import type {ReactNode} from 'react';
 
 export type GetSteps<
@@ -32,7 +32,7 @@ export const createStepperContext = <Store extends Record<number, unknown>>(
   name: string,
   steps: GetSteps<Store>,
 ) => {
-  type AssertParams = Parameters<Common.ValueOf<typeof steps>['assert']>;
+  type AssertParams = Parameters<Custom.ValueOf<typeof steps>['assert']>;
   type StepperContextValue = {
     readonly set: (...params: AssertParams) => symbol | null;
     readonly go: (nextIndex: number | symbol) => void;

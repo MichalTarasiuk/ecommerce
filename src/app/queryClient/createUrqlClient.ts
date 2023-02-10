@@ -1,4 +1,4 @@
-import {createClient, debugExchange, fetchExchange, cacheExchange} from 'urql';
+import {createClient, fetchExchange, cacheExchange} from 'urql';
 
 import {isServer} from '@/common/utils/utils';
 
@@ -11,11 +11,7 @@ const urqlClient: Client | null = null;
 export const createUrqlClient = (
   clientOptions?: Omit<ClientOptions, 'url'>,
 ) => {
-  const defaultExchanges: readonly Exchange[] = [
-    debugExchange,
-    fetchExchange,
-    cacheExchange,
-  ];
+  const defaultExchanges: readonly Exchange[] = [fetchExchange, cacheExchange];
 
   if (isServer()) {
     const client = createClient({

@@ -1,8 +1,7 @@
 import useTranslation from 'next-translate/useTranslation';
 
 import type {ArrayType, ObjectType} from '@/common/types/types';
-import type i18nConfig from '@root/i18n';
-import type {ReadonlyPages} from '@root/i18n';
+import type {i18nConfig, ReadonlyPages} from '@root/i18n';
 
 type InferNamespaceKey<AnyReadonlyPages extends ReadonlyPages> = {
   readonly [Key in keyof AnyReadonlyPages]: AnyReadonlyPages[Key] extends ReadonlyArray<string>

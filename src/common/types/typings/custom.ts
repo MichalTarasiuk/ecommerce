@@ -1,4 +1,4 @@
-import type {Every} from './array';
+import type {Every, Any as AnyArray} from './array';
 
 export type Equals<A1, B2> = (<A>() => A extends B2 ? 1 : 0) extends <
   A,
@@ -26,3 +26,12 @@ export type UnionToTuple<
     >;
 
 export type And<Union> = Every<UnionToTuple<Union>, true>;
+
+export type ReadonlyAll<Value> =
+  | Readonly<Value>
+  | (Value extends (...params: infer Params) => infer ReturnType
+      ? (...params: Params) => Readonly<ReturnType>
+      : never);
+
+export type ValueOf<Value extends AnyArray | Record<PropertyKey, unknown>> =
+  Value extends AnyArray ? Value[number] : Value[keyof Value];
