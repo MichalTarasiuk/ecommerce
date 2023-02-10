@@ -20,8 +20,7 @@ const i18nConfig = {
   locales: ['en'],
   defaultLocale: 'en',
   pages: {
-    '*': ['common'] as const,
-    '/': ['home'] as const,
+    '/': ['common'] as const,
   },
   loadLocaleFrom: async () => {
     const locale = await import(`./src/app/locales/en/common.json`);

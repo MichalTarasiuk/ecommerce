@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "make-i18n": "tsc --project i18n-tsconfig.json",
+    "make-i18n": "tsc --project i18n-tsconfig.json && prettier --write i18n.js",
     "dev": "pnpm make-i18n && next dev",
     "build": "pnpm make-i18n && next build",
     "start": "next start",
