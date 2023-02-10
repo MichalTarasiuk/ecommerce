@@ -10,11 +10,11 @@ type VisuallyHiddenProps = {
   readonly children: ReactNode;
 };
 
-export const VisuallyHidden = ({
+export function VisuallyHidden({
   tag: Tag = 'span',
   visibleOnFocus,
   children,
-}: VisuallyHiddenProps) => {
+}: VisuallyHiddenProps) {
   return (
     <Tag
       className={classNames('sr-only', {
@@ -24,4 +24,4 @@ export const VisuallyHidden = ({
       {children}
     </Tag>
   );
-};
+}

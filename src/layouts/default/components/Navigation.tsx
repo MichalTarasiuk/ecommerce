@@ -13,7 +13,7 @@ type NavigationItemProps = {
   readonly href: string;
 };
 
-export const Navigation = () => {
+export function Navigation() {
   const setUIstate = useUIHandler();
 
   const openMenu = () => {
@@ -58,9 +58,9 @@ export const Navigation = () => {
       })}
     </nav>
   );
-};
+}
 
-const NavigationItem = ({title, href}: NavigationItemProps) => {
+function NavigationItem({title, href}: NavigationItemProps) {
   const className = 'hover:text-blue-500';
 
   if (isString(title)) {
@@ -76,4 +76,4 @@ const NavigationItem = ({title, href}: NavigationItemProps) => {
       <RenderIcon icon={title} className={className} />
     </Link>
   );
-};
+}

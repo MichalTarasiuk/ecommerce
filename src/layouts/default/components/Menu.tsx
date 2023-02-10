@@ -8,7 +8,7 @@ import CloseIcon from 'public/icons/close.svg';
 
 import {navigationListing} from './consts';
 
-export const Menu = () => {
+export function Menu() {
   const [isMenuOpen, setUIState] = useUIState((state) => state.isMenuOpen);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -44,4 +44,4 @@ export const Menu = () => {
   }
 
   return null;
-};
+}

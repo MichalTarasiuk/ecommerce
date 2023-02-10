@@ -107,11 +107,13 @@ export const createStepperContext = <Store extends Record<number, unknown>>(
     );
   };
 
-  const StepperProvider = ({children}: {readonly children: ReactNode}) => (
-    <StepperStateProvider config={[range]}>
-      <StepperProviderInner>{children}</StepperProviderInner>
-    </StepperStateProvider>
-  );
+  function StepperProvider({children}: {readonly children: ReactNode}) {
+    return (
+      <StepperStateProvider config={[range]}>
+        <StepperProviderInner>{children}</StepperProviderInner>
+      </StepperStateProvider>
+    );
+  }
 
   const useRegisterStepper = () => {
     const {state} = useStepperState();

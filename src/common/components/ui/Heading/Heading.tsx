@@ -15,7 +15,7 @@ type HeadingProps = {
   readonly size: TextSize;
 } & HTMLAttributes<HTMLHeadingElement>;
 
-export const Heading = ({tag: Tag, size, ...props}: HeadingProps) => {
+export function Heading({tag: Tag, size, ...props}: HeadingProps) {
   return (
     <Tag
       className={classNames({
@@ -26,4 +26,4 @@ export const Heading = ({tag: Tag, size, ...props}: HeadingProps) => {
       {...props}
     />
   );
-};
+}

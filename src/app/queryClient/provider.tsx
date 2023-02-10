@@ -9,11 +9,11 @@ type GraphqlClientProviderProps = {
   readonly pageProps: Record<PropertyKey, unknown>;
 };
 
-export const GraphqlClientProvider = ({
+export function GraphqlClientProvider({
   children,
   pageProps,
-}: GraphqlClientProviderProps) => {
+}: GraphqlClientProviderProps) {
   const urqlClient = useHyrate(pageProps);
 
   return <UrqlProvider value={urqlClient}>{children}</UrqlProvider>;
-};
+}

@@ -6,7 +6,7 @@ import type {InferGetStaticPropsType} from 'next';
 
 type HomePageProps = InferGetStaticPropsType<typeof getStaticProps>;
 
-export const HomePage = ({}: HomePageProps) => {
+export function HomePage({}: HomePageProps) {
   const {translate} = useTranslate('common');
 
   return (
@@ -14,4 +14,4 @@ export const HomePage = ({}: HomePageProps) => {
       {translate('title')}
     </Text>
   );
-};
+}

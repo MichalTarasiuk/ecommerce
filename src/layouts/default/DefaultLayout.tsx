@@ -14,7 +14,7 @@ const inconsolata = Inconsolata({
   weight: ['700'],
 });
 
-export const DefaultLayout = ({children}: DefaultLayoutProps) => {
+export function DefaultLayout({children}: DefaultLayoutProps) {
   return (
     <div className={classNames('container m-auto', inconsolata.className)}>
       <header>
@@ -25,4 +25,4 @@ export const DefaultLayout = ({children}: DefaultLayoutProps) => {
       {/* <Footer /> */}
     </div>
   );
-};
+}

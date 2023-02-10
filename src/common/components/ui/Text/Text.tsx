@@ -16,13 +16,13 @@ type TextProps = {
   readonly variant?: Variants;
 };
 
-export const Text = ({
+export function Text({
   tag: Tag,
   children,
   size,
   position,
   variant = 'default',
-}: TextProps) => {
+}: TextProps) {
   return (
     <Tag
       className={classNames(
@@ -43,4 +43,4 @@ export const Text = ({
       {children}
     </Tag>
   );
-};
+}

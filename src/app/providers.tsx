@@ -1,5 +1,5 @@
 import {UIStateProvider} from './contexts';
-import {GraphqlClientProvider} from './queryClient/provider';
+import {GraphqlClientProvider} from './queryClient/Provider';
 
 import type {ReactNode} from 'react';
 

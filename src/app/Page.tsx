@@ -10,7 +10,7 @@ import type {ObjectType} from '@/common/types/types';
 import type {NextComponentType, NextPageContext} from 'next';
 import type {AppProps} from 'next/app';
 
-const AppInner = ({Component, pageProps}: AppProps) => {
+function AppRoot({Component, pageProps}: AppProps) {
   useRouteProgress();
 
   return (
@@ -20,7 +20,7 @@ const AppInner = ({Component, pageProps}: AppProps) => {
       </DefaultLayout>
     </AppProviders>
   );
-};
+}
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-assertions -- appWithI18n has wrong types by default
 const typedAppWithI18n = appWithI18n as unknown as (
@@ -28,4 +28,4 @@ const typedAppWithI18n = appWithI18n as unknown as (
   config?: ObjectType.Writable<typeof i18nConfig>,
 ) => ReturnType<typeof appWithI18n>;
 
-export const App = typedAppWithI18n(AppInner, i18nConfig);
+export const App = typedAppWithI18n(AppRoot, i18nConfig);
