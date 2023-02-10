@@ -7,9 +7,33 @@ import FETCH_PRODUCTS_LIST from '@/common/graphql/queries/fetchProductsList.grap
 import {i18nConfig} from '@root/i18n';
 
 import type {FetchProductsListQueryVariables} from '@/common/graphql/generated/graphql';
-import type {GetStaticPropsContext, GetStaticPropsResult} from 'next';
+import type {
+  GetStaticPathsResult,
+  GetStaticPropsContext,
+  GetStaticPropsResult,
+} from 'next';
 
-export const getStaticProps = async ({locale}: GetStaticPropsContext) => {
+export const getStaticPaths = () => {
+  const paths = i18nConfig.locales.map((locale) => ({
+    params: {
+      locale,
+      channel: 'default-chanel',
+    },
+  }));
+
+  return {
+    paths,
+    fallback: false,
+  } satisfies GetStaticPathsResult;
+};
+
+export const getStaticProps = async ({
+  params,
+}: GetStaticPropsContext<
+  ReturnType<typeof getStaticPaths>['paths'][number]['params']
+>) => {
+  const {locale} = params ?? {};
+
   const ssrCache = ssrExchange({isClient: false});
   const urqlClient = createUrqlClient({
     exchanges: [ssrCache],
