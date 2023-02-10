@@ -1,7 +1,7 @@
 import {Inconsolata} from '@next/font/google';
 import classNames from 'classnames';
 
-import {Header, Menu} from './components/components';
+import {Menu, Navigation} from './components/components';
 
 import type {ReactNode} from 'react';
 
@@ -17,7 +17,9 @@ const inconsolata = Inconsolata({
 export const DefaultLayout = ({children}: DefaultLayoutProps) => {
   return (
     <div className={classNames('container m-auto', inconsolata.className)}>
-      <Header />
+      <header>
+        <Navigation />
+      </header>
       <Menu />
       <main>{children}</main>
       {/* <Footer /> */}

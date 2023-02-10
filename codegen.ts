@@ -1,8 +1,10 @@
+import {graphqlUrl as schema} from '@/app/queryClient/queryClient';
+
 import type {CodegenConfig} from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
+  schema,
   overwrite: true,
-  schema: 'https://ecommerce-example-app.eu.saleor.cloud/graphql/',
   documents: 'src/**/*.graphql',
   generates: {
     'src/common/graphql/generated/': {
