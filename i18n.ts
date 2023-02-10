@@ -28,7 +28,7 @@ const isI18nProviderProps = (
 const defaultLocale = 'en';
 
 export const i18nConfig = {
-  locales: [defaultLocale],
+  locales: [defaultLocale, 'pl'],
   defaultLocale: defaultLocale,
   pages: {
     '/': ['common'] as const,

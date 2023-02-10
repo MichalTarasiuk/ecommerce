@@ -77,13 +77,14 @@
   },
   "overrides": [
     {
-      "files": ["_app.tsx", "src/pages/**/*.tsx"],
-      "rules": {
-        "import/no-default-export": "off"
-      }
-    },
-    {
-      "files": ["./**.ts", "./**.js", "./**.mjs"],
+      "files": [
+        "src/pages/**/*.tsx",
+        "./*.ts",
+        "./*.js",
+        "./*.mjs",
+        "*.stories.tsx",
+        "*.d.ts"
+      ],
       "rules": {
         "import/no-default-export": "off"
       }
@@ -93,12 +94,6 @@
       "rules": {
         "@typescript-eslint/no-unsafe-call": "off",
         "@typescript-eslint/no-unsafe-member-access": "off"
-      }
-    },
-    {
-      "files": ["*.stories.tsx", "*.d.ts", "src/app/Page.tsx"],
-      "rules": {
-        "import/no-default-export": "off"
       }
     }
   ]
