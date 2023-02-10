@@ -1,8 +1,9 @@
 import Link from 'next/link';
-import {useRef} from 'react';
+import {useCallback, useRef} from 'react';
 
 import {useUIState} from '@/app/contexts';
 import {useClickOutside} from '@/common/hooks/useClickOutside';
+import {useResize} from '@/common/hooks/useResize';
 import CloseIcon from 'public/icons/close.svg';
 
 import {navigationListing} from './consts';
@@ -11,11 +12,12 @@ export const Menu = () => {
   const [isMenuOpen, setUIState] = useUIState((state) => state.isMenuOpen);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  const closeMenu = () => {
+  const closeMenu = useCallback(() => {
     setUIState({isMenuOpen: false});
-  };
+  }, [setUIState]);
 
   useClickOutside(menuRef, closeMenu);
+  useResize(closeMenu);
 
   if (isMenuOpen) {
     return (

@@ -8,3 +8,4 @@ export * from './useLayout';
 export * from './useCSS';
 export * from './useClickOutside';
 export * from './useSyncedRef';
+export * from './useResize';
