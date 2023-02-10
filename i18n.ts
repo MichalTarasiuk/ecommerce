@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access -- to unkown */
+import {isObject} from '@/common/utils/utils';
+
 import type {Custom} from '@/common/types/types';
 import type {I18nConfig} from 'next-translate';
 
@@ -16,6 +19,12 @@ type ExtendedI18nConfig = Omit<I18nConfig, 'pages'> & {
   readonly skipInitialProps: boolean;
 };
 
+const isI18nProviderProps = (
+  value: unknown,
+): value is Awaited<
+  ReturnType<Exclude<I18nConfig['loadLocaleFrom'], undefined>>
+> => isObject(value);
+
 const defaultLocale = 'en';
 
 export const i18nConfig = {
@@ -25,7 +34,17 @@ export const i18nConfig = {
     '/': ['common'] as const,
   },
   loadLocaleFrom: (locale = defaultLocale, namespace) => {
-    return import(`./src/app/locales/${locale}/${namespace}.json`);
+    return import(`./src/app/locales/${locale}/${namespace}.json`).then(
+      (moduleObject) => {
+        const locale: unknown = moduleObject.default;
+
+        if (isI18nProviderProps(locale)) {
+          return locale;
+        }
+
+        throw Error(`error during loading locale`);
+      },
+    );
   },
   loader: false,
   skipInitialProps: true,
