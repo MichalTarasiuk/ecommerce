@@ -6,19 +6,7 @@ import {useCSS, useEvent} from '@/common/hooks/hooks';
 
 import {canRunRouteProgress, getStyles} from './helpers';
 
-import type {NextRouter as AnyNextRouter} from 'next/router';
-import type {Url} from 'url';
-
-type InferTransitionOptions<NextRouter extends AnyNextRouter> =
-  NextRouter extends {
-    readonly push: (
-      url: Url,
-      as?: Url,
-      options?: infer TransitionOptions,
-    ) => unknown;
-  }
-    ? TransitionOptions
-    : never;
+import type {TransitionOptions} from '@/common/types/types';
 
 const config = {
   startPosition: 0.3,
@@ -38,7 +26,7 @@ export const useRouteProgress = () => {
 
     const routeChangeStartHandler = (
       nextUrl: string,
-      {shallow}: InferTransitionOptions<typeof router>,
+      {shallow}: TransitionOptions,
     ) => {
       const url = getUrl();
 
@@ -49,7 +37,7 @@ export const useRouteProgress = () => {
     };
     const routeChangeCompleteHandler = (
       nextUrl: string,
-      {shallow}: InferTransitionOptions<typeof router>,
+      {shallow}: TransitionOptions,
     ) => {
       const url = getUrl();
 
