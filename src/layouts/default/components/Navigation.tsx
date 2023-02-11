@@ -8,10 +8,17 @@ import MenuIcon from 'public/icons/menu.svg';
 
 import {navigationListing} from './consts';
 
+import type {ButtonHTMLAttributes} from 'react';
+
 type NavigationItemProps = {
   readonly title: React.FC<React.SVGProps<SVGSVGElement>> | string;
-  readonly href: string;
-};
+} & (
+  | {readonly type: 'link'; readonly href: string}
+  | ({readonly type: 'button'} & Pick<
+      ButtonHTMLAttributes<HTMLElement>,
+      'onClick'
+    >)
+);
 
 export function Navigation() {
   const setUIstate = useUIHandler();
@@ -44,13 +51,17 @@ export function Navigation() {
                       isLastIndex(navigationListing[key].length, index),
                   })}
                 >
-                  <NavigationItem {...listed} />
+                  <NavigationItem type='link' {...listed} />
                 </li>
               );
             })}
             {isRightColumn && (
-              <li onClick={openMenu} className={'cursor-pointer lg:hidden'}>
-                <MenuIcon className='hover:text-blue-500' />
+              <li className='lg:hidden'>
+                <NavigationItem
+                  type='button'
+                  title={MenuIcon}
+                  onClick={openMenu}
+                />
               </li>
             )}
           </ul>
@@ -60,15 +71,21 @@ export function Navigation() {
   );
 }
 
-function NavigationItem({title, href}: NavigationItemProps) {
+function NavigationItem({title, ...props}: NavigationItemProps) {
+  const className =
+    'hover:text-blue-500 h-full flex justify-center items-center';
+
+  if (props.type === 'link') {
+    return (
+      <Link {...props} className={className}>
+        {isString(title) ? title : <RenderIcon icon={title} />}{' '}
+      </Link>
+    );
+  }
+
   return (
-    <Link
-      href={href}
-      className='hover:text-blue-500 h-full flex justify-center items-center'
-    >
-      <span className='align-middle'>
-        {isString(title) ? title : <RenderIcon icon={title} />}
-      </span>
-    </Link>
+    <button className={className} {...props}>
+      {isString(title) ? title : <RenderIcon icon={title} />}
+    </button>
   );
 }

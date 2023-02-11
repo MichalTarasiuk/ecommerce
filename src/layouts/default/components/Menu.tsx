@@ -3,16 +3,19 @@ import Link from 'next/link';
 import {useCallback, useRef} from 'react';
 
 import {useUIState} from '@/app/contexts';
-import {useLockBodyScroll, useClickOutside} from '@/common/hooks/hooks';
-import {useResize} from '@/common/hooks/useResize';
-import {useRouteChangeStart} from '@/common/hooks/useRouteChangeStart';
+import {
+  useLockBodyScroll,
+  useClickOutside,
+  useResize,
+  useRouteChangeStart,
+} from '@/common/hooks/hooks';
 import CloseIcon from 'public/icons/close.svg';
 
 import {navigationListing} from './consts';
 
 export function Menu() {
   const [isMenuOpen, setUIState] = useUIState((state) => state.isMenuOpen);
-  const menuRef = useRef<HTMLDivElement>(null);
+  const navigationRef = useRef<HTMLDivElement>(null);
 
   const closeMenu = useCallback(() => {
     setUIState({isMenuOpen: false});
@@ -20,7 +23,7 @@ export function Menu() {
 
   useResize(closeMenu);
   useRouteChangeStart(closeMenu);
-  useClickOutside(menuRef, closeMenu);
+  useClickOutside(navigationRef, closeMenu);
 
   useLockBodyScroll(isMenuOpen);
 
@@ -31,23 +34,25 @@ export function Menu() {
         isMenuOpen ? 'visible opacity-100' : 'invisible opacity-0',
       )}
     >
-      <div
-        ref={menuRef}
+      <nav
+        ref={navigationRef}
         className='h-screen max-w-sm ml-auto py-7 px-8 bg-white'
       >
-        <CloseIcon onClick={closeMenu} className='ml-auto cursor-pointer' />
+        <button onClick={closeMenu} className='ml-auto block'>
+          <CloseIcon />
+        </button>
         <ul className='flex flex-col mt-6 gap-4'>
           {navigationListing.left.map(({title, href}) => {
             return (
               <li key={href}>
-                <Link href={href} className='text-2xl'>
+                <Link href={href} className='text-2xl block'>
                   {title}
                 </Link>
               </li>
             );
           })}
         </ul>
-      </div>
+      </nav>
     </div>
   );
 }
