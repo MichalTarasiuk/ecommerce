@@ -15,8 +15,8 @@ type InferNamespaceKey<AnyReadonlyPages extends ReadonlyPages> = {
 type NamespaceKeyUnion = InferNamespaceKey<(typeof i18nConfig)['pages']>;
 
 type CommonNamespace = {
-  readonly pl: typeof import('src/app/locales/pl/common.json');
-  readonly en: typeof import('src/app/locales/en/common.json');
+  readonly pl: typeof import('src/app/locales/pl-PL/common.json');
+  readonly en: typeof import('src/app/locales/en-US/common.json');
 };
 
 type Namespaces = {

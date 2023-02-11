@@ -25,10 +25,10 @@ const isI18nProviderProps = (
   ReturnType<Exclude<I18nConfig['loadLocaleFrom'], undefined>>
 > => isObject(value);
 
-const defaultLocale = 'en';
+const defaultLocale = 'en-US';
 
 export const i18nConfig = {
-  locales: [defaultLocale, 'pl'],
+  locales: [defaultLocale, 'pl-PL'],
   defaultLocale: defaultLocale,
   pages: {
     '/': ['common'] as const,

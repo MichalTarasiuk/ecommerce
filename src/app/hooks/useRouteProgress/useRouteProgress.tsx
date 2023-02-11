@@ -1,6 +1,6 @@
 import {useRouter} from 'next/router';
 import * as NProgress from 'nprogress';
-import {useEffect} from 'react';
+import {useCallback, useEffect} from 'react';
 
 import {useCSS, useEvent} from '@/common/hooks/hooks';
 
@@ -31,7 +31,7 @@ export const useRouteProgress = () => {
   const router = useRouter();
   const getUrl = useEvent(() => router.asPath);
 
-  useCSS(() => getStyles(config));
+  useCSS(useCallback(() => getStyles(config), []));
 
   useEffect(() => {
     NProgress.configure({showSpinner: config.showSpinner});
