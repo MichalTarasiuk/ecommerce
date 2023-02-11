@@ -21,7 +21,7 @@ export function Navigation() {
   };
 
   return (
-    <nav className='flex items-center justify-between'>
+    <nav className='flex h-20 items-center justify-between'>
       {objectKeys(navigationListing).map((key) => {
         const isLeftColumn = key === 'left';
         const isRightColumn = key === 'right';
@@ -29,8 +29,8 @@ export function Navigation() {
         return (
           <ul
             key={key}
-            className={classNames('flex py-7 ', {
-              'gap-5 hidden lg:flex': isLeftColumn,
+            className={classNames('flex', {
+              'gap-5 hidden lg:flex h-full': isLeftColumn,
               'gap-3.5 ml-auto': isRightColumn,
             })}
           >
@@ -39,7 +39,7 @@ export function Navigation() {
                 <li
                   key={listed.href}
                   className={classNames({
-                    'hidden lg:block':
+                    'hidden lg:list-item':
                       isRightColumn &&
                       isLastIndex(navigationListing[key].length, index),
                   })}
@@ -49,7 +49,7 @@ export function Navigation() {
               );
             })}
             {isRightColumn && (
-              <li onClick={openMenu} className='cursor-pointer block lg:hidden'>
+              <li onClick={openMenu} className={'cursor-pointer lg:hidden'}>
                 <MenuIcon className='hover:text-blue-500' />
               </li>
             )}
@@ -61,19 +61,14 @@ export function Navigation() {
 }
 
 function NavigationItem({title, href}: NavigationItemProps) {
-  const className = 'hover:text-blue-500';
-
-  if (isString(title)) {
-    return (
-      <Link href={href} className={className}>
-        {title}
-      </Link>
-    );
-  }
-
   return (
-    <Link href={href}>
-      <RenderIcon icon={title} className={className} />
+    <Link
+      href={href}
+      className='hover:text-blue-500 h-full flex justify-center items-center'
+    >
+      <span className='align-middle'>
+        {isString(title) ? title : <RenderIcon icon={title} />}
+      </span>
     </Link>
   );
 }

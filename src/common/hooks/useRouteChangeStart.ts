@@ -3,20 +3,7 @@ import {useEffect} from 'react';
 
 import {useSyncedRef} from './useSyncedRef';
 
-import type {NextRouter} from 'next/router';
-import type {UrlObject} from 'url';
-
-type Url = UrlObject | string;
-
-type TransitionOptions = NextRouter extends {
-  readonly push: (
-    url: Url,
-    as?: Url,
-    options?: infer TransitionOptions,
-  ) => unknown;
-}
-  ? TransitionOptions
-  : never;
+import type {TransitionOptions} from '@/common/types/types';
 
 type Handler = (nextUrl: string, transitionOptions: TransitionOptions) => void;
 

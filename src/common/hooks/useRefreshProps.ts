@@ -2,21 +2,7 @@ import {useRouter} from 'next/router';
 import queryString from 'query-string';
 import {useCallback, useEffect, useState} from 'react';
 
-import type {NextRouter as AnyNextRouter} from 'next/router';
-import type {UrlObject} from 'url';
-
-type Url = UrlObject | string;
-
-type InferTransitionOptions<NextRouter extends AnyNextRouter> =
-  NextRouter extends {
-    readonly push: (
-      url: Url,
-      as?: Url,
-      options?: infer TransitionOptions,
-    ) => unknown;
-  }
-    ? TransitionOptions
-    : never;
+import type {TransitionOptions} from '@/common/types/types';
 
 export const useRefreshProps = () => {
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -25,7 +11,7 @@ export const useRefreshProps = () => {
   useEffect(() => {
     const routeChangeStartHandler = (
       _nextUrl: string,
-      transitionOptions: InferTransitionOptions<typeof router>,
+      transitionOptions: TransitionOptions,
     ) => {
       if (transitionOptions.shallow) {
         setIsRefreshing(true);

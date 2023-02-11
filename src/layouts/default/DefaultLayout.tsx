@@ -1,18 +1,24 @@
 import {Inconsolata} from '@next/font/google';
 import classNames from 'classnames';
+import dynamic from 'next/dynamic';
 
-import {Menu, Navigation} from './components/components';
+import {Navigation} from './components/components';
 
+import type {InferProps} from '@/common/types/types';
 import type {ReactNode} from 'react';
 
 type DefaultLayoutProps = {
   readonly children: ReactNode;
 };
 
-const inconsolata = Inconsolata({
-  subsets: ['latin'],
-  weight: ['700'],
-});
+type MenuProps = InferProps<typeof import('./components/components')['Menu']>;
+
+const Menu = dynamic<MenuProps>(
+  () => import('./components/components').then((module) => module.Menu),
+  {
+    ssr: false,
+  },
+);
 
 export function DefaultLayout({children}: DefaultLayoutProps) {
   return (
@@ -26,3 +32,8 @@ export function DefaultLayout({children}: DefaultLayoutProps) {
     </div>
   );
 }
+
+const inconsolata = Inconsolata({
+  subsets: ['latin'],
+  weight: ['700'],
+});

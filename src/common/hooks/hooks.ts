@@ -10,3 +10,5 @@ export * from './useClickOutside';
 export * from './useSyncedRef';
 export * from './useResize';
 export * from './useRouteChangeStart';
+export * from './useLockedBody';
+export * from './usePrevious';
