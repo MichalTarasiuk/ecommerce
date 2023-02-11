@@ -4,13 +4,13 @@ import SearchIcon from 'public/icons/search.svg';
 
 export const navigationListing = {
   left: [
-    {title: 'All records', href: '/1'},
-    {title: 'Top Artists', href: '/2'},
-    {title: 'Rock On!', href: '/3'},
+    {child: 'All records', href: '/1'},
+    {child: 'Top Artists', href: '/2'},
+    {child: 'Rock On!', href: '/3'},
   ],
   right: [
-    {title: AccountIcon, href: '/4'},
-    {title: CartIcon, href: '/5'},
-    {title: SearchIcon, href: '/6'},
+    {child: AccountIcon, href: '/4'},
+    {child: CartIcon, href: '/5'},
+    {child: SearchIcon, href: '/6'},
   ],
 };

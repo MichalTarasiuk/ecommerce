@@ -11,7 +11,7 @@ import {navigationListing} from './consts';
 import type {ButtonHTMLAttributes} from 'react';
 
 type NavigationItemProps = {
-  readonly title: React.FC<React.SVGProps<SVGSVGElement>> | string;
+  readonly child: React.FC<React.SVGProps<SVGSVGElement>> | string;
 } & (
   | {readonly type: 'link'; readonly href: string}
   | ({readonly type: 'button'} & Pick<
@@ -41,25 +41,23 @@ export function Navigation() {
               'gap-3.5 ml-auto': isRightColumn,
             })}
           >
-            {navigationListing[key].map((listed, index) => {
-              return (
-                <li
-                  key={listed.href}
-                  className={classNames({
-                    'hidden lg:list-item':
-                      isRightColumn &&
-                      isLastIndex(navigationListing[key].length, index),
-                  })}
-                >
-                  <NavigationItem type='link' {...listed} />
-                </li>
-              );
-            })}
+            {navigationListing[key].map((listed, index) => (
+              <li
+                key={listed.href}
+                className={classNames({
+                  'hidden lg:list-item':
+                    isRightColumn &&
+                    isLastIndex(navigationListing[key].length, index),
+                })}
+              >
+                <NavigationItem type='link' {...listed} />
+              </li>
+            ))}
             {isRightColumn && (
               <li className='lg:hidden'>
                 <NavigationItem
                   type='button'
-                  title={MenuIcon}
+                  child={MenuIcon}
                   onClick={openMenu}
                 />
               </li>
@@ -71,21 +69,21 @@ export function Navigation() {
   );
 }
 
-function NavigationItem({title, ...props}: NavigationItemProps) {
+function NavigationItem({child, ...props}: NavigationItemProps) {
   const className =
     'hover:text-blue-500 h-full flex justify-center items-center';
 
   if (props.type === 'link') {
     return (
       <Link {...props} className={className}>
-        {isString(title) ? title : <RenderIcon icon={title} />}{' '}
+        {isString(child) ? child : <RenderIcon icon={child} />}{' '}
       </Link>
     );
   }
 
   return (
     <button className={className} {...props}>
-      {isString(title) ? title : <RenderIcon icon={title} />}
+      {isString(child) ? child : <RenderIcon icon={child} />}
     </button>
   );
 }
