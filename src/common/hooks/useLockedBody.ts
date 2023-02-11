@@ -11,9 +11,9 @@ export const useLockBodyScroll = (initialLocked = false) => {
   );
 
   const initialLockedIsChanged = savedInitialLocked !== initialLocked;
-  const lockedIsUpdated = initialLocked !== locked;
+  const lockedIsUpdated = initialLocked === locked;
 
-  if (initialLockedIsChanged && lockedIsUpdated) {
+  if (initialLockedIsChanged && !lockedIsUpdated) {
     setLocked(initialLocked);
   }
 

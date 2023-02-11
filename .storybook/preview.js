@@ -8,6 +8,10 @@ Object.defineProperty(NextImage, 'default', {
   value: (props) => <OriginalNextImage {...props} unoptimized />,
 });
 
+initializeMSW();
+
+export const decorators = [mswDecorator];
+
 export const parameters = {
   actions: {argTypesRegex: '^on[A-Z].*'},
   controls: {
@@ -17,7 +21,3 @@ export const parameters = {
     },
   },
 };
-
-initializeMSW();
-
-export const decorators = [mswDecorator];
