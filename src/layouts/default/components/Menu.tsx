@@ -4,6 +4,7 @@ import {useCallback, useRef} from 'react';
 import {useUIState} from '@/app/contexts';
 import {useClickOutside} from '@/common/hooks/useClickOutside';
 import {useResize} from '@/common/hooks/useResize';
+import {useRouteChangeStart} from '@/common/hooks/useRouteChangeStart';
 import CloseIcon from 'public/icons/close.svg';
 
 import {navigationListing} from './consts';
@@ -16,8 +17,9 @@ export function Menu() {
     setUIState({isMenuOpen: false});
   }, [setUIState]);
 
-  useClickOutside(menuRef, closeMenu);
   useResize(closeMenu);
+  useRouteChangeStart(closeMenu);
+  useClickOutside(menuRef, closeMenu);
 
   if (isMenuOpen) {
     return (
