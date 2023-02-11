@@ -2,7 +2,9 @@ import {useEffect} from 'react';
 
 import {useSyncedRef} from './useSyncedRef';
 
-export const useResize = (onResize: (uiEvent: UIEvent) => void) => {
+export const useResize = (
+  onResize: (this: Window, uiEvent: UIEvent) => void,
+) => {
   const syncedOnResize = useSyncedRef(onResize);
 
   useEffect(() => {
