@@ -17,12 +17,15 @@ export const useChannel = () => {
     return data?.channels?.map((channel) => channel.slug) ?? [];
   }, [data?.channels]);
 
+  const channel = useMemo(() => getChannel(router.query), [router.query]);
+
   const setChannel = useCallback(
     async (nextChannel: string) => {
       if (channelsSlugs.includes(nextChannel)) {
         await router.push({
           pathname: '/[channel]/[locale]',
           query: {
+            channel: nextChannel,
             locale: getLocale(router.query),
           },
         });
@@ -30,8 +33,6 @@ export const useChannel = () => {
     },
     [channelsSlugs, router],
   );
-
-  const channel = useMemo(() => getChannel(router.query), [router.query]);
 
   return {
     channel,

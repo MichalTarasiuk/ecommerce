@@ -9,6 +9,8 @@ import type {i18nConfig} from '@root/i18n';
 export const useLocale = () => {
   const router = useRouter();
 
+  const locale = useMemo(() => getLocale(router.query), [router.query]);
+
   const setLocale = useCallback(
     async (nextLocale: Custom.ValueOf<(typeof i18nConfig)['locales']>) => {
       await router.push({
@@ -21,8 +23,6 @@ export const useLocale = () => {
     },
     [router],
   );
-
-  const locale = useMemo(() => getLocale(router.query), [router.query]);
 
   return {
     locale,
