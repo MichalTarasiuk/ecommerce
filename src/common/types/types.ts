@@ -1,3 +1,4 @@
+import type {GetStaticPaths} from 'next';
 import type {NextRouter} from 'next/router';
 import type {
   ForwardRefExoticComponent,
@@ -31,3 +32,10 @@ export type TransitionOptions = NextRouter extends {
 export type InferProps<Component> = Component extends ComponentType<infer Props>
   ? Props
   : never;
+
+export type InferParsedQuery<AnyGetStaticPaths extends GetStaticPaths> =
+  Awaited<ReturnType<AnyGetStaticPaths>>['paths'][number] extends {
+    readonly params: infer Params;
+  }
+    ? Params
+    : never;

@@ -1,5 +1,3 @@
-import {Inconsolata} from '@next/font/google';
-import classNames from 'classnames';
 import dynamic from 'next/dynamic';
 
 import {Navigation} from './components/components';
@@ -22,7 +20,7 @@ const Menu = dynamic<MenuProps>(
 
 export function DefaultLayout({children}: DefaultLayoutProps) {
   return (
-    <div className={classNames('container m-auto', inconsolata.className)}>
+    <div className='container m-auto'>
       <header>
         <Navigation />
       </header>
@@ -32,8 +30,3 @@ export function DefaultLayout({children}: DefaultLayoutProps) {
     </div>
   );
 }
-
-const inconsolata = Inconsolata({
-  subsets: ['latin'],
-  weight: ['700'],
-});

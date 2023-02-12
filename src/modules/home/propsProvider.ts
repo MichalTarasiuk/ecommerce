@@ -7,6 +7,7 @@ import FETCH_PRODUCTS_LIST from '@/common/graphql/queries/fetchProductsList.grap
 import {i18nConfig} from '@root/i18n';
 
 import type {FetchProductsListQueryVariables} from '@/common/graphql/generated/graphql';
+import type {InferParsedQuery} from '@/common/types/types';
 import type {
   GetStaticPathsResult,
   GetStaticPropsContext,
@@ -29,9 +30,7 @@ export const getStaticPaths = () => {
 
 export const getStaticProps = async ({
   params,
-}: GetStaticPropsContext<
-  ReturnType<typeof getStaticPaths>['paths'][number]['params']
->) => {
+}: GetStaticPropsContext<InferParsedQuery<typeof getStaticPaths>>) => {
   const {locale} = params ?? {};
 
   const ssrCache = ssrExchange({isClient: false});
