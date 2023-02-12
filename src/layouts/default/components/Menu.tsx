@@ -44,7 +44,7 @@ export function Menu() {
         <ul className='flex flex-col mt-6 gap-4'>
           {navigationListing.left.map(({child, href}) => (
             <li key={href}>
-              <Link href={href} className='text-2xl block'>
+              <Link href={href} className='text-2xl block font-semibold'>
                 {child}
               </Link>
             </li>

@@ -71,7 +71,7 @@ export function Navigation() {
 
 function NavigationItem({child, ...props}: NavigationItemProps) {
   const className =
-    'hover:text-blue-500 h-full flex justify-center items-center';
+    'hover:text-blue-500 h-full flex justify-center items-center font-semibold';
 
   if (props.type === 'link') {
     return (

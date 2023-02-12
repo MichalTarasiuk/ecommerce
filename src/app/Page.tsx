@@ -1,7 +1,6 @@
-import {Inconsolata} from '@next/font/google';
-
 import {i18nConfig} from '@root/i18n';
 
+import {inconsolata} from './fonts';
 import {useRouteProgress} from './hooks/hooks';
 import {typedAppWithI18n} from './i18n';
 import {AppProviders} from './providers';
@@ -17,11 +16,6 @@ export type NextPageWithLayout<Props = {}> = NextPage<Props> & {
 type AppPropsWithLayout = AppProps & {
   readonly Component: NextPageWithLayout;
 };
-
-const inconsolata = Inconsolata({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-});
 
 function AppRoot({Component, pageProps}: AppPropsWithLayout) {
   useRouteProgress();
