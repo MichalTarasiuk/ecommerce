@@ -12,5 +12,4 @@ export * from './useResize';
 export * from './useRouteChangeStart';
 export * from './useLockedBody';
 export * from './usePrevious';
-export * from './useChannel';
-export * from './useLocale';
+export * from './region/region';

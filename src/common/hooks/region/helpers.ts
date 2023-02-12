@@ -3,6 +3,20 @@ import {i18nConfig} from '@root/i18n';
 
 import type {ParsedUrlQuery} from 'querystring';
 
+const defaultChannelName = 'default-channel';
+
+export const getChannel = (parsedUrlQuery: ParsedUrlQuery) => {
+  if (
+    isObject(parsedUrlQuery) &&
+    keyIn(parsedUrlQuery, 'channel') &&
+    isString(parsedUrlQuery.channel)
+  ) {
+    return parsedUrlQuery.channel;
+  }
+
+  return defaultChannelName;
+};
+
 export const getLocale = (parsedUrlQuery: ParsedUrlQuery) => {
   if (
     isObject(parsedUrlQuery) &&
@@ -14,5 +28,3 @@ export const getLocale = (parsedUrlQuery: ParsedUrlQuery) => {
 
   return i18nConfig.defaultLocale;
 };
-
-export const useLocale = () => {};

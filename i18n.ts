@@ -10,14 +10,22 @@ type Pages = I18nConfig extends {
   ? Pages
   : never;
 
-export type ReadonlyPages = {
+type ReadonlyPages = {
   readonly [Key in keyof Pages]: Custom.ReadonlyAll<Pages[Key]>;
 };
 
-type ExtendedI18nConfig = Omit<I18nConfig, 'pages'> & {
+export type ExtendedI18nConfig = Omit<I18nConfig, 'pages'> & {
+  readonly locales: ReadonlyArray<Custom.ValueOf<typeof locales>>;
   readonly pages: ReadonlyPages;
   readonly skipInitialProps: boolean;
 };
+
+const locales = {
+  english: 'en-US',
+  polish: 'pl-PL',
+} as const;
+
+const defaultLocale = locales.english;
 
 const isI18nProviderProps = (
   value: unknown,
@@ -25,10 +33,8 @@ const isI18nProviderProps = (
   ReturnType<Exclude<I18nConfig['loadLocaleFrom'], undefined>>
 > => isObject(value);
 
-const defaultLocale = 'en-US';
-
 export const i18nConfig = {
-  locales: [defaultLocale, 'pl-PL'],
+  locales: Object.values(locales),
   defaultLocale: defaultLocale,
   pages: {
     '/': ['common'] as const,
