@@ -1,5 +1,7 @@
+import {useEffect} from 'react';
+
 import {Text} from '@/common/components/components';
-import {useTranslate} from '@/common/hooks/hooks';
+import {useChannel, useTranslate} from '@/common/hooks/hooks';
 import {DefaultLayout} from '@/layouts/layouts';
 
 import type {getStaticProps} from './propsProvider';
@@ -10,6 +12,11 @@ type HomePageProps = InferGetStaticPropsType<typeof getStaticProps>;
 
 export function HomePage({}: HomePageProps) {
   const {translate} = useTranslate('common');
+  const {setChannel} = useChannel();
+
+  useEffect(() => {
+    setChannel('kodk');
+  }, [setChannel]);
 
   return (
     <Text tag='p' size='small'>

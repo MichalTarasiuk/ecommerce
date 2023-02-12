@@ -1,15 +1,7 @@
 import dynamic from 'next/dynamic';
-import {useQuery} from 'urql';
-
-import {LanguageCodeEnum} from '@/common/graphql/generated/graphql';
-import MAIN_MENU_QUERY from '@/common/graphql/queries/MainMenu.graphql';
 
 import {Navigation, Footer} from './components/components';
 
-import type {
-  MainMenuQuery,
-  MainMenuQueryVariables,
-} from '@/common/graphql/generated/graphql';
 import type {InferProps} from '@/common/types/types';
 import type {ReactNode} from 'react';
 
@@ -27,11 +19,6 @@ const Menu = dynamic<MenuProps>(
 );
 
 export function DefaultLayout({children}: DefaultLayoutProps) {
-  useQuery<MainMenuQuery, MainMenuQueryVariables>({
-    query: MAIN_MENU_QUERY,
-    variables: {channel: 'default-channel', locale: LanguageCodeEnum.Pl},
-  });
-
   return (
     <div className='container m-auto'>
       <header>

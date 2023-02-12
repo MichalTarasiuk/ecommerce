@@ -11,9 +11,9 @@ import type {TransitionOptions} from '@/common/types/types';
 const config = {
   startPosition: 0.3,
   showSpinner: false,
-  color: 'hsl(234, 72%, 63%)' as const,
-  height: `3px` as const,
-};
+  color: 'hsl(234, 72%, 63%)',
+  height: `3px`,
+} as const;
 
 export const useRouteProgress = () => {
   const router = useRouter();
