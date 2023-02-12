@@ -10,7 +10,7 @@ type Pages = I18nConfig extends {
   ? Pages
   : never;
 
-type ReadonlyPages = {
+export type ReadonlyPages = {
   readonly [Key in keyof Pages]: Custom.ReadonlyAll<Pages[Key]>;
 };
 
