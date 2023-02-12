@@ -13,7 +13,7 @@
     "cypress:headless": "cypress run",
     "e2e": "start-server-and-test start http://localhost:3000 cypress",
     "e2e:headless": "start-server-and-test start http://localhost:3000 cypress:headless",
-    "generate": "graphql-codegen --config codegen.ts",
+    "generate": "DOTENV_CONFIG_PATH=.env.local graphql-codegen --config codegen.ts -r dotenv/config",
     "postinstall": "stale-dep -u",
     "storybook": "start-storybook -p 6006 -s public",
     "watch:storybook": "start-storybook dev -p 6006 -s public",

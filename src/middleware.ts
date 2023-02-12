@@ -1,7 +1,8 @@
 import {NextResponse} from 'next/server';
 
-import {routes} from './common/consts/consts';
-import {isProduction} from './common/utils/nodeEnvironment';
+import {routes} from '@/common/consts/consts';
+
+import {isProduction} from './common/utils/utils';
 
 import type {NextRequest} from 'next/server';
 

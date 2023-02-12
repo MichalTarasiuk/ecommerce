@@ -33,9 +33,9 @@ export const useChannel = () => {
   }, [data?.channels]);
 
   const setChannel = useCallback(
-    (nextChannel: string) => {
+    async (nextChannel: string) => {
       if (channelsSlugs.includes(nextChannel)) {
-        void router.push({
+        await router.push({
           pathname: '/[channel]/[locale]',
           query: {
             channel: nextChannel,

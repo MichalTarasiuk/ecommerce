@@ -1,8 +1,6 @@
 import type {CodegenConfig} from '@graphql-codegen/cli';
 
-const schema =
-  process.env['NEXT_PUBLIC_SALEOR_API_URL'] ??
-  'https://recruitment-ecommerce-app.eu.saleor.cloud/graphql/';
+const schema = process.env['NEXT_PUBLIC_SALEOR_API_URL'];
 
 if (!schema) {
   throw Error(`process.env['NEXT_PUBLIC_SALEOR_API_URL'] is not defined`);
