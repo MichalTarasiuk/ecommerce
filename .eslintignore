@@ -45,3 +45,6 @@ public/mockServiceWorker.js
 
 # images
 *.svg
+
+# environment variables
+.env.example

@@ -1,6 +1,10 @@
-import {graphqlUrl as schema} from '@/app/queryClient/queryClient';
-
 import type {CodegenConfig} from '@graphql-codegen/cli';
+
+const schema = process.env['NEXT_PUBLIC_SALEOR_API_URL'];
+
+if (!schema) {
+  throw Error(`process.env['NEXT_PUBLIC_SALEOR_API_URL'] is not defined`);
+}
 
 const config: CodegenConfig = {
   schema,

@@ -13,7 +13,9 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel-plugin for production.
  */
 const documents = {
-    "query FetchProductsList {\n  products(first: 12, channel: \"default-channel\") {\n    edges {\n      node {\n        name\n        description\n      }\n    }\n  }\n}": types.FetchProductsListDocument,
+    "fragment MenuItemFragment on MenuItem {\n  id\n  name\n  translation(languageCode: $locale) {\n    id\n    name\n  }\n  category {\n    id\n    slug\n  }\n  collection {\n    id\n    slug\n  }\n  page {\n    id\n    slug\n  }\n  url\n}": types.MenuItemFragmentFragmentDoc,
+    "fragment MenuItemWithChildrenFragment on MenuItem {\n  id\n  name\n  translation(languageCode: $locale) {\n    id\n    name\n  }\n  category {\n    id\n    slug\n  }\n  collection {\n    id\n    slug\n  }\n  page {\n    id\n    slug\n  }\n  children {\n    ...MenuItemFragment\n    children {\n      ...MenuItemFragment\n    }\n  }\n  url\n}": types.MenuItemWithChildrenFragmentFragmentDoc,
+    "query MainMenu($locale: LanguageCodeEnum!, $channel: String!) {\n  menu(slug: \"navbar\", channel: $channel) {\n    id\n    items {\n      ...MenuItemWithChildrenFragment\n    }\n  }\n}": types.MainMenuDocument,
 };
 
 /**
@@ -33,7 +35,15 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query FetchProductsList {\n  products(first: 12, channel: \"default-channel\") {\n    edges {\n      node {\n        name\n        description\n      }\n    }\n  }\n}"): (typeof documents)["query FetchProductsList {\n  products(first: 12, channel: \"default-channel\") {\n    edges {\n      node {\n        name\n        description\n      }\n    }\n  }\n}"];
+export function graphql(source: "fragment MenuItemFragment on MenuItem {\n  id\n  name\n  translation(languageCode: $locale) {\n    id\n    name\n  }\n  category {\n    id\n    slug\n  }\n  collection {\n    id\n    slug\n  }\n  page {\n    id\n    slug\n  }\n  url\n}"): (typeof documents)["fragment MenuItemFragment on MenuItem {\n  id\n  name\n  translation(languageCode: $locale) {\n    id\n    name\n  }\n  category {\n    id\n    slug\n  }\n  collection {\n    id\n    slug\n  }\n  page {\n    id\n    slug\n  }\n  url\n}"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "fragment MenuItemWithChildrenFragment on MenuItem {\n  id\n  name\n  translation(languageCode: $locale) {\n    id\n    name\n  }\n  category {\n    id\n    slug\n  }\n  collection {\n    id\n    slug\n  }\n  page {\n    id\n    slug\n  }\n  children {\n    ...MenuItemFragment\n    children {\n      ...MenuItemFragment\n    }\n  }\n  url\n}"): (typeof documents)["fragment MenuItemWithChildrenFragment on MenuItem {\n  id\n  name\n  translation(languageCode: $locale) {\n    id\n    name\n  }\n  category {\n    id\n    slug\n  }\n  collection {\n    id\n    slug\n  }\n  page {\n    id\n    slug\n  }\n  children {\n    ...MenuItemFragment\n    children {\n      ...MenuItemFragment\n    }\n  }\n  url\n}"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query MainMenu($locale: LanguageCodeEnum!, $channel: String!) {\n  menu(slug: \"navbar\", channel: $channel) {\n    id\n    items {\n      ...MenuItemWithChildrenFragment\n    }\n  }\n}"): (typeof documents)["query MainMenu($locale: LanguageCodeEnum!, $channel: String!) {\n  menu(slug: \"navbar\", channel: $channel) {\n    id\n    items {\n      ...MenuItemWithChildrenFragment\n    }\n  }\n}"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

@@ -47,3 +47,6 @@ public/tailwind.css
 
 # images
 *.svg
+
+# environment variables
+.env.example

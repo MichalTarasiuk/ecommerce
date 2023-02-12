@@ -2,11 +2,14 @@ import {createClient, fetchExchange, cacheExchange} from 'urql';
 
 import {isServer} from '@/common/utils/utils';
 
-import {graphqlUrl as url} from './consts';
-
 import type {ClientOptions, Client, Exchange} from 'urql';
 
 const urqlClient: Client | null = null;
+const url = process.env['NEXT_PUBLIC_SALEOR_API_URL'];
+
+if (!url) {
+  throw Error(`process.env['NEXT_PUBLIC_SALEOR_API_URL'] is not defined`);
+}
 
 export const createUrqlClient = (
   clientOptions?: Omit<ClientOptions, 'url'>,

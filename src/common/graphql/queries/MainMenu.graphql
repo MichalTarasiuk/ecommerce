@@ -1,0 +1,59 @@
+query MainMenu($locale: LanguageCodeEnum!, $channel: String!) {
+  menu(slug: "navbar", channel: $channel) {
+    id
+    items {
+      ...MenuItemWithChildrenFragment
+    }
+  }
+}
+
+# move to ../fragments/**/*
+fragment MenuItemWithChildrenFragment on MenuItem {
+  id
+  name
+  translation(languageCode: $locale) {
+    id
+    name
+  }
+  category {
+    id
+    slug
+  }
+  collection {
+    id
+    slug
+  }
+  page {
+    id
+    slug
+  }
+  children {
+    ...MenuItemFragment
+    children {
+      ...MenuItemFragment
+    }
+  }
+  url
+}
+
+fragment MenuItemFragment on MenuItem {
+  id
+  name
+  translation(languageCode: $locale) {
+    id
+    name
+  }
+  category {
+    id
+    slug
+  }
+  collection {
+    id
+    slug
+  }
+  page {
+    id
+    slug
+  }
+  url
+}

@@ -1170,7 +1170,10 @@ export type AssignedVariantAttribute = {
 /** Custom attribute of a product. Attributes can be assigned to products and variants at the product type level. */
 export type Attribute = Node & ObjectWithMetadata & {
   __typename?: 'Attribute';
-  /** Whether the attribute can be displayed in the admin product list. Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES, MANAGE_PRODUCTS, MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES. */
+  /**
+   * Whether the attribute can be displayed in the admin product list. Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES, MANAGE_PRODUCTS, MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES.
+   * @deprecated This field will be removed in Saleor 4.0.
+   */
   availableInGrid: Scalars['Boolean'];
   /** List of attribute's values. */
   choices?: Maybe<AttributeValueCountableConnection>;
@@ -1184,7 +1187,10 @@ export type Attribute = Node & ObjectWithMetadata & {
   externalReference?: Maybe<Scalars['String']>;
   /** Whether the attribute can be filtered in dashboard. Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES, MANAGE_PRODUCTS, MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES. */
   filterableInDashboard: Scalars['Boolean'];
-  /** Whether the attribute can be filtered in storefront. Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES, MANAGE_PRODUCTS, MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES. */
+  /**
+   * Whether the attribute can be filtered in storefront. Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES, MANAGE_PRODUCTS, MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES.
+   * @deprecated This field will be removed in Saleor 4.0.
+   */
   filterableInStorefront: Scalars['Boolean'];
   id: Scalars['ID'];
   /** The input type to use for entering attribute values in the dashboard. */
@@ -1235,7 +1241,10 @@ export type Attribute = Node & ObjectWithMetadata & {
   productVariantTypes: ProductTypeCountableConnection;
   /** Internal representation of an attribute name. */
   slug?: Maybe<Scalars['String']>;
-  /** The position of the attribute in the storefront navigation (0 by default). Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES, MANAGE_PRODUCTS, MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES. */
+  /**
+   * The position of the attribute in the storefront navigation (0 by default). Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES, MANAGE_PRODUCTS, MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES.
+   * @deprecated This field will be removed in Saleor 4.0.
+   */
   storefrontSearchPosition: Scalars['Int'];
   /** Returns translated attribute fields for the given language code. */
   translation?: Maybe<AttributeTranslation>;
@@ -1365,7 +1374,11 @@ export type AttributeCreate = {
 };
 
 export type AttributeCreateInput = {
-  /** Whether the attribute can be displayed in the admin product list. */
+  /**
+   * Whether the attribute can be displayed in the admin product list.
+   *
+   * DEPRECATED: this field will be removed in Saleor 4.0.
+   */
   availableInGrid?: InputMaybe<Scalars['Boolean']>;
   /** The entity type which can be used as a reference. */
   entityType?: InputMaybe<AttributeEntityTypeEnum>;
@@ -1377,7 +1390,11 @@ export type AttributeCreateInput = {
   externalReference?: InputMaybe<Scalars['String']>;
   /** Whether the attribute can be filtered in dashboard. */
   filterableInDashboard?: InputMaybe<Scalars['Boolean']>;
-  /** Whether the attribute can be filtered in storefront. */
+  /**
+   * Whether the attribute can be filtered in storefront.
+   *
+   * DEPRECATED: this field will be removed in Saleor 4.0.
+   */
   filterableInStorefront?: InputMaybe<Scalars['Boolean']>;
   /** The input type to use for entering attribute values in the dashboard. */
   inputType?: InputMaybe<AttributeInputTypeEnum>;
@@ -1387,7 +1404,11 @@ export type AttributeCreateInput = {
   name: Scalars['String'];
   /** Internal representation of an attribute name. */
   slug?: InputMaybe<Scalars['String']>;
-  /** The position of the attribute in the storefront navigation (0 by default). */
+  /**
+   * The position of the attribute in the storefront navigation (0 by default).
+   *
+   * DEPRECATED: this field will be removed in Saleor 4.0.
+   */
   storefrontSearchPosition?: InputMaybe<Scalars['Int']>;
   /** The attribute type. */
   type: AttributeTypeEnum;
@@ -1463,6 +1484,13 @@ export enum AttributeEntityTypeEnum {
   ProductVariant = 'PRODUCT_VARIANT'
 }
 
+export type AttributeEntityTypeEnumFilterInput = {
+  /** The value equal to. */
+  eq?: InputMaybe<AttributeEntityTypeEnum>;
+  /** The value included in. */
+  oneOf?: InputMaybe<Array<AttributeEntityTypeEnum>>;
+};
+
 export type AttributeError = {
   __typename?: 'AttributeError';
   /** The error code. */
@@ -1534,6 +1562,13 @@ export enum AttributeInputTypeEnum {
   RichText = 'RICH_TEXT',
   Swatch = 'SWATCH'
 }
+
+export type AttributeInputTypeEnumFilterInput = {
+  /** The value equal to. */
+  eq?: InputMaybe<AttributeInputTypeEnum>;
+  /** The value included in. */
+  oneOf?: InputMaybe<Array<AttributeInputTypeEnum>>;
+};
 
 /**
  * Reorder the values of an attribute.
@@ -1622,6 +1657,13 @@ export enum AttributeTypeEnum {
   ProductType = 'PRODUCT_TYPE'
 }
 
+export type AttributeTypeEnumFilterInput = {
+  /** The value equal to. */
+  eq?: InputMaybe<AttributeTypeEnum>;
+  /** The value included in. */
+  oneOf?: InputMaybe<Array<AttributeTypeEnum>>;
+};
+
 /**
  * Updates attribute.
  *
@@ -1638,7 +1680,11 @@ export type AttributeUpdate = {
 export type AttributeUpdateInput = {
   /** New values to be created for this attribute. */
   addValues?: InputMaybe<Array<AttributeValueUpdateInput>>;
-  /** Whether the attribute can be displayed in the admin product list. */
+  /**
+   * Whether the attribute can be displayed in the admin product list.
+   *
+   * DEPRECATED: this field will be removed in Saleor 4.0.
+   */
   availableInGrid?: InputMaybe<Scalars['Boolean']>;
   /**
    * External ID of this product.
@@ -1648,7 +1694,11 @@ export type AttributeUpdateInput = {
   externalReference?: InputMaybe<Scalars['String']>;
   /** Whether the attribute can be filtered in dashboard. */
   filterableInDashboard?: InputMaybe<Scalars['Boolean']>;
-  /** Whether the attribute can be filtered in storefront. */
+  /**
+   * Whether the attribute can be filtered in storefront.
+   *
+   * DEPRECATED: this field will be removed in Saleor 4.0.
+   */
   filterableInStorefront?: InputMaybe<Scalars['Boolean']>;
   /** Whether the attribute is for variants only. */
   isVariantOnly?: InputMaybe<Scalars['Boolean']>;
@@ -1658,7 +1708,11 @@ export type AttributeUpdateInput = {
   removeValues?: InputMaybe<Array<Scalars['ID']>>;
   /** Internal representation of an attribute name. */
   slug?: InputMaybe<Scalars['String']>;
-  /** The position of the attribute in the storefront navigation (0 by default). */
+  /**
+   * The position of the attribute in the storefront navigation (0 by default).
+   *
+   * DEPRECATED: this field will be removed in Saleor 4.0.
+   */
   storefrontSearchPosition?: InputMaybe<Scalars['Int']>;
   /** The unit of attribute values. */
   unit?: InputMaybe<MeasurementUnitsEnum>;
@@ -2071,6 +2125,34 @@ export type AttributeValueUpdated = Event & {
   recipient?: Maybe<App>;
   /** Saleor version that triggered the event. */
   version?: Maybe<Scalars['String']>;
+};
+
+/**
+ * Where filtering options.
+ *
+ * Added in Saleor 3.11.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type AttributeWhereInput = {
+  /** List of conditions that must be met. */
+  AND?: InputMaybe<Array<AttributeWhereInput>>;
+  /** A list of conditions of which at least one must be met. */
+  OR?: InputMaybe<Array<AttributeWhereInput>>;
+  entityType?: InputMaybe<AttributeEntityTypeEnumFilterInput>;
+  filterableInDashboard?: InputMaybe<Scalars['Boolean']>;
+  ids?: InputMaybe<Array<Scalars['ID']>>;
+  inCategory?: InputMaybe<Scalars['ID']>;
+  inCollection?: InputMaybe<Scalars['ID']>;
+  inputType?: InputMaybe<AttributeInputTypeEnumFilterInput>;
+  metadata?: InputMaybe<Array<MetadataFilter>>;
+  name?: InputMaybe<StringFilterInput>;
+  slug?: InputMaybe<StringFilterInput>;
+  type?: InputMaybe<AttributeTypeEnumFilterInput>;
+  unit?: InputMaybe<MeasurementUnitsEnumFilterInput>;
+  valueRequired?: InputMaybe<Scalars['Boolean']>;
+  visibleInStorefront?: InputMaybe<Scalars['Boolean']>;
+  withChoices?: InputMaybe<Scalars['Boolean']>;
 };
 
 export type BulkAttributeValueInput = {
@@ -3356,14 +3438,20 @@ export type CheckoutLanguageCodeUpdate = {
 export type CheckoutLine = Node & ObjectWithMetadata & {
   __typename?: 'CheckoutLine';
   id: Scalars['ID'];
-  /** List of public metadata items. Can be accessed without permissions. */
+  /**
+   * List of public metadata items. Can be accessed without permissions.
+   *
+   * Added in Saleor 3.5.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
   metadata: Array<MetadataItem>;
   /**
    * A single key from public metadata.
    *
    * Tip: Use GraphQL aliases to fetch multiple keys.
    *
-   * Added in Saleor 3.3.
+   * Added in Saleor 3.5.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -3371,19 +3459,25 @@ export type CheckoutLine = Node & ObjectWithMetadata & {
   /**
    * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
    *
-   * Added in Saleor 3.3.
+   * Added in Saleor 3.5.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   metafields?: Maybe<Scalars['Metadata']>;
-  /** List of private metadata items. Requires staff permissions to access. */
+  /**
+   * List of private metadata items. Requires staff permissions to access.
+   *
+   * Added in Saleor 3.5.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
   privateMetadata: Array<MetadataItem>;
   /**
    * A single key from private metadata. Requires staff permissions to access.
    *
    * Tip: Use GraphQL aliases to fetch multiple keys.
    *
-   * Added in Saleor 3.3.
+   * Added in Saleor 3.5.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -3391,7 +3485,7 @@ export type CheckoutLine = Node & ObjectWithMetadata & {
   /**
    * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
    *
-   * Added in Saleor 3.3.
+   * Added in Saleor 3.5.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -5400,6 +5494,15 @@ export type DraftOrderUpdated = Event & {
   /** Saleor version that triggered the event. */
   version?: Maybe<Scalars['String']>;
 };
+
+export enum ErrorPolicyEnum {
+  /** Save what is possible within a single row. If there are errors in an input data row, try to save it partially and skip the invalid part. */
+  IgnoreFailed = 'IGNORE_FAILED',
+  /** Reject all rows if there is at least one error in any of them. */
+  RejectEverything = 'REJECT_EVERYTHING',
+  /** Reject rows with errors. */
+  RejectFailedRows = 'REJECT_FAILED_ROWS'
+}
 
 export type Event = {
   /** Time of the event. */
@@ -8221,6 +8324,13 @@ export enum MeasurementUnitsEnum {
   Yd = 'YD'
 }
 
+export type MeasurementUnitsEnumFilterInput = {
+  /** The value equal to. */
+  eq?: InputMaybe<MeasurementUnitsEnum>;
+  /** The value included in. */
+  oneOf?: InputMaybe<Array<MeasurementUnitsEnum>>;
+};
+
 export enum MediaChoicesSortField {
   /** Sort media by ID. */
   Id = 'ID'
@@ -10130,6 +10240,16 @@ export type Mutation = {
    */
   productVariantBulkDelete?: Maybe<ProductVariantBulkDelete>;
   /**
+   * Update multiple product variants.
+   *
+   * Added in Saleor 3.11.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   *
+   * Requires one of the following permissions: MANAGE_PRODUCTS.
+   */
+  productVariantBulkUpdate?: Maybe<ProductVariantBulkUpdate>;
+  /**
    * Manage product variant prices in channels.
    *
    * Requires one of the following permissions: MANAGE_PRODUCTS.
@@ -10624,6 +10744,26 @@ export type Mutation = {
    * Requires one of the following permissions: MANAGE_APPS, AUTHENTICATED_APP.
    */
   webhookDelete?: Maybe<WebhookDelete>;
+  /**
+   * Performs a dry run of a webhook event. Supports a single event (the first, if multiple provided in the `query`). Requires permission relevant to processed event.
+   *
+   * Added in Saleor 3.11.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   *
+   * Requires one of the following permissions: AUTHENTICATED_STAFF_USER.
+   */
+  webhookDryRun?: Maybe<WebhookDryRun>;
+  /**
+   * Trigger a webhook event. Supports a single event (the first, if multiple provided in the `webhook.subscription_query`). Requires permission relevant to processed event. Successfully delivered webhook returns `delivery` with status='PENDING' and empty payload.
+   *
+   * Added in Saleor 3.11.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   *
+   * Requires one of the following permissions: AUTHENTICATED_STAFF_USER.
+   */
+  webhookTrigger?: Maybe<WebhookTrigger>;
   /**
    * Updates a webhook subscription.
    *
@@ -11818,6 +11958,7 @@ export type MutationProductUpdateArgs = {
 
 
 export type MutationProductVariantBulkCreateArgs = {
+  errorPolicy?: InputMaybe<ErrorPolicyEnum>;
   product: Scalars['ID'];
   variants: Array<ProductVariantBulkCreateInput>;
 };
@@ -11826,6 +11967,13 @@ export type MutationProductVariantBulkCreateArgs = {
 export type MutationProductVariantBulkDeleteArgs = {
   ids?: InputMaybe<Array<Scalars['ID']>>;
   skus?: InputMaybe<Array<Scalars['String']>>;
+};
+
+
+export type MutationProductVariantBulkUpdateArgs = {
+  errorPolicy?: InputMaybe<ErrorPolicyEnum>;
+  product: Scalars['ID'];
+  variants: Array<ProductVariantBulkUpdateInput>;
 };
 
 
@@ -12281,6 +12429,18 @@ export type MutationWebhookDeleteArgs = {
 };
 
 
+export type MutationWebhookDryRunArgs = {
+  objectId: Scalars['ID'];
+  query: Scalars['String'];
+};
+
+
+export type MutationWebhookTriggerArgs = {
+  objectId: Scalars['ID'];
+  webhookId: Scalars['ID'];
+};
+
+
 export type MutationWebhookUpdateArgs = {
   id: Scalars['ID'];
   input: WebhookUpdateInput;
@@ -12310,19 +12470,9 @@ export type ObjectWithMetadata = {
    * A single key from public metadata.
    *
    * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   metafield?: Maybe<Scalars['String']>;
-  /**
-   * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
+  /** Public metadata. Use `keys` to control which fields you want to include. The default is to include everything. */
   metafields?: Maybe<Scalars['Metadata']>;
   /** List of private metadata items. Requires staff permissions to access. */
   privateMetadata: Array<MetadataItem>;
@@ -12330,19 +12480,9 @@ export type ObjectWithMetadata = {
    * A single key from private metadata. Requires staff permissions to access.
    *
    * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   privateMetafield?: Maybe<Scalars['String']>;
-  /**
-   * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
+  /** Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything. */
   privateMetafields?: Maybe<Scalars['Metadata']>;
 };
 
@@ -12405,6 +12545,12 @@ export type Order = Node & ObjectWithMetadata & {
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   chargeStatus: OrderChargeStatusEnum;
+  /**
+   * ID of the checkout that the order was created from.
+   *
+   * Added in Saleor 3.11.
+   */
+  checkoutId?: Maybe<Scalars['ID']>;
   collectionPointName?: Maybe<Scalars['String']>;
   created: Scalars['DateTime'];
   customerNote: Scalars['String'];
@@ -13211,6 +13357,7 @@ export type OrderFilterInput = {
   authorizeStatus?: InputMaybe<Array<OrderAuthorizeStatusEnum>>;
   channels?: InputMaybe<Array<Scalars['ID']>>;
   chargeStatus?: InputMaybe<Array<OrderChargeStatusEnum>>;
+  checkoutIds?: InputMaybe<Array<Scalars['ID']>>;
   created?: InputMaybe<DateRangeInput>;
   customer?: InputMaybe<Scalars['String']>;
   giftCardBought?: InputMaybe<Scalars['Boolean']>;
@@ -13354,14 +13501,20 @@ export type OrderLine = Node & ObjectWithMetadata & {
   digitalContentUrl?: Maybe<DigitalContentUrl>;
   id: Scalars['ID'];
   isShippingRequired: Scalars['Boolean'];
-  /** List of public metadata items. Can be accessed without permissions. */
+  /**
+   * List of public metadata items. Can be accessed without permissions.
+   *
+   * Added in Saleor 3.5.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
   metadata: Array<MetadataItem>;
   /**
    * A single key from public metadata.
    *
    * Tip: Use GraphQL aliases to fetch multiple keys.
    *
-   * Added in Saleor 3.3.
+   * Added in Saleor 3.5.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -13369,19 +13522,25 @@ export type OrderLine = Node & ObjectWithMetadata & {
   /**
    * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
    *
-   * Added in Saleor 3.3.
+   * Added in Saleor 3.5.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   metafields?: Maybe<Scalars['Metadata']>;
-  /** List of private metadata items. Requires staff permissions to access. */
+  /**
+   * List of private metadata items. Requires staff permissions to access.
+   *
+   * Added in Saleor 3.5.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
   privateMetadata: Array<MetadataItem>;
   /**
    * A single key from private metadata. Requires staff permissions to access.
    *
    * Tip: Use GraphQL aliases to fetch multiple keys.
    *
-   * Added in Saleor 3.3.
+   * Added in Saleor 3.5.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -13389,7 +13548,7 @@ export type OrderLine = Node & ObjectWithMetadata & {
   /**
    * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
    *
-   * Added in Saleor 3.3.
+   * Added in Saleor 3.5.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -14452,6 +14611,7 @@ export type PageTypeAvailableAttributesArgs = {
   filter?: InputMaybe<AttributeFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<AttributeWhereInput>;
 };
 
 
@@ -15692,6 +15852,7 @@ export type Product = Node & ObjectWithMetadata & {
    * Get a single variant by SKU or ID.
    *
    * Added in Saleor 3.9.
+   * @deprecated This field will be removed in Saleor 4.0. Use top-level `variant` query.
    */
   variant?: Maybe<ProductVariant>;
   /** List of variants for the product. Requires the following permissions to include the unpublished items: MANAGE_ORDERS, MANAGE_DISCOUNTS, MANAGE_PRODUCTS. */
@@ -16189,6 +16350,7 @@ export enum ProductErrorCode {
   DuplicatedInputItem = 'DUPLICATED_INPUT_ITEM',
   GraphqlError = 'GRAPHQL_ERROR',
   Invalid = 'INVALID',
+  InvalidPrice = 'INVALID_PRICE',
   MediaAlreadyAssigned = 'MEDIA_ALREADY_ASSIGNED',
   NotFound = 'NOT_FOUND',
   NotProductsImage = 'NOT_PRODUCTS_IMAGE',
@@ -16787,6 +16949,7 @@ export type ProductTypeAvailableAttributesArgs = {
   filter?: InputMaybe<AttributeFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<AttributeWhereInput>;
 };
 
 
@@ -17258,8 +17421,14 @@ export type ProductVariantBulkCreate = {
   /** Returns how many objects were created. */
   count: Scalars['Int'];
   errors: Array<BulkProductError>;
-  /** List of the created variants. */
+  /** List of the created variants.This field will be removed in Saleor 4.0. */
   productVariants: Array<ProductVariant>;
+  /**
+   * List of the created variants.
+   *
+   * Added in Saleor 3.11.
+   */
+  results: Array<ProductVariantBulkResult>;
 };
 
 export type ProductVariantBulkCreateInput = {
@@ -17325,6 +17494,124 @@ export type ProductVariantBulkDelete = {
   errors: Array<ProductError>;
   /** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
   productErrors: Array<ProductError>;
+};
+
+export type ProductVariantBulkError = {
+  __typename?: 'ProductVariantBulkError';
+  /** List of attributes IDs which causes the error. */
+  attributes?: Maybe<Array<Scalars['ID']>>;
+  /** List of channel IDs which causes the error. */
+  channels?: Maybe<Array<Scalars['ID']>>;
+  /** The error code. */
+  code: ProductVariantBulkErrorCode;
+  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
+  field?: Maybe<Scalars['String']>;
+  /** The error message. */
+  message?: Maybe<Scalars['String']>;
+  /** List of attribute values IDs which causes the error. */
+  values?: Maybe<Array<Scalars['ID']>>;
+  /** List of warehouse IDs which causes the error. */
+  warehouses?: Maybe<Array<Scalars['ID']>>;
+};
+
+/** An enumeration. */
+export enum ProductVariantBulkErrorCode {
+  AttributeAlreadyAssigned = 'ATTRIBUTE_ALREADY_ASSIGNED',
+  AttributeCannotBeAssigned = 'ATTRIBUTE_CANNOT_BE_ASSIGNED',
+  AttributeVariantsDisabled = 'ATTRIBUTE_VARIANTS_DISABLED',
+  DuplicatedInputItem = 'DUPLICATED_INPUT_ITEM',
+  GraphqlError = 'GRAPHQL_ERROR',
+  Invalid = 'INVALID',
+  InvalidPrice = 'INVALID_PRICE',
+  NotFound = 'NOT_FOUND',
+  NotProductsVariant = 'NOT_PRODUCTS_VARIANT',
+  ProductNotAssignedToChannel = 'PRODUCT_NOT_ASSIGNED_TO_CHANNEL',
+  Required = 'REQUIRED',
+  Unique = 'UNIQUE'
+}
+
+export type ProductVariantBulkResult = {
+  __typename?: 'ProductVariantBulkResult';
+  /** List of errors occurred on create attempt. */
+  errors?: Maybe<Array<ProductVariantBulkError>>;
+  /** Product variant data. */
+  productVariant?: Maybe<ProductVariant>;
+};
+
+/**
+ * Update multiple product variants.
+ *
+ * Added in Saleor 3.11.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ *
+ * Requires one of the following permissions: MANAGE_PRODUCTS.
+ */
+export type ProductVariantBulkUpdate = {
+  __typename?: 'ProductVariantBulkUpdate';
+  /** Returns how many objects were updated. */
+  count: Scalars['Int'];
+  errors: Array<ProductVariantBulkError>;
+  /** List of the updated variants. */
+  results: Array<ProductVariantBulkResult>;
+};
+
+/**
+ * Input fields to update product variants.
+ *
+ * Added in Saleor 3.11.
+ */
+export type ProductVariantBulkUpdateInput = {
+  /** List of attributes specific to this variant. */
+  attributes?: InputMaybe<Array<BulkAttributeValueInput>>;
+  /** List of prices assigned to channels. */
+  channelListings?: InputMaybe<Array<ProductVariantChannelListingAddInput>>;
+  /**
+   * External ID of this product variant.
+   *
+   * Added in Saleor 3.10.
+   */
+  externalReference?: InputMaybe<Scalars['String']>;
+  /** ID of the product variant to update. */
+  id: Scalars['ID'];
+  /**
+   * Fields required to update the product variant metadata.
+   *
+   * Added in Saleor 3.8.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /** Variant name. */
+  name?: InputMaybe<Scalars['String']>;
+  /**
+   * Determines if variant is in preorder.
+   *
+   * Added in Saleor 3.1.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  preorder?: InputMaybe<PreorderSettingsInput>;
+  /**
+   * Fields required to update the product variant private metadata.
+   *
+   * Added in Saleor 3.8.
+   */
+  privateMetadata?: InputMaybe<Array<MetadataInput>>;
+  /**
+   * Determines maximum quantity of `ProductVariant`,that can be bought in a single checkout.
+   *
+   * Added in Saleor 3.1.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  quantityLimitPerCustomer?: InputMaybe<Scalars['Int']>;
+  /** Stock keeping unit. */
+  sku?: InputMaybe<Scalars['String']>;
+  /** Stocks of a product available for sale. */
+  stocks?: InputMaybe<Array<StockInput>>;
+  /** Determines if the inventory of this variant should be tracked. If false, the quantity won't change when customers buy this item. */
+  trackInventory?: InputMaybe<Scalars['Boolean']>;
+  /** Weight of the Product Variant. */
+  weight?: InputMaybe<Scalars['WeightScalar']>;
 };
 
 /** Represents product varaint channel listing. */
@@ -17731,6 +18018,41 @@ export type ProductVariantSortingInput = {
   direction: OrderDirection;
   /** Sort productVariants by the selected field. */
   field: ProductVariantSortField;
+};
+
+/**
+ * Event sent when product variant stock is updated.
+ *
+ * Added in Saleor 3.11.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type ProductVariantStockUpdated = Event & {
+  __typename?: 'ProductVariantStockUpdated';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The product variant the event relates to. */
+  productVariant?: Maybe<ProductVariant>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
+  /** Look up a warehouse. */
+  warehouse?: Maybe<Warehouse>;
+};
+
+
+/**
+ * Event sent when product variant stock is updated.
+ *
+ * Added in Saleor 3.11.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type ProductVariantStockUpdatedProductVariantArgs = {
+  channel?: InputMaybe<Scalars['String']>;
 };
 
 /**
@@ -18363,7 +18685,9 @@ export type QueryAttributesArgs = {
   filter?: InputMaybe<AttributeFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
+  search?: InputMaybe<Scalars['String']>;
   sortBy?: InputMaybe<AttributeSortingInput>;
+  where?: InputMaybe<AttributeWhereInput>;
 };
 
 
@@ -19584,19 +19908,9 @@ export type ShippingMethod = Node & ObjectWithMetadata & {
    * A single key from public metadata.
    *
    * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   metafield?: Maybe<Scalars['String']>;
-  /**
-   * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
+  /** Public metadata. Use `keys` to control which fields you want to include. The default is to include everything. */
   metafields?: Maybe<Scalars['Metadata']>;
   /** Minimum delivery days for this shipping method. */
   minimumDeliveryDays?: Maybe<Scalars['Int']>;
@@ -19617,19 +19931,9 @@ export type ShippingMethod = Node & ObjectWithMetadata & {
    * A single key from private metadata. Requires staff permissions to access.
    *
    * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   privateMetafield?: Maybe<Scalars['String']>;
-  /**
-   * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
+  /** Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything. */
   privateMetafields?: Maybe<Scalars['Metadata']>;
   /** Returns translated shipping method fields for the given language code. */
   translation?: Maybe<ShippingMethodTranslation>;
@@ -21246,6 +21550,20 @@ export enum StorePaymentMethodEnum {
   /** On session storage type. The payment is stored only to be reused when the customer is present in the checkout flow. */
   OnSession = 'ON_SESSION'
 }
+
+/**
+ * Define the filtering options for string fields.
+ *
+ * Added in Saleor 3.11.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type StringFilterInput = {
+  /** The value equal to. */
+  eq?: InputMaybe<Scalars['String']>;
+  /** The value included in. */
+  oneOf?: InputMaybe<Array<Scalars['String']>>;
+};
 
 export type Subscription = {
   __typename?: 'Subscription';
@@ -24005,6 +24323,42 @@ export type WebhookDelete = {
   webhookErrors: Array<WebhookError>;
 };
 
+/**
+ * Performs a dry run of a webhook event. Supports a single event (the first, if multiple provided in the `query`). Requires permission relevant to processed event.
+ *
+ * Added in Saleor 3.11.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ *
+ * Requires one of the following permissions: AUTHENTICATED_STAFF_USER.
+ */
+export type WebhookDryRun = {
+  __typename?: 'WebhookDryRun';
+  errors: Array<WebhookDryRunError>;
+  /** JSON payload, that would be sent out to webhook's target URL. */
+  payload?: Maybe<Scalars['JSONString']>;
+};
+
+export type WebhookDryRunError = {
+  __typename?: 'WebhookDryRunError';
+  /** The error code. */
+  code: WebhookDryRunErrorCode;
+  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
+  field?: Maybe<Scalars['String']>;
+  /** The error message. */
+  message?: Maybe<Scalars['String']>;
+};
+
+/** An enumeration. */
+export enum WebhookDryRunErrorCode {
+  GraphqlError = 'GRAPHQL_ERROR',
+  InvalidId = 'INVALID_ID',
+  MissingPermission = 'MISSING_PERMISSION',
+  NotFound = 'NOT_FOUND',
+  TypeNotSupported = 'TYPE_NOT_SUPPORTED',
+  UnableToParse = 'UNABLE_TO_PARSE'
+}
+
 export type WebhookError = {
   __typename?: 'WebhookError';
   /** The error code. */
@@ -24262,6 +24616,8 @@ export enum WebhookEventTypeAsyncEnum {
   ProductVariantMetadataUpdated = 'PRODUCT_VARIANT_METADATA_UPDATED',
   /** A product variant is out of stock. */
   ProductVariantOutOfStock = 'PRODUCT_VARIANT_OUT_OF_STOCK',
+  /** A product variant stock is updated */
+  ProductVariantStockUpdated = 'PRODUCT_VARIANT_STOCK_UPDATED',
   /** A product variant is updated. */
   ProductVariantUpdated = 'PRODUCT_VARIANT_UPDATED',
   /** A sale is created. */
@@ -24586,6 +24942,8 @@ export enum WebhookEventTypeEnum {
   ProductVariantMetadataUpdated = 'PRODUCT_VARIANT_METADATA_UPDATED',
   /** A product variant is out of stock. */
   ProductVariantOutOfStock = 'PRODUCT_VARIANT_OUT_OF_STOCK',
+  /** A product variant stock is updated */
+  ProductVariantStockUpdated = 'PRODUCT_VARIANT_STOCK_UPDATED',
   /** A product variant is updated. */
   ProductVariantUpdated = 'PRODUCT_VARIANT_UPDATED',
   /** A sale is created. */
@@ -24789,6 +25147,7 @@ export enum WebhookSampleEventTypeEnum {
   ProductVariantDeleted = 'PRODUCT_VARIANT_DELETED',
   ProductVariantMetadataUpdated = 'PRODUCT_VARIANT_METADATA_UPDATED',
   ProductVariantOutOfStock = 'PRODUCT_VARIANT_OUT_OF_STOCK',
+  ProductVariantStockUpdated = 'PRODUCT_VARIANT_STOCK_UPDATED',
   ProductVariantUpdated = 'PRODUCT_VARIANT_UPDATED',
   SaleCreated = 'SALE_CREATED',
   SaleDeleted = 'SALE_DELETED',
@@ -24816,6 +25175,42 @@ export enum WebhookSampleEventTypeEnum {
   WarehouseDeleted = 'WAREHOUSE_DELETED',
   WarehouseMetadataUpdated = 'WAREHOUSE_METADATA_UPDATED',
   WarehouseUpdated = 'WAREHOUSE_UPDATED'
+}
+
+/**
+ * Trigger a webhook event. Supports a single event (the first, if multiple provided in the `webhook.subscription_query`). Requires permission relevant to processed event. Successfully delivered webhook returns `delivery` with status='PENDING' and empty payload.
+ *
+ * Added in Saleor 3.11.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ *
+ * Requires one of the following permissions: AUTHENTICATED_STAFF_USER.
+ */
+export type WebhookTrigger = {
+  __typename?: 'WebhookTrigger';
+  delivery?: Maybe<EventDelivery>;
+  errors: Array<WebhookTriggerError>;
+};
+
+export type WebhookTriggerError = {
+  __typename?: 'WebhookTriggerError';
+  /** The error code. */
+  code: WebhookTriggerErrorCode;
+  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
+  field?: Maybe<Scalars['String']>;
+  /** The error message. */
+  message?: Maybe<Scalars['String']>;
+};
+
+/** An enumeration. */
+export enum WebhookTriggerErrorCode {
+  GraphqlError = 'GRAPHQL_ERROR',
+  InvalidId = 'INVALID_ID',
+  MissingPermission = 'MISSING_PERMISSION',
+  MissingQuery = 'MISSING_QUERY',
+  NotFound = 'NOT_FOUND',
+  TypeNotSupported = 'TYPE_NOT_SUPPORTED',
+  UnableToParse = 'UNABLE_TO_PARSE'
 }
 
 /**
@@ -24893,10 +25288,27 @@ export type _Service = {
   sdl?: Maybe<Scalars['String']>;
 };
 
-export type FetchProductsListQueryVariables = Exact<{ [key: string]: never; }>;
+export type MenuItemFragmentFragment = { __typename?: 'MenuItem', id: string, name: string, url?: string | null, translation?: { __typename?: 'MenuItemTranslation', id: string, name: string } | null, category?: { __typename?: 'Category', id: string, slug: string } | null, collection?: { __typename?: 'Collection', id: string, slug: string } | null, page?: { __typename?: 'Page', id: string, slug: string } | null } & { ' $fragmentName'?: 'MenuItemFragmentFragment' };
+
+export type MenuItemWithChildrenFragmentFragment = { __typename?: 'MenuItem', id: string, name: string, url?: string | null, translation?: { __typename?: 'MenuItemTranslation', id: string, name: string } | null, category?: { __typename?: 'Category', id: string, slug: string } | null, collection?: { __typename?: 'Collection', id: string, slug: string } | null, page?: { __typename?: 'Page', id: string, slug: string } | null, children?: Array<(
+    { __typename?: 'MenuItem', children?: Array<(
+      { __typename?: 'MenuItem' }
+      & { ' $fragmentRefs'?: { 'MenuItemFragmentFragment': MenuItemFragmentFragment } }
+    )> | null }
+    & { ' $fragmentRefs'?: { 'MenuItemFragmentFragment': MenuItemFragmentFragment } }
+  )> | null } & { ' $fragmentName'?: 'MenuItemWithChildrenFragmentFragment' };
+
+export type MainMenuQueryVariables = Exact<{
+  locale: LanguageCodeEnum;
+  channel: Scalars['String'];
+}>;
 
 
-export type FetchProductsListQuery = { __typename?: 'Query', products?: { __typename?: 'ProductCountableConnection', edges: Array<{ __typename?: 'ProductCountableEdge', node: { __typename?: 'Product', name: string, description?: any | null } }> } | null };
+export type MainMenuQuery = { __typename?: 'Query', menu?: { __typename?: 'Menu', id: string, items?: Array<(
+      { __typename?: 'MenuItem' }
+      & { ' $fragmentRefs'?: { 'MenuItemWithChildrenFragmentFragment': MenuItemWithChildrenFragmentFragment } }
+    )> | null } | null };
 
-
-export const FetchProductsListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"FetchProductsList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"products"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"12"}},{"kind":"Argument","name":{"kind":"Name","value":"channel"},"value":{"kind":"StringValue","value":"default-channel","block":false}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]}}]}}]}}]} as unknown as DocumentNode<FetchProductsListQuery, FetchProductsListQueryVariables>;
+export const MenuItemFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MenuItemFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MenuItem"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"translation"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"languageCode"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"category"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"Field","name":{"kind":"Name","value":"collection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"Field","name":{"kind":"Name","value":"page"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]} as unknown as DocumentNode<MenuItemFragmentFragment, unknown>;
+export const MenuItemWithChildrenFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MenuItemWithChildrenFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MenuItem"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"translation"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"languageCode"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"category"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"Field","name":{"kind":"Name","value":"collection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"Field","name":{"kind":"Name","value":"page"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MenuItemFragment"}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MenuItemFragment"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},...MenuItemFragmentFragmentDoc.definitions]} as unknown as DocumentNode<MenuItemWithChildrenFragmentFragment, unknown>;
+export const MainMenuDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"MainMenu"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"LanguageCodeEnum"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"channel"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"menu"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"slug"},"value":{"kind":"StringValue","value":"navbar","block":false}},{"kind":"Argument","name":{"kind":"Name","value":"channel"},"value":{"kind":"Variable","name":{"kind":"Name","value":"channel"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MenuItemWithChildrenFragment"}}]}}]}}]}},...MenuItemWithChildrenFragmentFragmentDoc.definitions]} as unknown as DocumentNode<MainMenuQuery, MainMenuQueryVariables>;
