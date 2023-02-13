@@ -4,16 +4,12 @@ import {useCallback, useEffect} from 'react';
 
 import {useCSS, useEvent} from '@/common/hooks/hooks';
 
+import {config} from './consts';
 import {canRunRouteProgress, getStyles} from './helpers';
 
 import type {TransitionOptions} from '@/common/types/types';
 
-const config = {
-  startPosition: 0.3,
-  showSpinner: false,
-  color: 'hsl(234, 72%, 63%)',
-  height: `3px`,
-} as const;
+NProgress.configure({showSpinner: config.showSpinner});
 
 export const useRouteProgress = () => {
   const router = useRouter();
@@ -22,8 +18,6 @@ export const useRouteProgress = () => {
   useCSS(useCallback(() => getStyles(config), []));
 
   useEffect(() => {
-    NProgress.configure({showSpinner: config.showSpinner});
-
     const routeChangeStartHandler = (
       nextUrl: string,
       {shallow}: TransitionOptions,
