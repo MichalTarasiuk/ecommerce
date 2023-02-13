@@ -13,6 +13,8 @@ export const useChannel = () => {
   const router = useRouter();
   const [{data}] = useFetch<ChannelsQuery>({query: CHANNELS_QUERY});
 
+  const channel = useMemo(() => getChannel(router.query), [router.query]);
+
   const channels = useMemo(() => {
     return (
       data?.channels?.flatMap(({name, slug, isActive}) => {
@@ -29,8 +31,6 @@ export const useChannel = () => {
       }) ?? []
     );
   }, [data?.channels]);
-
-  const channel = useMemo(() => getChannel(router.query), [router.query]);
 
   const setChannel = useCallback(
     async (nextChannel: string) => {

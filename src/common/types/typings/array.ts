@@ -20,3 +20,5 @@ export type Every<AnyArray extends Any, Value> = AnyArray extends readonly [
       : Every<Rest, Value>
     : false
   : false;
+
+export type ToReadonly<Arr extends Any> = ReadonlyArray<Arr[number]>;

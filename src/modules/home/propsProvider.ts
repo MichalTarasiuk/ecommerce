@@ -19,14 +19,13 @@ export const getStaticPaths = async () => {
   const {data: channelsSlugsQuery} = await urqlClient
     .query<ChannelsQuery>(CHANNELS_QUERY, {})
     .toPromise();
-  const channels =
-    channelsSlugsQuery?.channels?.flatMap(({isActive, slug}) => {
-      if (isActive) {
-        return [slug];
-      }
+  const channels = channelsSlugsQuery?.channels?.flatMap(({isActive, slug}) => {
+    if (isActive) {
+      return [slug];
+    }
 
-      return [];
-    }) ?? [];
+    return [];
+  }) ?? ['default-channel'];
 
   const paths = i18nConfig.locales.flatMap((locale) =>
     channels.map((channel) => ({
