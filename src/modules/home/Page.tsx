@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import {Text} from '@/common/components/components';
 import {useTranslate} from '@/common/hooks/hooks';
 import {DefaultLayout} from '@/layouts/layouts';
@@ -14,6 +16,7 @@ export function HomePage({}: HomePageProps) {
   return (
     <Text tag='p' size='small'>
       {translate('title')}
+      <Link href='/default-channel/pl-PL'>check</Link>
     </Text>
   );
 }
