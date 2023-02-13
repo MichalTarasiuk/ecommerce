@@ -2,10 +2,10 @@ import loadNamespaces from 'next-translate/loadNamespaces';
 
 import {createUrqlClient} from '@/app/queryClient/queryClient';
 import {routes} from '@/common/consts/routes';
-import CHANNELS_SLUGS_QUERY from '@/common/graphql/queries/ChannelsSlugs.graphql';
+import CHANNELS_QUERY from '@/common/graphql/queries/Channels.graphql';
 import {i18nConfig} from '@root/i18n';
 
-import type {ChannelsSlugsQuery} from '@/common/graphql/generated/graphql';
+import type {ChannelsQuery} from '@/common/graphql/generated/graphql';
 import type {InferParsedQuery} from '@/common/types/types';
 import type {
   GetStaticPathsResult,
@@ -17,10 +17,16 @@ export const getStaticPaths = async () => {
   const urqlClient = createUrqlClient();
 
   const {data: channelsSlugsQuery} = await urqlClient
-    .query<ChannelsSlugsQuery>(CHANNELS_SLUGS_QUERY, {})
+    .query<ChannelsQuery>(CHANNELS_QUERY, {})
     .toPromise();
   const channels =
-    channelsSlugsQuery?.channels?.map((channel) => channel.slug) ?? [];
+    channelsSlugsQuery?.channels?.flatMap(({isActive, slug}) => {
+      if (isActive) {
+        return [slug];
+      }
+
+      return [];
+    }) ?? [];
 
   const paths = i18nConfig.locales.flatMap((locale) =>
     channels.map((channel) => ({

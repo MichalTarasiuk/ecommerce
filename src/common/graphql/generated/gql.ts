@@ -15,7 +15,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
 const documents = {
     "fragment MenuItemFragment on MenuItem {\n  id\n  name\n  translation(languageCode: $locale) {\n    id\n    name\n  }\n  category {\n    id\n    slug\n  }\n  collection {\n    id\n    slug\n  }\n  page {\n    id\n    slug\n  }\n  url\n}": types.MenuItemFragmentFragmentDoc,
     "fragment MenuItemWithChildrenFragment on MenuItem {\n  id\n  name\n  translation(languageCode: $locale) {\n    id\n    name\n  }\n  category {\n    id\n    slug\n  }\n  collection {\n    id\n    slug\n  }\n  page {\n    id\n    slug\n  }\n  children {\n    ...MenuItemFragment\n    children {\n      ...MenuItemFragment\n    }\n  }\n  url\n}": types.MenuItemWithChildrenFragmentFragmentDoc,
-    "query ChannelsSlugs {\n  channels {\n    slug\n  }\n}": types.ChannelsSlugsDocument,
+    "query Channels {\n  channels {\n    id\n    slug\n    name\n    isActive\n  }\n}": types.ChannelsDocument,
     "query MainMenu($locale: LanguageCodeEnum!, $channel: String!) {\n  menu(slug: \"navbar\", channel: $channel) {\n    id\n    items {\n      ...MenuItemWithChildrenFragment\n    }\n  }\n}": types.MainMenuDocument,
 };
 
@@ -44,7 +44,7 @@ export function graphql(source: "fragment MenuItemWithChildrenFragment on MenuIt
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query ChannelsSlugs {\n  channels {\n    slug\n  }\n}"): (typeof documents)["query ChannelsSlugs {\n  channels {\n    slug\n  }\n}"];
+export function graphql(source: "query Channels {\n  channels {\n    id\n    slug\n    name\n    isActive\n  }\n}"): (typeof documents)["query Channels {\n  channels {\n    id\n    slug\n    name\n    isActive\n  }\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

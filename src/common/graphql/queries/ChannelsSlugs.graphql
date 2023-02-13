@@ -1,5 +1,0 @@
-query ChannelsSlugs {
-  channels {
-    slug
-  }
-}

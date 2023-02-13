@@ -1,0 +1,8 @@
+query Channels {
+  channels {
+    id
+    slug
+    name
+    isActive
+  }
+}
