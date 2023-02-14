@@ -17,9 +17,9 @@ type CommonNamespace = {
   readonly en: typeof import('src/app/locales/en-US/common.json');
 };
 
-type AccountNamespace = {
-  readonly pl: typeof import('src/app/locales/pl-PL/account/index.json');
-  readonly en: typeof import('src/app/locales/en-US/account/index.json');
+type AccountRegisterNamespace = {
+  readonly pl: typeof import('src/app/locales/pl-PL/account/register.json');
+  readonly en: typeof import('src/app/locales/en-US/account/register.json');
 };
 
 export type Namespaces = {
@@ -27,8 +27,8 @@ export type Namespaces = {
     CommonNamespace['pl'],
     CommonNamespace['en']
   >;
-  readonly ['account.index']: ObjectType.Intersection<
-    AccountNamespace['en'],
-    AccountNamespace['pl']
+  readonly ['account.register']: ObjectType.Intersection<
+    AccountRegisterNamespace['en'],
+    AccountRegisterNamespace['pl']
   >;
 };

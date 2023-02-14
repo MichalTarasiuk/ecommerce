@@ -1,9 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  i18n: {
-    defaultLocale: 'pl',
-    locales: ['pl', 'en'],
-  },
   reactStrictMode: true,
   webpack: (webpackConfig) => {
     webpackConfig.module.rules.push({

@@ -1,1 +1,7 @@
-{}
+{
+  "form": {
+    "title": "Create new account",
+    "email": "Email",
+    "password": "Password"
+  }
+}

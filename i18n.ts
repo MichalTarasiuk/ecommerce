@@ -42,7 +42,7 @@ export const i18nConfig = {
   defaultLocale,
   pages: {
     '*': ['common'] as const,
-    [routes.account.register]: ['account.index', 'account.register'] as const,
+    [routes.account.register]: ['account.register'] as const,
   },
   loadLocaleFrom: (locale = defaultLocale, namespace) => {
     return import(
@@ -52,7 +52,6 @@ export const i18nConfig = {
       )}.json`
     )
       .then((moduleObject) => {
-        console.log({moduleObject});
         const locale: unknown = moduleObject.default;
 
         if (isI18nProviderProps(locale)) {
