@@ -6,12 +6,11 @@ import type {InputHTMLAttributes} from 'react';
 
 type InputAttributes = InputHTMLAttributes<HTMLInputElement>;
 type InputProps = InputAttributes & {
-  readonly type: Extract<
+  readonly type?: Extract<
     InputAttributes['type'],
     'text' | 'email' | 'password'
   >;
   readonly label: string;
-  readonly placeholder: string;
   readonly errorMessage?: string;
 };
 
@@ -21,7 +20,7 @@ export const TextInput = forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <div className='my-3'>
-        <label className='block' htmlFor={id}>
+        <label className='block mb-1' htmlFor={id}>
           {label}
         </label>
         <input

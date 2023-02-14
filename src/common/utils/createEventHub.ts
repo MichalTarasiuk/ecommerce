@@ -1,3 +1,4 @@
+// TODO: {} to Map
 import {keyIn} from './keyIn';
 import {isSet} from './typeof';
 

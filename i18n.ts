@@ -48,7 +48,7 @@ export const i18nConfig = {
           return locale;
         }
 
-        throw Error(`error during loading locale`);
+        throw Error('error during loading locale');
       },
     );
   },

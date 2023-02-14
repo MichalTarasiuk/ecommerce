@@ -1,3 +1,4 @@
+// TODO: add useMenu hook
 import dynamic from 'next/dynamic';
 
 import {Navigation, Footer} from './components/components';

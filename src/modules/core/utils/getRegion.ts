@@ -7,10 +7,12 @@ type Locale = Custom.ValueOf<(typeof i18nConfig)['locales']>;
 
 type Params =
   | {
-      readonly locale: Locale;
-      readonly channel: string;
+      readonly locale?: Locale;
+      readonly channel?: string;
     }
   | undefined;
+
+type Region = ReturnType<typeof getRegion>;
 
 const defaultChannelName = 'default-channel';
 
@@ -19,16 +21,27 @@ const localeToLanguageCodeEnumKey: Record<Locale, LanguageCodeEnum> = {
   'pl-PL': LanguageCodeEnum.Pl,
 };
 
-export const localeToLanguageCodeEnum = (
-  locale: Locale | undefined = i18nConfig.defaultLocale,
-) => localeToLanguageCodeEnumKey[locale];
+const languageCodeEnumToLocaleKey: Partial<Record<LanguageCodeEnum, Locale>> = {
+  [LanguageCodeEnum.EnUs]: 'en-US',
+  [LanguageCodeEnum.Pl]: 'pl-PL',
+};
+
+export const regionToPathname = ({
+  channel,
+  locale: languageCodeEnum,
+}: Region) => {
+  const locale =
+    languageCodeEnumToLocaleKey[languageCodeEnum] ?? i18nConfig.defaultLocale;
+
+  return `/${channel}/${locale}`;
+};
 
 export const getRegion = (params: Params) => {
   const {locale = i18nConfig.defaultLocale, channel = defaultChannelName} =
     params ?? {};
 
   return {
-    locale: localeToLanguageCodeEnum(locale),
+    locale: localeToLanguageCodeEnumKey[locale],
     channel,
   };
 };
