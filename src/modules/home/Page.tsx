@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import {Text} from '@/common/components/components';
 import {useTranslate} from '@/common/hooks/hooks';
-import {DefaultLayout} from '@/layouts/layouts';
+import {MainLayout} from '@/layouts/layouts';
 
 import type {getStaticProps} from './propsProvider';
 import type {InferGetStaticPropsType} from 'next';
@@ -21,6 +21,4 @@ export function HomePage({}: HomePageProps) {
   );
 }
 
-HomePage.getLayout = (page: ReactElement) => (
-  <DefaultLayout>{page}</DefaultLayout>
-);
+HomePage.getLayout = (page: ReactElement) => <MainLayout>{page}</MainLayout>;

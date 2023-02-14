@@ -18,7 +18,7 @@ const Menu = dynamic<MenuProps>(
   },
 );
 
-export function DefaultLayout({children}: DefaultLayoutProps) {
+export function MainLayout({children}: DefaultLayoutProps) {
   return (
     <div className='container m-auto'>
       <header>

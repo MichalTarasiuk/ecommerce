@@ -15,4 +15,3 @@ export * from './nodeEnvironment';
 export * from './resolve';
 export * from './isLastIndex';
 export * from './createFastContext';
-export * from './isNextLinkRequest';

@@ -4,7 +4,7 @@ import type {ssrExchange} from 'urql';
 
 export type SRRData = ReturnType<ReturnType<typeof ssrExchange>['extractData']>;
 
-const srrDataKey = Symbol();
+const srrDataKey = '__SRR_STATE_KEY__';
 
 export const dehydrate = (srrExchange: ReturnType<typeof ssrExchange>) => ({
   [srrDataKey]: srrExchange.extractData(),

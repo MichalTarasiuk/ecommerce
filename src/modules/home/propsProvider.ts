@@ -1,8 +1,11 @@
 import loadNamespaces from 'next-translate/loadNamespaces';
+import {ssrExchange as createSrrExcahnge} from 'urql';
 
-import {createUrqlClient} from '@/app/queryClient/queryClient';
+import {createUrqlClient, dehydrate} from '@/app/queryClient/queryClient';
 import {routes} from '@/common/consts/routes';
 import CHANNELS_QUERY from '@/common/graphql/queries/Channels.graphql';
+import {isClient} from '@/common/utils/utils';
+import {fetchLayoutData, getRegion} from '@/modules/core/utils/utils';
 import {i18nConfig} from '@root/i18n';
 
 import type {ChannelsQuery} from '@/common/graphql/generated/graphql';
@@ -45,15 +48,27 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({
   params,
 }: GetStaticPropsContext<InferParsedQuery<typeof getStaticPaths>>) => {
-  const {locale} = params ?? {};
-
-  const namespaces = await loadNamespaces({
-    locale: locale ?? i18nConfig.defaultLocale,
-    pathname: routes.home,
+  const srrExchange = createSrrExcahnge({
+    isClient: isClient(),
   });
+  const urqlClient = createUrqlClient({
+    exchanges: [srrExchange],
+  });
+
+  const [namespaces] = await Promise.all([
+    loadNamespaces({
+      locale: params?.locale ?? i18nConfig.defaultLocale,
+      pathname: routes.home,
+    }),
+    fetchLayoutData(urqlClient, {
+      region: getRegion(params),
+      isNextLinkRequest: false,
+    }),
+  ]);
 
   return {
     props: {
+      ...dehydrate(srrExchange),
       ...namespaces,
     },
   } satisfies GetStaticPropsResult<Record<PropertyKey, unknown>>;
