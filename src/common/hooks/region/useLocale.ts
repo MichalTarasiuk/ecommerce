@@ -1,7 +1,7 @@
 import {useRouter} from 'next/router';
 import {useCallback, useMemo} from 'react';
 
-import {getChannel, getLocale} from './helpers';
+import {getChannel, getLocaleName} from './helpers';
 
 import type {Custom} from '@/common/types/types';
 import type {i18nConfig} from '@root/i18n';
@@ -9,7 +9,7 @@ import type {i18nConfig} from '@root/i18n';
 export const useLocale = () => {
   const router = useRouter();
 
-  const locale = useMemo(() => getLocale(router.query), [router.query]);
+  const localeName = useMemo(() => getLocaleName(router.query), [router.query]);
 
   const setLocale = useCallback(
     async (nextLocale: Custom.ValueOf<(typeof i18nConfig)['locales']>) => {
@@ -25,7 +25,7 @@ export const useLocale = () => {
   );
 
   return {
-    locale,
+    localeName,
     setLocale,
   };
 };

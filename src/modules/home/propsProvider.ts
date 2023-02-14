@@ -48,6 +48,8 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({
   params,
 }: GetStaticPropsContext<InferParsedQuery<typeof getStaticPaths>>) => {
+  const region = getRegion(params);
+
   const srrExchange = createSrrExcahnge({
     isClient: isClient(),
   });
@@ -57,11 +59,11 @@ export const getStaticProps = async ({
 
   const [namespaces] = await Promise.all([
     loadNamespaces({
-      locale: params?.locale ?? i18nConfig.defaultLocale,
+      locale: region.localeName,
       pathname: routes.home,
     }),
     fetchLayoutData(urqlClient, {
-      region: getRegion(params),
+      region,
       isNextLinkRequest: false,
     }),
   ]);

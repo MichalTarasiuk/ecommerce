@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access -- to unkown */
+import {signs} from '@/common/consts/consts';
+import {routes} from '@/common/consts/routes';
 import {isObject} from '@/common/utils/utils';
 
 import type {Custom} from '@/common/types/types';
@@ -10,6 +12,10 @@ type Pages = I18nConfig extends {
   ? Pages
   : never;
 
+type I18nProviderProps = Awaited<
+  ReturnType<Exclude<I18nConfig['loadLocaleFrom'], undefined>>
+>;
+
 export type ReadonlyPages = {
   readonly [Key in keyof Pages]: Custom.ReadonlyAll<Pages[Key]>;
 };
@@ -20,37 +26,48 @@ export type ExtendedI18nConfig = Omit<I18nConfig, 'pages'> & {
   readonly skipInitialProps: boolean;
 };
 
-const locales = {
+const availableLocales = {
   english: 'en-US',
   polish: 'pl-PL',
 } as const;
 
-const defaultLocale = locales.english;
+const locales = Object.values(availableLocales);
+const defaultLocale = availableLocales.english;
 
-const isI18nProviderProps = (
-  value: unknown,
-): value is Awaited<
-  ReturnType<Exclude<I18nConfig['loadLocaleFrom'], undefined>>
-> => isObject(value);
+const isI18nProviderProps = (value: unknown): value is I18nProviderProps =>
+  isObject(value);
 
 export const i18nConfig = {
-  locales: Object.values(locales),
-  defaultLocale: defaultLocale,
+  locales,
+  defaultLocale,
   pages: {
-    '/': ['common'] as const,
+    '*': ['common'] as const,
+    [routes.account.register]: ['account.index', 'account.register'] as const,
   },
   loadLocaleFrom: (locale = defaultLocale, namespace) => {
-    return import(`./src/app/locales/${locale}/${namespace}.json`).then(
-      (moduleObject) => {
+    const path = `./src/app/locales/${locale}/${namespace.replace(
+      signs.dot,
+      signs.slash,
+    )}.json`;
+
+    return import(path)
+      .then((moduleObject) => {
+        console.log({moduleObject});
         const locale: unknown = moduleObject.default;
 
         if (isI18nProviderProps(locale)) {
           return locale;
         }
 
-        throw Error('error during loading locale');
-      },
-    );
+        throw Error('locale is not i18n provider props');
+      })
+      .catch((error) => {
+        if (error instanceof Error) {
+          console.error(error.message);
+        }
+
+        return {};
+      });
   },
   loader: false,
   skipInitialProps: true,

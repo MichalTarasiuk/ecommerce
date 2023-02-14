@@ -1,1 +1,4 @@
-export {RegisterPage as default} from '@/modules/account/register/register';
+export {
+  RegisterPage as default,
+  getServerSideProps,
+} from '@/modules/account/register/register';

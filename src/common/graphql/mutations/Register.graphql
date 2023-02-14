@@ -1,0 +1,10 @@
+#import "../fragments/AccountError.graphql"
+
+mutation Register($input: AccountRegisterInput!) {
+  accountRegister(input: $input) {
+    errors {
+      ...AccountErrorFragment
+    }
+    requiresConfirmation
+  }
+}

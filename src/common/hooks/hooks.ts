@@ -1,4 +1,4 @@
-export * from './useTranslate';
+export * from './useTranslate/useTranslate';
 export * from './useRefreshProps';
 export * from './useRerender';
 export * from './useCustomCompareMemo';

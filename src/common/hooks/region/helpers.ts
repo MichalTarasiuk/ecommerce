@@ -17,7 +17,7 @@ export const getChannel = (parsedUrlQuery: ParsedUrlQuery) => {
   return defaultChannelName;
 };
 
-export const getLocale = (parsedUrlQuery: ParsedUrlQuery) => {
+export const getLocaleName = (parsedUrlQuery: ParsedUrlQuery) => {
   if (
     isObject(parsedUrlQuery) &&
     keyIn(parsedUrlQuery, 'locale') &&

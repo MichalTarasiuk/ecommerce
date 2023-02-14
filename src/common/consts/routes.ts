@@ -3,5 +3,6 @@ export const routes = {
   account: {
     register: '/account/register',
     login: '/account/login',
+    confirm: '/account/confirm',
   },
-};
+} as const;
