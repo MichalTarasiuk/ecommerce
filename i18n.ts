@@ -45,12 +45,12 @@ export const i18nConfig = {
     [routes.account.register]: ['account.index', 'account.register'] as const,
   },
   loadLocaleFrom: (locale = defaultLocale, namespace) => {
-    const path = `./src/app/locales/${locale}/${namespace.replace(
-      signs.dot,
-      signs.slash,
-    )}.json`;
-
-    return import(path)
+    return import(
+      `./src/app/locales/${locale}/${namespace.replace(
+        signs.dot,
+        signs.slash,
+      )}.json`
+    )
       .then((moduleObject) => {
         console.log({moduleObject});
         const locale: unknown = moduleObject.default;
