@@ -1,13 +1,15 @@
 import {Heading} from './Heading';
 
-import type {ComponentMeta, ComponentStory} from '@storybook/react';
+import type {Meta, StoryFn} from '@storybook/react';
 
-export default {
+const meta: Meta<typeof Heading> = {
   title: 'components/atoms/Heading',
   component: Heading,
-} satisfies ComponentMeta<typeof Heading>;
+};
 
-export const Primary: ComponentStory<typeof Heading> = (props) => {
+export default meta;
+
+export const Primary: StoryFn<typeof Heading> = (props) => {
   return <Heading {...props}>Example heading</Heading>;
 };
 

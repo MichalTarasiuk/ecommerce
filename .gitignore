@@ -28,8 +28,5 @@ i18n.js
 *.tsbuildinfo
 next-env.d.ts
 
-# storybook
-public/tailwind.css
-
 # environment variables
 .env.local

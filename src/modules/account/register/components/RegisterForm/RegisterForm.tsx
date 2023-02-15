@@ -1,11 +1,10 @@
 import {useCallback} from 'react';
 import {useForm} from 'react-hook-form';
-import {useMutation, useQuery} from 'urql';
+import {useMutation} from 'urql';
 
 import {Heading, TextInput} from '@/common/components/components';
 import {routes} from '@/common/consts/routes';
 import REGISTER_MUTATION from '@/common/graphql/mutations/Register.graphql';
-import ABC_QUERY from '@/common/graphql/queries/MainMenu.graphql';
 import {useTranslate, useRegion} from '@/common/hooks/hooks';
 
 import {fieldValues, isFieldValue} from './helpers';
@@ -16,7 +15,6 @@ import type {
 } from '@/common/graphql/generated/graphql';
 
 export function RegisterForm() {
-  useQuery({query: ABC_QUERY});
   const [, registerMutation] = useMutation<
     RegisterMutation,
     RegisterMutationVariables
@@ -28,15 +26,13 @@ export function RegisterForm() {
   const {translate} = useTranslate('account.register');
 
   const submit = useCallback(
-    async (values: typeof fieldValues) => {
-      const {locale: languageCode, channel} = region;
+    async (values: Record<keyof typeof fieldValues, string>) => {
       const redirectUrl = `${window.location.origin}${routes.account.confirm}`;
 
       const {data} = await registerMutation({
         input: {
           ...values,
-          languageCode,
-          channel,
+          ...region,
           redirectUrl,
         },
       });

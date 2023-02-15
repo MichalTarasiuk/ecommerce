@@ -1,8 +1,9 @@
+#import "../fragments/AccountError.graphql"
+
 mutation ConfirmAccount($email: String!, $token: String!) {
   confirmAccount(email: $email, token: $token) {
     errors {
-      field
-      code
+      ...AccountErrorFragment
     }
     user {
       email

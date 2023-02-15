@@ -28,7 +28,6 @@ export const useRegion = () => {
       : localeNameToLanguageCode[i18nConfig.defaultLocale];
 
     return {
-      localeName,
       locale,
       channel: getChannel(router.query),
     };

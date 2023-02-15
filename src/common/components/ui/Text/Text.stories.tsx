@@ -1,13 +1,15 @@
 import {Text} from './Text';
 
-import type {ComponentMeta, ComponentStory} from '@storybook/react';
+import type {Meta, StoryFn} from '@storybook/react';
 
-export default {
+const meta: Meta<typeof Text> = {
   title: 'components/atoms/Text',
   component: Text,
-} satisfies ComponentMeta<typeof Text>;
+};
 
-export const Primary: ComponentStory<typeof Text> = (props) => {
+export default meta;
+
+export const Primary: StoryFn<typeof Text> = (props) => {
   return <Text {...props}>Example text</Text>;
 };
 
@@ -17,7 +19,7 @@ Primary.args = {
   tag: 'p',
 };
 
-export const ErrorText: ComponentStory<typeof Text> = (props) => {
+export const ErrorText: StoryFn<typeof Text> = (props) => {
   return <Text {...props}>Example text</Text>;
 };
 

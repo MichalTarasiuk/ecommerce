@@ -17,7 +17,7 @@ export function VisuallyHidden({
 }: VisuallyHiddenProps) {
   return (
     <Tag
-      className={classNames('sr-only', {
+      className={classNames('sr-only abc', {
         'focus-within:not-sr-only': visibleOnFocus,
       })}
     >

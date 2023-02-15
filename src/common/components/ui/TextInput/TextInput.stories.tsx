@@ -1,13 +1,15 @@
 import {TextInput} from './TextInput';
 
-import type {ComponentMeta, ComponentStory} from '@storybook/react';
+import type {Meta, StoryFn} from '@storybook/react';
 
-export default {
+const meta: Meta<typeof TextInput> = {
   title: 'components/atoms/TextInput',
   component: TextInput,
-} satisfies ComponentMeta<typeof TextInput>;
+};
 
-export const Primary: ComponentStory<typeof TextInput> = (props) => {
+export default meta;
+
+export const Primary: StoryFn<typeof TextInput> = (props) => {
   return <TextInput {...props} />;
 };
 
@@ -16,7 +18,7 @@ Primary.args = {
   label: 'Text',
 };
 
-export const Error: ComponentStory<typeof TextInput> = (props) => {
+export const Error: StoryFn<typeof TextInput> = (props) => {
   return <TextInput {...props} />;
 };
 

@@ -42,11 +42,11 @@ src/common/graphql/generated/**
 # eslint
 .eslintignore
 
-# storybook
-public/tailwind.css
-
 # images
 *.svg
 
 # environment variables
 .env.example
+
+# pnpm
+.npmrc
