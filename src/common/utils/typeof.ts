@@ -31,3 +31,6 @@ export const isString = (operand: unknown): operand is string =>
 
 export const isFunction = (operand: unknown): operand is FunctionType.Any =>
   inferType(operand) === 'function';
+
+export const isRegExp = (operand: unknown): operand is RegExp =>
+  inferType(operand, true) === 'regexp';
