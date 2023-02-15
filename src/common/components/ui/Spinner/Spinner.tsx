@@ -1,4 +1,4 @@
-import RefreshIcon from 'public/icons/refresh.svg';
+import {ReactComponent as RefreshIcon} from 'public/icons/refresh.svg';
 
 export function Spinner() {
   return (

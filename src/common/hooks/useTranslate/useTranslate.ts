@@ -1,6 +1,7 @@
 import useTranslation from 'next-translate/useTranslation';
 
-import type {NamespaceKeyUnion, Namespaces} from './namespaces';
+import type {Namespaces} from './namespaces';
+import type {NamespaceKeyUnion} from './types';
 import type {ArrayType, ObjectType} from '@/common/types/types';
 
 /**

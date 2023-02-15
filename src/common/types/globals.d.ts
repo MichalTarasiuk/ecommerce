@@ -7,7 +7,10 @@ declare module '*.graphql' {
 }
 
 declare module '*.svg' {
-  const Component: React.FC<React.SVGProps<SVGSVGElement>>;
-
-  export = Component;
+  import type {ComponentType} from 'react';
+  export const ReactComponent: ComponentType<React.SVGProps<SVGSVGElement>>;
+  const content: {
+    readonly ReactComponent: ReactComponent;
+  };
+  export default content;
 }

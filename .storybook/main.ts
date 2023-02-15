@@ -28,9 +28,9 @@ const config: StorybookConfig = {
   docs: {
     autodocs: 'tag',
   },
-  webpackFinal: (config) => {
+  webpackFinal: (webpackConfig) => {
     const ruleSetRules =
-      config.module?.rules?.filter(
+      webpackConfig.module?.rules?.filter(
         (rule): rule is RuleSetRule => !isString(rule),
       ) ?? [];
     const fileLoaderRule = ruleSetRules.find(
@@ -40,14 +40,20 @@ const config: StorybookConfig = {
     if (fileLoaderRule) {
       fileLoaderRule.exclude = /.svg$/;
 
-      config.module?.rules?.push({
+      webpackConfig.module?.rules?.push({
         test: /.svg$/,
         enforce: 'pre',
         loader: require.resolve('@svgr/webpack'),
       });
     }
 
-    return config;
+    webpackConfig.module?.rules?.push({
+      test: /\.svg$/i,
+      issuer: /\.[jt]sx?$/,
+      use: ['@svgr/webpack', 'url-loader'],
+    });
+
+    return webpackConfig;
   },
 };
 export default config;
