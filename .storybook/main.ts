@@ -7,8 +7,8 @@ import {
   isFunction,
 } from '@/common/utils/utils';
 
-import type {StorybookConfig} from '@storybook/nextjs';
 import type {Custom, FunctionType} from '@/common/types/types';
+import type {StorybookConfig} from '@storybook/nextjs';
 
 type Configuration = Awaited<
   ReturnType<Exclude<StorybookConfig['webpack'], undefined>>
@@ -22,8 +22,9 @@ type RuleSetRule = Exclude<
 >;
 
 type ObjectRuleSetUseItem = {
-  loader: string;
-  options: {
+  readonly loader: string;
+  readonly options: {
+    // eslint-disable-next-line functional/prefer-readonly-type -- plugins should be writable
     plugins: Array<FunctionType.Any | string>;
   };
 };

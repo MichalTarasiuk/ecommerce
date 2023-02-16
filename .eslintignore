@@ -47,3 +47,6 @@ src/common/graphql/generated/**
 
 # pnpm
 .npmrc
+
+# storybook
+!.storybook

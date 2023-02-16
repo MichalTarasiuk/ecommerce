@@ -77,14 +77,7 @@
   },
   "overrides": [
     {
-      "files": [
-        "src/pages/**/*.tsx",
-        "./*.ts",
-        "./*.js",
-        "./*.mjs",
-        "*.stories.tsx",
-        "*.d.ts"
-      ],
+      "files": ["src/pages/**/*.tsx", "./*.ts", "./*.js", "./*.mjs", "*.d.ts"],
       "rules": {
         "import/no-default-export": "off"
       }
@@ -94,6 +87,12 @@
       "rules": {
         "@typescript-eslint/no-unsafe-call": "off",
         "@typescript-eslint/no-unsafe-member-access": "off"
+      }
+    },
+    {
+      "files": ["./.storybook/**/*", "*.stories.@(ts|tsx)"],
+      "rules": {
+        "import/no-default-export": "off"
       }
     }
   ]

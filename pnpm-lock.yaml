@@ -40,7 +40,6 @@ specifiers:
   eslint-plugin-functional: ^5.0.0
   eslint-plugin-import: ^2.27.5
   eslint-plugin-react-hooks: ^4.6.0
-  eslint-plugin-storybook: ^0.6.10
   file-loader: ^6.2.0
   graphql: ^16.6.0
   graphql-tag: ^2.12.6
@@ -119,7 +118,6 @@ devDependencies:
   eslint-plugin-functional: 5.0.4_7uibuqfxkfaozanbtbziikiqje
   eslint-plugin-import: 2.27.5_5bd2awvy5krymu47tpr7ia4m6m
   eslint-plugin-react-hooks: 4.6.0_eslint@8.32.0
-  eslint-plugin-storybook: 0.6.10_7uibuqfxkfaozanbtbziikiqje
   file-loader: 6.2.0_webpack@5.75.0
   graphql-tag: 2.12.6_graphql@16.6.0
   husky: 8.0.3
@@ -3102,7 +3100,7 @@ packages:
     dependencies:
       '@storybook/client-logger': 7.0.0-beta.48
       '@storybook/core-events': 7.0.0-beta.48
-      '@storybook/csf': 0.0.2-next.9
+      '@storybook/csf': 0.0.2-next.10
       '@storybook/global': 5.0.0
       '@storybook/manager-api': 7.0.0-beta.48_biqbaboplfbrettd7655fr4n2y
       '@storybook/preview-api': 7.0.0-beta.48
@@ -3249,7 +3247,7 @@ packages:
       '@storybook/client-logger': 7.0.0-beta.48
       '@storybook/components': 7.0.0-beta.48_biqbaboplfbrettd7655fr4n2y
       '@storybook/core-events': 7.0.0-beta.48
-      '@storybook/csf': 0.0.2-next.9
+      '@storybook/csf': 0.0.2-next.10
       '@storybook/docs-tools': 7.0.0-beta.48
       '@storybook/global': 5.0.0
       '@storybook/manager-api': 7.0.0-beta.48_biqbaboplfbrettd7655fr4n2y
@@ -3456,7 +3454,7 @@ packages:
       '@babel/core': 7.20.12
       '@babel/preset-env': 7.20.2_@babel+core@7.20.12
       '@babel/types': 7.20.7
-      '@storybook/csf': 0.0.2-next.9
+      '@storybook/csf': 0.0.2-next.10
       '@storybook/csf-tools': 7.0.0-beta.48
       '@storybook/node-logger': 7.0.0-beta.48
       '@storybook/types': 7.0.0-beta.48
@@ -3478,7 +3476,7 @@ packages:
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
       '@storybook/client-logger': 7.0.0-beta.48
-      '@storybook/csf': 0.0.2-next.9
+      '@storybook/csf': 0.0.2-next.10
       '@storybook/global': 5.0.0
       '@storybook/theming': 7.0.0-beta.48_biqbaboplfbrettd7655fr4n2y
       '@storybook/types': 7.0.0-beta.48
@@ -3539,7 +3537,7 @@ packages:
       '@storybook/builder-manager': 7.0.0-beta.48
       '@storybook/core-common': 7.0.0-beta.48
       '@storybook/core-events': 7.0.0-beta.48
-      '@storybook/csf': 0.0.2-next.9
+      '@storybook/csf': 0.0.2-next.10
       '@storybook/csf-tools': 7.0.0-beta.48
       '@storybook/docs-mdx': 0.0.1-next.6
       '@storybook/global': 5.0.0
@@ -3609,7 +3607,7 @@ packages:
     resolution: {integrity: sha512-NL8SWlzAYHG2kLtC6l+jRt3tYQU06yzuwGVA+oZm7yrnelHgKyg2Er35zEZafustcm0lKCUwirITN+KdujYDvQ==}
     dependencies:
       '@babel/types': 7.20.7
-      '@storybook/csf': 0.0.2-next.9
+      '@storybook/csf': 0.0.2-next.10
       '@storybook/types': 7.0.0-beta.48
       fs-extra: 11.1.0
       recast: 0.23.1
@@ -3618,14 +3616,8 @@ packages:
       - supports-color
     dev: true
 
-  /@storybook/csf/0.0.1:
-    resolution: {integrity: sha512-USTLkZze5gkel8MYCujSRBVIrUQ3YPBrLOx7GNk/0wttvVtlzWXAq9eLbQ4p/NicGxP+3T7KPEMVV//g+yubpw==}
-    dependencies:
-      lodash: 4.17.21
-    dev: true
-
-  /@storybook/csf/0.0.2-next.9:
-    resolution: {integrity: sha512-ECOLMK425s+z8oA0aVAhBhhquuwTsZrM4oha/5De44JG8uYGXhqVrv/l27oxZEkwytuiQu+9f65HxYli+DY+3w==}
+  /@storybook/csf/0.0.2-next.10:
+    resolution: {integrity: sha512-m2PFgBP/xRIF85VrDhvesn9ktaD2pN3VUjvMqkAL/cINp/3qXsCyI81uw7N5VEOkQAbWrY2FcydnvEPDEdE8fA==}
     dependencies:
       type-fest: 2.19.0
     dev: true
@@ -3673,7 +3665,7 @@ packages:
       '@storybook/channels': 7.0.0-beta.48
       '@storybook/client-logger': 7.0.0-beta.48
       '@storybook/core-events': 7.0.0-beta.48
-      '@storybook/csf': 0.0.2-next.9
+      '@storybook/csf': 0.0.2-next.10
       '@storybook/global': 5.0.0
       '@storybook/router': 7.0.0-beta.48_biqbaboplfbrettd7655fr4n2y
       '@storybook/theming': 7.0.0-beta.48_biqbaboplfbrettd7655fr4n2y
@@ -3829,7 +3821,7 @@ packages:
       '@storybook/channels': 7.0.0-beta.48
       '@storybook/client-logger': 7.0.0-beta.48
       '@storybook/core-events': 7.0.0-beta.48
-      '@storybook/csf': 0.0.2-next.9
+      '@storybook/csf': 0.0.2-next.10
       '@storybook/global': 5.0.0
       '@storybook/types': 7.0.0-beta.48
       '@types/qs': 6.9.7
@@ -6985,22 +6977,6 @@ packages:
       semver: 6.3.0
       string.prototype.matchall: 4.0.8
     dev: false
-
-  /eslint-plugin-storybook/0.6.10_7uibuqfxkfaozanbtbziikiqje:
-    resolution: {integrity: sha512-3DKXRey06EhwnTKaG6fgMqGTy4C3z6Ikyv6VVixO5BvaExWQe3yGWIAufrC2Et0OaAMIaMwx9KWjqb/Wq+JxPg==}
-    engines: {node: 12.x || 14.x || >= 16}
-    peerDependencies:
-      eslint: '>=6'
-    dependencies:
-      '@storybook/csf': 0.0.1
-      '@typescript-eslint/utils': 5.52.0_7uibuqfxkfaozanbtbziikiqje
-      eslint: 8.32.0
-      requireindex: 1.2.0
-      ts-dedent: 2.2.0
-    transitivePeerDependencies:
-      - supports-color
-      - typescript
-    dev: true
 
   /eslint-scope/5.1.1:
     resolution: {integrity: sha512-2NxwbF/hZ0KpepYN0cNbo+FN6XoK7GaHlQhgx/hIZl6Va0bF45RQOOwhLIy8lQDbuCiadSLCBnH2CFYquit5bw==}
@@ -10778,11 +10754,6 @@ packages:
 
   /require-main-filename/2.0.0:
     resolution: {integrity: sha512-NKN5kMDylKuldxYLSUfrbo5Tuzh4hd+2E8NPPX02mZtn1VuREQToYe/ZdlJy+J3uCpfaiGF05e7B8W0iXbQHmg==}
-    dev: true
-
-  /requireindex/1.2.0:
-    resolution: {integrity: sha512-L9jEkOi3ASd9PYit2cwRfyppc9NoABujTP8/5gFcbERmo5jUoAKovIC3fsF17pkTnGsrByysqX+Kxd2OTNI1ww==}
-    engines: {node: '>=0.10.5'}
     dev: true
 
   /resolve-from/4.0.0:

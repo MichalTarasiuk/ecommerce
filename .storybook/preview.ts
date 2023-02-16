@@ -1,6 +1,6 @@
-import {FontDecorator, TranslateDecorator} from './decorators';
-
 import '../src/app/styles/globals.css';
+
+import {FontDecorator, TranslateDecorator} from './decorators';
 
 export const parameters = {
   backgrounds: {
