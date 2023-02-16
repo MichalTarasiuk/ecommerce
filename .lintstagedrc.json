@@ -1,4 +1,4 @@
 {
   "*": ["pnpm run format", "pnpm run lint"],
-  "*.(ts|tsx)": "pnpm run typecheck"
+  "*.(ts|tsx)": "tsc-files --noEmit"
 }
