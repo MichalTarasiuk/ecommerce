@@ -34,7 +34,11 @@ export type TransitionOptions = NextRouter extends {
   ? TransitionOptions
   : never;
 
-export type InferProps<Component> = Component extends ComponentType<infer Props>
+export type InferProps<Component> = Component extends ForwardRefExoticComponent<
+  infer Props
+>
+  ? Omit<Props, keyof RefAttributes<unknown>>
+  : Component extends ComponentType<infer Props>
   ? Props
   : never;
 

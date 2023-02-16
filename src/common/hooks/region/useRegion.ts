@@ -1,10 +1,17 @@
 import {useRouter} from 'next/router';
 import {useMemo} from 'react';
 
-import {getRegion} from '@/common/utils/utils';
+import {getRegion, regionToPathname} from '@/common/utils/utils';
 
 export const useRegion = () => {
   const router = useRouter();
 
-  return useMemo(() => getRegion(router.query), [router.query]);
+  return useMemo(() => {
+    const region = getRegion(router.query);
+
+    return {
+      variables: region,
+      pathname: regionToPathname(region),
+    };
+  }, [router.query]);
 };

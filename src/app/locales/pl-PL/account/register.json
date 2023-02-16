@@ -2,6 +2,8 @@
   "form": {
     "title": "Stwórz nowe konto",
     "email": "Email",
-    "password": "Hasło"
-  }
+    "password": "Hasło",
+    "submit_button_text": "Zarejestruj się"
+  },
+  "login_link": "Zaloguj się do istniejącego konta"
 }
