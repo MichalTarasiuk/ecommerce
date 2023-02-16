@@ -1,4 +1,3 @@
-import {Custom, FunctionType} from '@/common/types/types';
 import {
   isString,
   isRegExp,
@@ -9,6 +8,7 @@ import {
 } from '@/common/utils/utils';
 
 import type {StorybookConfig} from '@storybook/nextjs';
+import type {Custom, FunctionType} from '@/common/types/types';
 
 type Configuration = Awaited<
   ReturnType<Exclude<StorybookConfig['webpack'], undefined>>
