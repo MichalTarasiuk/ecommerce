@@ -62,7 +62,6 @@ const config: StorybookConfig = {
     autodocs: 'tag',
   },
   webpackFinal: (webpackConfig) => {
-    // svgr
     const ruleSetRules =
       webpackConfig.module?.rules?.filter(
         (rule): rule is RuleSetRule => !isString(rule),
@@ -81,7 +80,6 @@ const config: StorybookConfig = {
       });
     }
 
-    // next font
     webpackConfig.module?.rules?.forEach(
       (rule) =>
         !isString(rule) &&
@@ -97,6 +95,25 @@ const config: StorybookConfig = {
           }
         }),
     );
+
+    webpackConfig.resolve = {
+      ...webpackConfig.resolve,
+      fallback: {
+        url: require.resolve('url'),
+        path: require.resolve('path-browserify'),
+      },
+      alias: {
+        ...webpackConfig.resolve?.alias,
+        'next/router': 'next-router-mock',
+      },
+    };
+
+    // graphql loader - i don't know why is needed ¯\_(ツ)_/¯, check it later ;)
+    webpackConfig.module?.rules?.push({
+      test: /\.graphql$/,
+      exclude: /node_modules/,
+      loader: 'graphql-tag/loader',
+    });
 
     return webpackConfig;
   },
