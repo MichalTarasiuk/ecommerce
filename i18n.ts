@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access -- to unkown */
-import {signs} from '@/common/consts/consts';
+import {defaultLocale, locales, signs} from '@/common/consts/consts';
 import {routes} from '@/common/consts/routes';
 import {isObject} from '@/common/utils/utils';
 
@@ -25,14 +25,6 @@ export type ExtendedI18nConfig = Omit<I18nConfig, 'pages'> & {
   readonly pages: ReadonlyPages;
   readonly skipInitialProps: boolean;
 };
-
-const availableLocales = {
-  english: 'en-US',
-  polish: 'pl-PL',
-} as const;
-
-const locales = Object.values(availableLocales);
-const defaultLocale = availableLocales.english;
 
 const isI18nProviderProps = (value: unknown): value is I18nProviderProps =>
   isObject(value);

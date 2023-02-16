@@ -7,8 +7,9 @@ import {routes} from '@/common/consts/routes';
 import REGISTER_MUTATION from '@/common/graphql/mutations/Register.graphql';
 import {useTranslate, useRegion} from '@/common/hooks/hooks';
 
-import {fieldValues, isFieldValue} from './helpers';
+import {fieldNames} from './helpers';
 
+import type {FieldsNames, FieldsValues} from './helpers';
 import type {
   RegisterMutation,
   RegisterMutationVariables,
@@ -20,30 +21,31 @@ export function RegisterForm() {
     RegisterMutationVariables
   >(REGISTER_MUTATION);
 
-  const {register, handleSubmit, setError} = useForm<typeof fieldValues>();
+  const {register, handleSubmit} = useForm<FieldsNames>();
 
   const region = useRegion();
   const {translate} = useTranslate('account.register');
 
   const submit = useCallback(
-    async (values: Record<keyof typeof fieldValues, string>) => {
+    async (fieldsValues: FieldsValues) => {
       const redirectUrl = `${window.location.origin}${routes.account.confirm}`;
 
-      const {data} = await registerMutation({
+      await registerMutation({
         input: {
-          ...values,
+          ...fieldsValues,
           ...region,
           redirectUrl,
         },
       });
 
-      data?.accountRegister?.errors.forEach((error) => {
-        if (error.field && error.message && isFieldValue(error.field)) {
-          setError(error.field, {message: error.message});
-        }
-      });
+      // TODO: fix graphql codegen
+      // data?.accountRegister?.errors.forEach((error) => {
+      //   if (error.field && error.message && isFieldValue(error.field)) {
+      //     setError(error.field, {message: error.message});
+      //   }
+      // });
     },
-    [region, registerMutation, setError],
+    [region, registerMutation],
   );
 
   return (
@@ -52,14 +54,14 @@ export function RegisterForm() {
         {translate('form.title')}
       </Heading>
       <TextInput
-        {...register(fieldValues.email, {
+        {...register(fieldNames.email, {
           required: true,
         })}
         type='email'
         label={translate('form.email')}
       />
       <TextInput
-        {...register(fieldValues.password, {
+        {...register(fieldNames.password, {
           required: true,
         })}
         type='password'

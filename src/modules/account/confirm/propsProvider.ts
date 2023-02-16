@@ -1,8 +1,13 @@
 import {createUrqlClient} from '@/app/queryClient/queryClient';
 import {routes} from '@/common/consts/routes';
 import CONFIRM_ACCOUNT_MUTATE from '@/common/graphql/mutations/ConfirmAccount.graphql';
-import {isObject, isString, keyIn} from '@/common/utils/utils';
-import {getRegion, regionToPathname} from '@/modules/core/utils/utils';
+import {
+  isObject,
+  isString,
+  keyIn,
+  getRegion,
+  regionToPathname,
+} from '@/common/utils/utils';
 
 import type {
   ConfirmAccountMutation,

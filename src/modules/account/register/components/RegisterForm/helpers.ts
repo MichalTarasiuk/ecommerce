@@ -1,9 +1,12 @@
 import {objectKeys} from '@/common/utils/objectKeys';
 
-export const fieldValues = {
+export type FieldsNames = typeof fieldNames;
+export type FieldsValues = Record<keyof FieldsNames, string>;
+
+export const fieldNames = {
   email: 'email',
   password: 'password',
 } as const;
 
-export const isFieldValue = (name: string): name is keyof typeof fieldValues =>
-  objectKeys(fieldValues).some((fieldValue) => fieldValue === name);
+export const isFieldValue = (name: string): name is keyof FieldsNames =>
+  objectKeys(fieldNames).some((fieldValue) => fieldValue === name);

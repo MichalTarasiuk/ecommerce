@@ -2,10 +2,9 @@ import {useRouter} from 'next/router';
 import {useCallback, useMemo} from 'react';
 
 import CHANNELS_QUERY from '@/common/graphql/queries/Channels.graphql';
+import {getChannel, getLocale} from '@/common/utils/utils';
 
 import {useFetch} from '../useFetch';
-
-import {getChannel, getLocaleName} from './helpers';
 
 import type {ChannelsQuery} from '@/common/graphql/generated/graphql';
 
@@ -39,7 +38,7 @@ export const useChannel = () => {
           pathname: '/[channel]/[locale]',
           query: {
             channel: nextChannel,
-            locale: getLocaleName(router.query),
+            locale: getLocale(router.query),
           },
         });
       }

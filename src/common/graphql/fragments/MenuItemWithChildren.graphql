@@ -3,7 +3,7 @@
 fragment MenuItemWithChildrenFragment on MenuItem {
   id
   name
-  translation(languageCode: $locale) {
+  translation(languageCode: $languageCode) {
     id
     name
   }

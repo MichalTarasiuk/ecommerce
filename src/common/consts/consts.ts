@@ -1,6 +1,3 @@
 export * from './routes';
-
-export const signs = {
-  dot: '.',
-  slash: '/',
-};
+export * from './region';
+export * from './signs';

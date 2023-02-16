@@ -10,7 +10,7 @@ import type {Client, OperationResult} from 'urql';
 type FetchLayoutDataConfig = {
   readonly region: {
     readonly channel: string;
-    readonly locale: LanguageCodeEnum;
+    readonly languageCode: LanguageCodeEnum;
   };
   readonly isNextLinkRequest: boolean;
 };
