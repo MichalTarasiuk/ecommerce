@@ -11,7 +11,7 @@
     "format": "prettier --write .",
     "generate": "DOTENV_CONFIG_PATH=.env.local graphql-codegen --config codegen.ts -r dotenv/config",
     "postinstall": "stale-dep -u",
-    "typecheck": "tsc-files --noEmit",
+    "typecheck": "tsc --noEmit",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
