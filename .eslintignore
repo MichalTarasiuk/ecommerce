@@ -7,7 +7,6 @@ pnpm-lock.yaml
 
 # production
 /build
-i18n.js
 
 # misc
 .DS_Store
