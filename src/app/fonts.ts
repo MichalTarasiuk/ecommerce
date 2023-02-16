@@ -20,6 +20,6 @@ export const inconsolataWeight = [
 export const inconsolata = Inconsolata({
   subsets: ['latin'],
   variable: '--font-inconsolata',
-  weight: ['400', '700'] satisfies typeof inconsolataWeight,
+  weight: ['400', '700'],
   display: 'swap',
 });

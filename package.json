@@ -38,6 +38,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
+    "@babel/plugin-transform-typescript": "^7.20.13",
     "@commitlint/cli": "^17.4.2",
     "@commitlint/config-conventional": "^17.4.2",
     "@graphql-codegen/cli": "2.16.4",

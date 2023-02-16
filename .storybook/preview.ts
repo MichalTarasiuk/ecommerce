@@ -1,3 +1,5 @@
+import {FontDecorator} from './decorators';
+
 import '../src/app/styles/globals.css';
 
 export const parameters = {
@@ -12,3 +14,5 @@ export const parameters = {
     },
   },
 };
+
+export const decorators = [FontDecorator];

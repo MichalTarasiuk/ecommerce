@@ -1,5 +1,5 @@
 /* eslint-disable functional/prefer-readonly-type -- just ignore */
-import type {FunctionType} from '@/common/types/types';
+import type {FunctionType, ArrayType} from '@/common/types/types';
 
 const inferType = (operand: unknown, exact = false) => {
   const type = typeof operand;
@@ -34,3 +34,6 @@ export const isFunction = (operand: unknown): operand is FunctionType.Any =>
 
 export const isRegExp = (operand: unknown): operand is RegExp =>
   inferType(operand, true) === 'regexp';
+
+export const isArray = (operand: unknown): operand is ArrayType.Any =>
+  inferType(operand, true) === 'array';

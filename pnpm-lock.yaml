@@ -5,6 +5,7 @@ overrides:
 
 specifiers:
   '@babel/core': ^7.20.12
+  '@babel/plugin-transform-typescript': ^7.20.13
   '@commitlint/cli': ^17.4.2
   '@commitlint/config-conventional': ^17.4.2
   '@graphql-codegen/cli': 2.16.4
@@ -88,6 +89,7 @@ dependencies:
 
 devDependencies:
   '@babel/core': 7.20.12
+  '@babel/plugin-transform-typescript': 7.20.13_@babel+core@7.20.12
   '@commitlint/cli': 17.4.3
   '@commitlint/config-conventional': 17.4.3
   '@graphql-codegen/cli': 2.16.4_juwfez6bimxdkg3yxd3wefvrqa
