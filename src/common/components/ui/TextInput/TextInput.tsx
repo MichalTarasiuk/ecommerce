@@ -19,7 +19,7 @@ export const TextInput = forwardRef<HTMLInputElement, InputProps>(
     const id = useId();
 
     return (
-      <div className='my-3'>
+      <div className='my-2'>
         <label className='block mb-1' htmlFor={id}>
           {label}
         </label>

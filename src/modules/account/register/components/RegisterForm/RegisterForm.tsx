@@ -2,7 +2,7 @@ import {useCallback} from 'react';
 import {useForm} from 'react-hook-form';
 import {useMutation} from 'urql';
 
-import {Heading, TextInput, Link} from '@/common/components/components';
+import {Heading, TextInput, Link, Button} from '@/common/components/components';
 import {routes} from '@/common/consts/routes';
 import REGISTER_MUTATION from '@/common/graphql/mutations/Register.graphql';
 import {useTranslate, useRegion} from '@/common/hooks/hooks';
@@ -67,10 +67,10 @@ export function RegisterForm() {
         type='password'
         label={translate('form.password')}
       />
-      {/* <Button type='submit' variant='green'>
+      <Button type='submit' variant='green'>
         {translate('form.submit_button_text')}
-      </Button> */}
-      <Link href={routes.account.login} className='text-xs'>
+      </Button>
+      <Link href={routes.account.login} className='text-xs mt-9 block'>
         {translate('login_link')}
       </Link>
     </form>

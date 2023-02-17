@@ -1,59 +1,27 @@
-// TODO: fix types, add story
 import classNames from 'classnames';
-import {forwardRef} from 'react';
 
-import {isObject, isString, keyIn} from '@/common/utils/utils';
-
-import type {ForwardRef} from '@/common/types/types';
-import type {
-  AnchorHTMLAttributes,
-  ButtonHTMLAttributes,
-  ForwardedRef,
-} from 'react';
-
-type CommonProps<Type extends string> = {
-  readonly type: Type;
-  readonly variant: keyof typeof variants;
-};
-
-type AnchorTagProps = AnchorHTMLAttributes<HTMLElement> & CommonProps<'link'>;
-type AnchorParams = readonly [AnchorTagProps, ForwardedRef<HTMLAnchorElement>];
-
-type ButtonTagProps = ButtonHTMLAttributes<HTMLElement> &
-  CommonProps<'submit' | 'reset' | 'button'>;
-
-type TypedForwardRefParams = Parameters<Parameters<typeof typedForwardRef>[0]>;
-
-const typedForwardRef:
-  | ForwardRef<HTMLButtonElement, ButtonTagProps>
-  | ForwardRef<HTMLAnchorElement, AnchorTagProps> = forwardRef;
-
-const isAnchor = (
-  buttonParams: ReadonlyArray<unknown>,
-): buttonParams is AnchorParams => {
-  const props = buttonParams[0];
-
-  return isObject(props) && keyIn(props, 'href') && isString(props.href);
-};
+import {typedForwardRef} from './helpers';
 
 const variants = {
   green: 'bg-green-500 hover:bg-green-400 text-white',
 };
 
-export const Button = typedForwardRef((...params: TypedForwardRefParams) => {
+export const Button = typedForwardRef((...renderParams) => {
   const className = classNames(
     'my-2 py-1.5 w-full rounded-md transition duration-100 text-sm',
-    variants[params[0].variant],
+    variants[renderParams[0].variant],
   );
 
-  if (isAnchor(params)) {
-    const [props, ref] = params;
+  if (renderParams[0].type === 'link') {
+    const [props, ref] = renderParams;
 
+    // @ts-ignore
     return <a ref={ref} className={className} {...props} />;
   }
 
-  const [props, ref] = params;
+  const [props, ref] = renderParams;
 
+  // @ts-ignore
   return <button ref={ref} className={className} {...props} />;
 });
 
