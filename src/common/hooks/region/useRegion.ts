@@ -8,10 +8,14 @@ export const useRegion = () => {
 
   return useMemo(() => {
     const region = getRegion(router.query);
+    const pathname = regionToPathname(region);
+
+    const {variables, locale} = region;
 
     return {
-      variables: region,
-      pathname: regionToPathname(region),
+      locale,
+      variables,
+      pathname,
     };
   }, [router.query]);
 };

@@ -41,11 +41,13 @@ export const getRegion = (
   const locale = getLocale(params);
 
   return {
-    languageCode: localeToLanguageCode[locale],
     locale,
-    channel: getChannel(params),
+    variables: {
+      languageCode: localeToLanguageCode[locale],
+      channel: getChannel(params),
+    },
   };
 };
 
-export const regionToPathname = ({channel, locale}: Region) =>
+export const regionToPathname = ({variables: {channel}, locale}: Region) =>
   `/${channel}/${locale}`;

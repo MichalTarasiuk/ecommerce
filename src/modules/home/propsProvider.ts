@@ -64,7 +64,7 @@ export const getStaticProps = async ({
       pathname: routes.home,
     }),
     fetchLayoutData(urqlClient, {
-      region,
+      region: region.variables,
       isNextLinkRequest: false,
     }),
   ]);
