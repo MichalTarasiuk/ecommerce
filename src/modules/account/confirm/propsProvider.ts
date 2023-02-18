@@ -1,6 +1,6 @@
 import {createUrqlClient} from '@/app/queryClient/queryClient';
 import {routes} from '@/common/consts/routes';
-import CONFIRM_ACCOUNT_MUTATE from '@/common/graphql/mutations/ConfirmAccount.graphql';
+import {confirmAccountMutation} from '@/common/graphql/mutations/mutations';
 import {
   isObject,
   isString,
@@ -35,7 +35,7 @@ export const getServerSideProps = async ({
 
     const {data, error} = await urqlClient
       .mutation<ConfirmAccountMutation, ConfirmAccountMutationVariables>(
-        CONFIRM_ACCOUNT_MUTATE,
+        confirmAccountMutation,
         {email, token},
       )
       .toPromise();

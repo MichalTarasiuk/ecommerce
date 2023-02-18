@@ -13,3 +13,4 @@ export * from './useRouteChangeStart';
 export * from './useLockedBody';
 export * from './usePrevious';
 export * from './region/region';
+export * from './useHasMounted';

@@ -9,7 +9,7 @@ if (!schema) {
 const config: CodegenConfig = {
   schema,
   overwrite: true,
-  documents: 'src/**/*.graphql',
+  documents: 'src/**/*.ts',
   generates: {
     'src/common/graphql/generated/': {
       preset: 'client',

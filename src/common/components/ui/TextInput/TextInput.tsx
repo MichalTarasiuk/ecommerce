@@ -11,7 +11,7 @@ type InputProps = InputAttributes & {
     'text' | 'email' | 'password'
   >;
   readonly label: string;
-  readonly errorMessage?: string;
+  readonly errorMessage?: string | undefined;
 };
 
 export const TextInput = forwardRef<HTMLInputElement, InputProps>(

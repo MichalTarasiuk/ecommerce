@@ -1,7 +1,7 @@
 import {useRouter} from 'next/router';
 import {useCallback, useMemo} from 'react';
 
-import CHANNELS_QUERY from '@/common/graphql/queries/Channels.graphql';
+import {channelsQuery} from '@/common/graphql/queries/queries';
 import {getChannel, getLocale} from '@/common/utils/utils';
 
 import {useFetch} from '../useFetch';
@@ -10,7 +10,7 @@ import type {ChannelsQuery} from '@/common/graphql/generated/graphql';
 
 export const useChannel = () => {
   const router = useRouter();
-  const [{data}] = useFetch<ChannelsQuery>({query: CHANNELS_QUERY});
+  const [{data}] = useFetch<ChannelsQuery>({query: channelsQuery});
 
   const channel = useMemo(() => getChannel(router.query), [router.query]);
 

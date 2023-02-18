@@ -1,4 +1,4 @@
-import MAIN_MENU_QUERY from '@/common/graphql/queries/MainMenu.graphql';
+import {mainMenuQuery} from '@/common/graphql/queries/queries';
 
 import type {
   LanguageCodeEnum,
@@ -30,7 +30,7 @@ export const fetchLayoutData = async (
   if (!isNextLinkRequest) {
     await Promise.all([
       client
-        .query<MainMenuQuery, MainMenuQueryVariables>(MAIN_MENU_QUERY, region)
+        .query<MainMenuQuery, MainMenuQueryVariables>(mainMenuQuery, region)
         .toPromise(),
     ]).then(logQueriesErrors);
   }

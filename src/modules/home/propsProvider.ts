@@ -3,7 +3,7 @@ import {ssrExchange as createSrrExcahnge} from 'urql';
 
 import {createUrqlClient, dehydrate} from '@/app/queryClient/queryClient';
 import {routes} from '@/common/consts/routes';
-import CHANNELS_QUERY from '@/common/graphql/queries/Channels.graphql';
+import {channelsQuery} from '@/common/graphql/queries/queries';
 import {getRegion, isClient} from '@/common/utils/utils';
 import {fetchLayoutData} from '@/modules/core/utils/utils';
 import {i18nConfig} from '@root/i18n';
@@ -20,7 +20,7 @@ export const getStaticPaths = async () => {
   const urqlClient = createUrqlClient();
 
   const {data: channelsSlugsQuery} = await urqlClient
-    .query<ChannelsQuery>(CHANNELS_QUERY, {})
+    .query<ChannelsQuery>(channelsQuery, {})
     .toPromise();
   const channels =
     channelsSlugsQuery?.channels?.flatMap(({isActive, slug}) => {
