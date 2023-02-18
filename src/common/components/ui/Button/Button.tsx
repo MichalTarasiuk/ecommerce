@@ -1,5 +1,7 @@
 import classNames from 'classnames';
 
+import {Link} from '../../Link';
+
 import {isAnchor, typedForwardRef} from './helpers';
 
 import type {RenderParams} from './helpers';
@@ -18,7 +20,7 @@ export const Button = typedForwardRef((...renderParams: RenderParams) => {
     const [props, ref] = renderParams;
 
     return (
-      <a
+      <Link
         ref={ref}
         className={classNames(className, 'inline-block text-center')}
         {...props}

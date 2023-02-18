@@ -9,11 +9,21 @@ const meta: Meta<typeof Button> = {
 
 export default meta;
 
-export const GreenVariant: StoryFn<typeof Button> = (props) => {
+export const ButtonType: StoryFn<typeof Button> = (props) => {
   return <Button {...props}>Example</Button>;
 };
 
-GreenVariant.args = {
+ButtonType.args = {
   type: 'button',
   variant: 'green',
+};
+
+export const LinkType: StoryFn<typeof Button> = (props) => {
+  return <Button {...props}>Example</Button>;
+};
+
+LinkType.args = {
+  type: 'link',
+  variant: 'green',
+  href: '/',
 };

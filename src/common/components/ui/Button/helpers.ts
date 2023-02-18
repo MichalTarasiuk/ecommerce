@@ -1,14 +1,15 @@
 import {forwardRef} from 'react';
 
-import type {ForwardRef, ObjectType} from '@/common/types/types';
-import type {HTMLAttributes, ButtonHTMLAttributes} from 'react';
+import type {ForwardRef, InferProps, ObjectType} from '@/common/types/types';
+import type NextLink from 'next/link';
+import type {ButtonHTMLAttributes} from 'react';
 
 type CommonProps = {
   readonly variant: 'green';
 };
 
 type AnchorParams = readonly [
-  {readonly type: 'link'} & CommonProps & HTMLAttributes<HTMLAnchorElement>,
+  {readonly type: 'link'} & CommonProps & InferProps<typeof NextLink>,
   HTMLAnchorElement,
 ];
 type ButtonParams = readonly [
