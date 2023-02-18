@@ -17,7 +17,8 @@
   },
   "dependencies": {
     "@next/font": "13.1.4",
-    "@tanstack/react-query": "^4.24.6",
+    "@tanstack/react-query": "^4.24.9",
+    "@tanstack/react-query-devtools": "^4.24.9",
     "@types/invariant": "^2.2.35",
     "classnames": "^2.3.2",
     "graphql": "^16.6.0",
@@ -30,7 +31,8 @@
     "query-string": "^8.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-hook-form": "^7.43.1"
+    "react-hook-form": "^7.43.1",
+    "wretch": "^2.4.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
