@@ -1,4 +1,6 @@
-import {createUrqlClient} from '@/app/queryClient/queryClient';
+import {QueryClient} from '@tanstack/react-query';
+
+import {request} from '@/app/queryClient/request';
 import {routes} from '@/common/consts/routes';
 import {confirmAccountMutation} from '@/common/graphql/mutations/mutations';
 import {
@@ -7,12 +9,14 @@ import {
   keyIn,
   getRegion,
   regionToPathname,
+  isError,
 } from '@/common/utils/utils';
 
 import type {
   ConfirmAccountMutation,
   ConfirmAccountMutationVariables,
 } from '@/common/graphql/generated/graphql';
+import type {MutationObserverOptions} from '@tanstack/react-query';
 import type {GetServerSidePropsContext, GetServerSidePropsResult} from 'next';
 
 export const getServerSideProps = async ({
@@ -29,28 +33,45 @@ export const getServerSideProps = async ({
     keyIn(query, 'token') &&
     isString(query.token)
   ) {
+    const queryClient = new QueryClient();
+
     const {email, token} = query;
 
-    const urqlClient = createUrqlClient();
+    try {
+      queryClient.setMutationDefaults(['confirm-account'], {
+        mutationFn: (variables: ConfirmAccountMutationVariables) =>
+          request<unknown, ConfirmAccountMutationVariables>(
+            confirmAccountMutation,
+            variables,
+          ),
+      });
 
-    const {data, error} = await urqlClient
-      .mutation<ConfirmAccountMutation, ConfirmAccountMutationVariables>(
-        confirmAccountMutation,
-        {email, token},
-      )
-      .toPromise();
+      const confirmAccountMutationDefaults:
+        | MutationObserverOptions<
+            ConfirmAccountMutation,
+            unknown,
+            ConfirmAccountMutationVariables
+          >
+        | undefined = queryClient.getMutationDefaults(['confirm-account']);
 
-    if (error) {
-      console.log(error.message);
-    }
+      const {confirmAccount} =
+        (await confirmAccountMutationDefaults?.mutationFn?.({
+          email,
+          token,
+        })) ?? {};
 
-    if (data?.confirmAccount?.user?.isActive) {
-      return {
-        redirect: {
-          destination: `${regionPathname}/${routes.account.login}`,
-          permanent: false,
-        },
-      } satisfies GetServerSidePropsResult<Record<PropertyKey, unknown>>;
+      if (confirmAccount?.user?.isActive) {
+        return {
+          redirect: {
+            destination: `${regionPathname}/${routes.account.login}`,
+            permanent: false,
+          },
+        } satisfies GetServerSidePropsResult<Record<PropertyKey, unknown>>;
+      }
+    } catch (error) {
+      if (isError(error)) {
+        console.log(error);
+      }
     }
   }
 

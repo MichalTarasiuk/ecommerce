@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access -- to unkown */
 import {defaultLocale, locales, signs} from '@/common/consts/consts';
 import {routes} from '@/common/consts/routes';
-import {isObject} from '@/common/utils/utils';
+import {isError, isObject} from '@/common/utils/utils';
 
 import type {Custom} from '@/common/types/types';
 import type {I18nConfig} from 'next-translate';
@@ -53,7 +53,7 @@ export const i18nConfig = {
         throw Error('locale is not i18n provider props');
       })
       .catch((error) => {
-        if (error instanceof Error) {
+        if (isError(error)) {
           console.error(error.message);
         }
 

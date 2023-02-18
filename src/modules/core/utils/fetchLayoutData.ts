@@ -1,11 +1,12 @@
+import {request} from '@/app/queryClient/request';
 import {mainMenuQuery} from '@/common/graphql/queries/queries';
+import {isError} from '@/common/utils/utils';
 
 import type {
   LanguageCodeEnum,
-  MainMenuQuery,
   MainMenuQueryVariables,
 } from '@/common/graphql/generated/graphql';
-import type {Client, OperationResult} from 'urql';
+import type {QueryClient} from '@tanstack/react-query';
 
 type FetchLayoutDataConfig = {
   readonly region: {
@@ -15,23 +16,24 @@ type FetchLayoutDataConfig = {
   readonly isNextLinkRequest: boolean;
 };
 
-const logQueriesErrors = (operationResults: readonly OperationResult[]) => {
-  operationResults.forEach((operationResult) => {
-    if (operationResult.error) {
-      console.error(operationResult.error.message);
-    }
-  });
-};
-
 export const fetchLayoutData = async (
-  client: Client,
+  queryClient: QueryClient,
   {region, isNextLinkRequest}: FetchLayoutDataConfig,
 ) => {
   if (!isNextLinkRequest) {
     await Promise.all([
-      client
-        .query<MainMenuQuery, MainMenuQueryVariables>(mainMenuQuery, region)
-        .toPromise(),
-    ]).then(logQueriesErrors);
+      queryClient
+        .prefetchQuery({
+          queryFn: () =>
+            request<unknown, MainMenuQueryVariables>(mainMenuQuery, region),
+        })
+        .catch(logError),
+    ]);
+  }
+};
+
+const logError = (reason: unknown) => {
+  if (isError(reason)) {
+    console.log(reason.message);
   }
 };

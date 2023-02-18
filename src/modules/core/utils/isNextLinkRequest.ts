@@ -1,10 +1,10 @@
+import invariant from 'invariant';
+
 import type {GetServerSidePropsContext} from 'next';
 
 const hostname = process.env['NEXT_PUBLIC_HOSTNAME'];
 
-if (!hostname) {
-  throw Error(`process.env['NEXT_PUBLIC_HOSTNAME'] is not defined`);
-}
+invariant(hostname, `process.env['NEXT_PUBLIC_HOSTNAME'] is not defined`);
 
 const getHostname = (referer: string) => {
   try {

@@ -23,9 +23,6 @@ export const isObject = (
 ): operand is Record<PropertyKey, unknown> =>
   inferType(operand, true) === 'object';
 
-export const isNumber = (operand: unknown): operand is number =>
-  inferType(operand) === 'number';
-
 export const isString = (operand: unknown): operand is string =>
   inferType(operand) === 'string';
 
@@ -37,3 +34,6 @@ export const isRegExp = (operand: unknown): operand is RegExp =>
 
 export const isArray = (operand: unknown): operand is ArrayType.Any =>
   inferType(operand, true) === 'array';
+
+export const isError = (operand: unknown): operand is Error =>
+  operand instanceof Error;

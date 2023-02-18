@@ -44,11 +44,6 @@ export type Intersection<
   never
 >;
 
-// eslint-disable-next-line functional/prefer-readonly-type -- make Writable
-export type Writable<AnyObject extends Record<PropertyKey, unknown>> = {
-  -readonly [Key in keyof AnyObject[Key]]: AnyObject[Key];
-};
-
 export type Required<AnyObject, Keys extends keyof AnyObject> = Omit<
   AnyObject,
   Keys

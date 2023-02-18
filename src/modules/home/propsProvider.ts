@@ -1,10 +1,10 @@
+import {dehydrate, QueryClient} from '@tanstack/react-query';
 import loadNamespaces from 'next-translate/loadNamespaces';
-import {ssrExchange as createSrrExcahnge} from 'urql';
 
-import {createUrqlClient, dehydrate} from '@/app/queryClient/queryClient';
+import {request} from '@/app/queryClient/request';
 import {routes} from '@/common/consts/routes';
 import {channelsQuery} from '@/common/graphql/queries/queries';
-import {getRegion, isClient} from '@/common/utils/utils';
+import {getRegion} from '@/common/utils/utils';
 import {fetchLayoutData} from '@/modules/core/utils/utils';
 import {i18nConfig} from '@root/i18n';
 
@@ -17,13 +17,14 @@ import type {
 } from 'next';
 
 export const getStaticPaths = async () => {
-  const urqlClient = createUrqlClient();
+  const queryClient = new QueryClient();
 
-  const {data: channelsSlugsQuery} = await urqlClient
-    .query<ChannelsQuery>(channelsQuery, {})
-    .toPromise();
+  const channelsQueryResult = await queryClient.fetchQuery<ChannelsQuery>({
+    queryFn: () => request(channelsQuery),
+  });
+
   const channels =
-    channelsSlugsQuery?.channels?.flatMap(({isActive, slug}) => {
+    channelsQueryResult.channels?.flatMap(({isActive, slug}) => {
       if (isActive) {
         return [slug];
       }
@@ -49,21 +50,15 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({
   params,
 }: GetStaticPropsContext<InferParsedQuery<typeof getStaticPaths>>) => {
+  const queryClient = new QueryClient();
   const region = getRegion(params);
-
-  const srrExchange = createSrrExcahnge({
-    isClient: isClient(),
-  });
-  const urqlClient = createUrqlClient({
-    exchanges: [srrExchange],
-  });
 
   const [namespaces] = await Promise.all([
     loadNamespaces({
       locale: region.locale,
       pathname: routes.home,
     }),
-    fetchLayoutData(urqlClient, {
+    fetchLayoutData(queryClient, {
       region: region.variables,
       isNextLinkRequest: false,
     }),
@@ -71,7 +66,7 @@ export const getStaticProps = async ({
 
   return {
     props: {
-      ...dehydrate(srrExchange),
+      dehydratedState: dehydrate(queryClient),
       ...namespaces,
     },
   } satisfies GetStaticPropsResult<Record<PropertyKey, unknown>>;

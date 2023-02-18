@@ -1,6 +1,6 @@
 import '../src/app/styles/globals.css';
 
-import {FontDecorator, TranslateDecorator} from './decorators';
+export {decorators} from './decorators/decorators';
 
 export const parameters = {
   backgrounds: {
@@ -14,5 +14,3 @@ export const parameters = {
     },
   },
 };
-
-export const decorators = [FontDecorator, TranslateDecorator];

@@ -1,8 +1,6 @@
 export * from './useTranslate/useTranslate';
 export * from './useRefreshProps';
 export * from './useRerender';
-export * from './useCustomCompareMemo';
-export * from './useFetch';
 export * from './useEvent';
 export * from './useLayout';
 export * from './useCSS';
@@ -14,3 +12,4 @@ export * from './useLockedBody';
 export * from './usePrevious';
 export * from './region/region';
 export * from './useHasMounted';
+export * from './useConst';

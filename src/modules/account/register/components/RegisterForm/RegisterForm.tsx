@@ -1,7 +1,8 @@
+import {useMutation} from '@tanstack/react-query';
 import {useCallback} from 'react';
 import {useForm} from 'react-hook-form';
-import {useMutation} from 'urql';
 
+import {request} from '@/app/queryClient/request';
 import {Heading, TextInput, Link, Button} from '@/common/components/components';
 import {routes} from '@/common/consts/routes';
 import {registerMutation} from '@/common/graphql/mutations/mutations';
@@ -16,10 +17,17 @@ import type {
 } from '@/common/graphql/generated/graphql';
 
 export function RegisterForm() {
-  const [, registerMutate] = useMutation<
+  const {mutateAsync: registerMutate} = useMutation<
     RegisterMutation,
+    unknown,
     RegisterMutationVariables
-  >(registerMutation);
+  >({
+    mutationFn: (variables) =>
+      request<RegisterMutation, RegisterMutationVariables>(
+        registerMutation,
+        variables,
+      ),
+  });
 
   const {
     formState: {errors},
@@ -36,7 +44,7 @@ export function RegisterForm() {
     async (fieldsValues: FieldsValues) => {
       const redirectUrl = `${window.location.origin}${routes.account.confirm}`;
 
-      const {data} = await registerMutate({
+      const {accountRegister} = await registerMutate({
         input: {
           ...fieldsValues,
           ...region.variables,
@@ -44,7 +52,7 @@ export function RegisterForm() {
         },
       });
 
-      data?.accountRegister?.errors.forEach(() => {
+      accountRegister?.errors.forEach(() => {
         // if (error.field && error.message && isFieldValue(error.field)) {
         //   setError(error.field, {message: error.message});
         // }

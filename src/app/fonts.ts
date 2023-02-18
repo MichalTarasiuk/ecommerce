@@ -1,4 +1,3 @@
-// Font loader values must be explicitly written literals.
 import {Inconsolata} from '@next/font/google';
 
 import type {ArrayType} from '@/common/types/types';
@@ -20,6 +19,6 @@ export const inconsolataWeight = [
 export const inconsolata = Inconsolata({
   subsets: ['latin'],
   variable: '--font-inconsolata',
-  weight: ['400', '700'],
+  weight: ['400', '700'] satisfies typeof inconsolataWeight,
   display: 'swap',
 });

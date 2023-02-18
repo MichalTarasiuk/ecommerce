@@ -1,3 +1,4 @@
 {
-  "schema": "https://recruitment-ecommerce-app.eu.saleor.cloud/graphql/"
+  "schema": "https://recruitment-ecommerce-app.eu.saleor.cloud/graphql/",
+  "documents": "src/**/*.ts"
 }
