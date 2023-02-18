@@ -18,7 +18,9 @@ type Url = UrlObject | string;
 
 export type ForwardRef<Params extends readonly [props: {}, instance: unknown]> =
   (
-    render: ForwardRefRenderFunction<Params[1], Params[0]>,
+    render: Params extends Params
+      ? ForwardRefRenderFunction<Params[1], Params[0]>
+      : never,
   ) => ForwardRefExoticComponent<
     Params extends Params
       ? PropsWithoutRef<Params[0]> & RefAttributes<Params[1]>
