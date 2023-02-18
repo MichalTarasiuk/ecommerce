@@ -1,7 +1,7 @@
 import {dehydrate, QueryClient} from '@tanstack/react-query';
 import loadNamespaces from 'next-translate/loadNamespaces';
 
-import {request} from '@/app/queryClient/request';
+import {request} from '@/app/queryClient/request/request';
 import {routes} from '@/common/consts/routes';
 import {channelsQuery} from '@/common/graphql/queries/queries';
 import {getRegion} from '@/common/utils/utils';

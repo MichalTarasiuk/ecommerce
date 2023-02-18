@@ -22,7 +22,6 @@
     "@types/invariant": "^2.2.35",
     "classnames": "^2.3.2",
     "graphql": "^16.6.0",
-    "graphql-request": "^5.1.0",
     "immer": "^9.0.19",
     "invariant": "^2.2.4",
     "next": "13.1.4",

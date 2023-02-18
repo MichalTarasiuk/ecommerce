@@ -2,7 +2,7 @@ import {useMutation} from '@tanstack/react-query';
 import {useCallback} from 'react';
 import {useForm} from 'react-hook-form';
 
-import {request} from '@/app/queryClient/request';
+import {request} from '@/app/queryClient/request/request';
 import {Heading, TextInput, Link, Button} from '@/common/components/components';
 import {routes} from '@/common/consts/routes';
 import {registerMutation} from '@/common/graphql/mutations/mutations';

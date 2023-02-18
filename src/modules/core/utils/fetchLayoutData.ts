@@ -1,4 +1,4 @@
-import {request} from '@/app/queryClient/request';
+import {request} from '@/app/queryClient/request/request';
 import {mainMenuQuery} from '@/common/graphql/queries/queries';
 import {isError} from '@/common/utils/utils';
 
