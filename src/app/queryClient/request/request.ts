@@ -41,28 +41,26 @@ export const request = <
     })
     .json()
     .then(async (data) => {
-      if (!isUnauthenticated(data)) {
-        return data;
+      if (isUnauthenticated(data)) {
+        if (!refreshTokenMutationPromise && csrfToken) {
+          refreshTokenMutationPromise = request<
+            RefreshTokenMutation,
+            RefreshTokenMutationVariables
+          >(refreshTokenMutation, {csrfToken});
+        }
+
+        const {tokenRefresh} = (await refreshTokenMutationPromise) ?? {};
+
+        refreshTokenMutationPromise = null;
+
+        if (tokenRefresh?.token) {
+          authorizationHandler.updateToken(tokenRefresh?.token);
+
+          return request(documentNode, variables);
+        }
+
+        authorizationHandler.logout();
       }
-
-      if (!refreshTokenMutationPromise && csrfToken) {
-        refreshTokenMutationPromise = request<
-          RefreshTokenMutation,
-          RefreshTokenMutationVariables
-        >(refreshTokenMutation, {csrfToken});
-      }
-
-      const {tokenRefresh} = (await refreshTokenMutationPromise) ?? {};
-
-      refreshTokenMutationPromise = null;
-
-      if (tokenRefresh?.token) {
-        authorizationHandler.updateToken(tokenRefresh?.token);
-
-        return request(documentNode, variables);
-      }
-
-      authorizationHandler.logout();
 
       return data;
     }) as Promise<Resolved>;
