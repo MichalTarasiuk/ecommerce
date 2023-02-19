@@ -1,4 +1,4 @@
 export {
   ConfirmAccountPage as default,
   getServerSideProps,
-} from '@/modules/account/confirm/confirm';
+} from '@/modules/account/submodules/confirm/confirm';
