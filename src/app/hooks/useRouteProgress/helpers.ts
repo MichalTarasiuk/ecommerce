@@ -74,9 +74,3 @@ export const getStyles = (config: GetStylesConfig) => {
   }
 }`;
 };
-
-export const canRunRouteProgress = (
-  url: string,
-  nextUrl: string,
-  shallow: boolean | undefined,
-) => !shallow && url !== nextUrl;

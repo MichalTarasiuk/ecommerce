@@ -6,7 +6,7 @@ import {useCSS} from '@/common/hooks/useCSS';
 import {useEvent} from '@/common/hooks/useEvent';
 
 import {config} from './consts';
-import {canRunRouteProgress, getStyles} from './helpers';
+import {getStyles} from './helpers';
 
 import type {TransitionOptions} from '@/common/types/types';
 
@@ -25,7 +25,7 @@ export const useRouteProgress = () => {
     ) => {
       const url = getUrl();
 
-      if (canRunRouteProgress(url, nextUrl, shallow)) {
+      if (nextUrl !== url && !shallow) {
         NProgress.set(config.startPosition);
         NProgress.start();
       }
@@ -36,7 +36,7 @@ export const useRouteProgress = () => {
     ) => {
       const url = getUrl();
 
-      if (canRunRouteProgress(url, nextUrl, shallow)) {
+      if (nextUrl === url && !shallow) {
         NProgress.done(true);
       }
     };

@@ -1,0 +1,11 @@
+{
+  "form": {
+    "pre_title": "Welcome back",
+    "title": "Login to your account",
+    "email": "Email",
+    "password": "Password",
+    "submit_button_text": "Log in",
+    "forgot_password_text": "Forgot password?"
+  },
+  "login_link": "Register a new account"
+}
