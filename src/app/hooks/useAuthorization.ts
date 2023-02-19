@@ -22,6 +22,16 @@ export const authorizationHandler = {
   updateToken: (nextToken: string) => {
     state.token = nextToken;
   },
+  login: (token: string, csrfToken: string) => {
+    state.token = token;
+    state.csrfToken = csrfToken;
+
+    if (isClient()) {
+      localStorage.setItem('csrfToken', token);
+    }
+
+    eventHub.emit('login');
+  },
   logout: () => {
     state.token = null;
     state.csrfToken = null;
@@ -33,16 +43,20 @@ export const authorizationHandler = {
 export const useAuthorization = () => {
   const router = useRouter();
 
+  const loginHandler = useCallback(() => router.push(routes.home), [router]);
+
   const logoutHandler = useCallback(
     () => router.push(routes.account.login),
     [router],
   );
 
   useEffect(() => {
+    eventHub.on('login', loginHandler);
     eventHub.on('logout', logoutHandler);
 
     return () => {
+      eventHub.on('login', loginHandler);
       eventHub.off('logout', logoutHandler);
     };
-  }, [logoutHandler]);
+  }, [loginHandler, logoutHandler]);
 };

@@ -1,6 +1,9 @@
+import {useMutation} from '@tanstack/react-query';
 import {useCallback} from 'react';
 import {useForm} from 'react-hook-form';
 
+import {authorizationHandler} from '@/app/hooks/useAuthorization';
+import {request} from '@/app/queryClient/request/request';
 import {
   Heading,
   TextInput,
@@ -9,13 +12,27 @@ import {
   Button,
 } from '@/common/components/components';
 import {routes} from '@/common/consts/routes';
+import {loginMutation} from '@/common/graphql/mutations/mutations';
 import {useTranslate, useHasMounted} from '@/common/hooks/hooks';
 
 import {fieldNames} from './helpers';
 
 import type {FieldsValues} from './helpers';
+import type {
+  LoginMutation,
+  LoginMutationVariables,
+} from '@/common/graphql/generated/graphql';
 
 export function LoginForm() {
+  const {mutateAsync: loginMutate} = useMutation<
+    LoginMutation,
+    unknown,
+    LoginMutationVariables
+  >({
+    mutationFn: (variables) =>
+      request<LoginMutation, LoginMutationVariables>(loginMutation, variables),
+  });
+
   const {
     formState: {errors},
     register,
@@ -26,7 +43,23 @@ export function LoginForm() {
 
   const hasMounted = useHasMounted();
 
-  const submit = useCallback(async (_fieldsValues: FieldsValues) => {}, []);
+  const submit = useCallback(
+    async ({email, password}: FieldsValues) => {
+      const {token, csrfToken, errors} =
+        (await loginMutate({email, password})).tokenCreate ?? {};
+
+      if (token && csrfToken) {
+        authorizationHandler.login(token, csrfToken);
+      }
+
+      errors?.forEach(() => {
+        // if (error.field && error.message && isFieldValue(error.field)) {
+        //   setError(error.field, {message: error.message});
+        // }
+      });
+    },
+    [loginMutate],
+  );
 
   const {ref: emailInputRef, ...emailInputHandler} = register(
     fieldNames.email,

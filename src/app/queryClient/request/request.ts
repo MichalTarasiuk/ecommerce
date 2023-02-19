@@ -5,7 +5,7 @@ import wretch from 'wretch';
 import {authorizationHandler} from '@/app/hooks/useAuthorization';
 import {refreshTokenMutation} from '@/common/graphql/mutations/mutations';
 
-import {isUnauthenticated} from './assertions';
+import {getResponseData, isUnauthenticated} from './assertions';
 import {resolveRequestDocument} from './resolveRequestDocument';
 
 import type {
@@ -40,6 +40,7 @@ export const request = <
       ...(variables && {variables}),
     })
     .json()
+    .then(getResponseData)
     .then(async (data) => {
       if (isUnauthenticated(data)) {
         if (!refreshTokenMutationPromise && csrfToken) {

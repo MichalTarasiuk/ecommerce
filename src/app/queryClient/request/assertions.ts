@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions -- to unknown */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access -- optional chaining (?.) */
-import {isArray} from '@/common/utils/utils';
+import {isArray, isObject, keyIn} from '@/common/utils/utils';
 
 export const isUnauthenticated = (data: unknown) => {
   const errors: unknown = (data as any).errors;
@@ -12,4 +12,12 @@ export const isUnauthenticated = (data: unknown) => {
         (error as any)?.extensions?.exception?.code === 'ExpiredSignatureError',
     )
   );
+};
+
+export const getResponseData = (response: unknown) => {
+  if (isObject(response) && keyIn(response, 'data')) {
+    return response.data;
+  }
+
+  return {};
 };

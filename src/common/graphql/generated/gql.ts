@@ -17,6 +17,7 @@ const documents = {
     "\n  fragment MenuItemFragment on MenuItem {\n    id\n    name\n    translation(languageCode: $languageCode) {\n      id\n      name\n    }\n    category {\n      id\n      slug\n    }\n    collection {\n      id\n      slug\n    }\n    page {\n      id\n      slug\n    }\n    url\n  }\n": types.MenuItemFragmentFragmentDoc,
     "\n  fragment MenuItemWithChildrenFragment on MenuItem {\n    id\n    name\n    translation(languageCode: $languageCode) {\n      id\n      name\n    }\n    category {\n      id\n      slug\n    }\n    collection {\n      id\n      slug\n    }\n    page {\n      id\n      slug\n    }\n    children {\n      ...MenuItemFragment\n      children {\n        ...MenuItemFragment\n      }\n    }\n    url\n  }\n  \n": types.MenuItemWithChildrenFragmentFragmentDoc,
     "\n  mutation ConfirmAccount($email: String!, $token: String!) {\n    confirmAccount(email: $email, token: $token) {\n      errors {\n        ...AccountErrorFragment\n      }\n      user {\n        email\n        isActive\n      }\n    }\n  }\n  \n": types.ConfirmAccountDocument,
+    "\n  mutation login($email: String!, $password: String!) {\n    tokenCreate(email: $email, password: $password) {\n      csrfToken\n      token\n      errors {\n        ...AccountErrorFragment\n      }\n    }\n  }\n  \n": types.LoginDocument,
     "\n  mutation refreshToken($csrfToken: String!) {\n    tokenRefresh(csrfToken: $csrfToken) {\n      token\n      errors {\n        ...AccountErrorFragment\n      }\n    }\n  }\n  \n": types.RefreshTokenDocument,
     "\n  mutation Register($input: AccountRegisterInput!) {\n    accountRegister(input: $input) {\n      errors {\n        ...AccountErrorFragment\n      }\n      requiresConfirmation\n    }\n  }\n  \n": types.RegisterDocument,
     "\n  query Channels {\n    channels {\n      id\n      slug\n      name\n      isActive\n    }\n  }\n": types.ChannelsDocument,
@@ -53,6 +54,10 @@ export function graphql(source: "\n  fragment MenuItemWithChildrenFragment on Me
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation ConfirmAccount($email: String!, $token: String!) {\n    confirmAccount(email: $email, token: $token) {\n      errors {\n        ...AccountErrorFragment\n      }\n      user {\n        email\n        isActive\n      }\n    }\n  }\n  \n"): (typeof documents)["\n  mutation ConfirmAccount($email: String!, $token: String!) {\n    confirmAccount(email: $email, token: $token) {\n      errors {\n        ...AccountErrorFragment\n      }\n      user {\n        email\n        isActive\n      }\n    }\n  }\n  \n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation login($email: String!, $password: String!) {\n    tokenCreate(email: $email, password: $password) {\n      csrfToken\n      token\n      errors {\n        ...AccountErrorFragment\n      }\n    }\n  }\n  \n"): (typeof documents)["\n  mutation login($email: String!, $password: String!) {\n    tokenCreate(email: $email, password: $password) {\n      csrfToken\n      token\n      errors {\n        ...AccountErrorFragment\n      }\n    }\n  }\n  \n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
