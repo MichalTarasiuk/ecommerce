@@ -78,7 +78,7 @@ export function RegisterForm() {
         ref={(emailInputElement) => {
           emailInputRef(emailInputElement);
 
-          if (!hasMounted) {
+          if (!hasMounted.current) {
             emailInputElement?.focus();
           }
         }}

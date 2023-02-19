@@ -2,7 +2,8 @@ import {useRouter} from 'next/router';
 import * as NProgress from 'nprogress';
 import {useCallback, useEffect} from 'react';
 
-import {useCSS, useEvent} from '@/common/hooks/hooks';
+import {useCSS} from '@/common/hooks/useCSS';
+import {useEvent} from '@/common/hooks/useEvent';
 
 import {config} from './consts';
 import {canRunRouteProgress, getStyles} from './helpers';

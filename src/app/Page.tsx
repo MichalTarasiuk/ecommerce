@@ -1,7 +1,7 @@
 import {i18nConfig} from '@root/i18n';
 
 import {inconsolata} from './fonts';
-import {useRouteProgress} from './hooks/hooks';
+import {useAuthorization, useRouteProgress} from './hooks/hooks';
 import {typedAppWithI18n} from './i18n';
 import {AppProviders} from './providers';
 
@@ -18,6 +18,7 @@ type AppPropsWithLayout = AppProps & {
 };
 
 function AppRoot({Component, pageProps}: AppPropsWithLayout) {
+  useAuthorization();
   useRouteProgress();
 
   const getLayout = Component.getLayout ?? ((page) => page);
