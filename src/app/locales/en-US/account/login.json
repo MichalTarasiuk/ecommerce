@@ -5,7 +5,7 @@
     "email": "Email",
     "password": "Password",
     "submit_button_text": "Log in",
-    "forgot_password_text": "Forgot password?"
-  },
-  "login_link": "Register a new account"
+    "forgot_password_text": "Forgot password?",
+    "register_link": "Register a new account"
+  }
 }

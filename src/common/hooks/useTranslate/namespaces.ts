@@ -15,6 +15,11 @@ type AccountLoginNamespace = {
   readonly en: typeof import('src/app/locales/en-US/account/login.json');
 };
 
+type AccountForgotPassword = {
+  readonly pl: typeof import('src/app/locales/pl-PL/account/forgot-password.json');
+  readonly en: typeof import('src/app/locales/en-US/account/forgot-password.json');
+};
+
 export type Namespaces = {
   readonly common: ObjectType.Intersection<
     CommonNamespace['pl'],
@@ -27,5 +32,9 @@ export type Namespaces = {
   readonly ['account.login']: ObjectType.Intersection<
     AccountLoginNamespace['en'],
     AccountLoginNamespace['pl']
+  >;
+  readonly ['account.forgot-password']: ObjectType.Intersection<
+    AccountForgotPassword['en'],
+    AccountForgotPassword['pl']
   >;
 };

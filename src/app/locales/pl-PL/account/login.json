@@ -5,7 +5,7 @@
     "email": "Email",
     "password": "Hasło",
     "submit_button_text": "Zaloguj się",
-    "forgot_password_text": "Zapomniałeś hasła?"
-  },
-  "login_link": "Zarejestruj nowe konto"
+    "forgot_password_text": "Zapomniałeś hasła?",
+    "register_link": "Zarejestruj nowe konto"
+  }
 }

@@ -8,9 +8,9 @@ import {routes} from '@/common/consts/routes';
 import {registerMutation} from '@/common/graphql/mutations/mutations';
 import {useTranslate, useRegion, useHasMounted} from '@/common/hooks/hooks';
 
-import {fieldNames} from './helpers';
+import {fieldNames} from './consts';
 
-import type {FieldsValues} from './helpers';
+import type {FieldsValues} from './consts';
 import type {
   RegisterMutation,
   RegisterMutationVariables,
@@ -53,7 +53,7 @@ export function RegisterForm() {
       });
 
       accountRegister?.errors.forEach(() => {
-        // if (error.field && error.message && isFieldValue(error.field)) {
+        // if (error.field && error.message && keyIn(errors, error.field)) {
         //   setError(error.field, {message: error.message});
         // }
       });
@@ -69,7 +69,11 @@ export function RegisterForm() {
   );
 
   return (
-    <form onSubmit={handleSubmit(submit)} className='max-w-md' noValidate>
+    <form
+      onSubmit={handleSubmit(submit)}
+      className='max-w-md md:p-0 px-4'
+      noValidate
+    >
       <Heading tag='h1' size='medium' weight='700'>
         {translate('form.title')}
       </Heading>
@@ -98,7 +102,7 @@ export function RegisterForm() {
         {translate('form.submit_button_text')}
       </Button>
       <Link href={routes.account.login} className='text-xs mt-9 block'>
-        {translate('login_link')}
+        {translate('form.login_link')}
       </Link>
     </form>
   );

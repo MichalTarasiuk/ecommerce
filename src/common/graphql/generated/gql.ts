@@ -20,6 +20,7 @@ const documents = {
     "\n  mutation login($email: String!, $password: String!) {\n    tokenCreate(email: $email, password: $password) {\n      csrfToken\n      token\n      errors {\n        ...AccountErrorFragment\n      }\n    }\n  }\n  \n": types.LoginDocument,
     "\n  mutation refreshToken($csrfToken: String!) {\n    tokenRefresh(csrfToken: $csrfToken) {\n      token\n      errors {\n        ...AccountErrorFragment\n      }\n    }\n  }\n  \n": types.RefreshTokenDocument,
     "\n  mutation Register($input: AccountRegisterInput!) {\n    accountRegister(input: $input) {\n      errors {\n        ...AccountErrorFragment\n      }\n      requiresConfirmation\n    }\n  }\n  \n": types.RegisterDocument,
+    "\n  mutation requestPasswordReset(\n    $email: String!\n    $redirectUrl: String!\n    $channel: String!\n  ) {\n    requestPasswordReset(\n      email: $email\n      redirectUrl: $redirectUrl\n      channel: $channel\n    ) {\n      errors {\n        ...AccountErrorFragment\n      }\n    }\n  }\n  \n": types.RequestPasswordResetDocument,
     "\n  query Channels {\n    channels {\n      id\n      slug\n      name\n      isActive\n    }\n  }\n": types.ChannelsDocument,
     "\n  query MainMenu($languageCode: LanguageCodeEnum!, $channel: String!) {\n    menu(slug: \"navbar\", channel: $channel) {\n      id\n      items {\n        ...MenuItemWithChildrenFragment\n      }\n    }\n  }\n  \n": types.MainMenuDocument,
 };
@@ -66,6 +67,10 @@ export function graphql(source: "\n  mutation refreshToken($csrfToken: String!) 
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation Register($input: AccountRegisterInput!) {\n    accountRegister(input: $input) {\n      errors {\n        ...AccountErrorFragment\n      }\n      requiresConfirmation\n    }\n  }\n  \n"): (typeof documents)["\n  mutation Register($input: AccountRegisterInput!) {\n    accountRegister(input: $input) {\n      errors {\n        ...AccountErrorFragment\n      }\n      requiresConfirmation\n    }\n  }\n  \n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation requestPasswordReset(\n    $email: String!\n    $redirectUrl: String!\n    $channel: String!\n  ) {\n    requestPasswordReset(\n      email: $email\n      redirectUrl: $redirectUrl\n      channel: $channel\n    ) {\n      errors {\n        ...AccountErrorFragment\n      }\n    }\n  }\n  \n"): (typeof documents)["\n  mutation requestPasswordReset(\n    $email: String!\n    $redirectUrl: String!\n    $channel: String!\n  ) {\n    requestPasswordReset(\n      email: $email\n      redirectUrl: $redirectUrl\n      channel: $channel\n    ) {\n      errors {\n        ...AccountErrorFragment\n      }\n    }\n  }\n  \n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

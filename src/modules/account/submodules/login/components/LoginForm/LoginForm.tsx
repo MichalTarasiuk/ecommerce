@@ -15,9 +15,9 @@ import {routes} from '@/common/consts/routes';
 import {loginMutation} from '@/common/graphql/mutations/mutations';
 import {useTranslate, useHasMounted} from '@/common/hooks/hooks';
 
-import {fieldNames} from './helpers';
+import {fieldNames} from './consts';
 
-import type {FieldsValues} from './helpers';
+import type {FieldsValues} from './consts';
 import type {
   LoginMutation,
   LoginMutationVariables,
@@ -53,7 +53,7 @@ export function LoginForm() {
       }
 
       errors?.forEach(() => {
-        // if (error.field && error.message && isFieldValue(error.field)) {
+        // if (error.field && error.message && keyIn(errors, error.field)) {
         //   setError(error.field, {message: error.message});
         // }
       });
@@ -69,7 +69,11 @@ export function LoginForm() {
   );
 
   return (
-    <form onSubmit={handleSubmit(submit)} className='max-w-md' noValidate>
+    <form
+      onSubmit={handleSubmit(submit)}
+      className='max-w-md md:p-0 px-4'
+      noValidate
+    >
       <div>
         <Text tag='span' size='small'>
           {translate('form.pre_title')}
@@ -109,7 +113,7 @@ export function LoginForm() {
         {translate('form.submit_button_text')}
       </Button>
       <Link href={routes.account.register} className='text-xs mt-9 block'>
-        {translate('login_link')}
+        {translate('form.register_link')}
       </Link>
     </form>
   );

@@ -3,7 +3,7 @@
     "title": "Create new account",
     "email": "Email",
     "password": "Password",
-    "submit_button_text": "Register"
-  },
-  "login_link": "Log in to existing account"
+    "submit_button_text": "Register",
+    "login_link": "Log in to existing account"
+  }
 }
