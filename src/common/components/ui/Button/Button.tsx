@@ -1,5 +1,7 @@
 import classNames from 'classnames';
 
+import {none} from '@/common/consts/consts';
+
 import {Link} from '../../Link';
 
 import {isAnchor, typedForwardRef} from './helpers';
@@ -33,9 +35,12 @@ export const Button = typedForwardRef((...renderParams: RenderParams) => {
   return (
     <button
       ref={ref}
-      className={classNames(className, {
-        'cursor-not-allowed': props.disabled,
-      })}
+      className={classNames(
+        props.disabled ? className.replace(/hover:[\w-]+/g, none) : className,
+        {
+          'cursor-not-allowed': props.disabled,
+        },
+      )}
       {...props}
     />
   );

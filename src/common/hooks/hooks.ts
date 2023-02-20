@@ -1,5 +1,4 @@
 export * from './useTranslate/useTranslate';
-export * from './useRefreshProps';
 export * from './useEvent';
 export * from './useLayout';
 export * from './useCSS';
@@ -15,3 +14,4 @@ export * from './useRouter';
 export * from './useChannel';
 export * from './useLocale';
 export * from './useRegion';
+export * from './useRouteIsChanging';

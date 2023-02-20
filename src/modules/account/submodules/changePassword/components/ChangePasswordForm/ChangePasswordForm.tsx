@@ -7,7 +7,11 @@ import {authorization} from '@/app/hooks/useAuthorization';
 import {request} from '@/app/queryClient/request/request';
 import {Heading, TextInput, Button} from '@/common/components/components';
 import {changePasswordMutation} from '@/common/graphql/mutations/mutations';
-import {useTranslate, useHasMounted} from '@/common/hooks/hooks';
+import {
+  useTranslate,
+  useHasMounted,
+  useRouteIsChanging,
+} from '@/common/hooks/hooks';
 import {isKeyof} from '@/common/utils/utils';
 
 import {fieldNames} from './consts';
@@ -38,6 +42,7 @@ export function ChangePasswordForm() {
 
   const {translate} = useTranslate('account.change-password');
 
+  const routeIsChanging = useRouteIsChanging();
   const hasMounted = useHasMounted();
 
   const submit = useCallback(
@@ -70,6 +75,8 @@ export function ChangePasswordForm() {
     [changePasswordMutate, query, setError],
   );
 
+  const disabled = routeIsChanging || isLoading;
+
   const {ref: passwordInputRef, ...passwordInputHandler} = register(
     fieldNames.password,
     {
@@ -80,7 +87,7 @@ export function ChangePasswordForm() {
   return (
     <form
       onSubmit={handleSubmit(submit)}
-      className='max-w-md md:p-0 px-4'
+      className='md:w-56 md:px-0 px-3 w-60'
       noValidate
     >
       <Heading tag='h1' size='medium' weight='700'>
@@ -93,6 +100,7 @@ export function ChangePasswordForm() {
         type='email'
         label={translate('form.email')}
         errorMessage={errors.email?.message}
+        disabled={disabled}
       />
       <TextInput
         {...passwordInputHandler}
@@ -106,8 +114,9 @@ export function ChangePasswordForm() {
         type='password'
         label={translate('form.password')}
         errorMessage={errors.password?.message}
+        disabled={disabled}
       />
-      <Button type='submit' variant='green' disabled={isLoading}>
+      <Button type='submit' variant='green' disabled={disabled}>
         {translate('form.submit_button_text')}
       </Button>
     </form>

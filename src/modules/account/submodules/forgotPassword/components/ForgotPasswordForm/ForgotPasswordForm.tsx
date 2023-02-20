@@ -12,7 +12,12 @@ import {
 } from '@/common/components/components';
 import {routes} from '@/common/consts/routes';
 import {requestPasswordResetMutation} from '@/common/graphql/mutations/mutations';
-import {useTranslate, useHasMounted, useRegion} from '@/common/hooks/hooks';
+import {
+  useTranslate,
+  useHasMounted,
+  useRegion,
+  useRouteIsChanging,
+} from '@/common/hooks/hooks';
 import {isKeyof} from '@/common/utils/utils';
 
 import {fieldNames} from './consts';
@@ -29,6 +34,7 @@ export function ForgotPasswordForm() {
     register,
     handleSubmit,
     setError,
+    reset,
   } = useForm<FieldsValues>();
 
   const {isLoading, mutateAsync: requestPasswordResetMutate} = useMutation<
@@ -40,6 +46,7 @@ export function ForgotPasswordForm() {
   const region = useRegion();
   const {translate} = useTranslate('account.forgot-password');
 
+  const routeIsChanging = useRouteIsChanging();
   const hasMounted = useHasMounted();
 
   const submit = useCallback(
@@ -53,6 +60,10 @@ export function ForgotPasswordForm() {
         redirectUrl,
       });
 
+      if (requestPasswordReset?.errors.length === 0) {
+        reset();
+      }
+
       requestPasswordReset?.errors.forEach((error) => {
         const fieldName = error.field;
 
@@ -61,8 +72,16 @@ export function ForgotPasswordForm() {
         }
       });
     },
-    [region.pathname, region.variables, requestPasswordResetMutate, setError],
+    [
+      region.pathname,
+      region.variables,
+      requestPasswordResetMutate,
+      reset,
+      setError,
+    ],
   );
+
+  const disabled = routeIsChanging || isLoading;
 
   const {ref: emailInputRef, ...emailInputHandler} = register(
     fieldNames.email,
@@ -74,7 +93,7 @@ export function ForgotPasswordForm() {
   return (
     <form
       onSubmit={handleSubmit(submit)}
-      className='max-w-md md:p-0 px-4'
+      className='md:w-56 md:px-0 px-3 w-60'
       noValidate
     >
       <div>
@@ -97,8 +116,9 @@ export function ForgotPasswordForm() {
         type='email'
         label={translate('form.email')}
         errorMessage={errors.email?.message}
+        disabled={disabled}
       />
-      <Button type='submit' variant='green' disabled={isLoading}>
+      <Button type='submit' variant='green' disabled={disabled}>
         {translate('form.submit_button_text')}
       </Button>
       <Link href={routes.account.login} className='text-xs mt-9 block'>

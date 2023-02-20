@@ -1,6 +1,7 @@
 {
   "form": {
     "title": "Create new account",
+    "description": "After register, You will receive a special link that will confirm your email.",
     "email": "Email",
     "password": "Password",
     "submit_button_text": "Register",

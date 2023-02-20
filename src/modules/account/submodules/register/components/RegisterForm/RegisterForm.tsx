@@ -3,10 +3,21 @@ import {useCallback} from 'react';
 import {useForm} from 'react-hook-form';
 
 import {request} from '@/app/queryClient/request/request';
-import {Heading, TextInput, Link, Button} from '@/common/components/components';
+import {
+  Heading,
+  TextInput,
+  Text,
+  Link,
+  Button,
+} from '@/common/components/components';
 import {routes} from '@/common/consts/routes';
 import {registerMutation} from '@/common/graphql/mutations/mutations';
-import {useTranslate, useRegion, useHasMounted} from '@/common/hooks/hooks';
+import {
+  useTranslate,
+  useRegion,
+  useHasMounted,
+  useRouteIsChanging,
+} from '@/common/hooks/hooks';
 import {isKeyof} from '@/common/utils/utils';
 
 import {fieldNames} from './consts';
@@ -20,6 +31,7 @@ import type {
 export function RegisterForm() {
   const {
     formState: {errors: errorsState},
+    reset,
     register,
     handleSubmit,
     setError,
@@ -34,6 +46,7 @@ export function RegisterForm() {
   const region = useRegion();
   const {translate} = useTranslate('account.register');
 
+  const routeIsChanging = useRouteIsChanging();
   const hasMounted = useHasMounted();
 
   const submit = useCallback(
@@ -48,6 +61,14 @@ export function RegisterForm() {
         },
       });
 
+      const canResetForm = accountRegister?.errors.length === 0;
+
+      if (canResetForm) {
+        reset();
+
+        return;
+      }
+
       accountRegister?.errors?.forEach((error) => {
         const fieldName = error.field;
 
@@ -56,8 +77,10 @@ export function RegisterForm() {
         }
       });
     },
-    [region.pathname, region.variables, registerMutate, setError],
+    [region.pathname, region.variables, registerMutate, reset, setError],
   );
+
+  const disabled = isLoading || routeIsChanging;
 
   const {ref: emailInputRef, ...emailInputHandler} = register(
     fieldNames.email,
@@ -69,12 +92,17 @@ export function RegisterForm() {
   return (
     <form
       onSubmit={handleSubmit(submit)}
-      className='max-w-md md:p-0 px-4'
+      className='md:w-56 md:px-0 px-3 w-60'
       noValidate
     >
-      <Heading tag='h1' size='medium' weight='700'>
-        {translate('form.title')}
-      </Heading>
+      <div>
+        <Heading tag='h1' size='medium' weight='700'>
+          {translate('form.title')}
+        </Heading>
+        <Text tag='p' size='small'>
+          {translate('form.description')}
+        </Text>
+      </div>
       <TextInput
         {...emailInputHandler}
         ref={(emailInputElement) => {
@@ -87,6 +115,7 @@ export function RegisterForm() {
         type='email'
         label={translate('form.email')}
         errorMessage={errorsState.email?.message}
+        disabled={disabled}
       />
       <TextInput
         {...register(fieldNames.password, {
@@ -95,8 +124,9 @@ export function RegisterForm() {
         type='password'
         label={translate('form.password')}
         errorMessage={errorsState.password?.message}
+        disabled={disabled}
       />
-      <Button type='submit' variant='green' disabled={isLoading}>
+      <Button type='submit' variant='green' disabled={disabled}>
         {translate('form.submit_button_text')}
       </Button>
       <Link href={routes.account.login} className='text-xs mt-9 block'>
