@@ -5,5 +5,6 @@ export const routes = {
     login: '/account/login',
     confirm: '/account/confirm',
     forgotPassword: '/account/forgot-password',
+    changePassword: '/account/change-password',
   },
 } as const;

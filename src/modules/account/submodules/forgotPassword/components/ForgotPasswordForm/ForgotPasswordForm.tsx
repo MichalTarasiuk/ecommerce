@@ -24,6 +24,13 @@ import type {
 } from '@/common/graphql/generated/graphql';
 
 export function ForgotPasswordForm() {
+  const {
+    formState: {errors},
+    register,
+    handleSubmit,
+    setError,
+  } = useForm<FieldsValues>();
+
   const {isLoading, mutateAsync: requestPasswordResetMutate} = useMutation<
     RequestPasswordResetMutation,
     unknown,
@@ -36,13 +43,6 @@ export function ForgotPasswordForm() {
       >(requestPasswordResetMutation, variables),
   });
 
-  const {
-    formState: {errors},
-    register,
-    handleSubmit,
-    setError,
-  } = useForm<FieldsValues>();
-
   const region = useRegion();
   const {translate} = useTranslate('account.forgot-password');
 
@@ -51,7 +51,7 @@ export function ForgotPasswordForm() {
   const submit = useCallback(
     async ({email}: FieldsValues) => {
       const {channel} = region.variables;
-      const redirectUrl = `${window.location.origin}${region.pathname}`;
+      const redirectUrl = `${window.location.origin}${region.pathname}${routes.account.changePassword}`;
 
       const {requestPasswordReset} = await requestPasswordResetMutate({
         email,

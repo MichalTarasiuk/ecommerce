@@ -37,6 +37,7 @@ export const i18nConfig = {
     [routes.account.register]: ['account.register'] as const,
     [routes.account.login]: ['account.login'] as const,
     [routes.account.forgotPassword]: ['account.forgot-password'] as const,
+    [routes.account.changePassword]: ['account.change-password'] as const,
   },
   loadLocaleFrom: (locale = defaultLocale, namespace) => {
     return import(

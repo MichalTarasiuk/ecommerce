@@ -25,6 +25,13 @@ import type {
 } from '@/common/graphql/generated/graphql';
 
 export function LoginForm() {
+  const {
+    formState: {errors: errorsState},
+    register,
+    handleSubmit,
+    setError,
+  } = useForm<FieldsValues>();
+
   const {isLoading, mutateAsync: loginMutate} = useMutation<
     LoginMutation,
     unknown,
@@ -33,13 +40,6 @@ export function LoginForm() {
     mutationFn: (variables) =>
       request<LoginMutation, LoginMutationVariables>(loginMutation, variables),
   });
-
-  const {
-    formState: {errors: errorsState},
-    register,
-    handleSubmit,
-    setError,
-  } = useForm<FieldsValues>();
 
   const {translate} = useTranslate('account.login');
 

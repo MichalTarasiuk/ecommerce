@@ -20,6 +20,11 @@ type AccountForgotPassword = {
   readonly en: typeof import('src/app/locales/en-US/account/forgot-password.json');
 };
 
+type AccountChangePassword = {
+  readonly pl: typeof import('src/app/locales/pl-PL/account/change-password.json');
+  readonly en: typeof import('src/app/locales/en-US/account/change-password.json');
+};
+
 export type Namespaces = {
   readonly common: ObjectType.Intersection<
     CommonNamespace['pl'],
@@ -36,5 +41,9 @@ export type Namespaces = {
   readonly ['account.forgot-password']: ObjectType.Intersection<
     AccountForgotPassword['en'],
     AccountForgotPassword['pl']
+  >;
+  readonly ['account.change-password']: ObjectType.Intersection<
+    AccountChangePassword['en'],
+    AccountChangePassword['pl']
   >;
 };

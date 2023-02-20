@@ -18,6 +18,13 @@ import type {
 } from '@/common/graphql/generated/graphql';
 
 export function RegisterForm() {
+  const {
+    formState: {errors: errorsState},
+    register,
+    handleSubmit,
+    setError,
+  } = useForm<FieldsValues>();
+
   const {isLoading, mutateAsync: registerMutate} = useMutation<
     RegisterMutation,
     unknown,
@@ -29,13 +36,6 @@ export function RegisterForm() {
         variables,
       ),
   });
-
-  const {
-    formState: {errors: errorsState},
-    register,
-    handleSubmit,
-    setError,
-  } = useForm<FieldsValues>();
 
   const region = useRegion();
   const {translate} = useTranslate('account.register');

@@ -2,7 +2,7 @@ import {FormWrapper} from '@/modules/account/components/components';
 
 import {LoginForm} from './components/components';
 
-export const LoginPage = () => {
+export const AccountLoginPage = () => {
   return (
     <FormWrapper>
       <LoginForm />
