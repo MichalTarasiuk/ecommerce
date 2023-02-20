@@ -36,10 +36,7 @@ export function LoginForm() {
     LoginMutation,
     unknown,
     LoginMutationVariables
-  >({
-    mutationFn: (variables) =>
-      request<LoginMutation, LoginMutationVariables>(loginMutation, variables),
-  });
+  >((variables) => request(loginMutation, variables));
 
   const {translate} = useTranslate('account.login');
 

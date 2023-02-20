@@ -34,13 +34,7 @@ export function ChangePasswordForm() {
     ChangePasswordMutation,
     unknown,
     ChangePasswordMutationVariables
-  >({
-    mutationFn: (variables) =>
-      request<ChangePasswordMutation, ChangePasswordMutationVariables>(
-        changePasswordMutation,
-        variables,
-      ),
-  });
+  >((variables) => request(changePasswordMutation, variables));
 
   const {translate} = useTranslate('account.change-password');
 

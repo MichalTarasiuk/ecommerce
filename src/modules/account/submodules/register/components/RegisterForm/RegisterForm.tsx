@@ -29,13 +29,7 @@ export function RegisterForm() {
     RegisterMutation,
     unknown,
     RegisterMutationVariables
-  >({
-    mutationFn: (variables) =>
-      request<RegisterMutation, RegisterMutationVariables>(
-        registerMutation,
-        variables,
-      ),
-  });
+  >((variables) => request(registerMutation, variables));
 
   const region = useRegion();
   const {translate} = useTranslate('account.register');

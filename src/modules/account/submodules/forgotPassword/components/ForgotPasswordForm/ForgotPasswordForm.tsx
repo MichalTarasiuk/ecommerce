@@ -35,13 +35,7 @@ export function ForgotPasswordForm() {
     RequestPasswordResetMutation,
     unknown,
     RequestPasswordResetMutationVariables
-  >({
-    mutationFn: (variables) =>
-      request<
-        RequestPasswordResetMutation,
-        RequestPasswordResetMutationVariables
-      >(requestPasswordResetMutation, variables),
-  });
+  >((variables) => request(requestPasswordResetMutation, variables));
 
   const region = useRegion();
   const {translate} = useTranslate('account.forgot-password');
