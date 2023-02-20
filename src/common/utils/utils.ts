@@ -11,3 +11,4 @@ export * from './isLastIndex';
 export * from './createFastContext';
 export * from './region';
 export * from './canUseDOM';
+export * from './isKeyof';

@@ -7,6 +7,7 @@ import {Heading, TextInput, Link, Button} from '@/common/components/components';
 import {routes} from '@/common/consts/routes';
 import {registerMutation} from '@/common/graphql/mutations/mutations';
 import {useTranslate, useRegion, useHasMounted} from '@/common/hooks/hooks';
+import {isKeyof} from '@/common/utils/utils';
 
 import {fieldNames} from './consts';
 
@@ -17,7 +18,7 @@ import type {
 } from '@/common/graphql/generated/graphql';
 
 export function RegisterForm() {
-  const {mutateAsync: registerMutate} = useMutation<
+  const {isLoading, mutateAsync: registerMutate} = useMutation<
     RegisterMutation,
     unknown,
     RegisterMutationVariables
@@ -30,9 +31,10 @@ export function RegisterForm() {
   });
 
   const {
-    formState: {errors},
+    formState: {errors: errorsState},
     register,
     handleSubmit,
+    setError,
   } = useForm<FieldsValues>();
 
   const region = useRegion();
@@ -52,13 +54,15 @@ export function RegisterForm() {
         },
       });
 
-      accountRegister?.errors.forEach(() => {
-        // if (error.field && error.message && keyIn(errors, error.field)) {
-        //   setError(error.field, {message: error.message});
-        // }
+      accountRegister?.errors?.forEach((error) => {
+        const fieldName = error.field;
+
+        if (error.message && fieldName && isKeyof(fieldNames, fieldName)) {
+          setError(fieldName, {message: error.message});
+        }
       });
     },
-    [region.variables, registerMutate],
+    [region.variables, registerMutate, setError],
   );
 
   const {ref: emailInputRef, ...emailInputHandler} = register(
@@ -88,7 +92,7 @@ export function RegisterForm() {
         }}
         type='email'
         label={translate('form.email')}
-        errorMessage={errors.email?.message}
+        errorMessage={errorsState.email?.message}
       />
       <TextInput
         {...register(fieldNames.password, {
@@ -96,9 +100,9 @@ export function RegisterForm() {
         })}
         type='password'
         label={translate('form.password')}
-        errorMessage={errors.password?.message}
+        errorMessage={errorsState.password?.message}
       />
-      <Button type='submit' variant='green'>
+      <Button type='submit' variant='green' disabled={isLoading}>
         {translate('form.submit_button_text')}
       </Button>
       <Link href={routes.account.login} className='text-xs mt-9 block'>

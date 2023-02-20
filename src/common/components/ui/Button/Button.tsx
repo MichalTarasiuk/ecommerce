@@ -30,7 +30,15 @@ export const Button = typedForwardRef((...renderParams: RenderParams) => {
 
   const [props, ref] = renderParams;
 
-  return <button ref={ref} className={className} {...props} />;
+  return (
+    <button
+      ref={ref}
+      className={classNames(className, {
+        'cursor-not-allowed': props.disabled,
+      })}
+      {...props}
+    />
+  );
 });
 
 Button.displayName = 'Button';

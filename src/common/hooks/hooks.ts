@@ -1,6 +1,5 @@
 export * from './useTranslate/useTranslate';
 export * from './useRefreshProps';
-export * from './useRerender';
 export * from './useEvent';
 export * from './useLayout';
 export * from './useCSS';

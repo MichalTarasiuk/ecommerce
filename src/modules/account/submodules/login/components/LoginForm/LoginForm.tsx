@@ -14,6 +14,7 @@ import {
 import {routes} from '@/common/consts/routes';
 import {loginMutation} from '@/common/graphql/mutations/mutations';
 import {useTranslate, useHasMounted} from '@/common/hooks/hooks';
+import {isKeyof} from '@/common/utils/utils';
 
 import {fieldNames} from './consts';
 
@@ -24,7 +25,7 @@ import type {
 } from '@/common/graphql/generated/graphql';
 
 export function LoginForm() {
-  const {mutateAsync: loginMutate} = useMutation<
+  const {isLoading, mutateAsync: loginMutate} = useMutation<
     LoginMutation,
     unknown,
     LoginMutationVariables
@@ -34,9 +35,10 @@ export function LoginForm() {
   });
 
   const {
-    formState: {errors},
+    formState: {errors: errorsState},
     register,
     handleSubmit,
+    setError,
   } = useForm<FieldsValues>();
 
   const {translate} = useTranslate('account.login');
@@ -52,13 +54,15 @@ export function LoginForm() {
         authorization.login(token, csrfToken);
       }
 
-      errors?.forEach(() => {
-        // if (error.field && error.message && keyIn(errors, error.field)) {
-        //   setError(error.field, {message: error.message});
-        // }
+      errors?.forEach((error) => {
+        const fieldName = error.field;
+
+        if (error.message && fieldName && isKeyof(fieldNames, fieldName)) {
+          setError(fieldName, {message: error.message});
+        }
       });
     },
-    [loginMutate],
+    [loginMutate, setError],
   );
 
   const {ref: emailInputRef, ...emailInputHandler} = register(
@@ -93,7 +97,7 @@ export function LoginForm() {
         }}
         type='email'
         label={translate('form.email')}
-        errorMessage={errors.email?.message}
+        errorMessage={errorsState.email?.message}
       />
       <TextInput
         {...register(fieldNames.password, {
@@ -101,7 +105,7 @@ export function LoginForm() {
         })}
         type='password'
         label={translate('form.password')}
-        errorMessage={errors.password?.message}
+        errorMessage={errorsState.password?.message}
       />
       <Link
         href={routes.account.forgotPassword}
@@ -109,7 +113,7 @@ export function LoginForm() {
       >
         {translate('form.forgot_password_text')}
       </Link>
-      <Button type='submit' variant='green'>
+      <Button type='submit' variant='green' disabled={isLoading}>
         {translate('form.submit_button_text')}
       </Button>
       <Link href={routes.account.register} className='text-xs mt-9 block'>

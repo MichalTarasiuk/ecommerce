@@ -25288,17 +25288,11 @@ export type _Service = {
   sdl?: Maybe<Scalars['String']>;
 };
 
-export type AccountErrorFragmentFragment = { __typename?: 'AccountError', code: AccountErrorCode, field?: string | null, message?: string | null } & { ' $fragmentName'?: 'AccountErrorFragmentFragment' };
+export type AccountErrorFragmentFragment = { __typename?: 'AccountError', code: AccountErrorCode, field?: string | null, message?: string | null };
 
-export type MenuItemFragmentFragment = { __typename?: 'MenuItem', id: string, name: string, url?: string | null, translation?: { __typename?: 'MenuItemTranslation', id: string, name: string } | null, category?: { __typename?: 'Category', id: string, slug: string } | null, collection?: { __typename?: 'Collection', id: string, slug: string } | null, page?: { __typename?: 'Page', id: string, slug: string } | null } & { ' $fragmentName'?: 'MenuItemFragmentFragment' };
+export type MenuItemFragmentFragment = { __typename?: 'MenuItem', id: string, name: string, url?: string | null, translation?: { __typename?: 'MenuItemTranslation', id: string, name: string } | null, category?: { __typename?: 'Category', id: string, slug: string } | null, collection?: { __typename?: 'Collection', id: string, slug: string } | null, page?: { __typename?: 'Page', id: string, slug: string } | null };
 
-export type MenuItemWithChildrenFragmentFragment = { __typename?: 'MenuItem', id: string, name: string, url?: string | null, translation?: { __typename?: 'MenuItemTranslation', id: string, name: string } | null, category?: { __typename?: 'Category', id: string, slug: string } | null, collection?: { __typename?: 'Collection', id: string, slug: string } | null, page?: { __typename?: 'Page', id: string, slug: string } | null, children?: Array<(
-    { __typename?: 'MenuItem', children?: Array<(
-      { __typename?: 'MenuItem' }
-      & { ' $fragmentRefs'?: { 'MenuItemFragmentFragment': MenuItemFragmentFragment } }
-    )> | null }
-    & { ' $fragmentRefs'?: { 'MenuItemFragmentFragment': MenuItemFragmentFragment } }
-  )> | null } & { ' $fragmentName'?: 'MenuItemWithChildrenFragmentFragment' };
+export type MenuItemWithChildrenFragmentFragment = { __typename?: 'MenuItem', id: string, name: string, url?: string | null, translation?: { __typename?: 'MenuItemTranslation', id: string, name: string } | null, category?: { __typename?: 'Category', id: string, slug: string } | null, collection?: { __typename?: 'Collection', id: string, slug: string } | null, page?: { __typename?: 'Page', id: string, slug: string } | null, children?: Array<{ __typename?: 'MenuItem', id: string, name: string, url?: string | null, children?: Array<{ __typename?: 'MenuItem', id: string, name: string, url?: string | null, translation?: { __typename?: 'MenuItemTranslation', id: string, name: string } | null, category?: { __typename?: 'Category', id: string, slug: string } | null, collection?: { __typename?: 'Collection', id: string, slug: string } | null, page?: { __typename?: 'Page', id: string, slug: string } | null }> | null, translation?: { __typename?: 'MenuItemTranslation', id: string, name: string } | null, category?: { __typename?: 'Category', id: string, slug: string } | null, collection?: { __typename?: 'Collection', id: string, slug: string } | null, page?: { __typename?: 'Page', id: string, slug: string } | null }> | null };
 
 export type ConfirmAccountMutationVariables = Exact<{
   email: Scalars['String'];
@@ -25306,10 +25300,7 @@ export type ConfirmAccountMutationVariables = Exact<{
 }>;
 
 
-export type ConfirmAccountMutation = { __typename?: 'Mutation', confirmAccount?: { __typename?: 'ConfirmAccount', errors: Array<(
-      { __typename?: 'AccountError' }
-      & { ' $fragmentRefs'?: { 'AccountErrorFragmentFragment': AccountErrorFragmentFragment } }
-    )>, user?: { __typename?: 'User', email: string, isActive: boolean } | null } | null };
+export type ConfirmAccountMutation = { __typename?: 'Mutation', confirmAccount?: { __typename?: 'ConfirmAccount', errors: Array<{ __typename?: 'AccountError', code: AccountErrorCode, field?: string | null, message?: string | null }>, user?: { __typename?: 'User', email: string, isActive: boolean } | null } | null };
 
 export type LoginMutationVariables = Exact<{
   email: Scalars['String'];
@@ -25317,30 +25308,21 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', tokenCreate?: { __typename?: 'CreateToken', csrfToken?: string | null, token?: string | null, errors: Array<(
-      { __typename?: 'AccountError' }
-      & { ' $fragmentRefs'?: { 'AccountErrorFragmentFragment': AccountErrorFragmentFragment } }
-    )> } | null };
+export type LoginMutation = { __typename?: 'Mutation', tokenCreate?: { __typename?: 'CreateToken', csrfToken?: string | null, token?: string | null, errors: Array<{ __typename?: 'AccountError', code: AccountErrorCode, field?: string | null, message?: string | null }> } | null };
 
 export type RefreshTokenMutationVariables = Exact<{
   csrfToken: Scalars['String'];
 }>;
 
 
-export type RefreshTokenMutation = { __typename?: 'Mutation', tokenRefresh?: { __typename?: 'RefreshToken', token?: string | null, errors: Array<(
-      { __typename?: 'AccountError' }
-      & { ' $fragmentRefs'?: { 'AccountErrorFragmentFragment': AccountErrorFragmentFragment } }
-    )> } | null };
+export type RefreshTokenMutation = { __typename?: 'Mutation', tokenRefresh?: { __typename?: 'RefreshToken', token?: string | null, errors: Array<{ __typename?: 'AccountError', code: AccountErrorCode, field?: string | null, message?: string | null }> } | null };
 
 export type RegisterMutationVariables = Exact<{
   input: AccountRegisterInput;
 }>;
 
 
-export type RegisterMutation = { __typename?: 'Mutation', accountRegister?: { __typename?: 'AccountRegister', requiresConfirmation?: boolean | null, errors: Array<(
-      { __typename?: 'AccountError' }
-      & { ' $fragmentRefs'?: { 'AccountErrorFragmentFragment': AccountErrorFragmentFragment } }
-    )> } | null };
+export type RegisterMutation = { __typename?: 'Mutation', accountRegister?: { __typename?: 'AccountRegister', requiresConfirmation?: boolean | null, errors: Array<{ __typename?: 'AccountError', code: AccountErrorCode, field?: string | null, message?: string | null }> } | null };
 
 export type RequestPasswordResetMutationVariables = Exact<{
   email: Scalars['String'];
@@ -25349,10 +25331,7 @@ export type RequestPasswordResetMutationVariables = Exact<{
 }>;
 
 
-export type RequestPasswordResetMutation = { __typename?: 'Mutation', requestPasswordReset?: { __typename?: 'RequestPasswordReset', errors: Array<(
-      { __typename?: 'AccountError' }
-      & { ' $fragmentRefs'?: { 'AccountErrorFragmentFragment': AccountErrorFragmentFragment } }
-    )> } | null };
+export type RequestPasswordResetMutation = { __typename?: 'Mutation', requestPasswordReset?: { __typename?: 'RequestPasswordReset', errors: Array<{ __typename?: 'AccountError', code: AccountErrorCode, field?: string | null, message?: string | null }> } | null };
 
 export type ChannelsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -25365,10 +25344,7 @@ export type MainMenuQueryVariables = Exact<{
 }>;
 
 
-export type MainMenuQuery = { __typename?: 'Query', menu?: { __typename?: 'Menu', id: string, items?: Array<(
-      { __typename?: 'MenuItem' }
-      & { ' $fragmentRefs'?: { 'MenuItemWithChildrenFragmentFragment': MenuItemWithChildrenFragmentFragment } }
-    )> | null } | null };
+export type MainMenuQuery = { __typename?: 'Query', menu?: { __typename?: 'Menu', id: string, items?: Array<{ __typename?: 'MenuItem', id: string, name: string, url?: string | null, translation?: { __typename?: 'MenuItemTranslation', id: string, name: string } | null, category?: { __typename?: 'Category', id: string, slug: string } | null, collection?: { __typename?: 'Collection', id: string, slug: string } | null, page?: { __typename?: 'Page', id: string, slug: string } | null, children?: Array<{ __typename?: 'MenuItem', id: string, name: string, url?: string | null, children?: Array<{ __typename?: 'MenuItem', id: string, name: string, url?: string | null, translation?: { __typename?: 'MenuItemTranslation', id: string, name: string } | null, category?: { __typename?: 'Category', id: string, slug: string } | null, collection?: { __typename?: 'Collection', id: string, slug: string } | null, page?: { __typename?: 'Page', id: string, slug: string } | null }> | null, translation?: { __typename?: 'MenuItemTranslation', id: string, name: string } | null, category?: { __typename?: 'Category', id: string, slug: string } | null, collection?: { __typename?: 'Collection', id: string, slug: string } | null, page?: { __typename?: 'Page', id: string, slug: string } | null }> | null }> | null } | null };
 
 export const AccountErrorFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccountErrorFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AccountError"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"field"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]} as unknown as DocumentNode<AccountErrorFragmentFragment, unknown>;
 export const MenuItemFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MenuItemFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MenuItem"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"translation"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"languageCode"},"value":{"kind":"Variable","name":{"kind":"Name","value":"languageCode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"category"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"Field","name":{"kind":"Name","value":"collection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"Field","name":{"kind":"Name","value":"page"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]} as unknown as DocumentNode<MenuItemFragmentFragment, unknown>;
