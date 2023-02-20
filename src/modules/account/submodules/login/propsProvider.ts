@@ -3,7 +3,7 @@ import loadNamespaces from 'next-translate/loadNamespaces';
 import {routes} from '@/common/consts/routes';
 import {getRegion} from '@/common/utils/utils';
 
-import type {GetServerSidePropsContext, GetStaticPropsResult} from 'next';
+import type {GetServerSidePropsContext, GetServerSidePropsResult} from 'next';
 
 export const getServerSideProps = async ({
   params,
@@ -19,5 +19,5 @@ export const getServerSideProps = async ({
     props: {
       ...namespaces,
     },
-  } satisfies GetStaticPropsResult<Record<PropertyKey, unknown>>;
+  } satisfies GetServerSidePropsResult<Record<PropertyKey, unknown>>;
 };
