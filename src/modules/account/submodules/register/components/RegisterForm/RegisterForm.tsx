@@ -44,7 +44,7 @@ export function RegisterForm() {
 
   const submit = useCallback(
     async (fieldsValues: FieldsValues) => {
-      const redirectUrl = `${window.location.origin}${routes.account.confirm}`;
+      const redirectUrl = `${window.location.origin}${region.pathname}${routes.account.confirm}`;
 
       const {accountRegister} = await registerMutate({
         input: {
@@ -62,7 +62,7 @@ export function RegisterForm() {
         }
       });
     },
-    [region.variables, registerMutate, setError],
+    [region.pathname, region.variables, registerMutate, setError],
   );
 
   const {ref: emailInputRef, ...emailInputHandler} = register(
