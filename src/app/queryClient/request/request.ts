@@ -2,7 +2,7 @@
 import invariant from 'invariant';
 import wretch from 'wretch';
 
-import {authorizationHandler} from '@/app/hooks/useAuthorization';
+import {authorization} from '@/app/hooks/useAuthorization';
 import {refreshTokenMutation} from '@/common/graphql/mutations/mutations';
 
 import {getResponseData, isUnauthenticated} from './assertions';
@@ -29,7 +29,7 @@ export const request = <
   documentNode: DocumentNode,
   variables?: Variables,
 ): Promise<Resolved> => {
-  const {token, csrfToken} = authorizationHandler.getState();
+  const {token, csrfToken} = authorization.getState();
   const {query, operationName} = resolveRequestDocument(documentNode);
 
   return wretch(apiUrl)
@@ -55,12 +55,12 @@ export const request = <
         refreshTokenMutationPromise = null;
 
         if (tokenRefresh?.token) {
-          authorizationHandler.updateToken(tokenRefresh?.token);
+          authorization.updateToken(tokenRefresh?.token);
 
           return request(documentNode, variables);
         }
 
-        authorizationHandler.logout();
+        authorization.logout();
       }
 
       return data;

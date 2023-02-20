@@ -17,7 +17,7 @@ const state: State = {
   csrfToken: isClient() ? localStorage.getItem('csrfToken') : null,
 };
 
-export const authorizationHandler = {
+export const authorization = {
   getState: () => state,
   updateToken: (nextToken: string) => {
     state.token = nextToken;

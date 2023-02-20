@@ -2,7 +2,7 @@ import {useMutation} from '@tanstack/react-query';
 import {useCallback} from 'react';
 import {useForm} from 'react-hook-form';
 
-import {authorizationHandler} from '@/app/hooks/useAuthorization';
+import {authorization} from '@/app/hooks/useAuthorization';
 import {request} from '@/app/queryClient/request/request';
 import {
   Heading,
@@ -49,7 +49,7 @@ export function LoginForm() {
         (await loginMutate({email, password})).tokenCreate ?? {};
 
       if (token && csrfToken) {
-        authorizationHandler.login(token, csrfToken);
+        authorization.login(token, csrfToken);
       }
 
       errors?.forEach(() => {
