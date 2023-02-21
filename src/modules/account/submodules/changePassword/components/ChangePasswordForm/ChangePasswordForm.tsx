@@ -61,6 +61,8 @@ export function ChangePasswordForm() {
 
         if (token && csrfToken) {
           authorization.login(token, csrfToken);
+
+          return;
         }
 
         errors?.forEach((error) => {
@@ -75,14 +77,14 @@ export function ChangePasswordForm() {
     [changePasswordMutate, query, setError],
   );
 
-  const disabled = routeIsChanging || isLoading;
-
   const {ref: passwordInputRef, ...passwordInputHandler} = register(
     fieldNames.password,
     {
       required: true,
     },
   );
+
+  const disabled = routeIsChanging || isLoading;
 
   return (
     <form

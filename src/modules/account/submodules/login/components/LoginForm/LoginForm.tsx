@@ -54,6 +54,8 @@ export function LoginForm() {
 
       if (token && csrfToken) {
         authorization.login(token, csrfToken);
+
+        return;
       }
 
       errors?.forEach((error) => {
@@ -67,14 +69,14 @@ export function LoginForm() {
     [loginMutate, setError],
   );
 
-  const disabled = isLoading || routeIsChanging;
-
   const {ref: emailInputRef, ...emailInputHandler} = register(
     fieldNames.email,
     {
       required: true,
     },
   );
+
+  const disabled = isLoading || routeIsChanging;
 
   return (
     <form

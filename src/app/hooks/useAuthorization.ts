@@ -12,6 +12,11 @@ type State = {
 
 const eventHub = createEventHub();
 
+const events = {
+  login: 'login',
+  logout: 'logout',
+};
+
 const state: State = {
   token: null,
   csrfToken: isClient() ? localStorage.getItem('csrfToken') : null,
@@ -30,7 +35,7 @@ export const authorization = {
       localStorage.setItem('csrfToken', token);
     }
 
-    eventHub.emit('login');
+    eventHub.emit(events.login);
   },
   logout: () => {
     state.token = null;
@@ -51,12 +56,12 @@ export const useAuthorization = () => {
   );
 
   useEffect(() => {
-    eventHub.on('login', loginHandler);
-    eventHub.on('logout', logoutHandler);
+    eventHub.on(events.login, loginHandler);
+    eventHub.on(events.logout, logoutHandler);
 
     return () => {
-      eventHub.on('login', loginHandler);
-      eventHub.off('logout', logoutHandler);
+      eventHub.on(events.login, loginHandler);
+      eventHub.off(events.logout, logoutHandler);
     };
   }, [loginHandler, logoutHandler]);
 };

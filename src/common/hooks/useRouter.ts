@@ -3,16 +3,16 @@ import {useCallback} from 'react';
 
 import {useRegion} from './useRegion';
 
-import type {TransitionOptions} from '@/common/types/types';
+import type {TransitionOptions, Url} from '@/common/types/types';
 
 export const useRouter = () => {
   const nativeRouter = useNativeRouter();
   const region = useRegion();
 
   const push = useCallback(
-    async (pathname: `/${string}`, options?: TransitionOptions | undefined) => {
+    async (pathname: Url, options?: TransitionOptions | undefined) => {
       const resolved = await nativeRouter.push(
-        region.pathname + pathname,
+        region.pathname + pathname.toString(),
         undefined,
         options,
       );

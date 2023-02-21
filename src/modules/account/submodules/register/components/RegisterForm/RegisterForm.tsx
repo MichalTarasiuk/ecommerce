@@ -80,14 +80,14 @@ export function RegisterForm() {
     [region.pathname, region.variables, registerMutate, reset, setError],
   );
 
-  const disabled = isLoading || routeIsChanging;
-
   const {ref: emailInputRef, ...emailInputHandler} = register(
     fieldNames.email,
     {
       required: true,
     },
   );
+
+  const disabled = isLoading || routeIsChanging;
 
   return (
     <form

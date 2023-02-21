@@ -109,7 +109,6 @@ const config: StorybookConfig = {
       },
     };
 
-    // graphql loader - i don't know why is needed ¯\_(ツ)_/¯, check it later ;)
     webpackConfig.module?.rules?.push({
       test: /\.graphql$/,
       exclude: /node_modules/,

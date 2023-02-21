@@ -62,6 +62,8 @@ export function ForgotPasswordForm() {
 
       if (requestPasswordReset?.errors.length === 0) {
         reset();
+
+        return;
       }
 
       requestPasswordReset?.errors.forEach((error) => {
@@ -81,14 +83,14 @@ export function ForgotPasswordForm() {
     ],
   );
 
-  const disabled = routeIsChanging || isLoading;
-
   const {ref: emailInputRef, ...emailInputHandler} = register(
     fieldNames.email,
     {
       required: true,
     },
   );
+
+  const disabled = routeIsChanging || isLoading;
 
   return (
     <form

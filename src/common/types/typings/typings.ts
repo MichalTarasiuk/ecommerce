@@ -14,7 +14,7 @@ import type {
 } from 'react';
 import type {UrlObject} from 'url';
 
-type Url = UrlObject | string;
+export type Url = UrlObject | string;
 
 export type ForwardRef<Params extends readonly [props: {}, instance: unknown]> =
   (
