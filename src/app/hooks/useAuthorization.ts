@@ -41,7 +41,7 @@ export const authorization = {
     state.token = null;
     state.csrfToken = null;
 
-    eventHub.emit('logout');
+    eventHub.emit(events.logout);
   },
 };
 

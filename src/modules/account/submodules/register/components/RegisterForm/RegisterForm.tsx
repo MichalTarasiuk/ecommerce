@@ -3,13 +3,7 @@ import {useCallback} from 'react';
 import {useForm} from 'react-hook-form';
 
 import {request} from '@/app/queryClient/request/request';
-import {
-  Heading,
-  TextInput,
-  Text,
-  Link,
-  Button,
-} from '@/common/components/components';
+import {Heading, TextInput, Link, Button} from '@/common/components/components';
 import {routes} from '@/common/consts/routes';
 import {registerMutation} from '@/common/graphql/mutations/mutations';
 import {
@@ -92,17 +86,12 @@ export function RegisterForm() {
   return (
     <form
       onSubmit={handleSubmit(submit)}
-      className='md:w-56 md:px-0 px-3 w-60'
+      className='md:w-52 md:px-0 px-3 w-60'
       noValidate
     >
-      <div>
-        <Heading tag='h1' size='medium' weight='700'>
-          {translate('form.title')}
-        </Heading>
-        <Text tag='p' size='small'>
-          {translate('form.description')}
-        </Text>
-      </div>
+      <Heading tag='h1' size='medium' weight='700'>
+        {translate('form.title')}
+      </Heading>
       <TextInput
         {...emailInputHandler}
         ref={(emailInputElement) => {

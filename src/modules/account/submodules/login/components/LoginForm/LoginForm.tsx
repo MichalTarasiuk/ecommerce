@@ -81,7 +81,7 @@ export function LoginForm() {
   return (
     <form
       onSubmit={handleSubmit(submit)}
-      className='md:w-56 md:px-0 px-3 w-60'
+      className='md:w-52 md:px-0 px-3 w-60'
       noValidate
     >
       <div>

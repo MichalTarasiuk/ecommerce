@@ -4,3 +4,4 @@ export * from './Heading/Heading';
 export * from './TextInput/TextInput';
 export * from './Button/Button';
 export * from './Spinner/Spinner';
+export * from './Select/Select';

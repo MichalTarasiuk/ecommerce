@@ -1,7 +1,6 @@
 {
   "form": {
     "title": "Stwórz nowe konto",
-    "description": "Po rejestracji otrzymasz specjalny link, który potwierdzi Twój adres e-mail.",
     "email": "Email",
     "password": "Hasło",
     "submit_button_text": "Zarejestruj się",
