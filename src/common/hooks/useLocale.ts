@@ -14,7 +14,7 @@ export const useLocale = () => {
   const setLocale = useCallback(
     async (nextLocale: Custom.ValueOf<(typeof i18nConfig)['locales']>) => {
       await router.push({
-        pathname: '/[channel]/[locale]',
+        pathname: router.route,
         query: {
           channel: getChannel(router.query),
           locale: nextLocale,

@@ -1,1 +1,4 @@
-export {CheckoutPage as default} from '@/modules/checkout/checkout';
+export {
+  CheckoutPage as default,
+  getServerSideProps,
+} from '@/modules/checkout/checkout';

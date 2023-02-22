@@ -7,4 +7,5 @@ export const routes = {
     forgotPassword: '/account/forgot-password',
     changePassword: '/account/change-password',
   },
+  checkout: '/checkout',
 } as const;

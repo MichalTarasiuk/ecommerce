@@ -1,4 +1,8 @@
 {
   "title": "Strona główna",
-  "loading": "ładowanie"
+  "loading": "ładowanie",
+  "language_select": {
+    "en-US": "Angielski (USA)",
+    "pl-PL": "Polski"
+  }
 }

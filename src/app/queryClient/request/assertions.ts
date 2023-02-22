@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions -- to unknown */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access -- optional chaining (?.) */
-import {isArray, isObject, keyIn} from '@/common/utils/utils';
+import {isArray, isObject, hasOwn} from '@/common/utils/utils';
 
 export const isUnauthenticated = (data: unknown) => {
-  const errors: unknown = (data as any).errors;
+  const errors: unknown = (data as any)?.errors;
 
   return (
     isArray(errors) &&
@@ -15,7 +15,7 @@ export const isUnauthenticated = (data: unknown) => {
 };
 
 export const getResponseData = (response: unknown) => {
-  if (isObject(response) && keyIn(response, 'data')) {
+  if (isObject(response) && hasOwn(response, 'data')) {
     return response.data;
   }
 

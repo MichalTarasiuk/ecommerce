@@ -37,7 +37,7 @@ export const useChannel = () => {
     async (nextChannel: string) => {
       if (channels.some((channel) => channel.name === nextChannel)) {
         await router.push({
-          pathname: '/[channel]/[locale]',
+          pathname: router.route,
           query: {
             channel: nextChannel,
             locale: getLocale(router.query),

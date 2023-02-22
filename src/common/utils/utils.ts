@@ -1,6 +1,6 @@
 export * from './uppercaseFirst';
 export * from './createSafeContext';
-export * from './keyIn';
+export * from './hasOwn';
 export * from './typeof';
 export * from './createEventHub';
 export * from './objectKeys';
@@ -12,3 +12,4 @@ export * from './createFastContext';
 export * from './region';
 export * from './canUseDOM';
 export * from './isKeyof';
+export * from './objectEvery';

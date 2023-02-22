@@ -1,5 +1,5 @@
 // TODO: {} to Map
-import {keyIn} from './keyIn';
+import {hasOwn} from './hasOwn';
 import {isSet} from './typeof';
 
 import type {FunctionType} from '../types/types';
@@ -19,7 +19,7 @@ export const createEventHub = () => {
   const hasEvent = <Name extends string>(
     state: EventHub,
     name: string,
-  ): state is EventHub<Name> => keyIn(state, name) && isSet(state[name]);
+  ): state is EventHub<Name> => hasOwn(state, name) && isSet(state[name]);
 
   const emit = <Name extends string>(
     name: Name,

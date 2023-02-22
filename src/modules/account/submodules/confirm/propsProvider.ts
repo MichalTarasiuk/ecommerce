@@ -6,7 +6,7 @@ import {confirmAccountMutation} from '@/common/graphql/mutations/mutations';
 import {
   isObject,
   isString,
-  keyIn,
+  hasOwn,
   getRegion,
   regionToPathname,
   isError,
@@ -28,9 +28,9 @@ export const getServerSideProps = async ({
 
   if (
     isObject(query) &&
-    keyIn(query, 'email') &&
+    hasOwn(query, 'email') &&
     isString(query.email) &&
-    keyIn(query, 'token') &&
+    hasOwn(query, 'token') &&
     isString(query.token)
   ) {
     const queryClient = new QueryClient();

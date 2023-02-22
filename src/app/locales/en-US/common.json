@@ -1,4 +1,8 @@
 {
   "title": "Home page",
-  "loading": "loading"
+  "loading": "loading",
+  "language_select": {
+    "en-US": "English (USA)",
+    "pl-PL": "Polish"
+  }
 }

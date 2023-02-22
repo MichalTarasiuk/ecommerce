@@ -5,7 +5,7 @@ import {
   getRegion,
   isObject,
   isString,
-  keyIn,
+  hasOwn,
   regionToPathname,
 } from '@/common/utils/utils';
 
@@ -19,9 +19,9 @@ export const getServerSideProps = async ({
 
   if (
     isObject(query) &&
-    keyIn(query, 'email') &&
+    hasOwn(query, 'email') &&
     isString(query.email) &&
-    keyIn(query, 'token') &&
+    hasOwn(query, 'token') &&
     isString(query.token)
   ) {
     const {locale} = region;

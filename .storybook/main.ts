@@ -3,7 +3,7 @@ import {
   isRegExp,
   isArray,
   isObject,
-  keyIn,
+  hasOwn,
   isFunction,
 } from '@/common/utils/utils';
 
@@ -33,13 +33,13 @@ const isObjectRuleSetUseItem = (
   value: unknown,
 ): value is ObjectRuleSetUseItem => {
   const hasName =
-    isObject(value) && keyIn(value, 'loader') && isString(value.loader);
+    isObject(value) && hasOwn(value, 'loader') && isString(value.loader);
 
   const hasOptions =
-    isObject(value) && keyIn(value, 'options') && isObject(value.options);
+    isObject(value) && hasOwn(value, 'options') && isObject(value.options);
   const hasPlugins =
     hasOptions &&
-    keyIn(value.options, 'plugins') &&
+    hasOwn(value.options, 'plugins') &&
     isArray(value.options.plugins) &&
     value.options.plugins.some(
       (plugin) => isString(plugin) || isFunction(plugin),
