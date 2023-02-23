@@ -38,7 +38,7 @@ export function Text({
           'text-left': position === 'left',
           'text-center': position === 'center',
           'text-right': position === 'right',
-          'text-red-600': variant === 'error',
+          'text-error': variant === 'error',
           'text-black': variant === 'default',
         },
         'p-0',

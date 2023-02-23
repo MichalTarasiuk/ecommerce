@@ -1,5 +1,7 @@
 import {forwardRef, useId} from 'react';
 
+import {isString} from '@/common/utils/typeof';
+
 import {Text} from '../Text/Text';
 
 import type {InputHTMLAttributes} from 'react';
@@ -18,6 +20,8 @@ export const TextInput = forwardRef<HTMLInputElement, InputProps>(
   ({type = 'text', label, errorMessage, ...props}, ref) => {
     const id = useId();
 
+    const hasError = isString(errorMessage);
+
     return (
       <div className='my-2'>
         <label className='block mb-1' htmlFor={id}>
@@ -32,7 +36,7 @@ export const TextInput = forwardRef<HTMLInputElement, InputProps>(
           autoComplete='off'
           {...props}
         />
-        {errorMessage && (
+        {hasError && (
           <Text tag='p' size='small' variant='error'>
             {errorMessage}
           </Text>

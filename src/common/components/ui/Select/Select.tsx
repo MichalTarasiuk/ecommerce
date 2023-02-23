@@ -39,9 +39,9 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
           ref={ref}
           onChange={onChange}
           className={classNames(
-            'absolute border rounded text-base p-2 w-full appearance-none',
-            'focus:outline-none active:outline-none cursor-pointer',
-            'disabled:pointer-events-none disabled:select-none disabled:text-gray-500',
+            'absolute border border-primary rounded text-base p-2 w-full appearance-none',
+            'outline-none hover:border-active focus:border-active cursor-pointer',
+            'disabled:pointer-events-none disabled:select-none disabled:text-secondary',
           )}
           {...(showPlaceholder && {value: defaultValue})}
           {...props}
