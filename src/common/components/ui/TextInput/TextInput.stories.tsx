@@ -2,12 +2,10 @@ import {TextInput} from './TextInput';
 
 import type {Meta, StoryFn} from '@storybook/react';
 
-const meta: Meta<typeof TextInput> = {
+export default {
   title: 'components/atoms/TextInput',
   component: TextInput,
-};
-
-export default meta;
+} satisfies Meta<typeof TextInput>;
 
 export const Primary: StoryFn<typeof TextInput> = (props) => {
   return <TextInput {...props} />;

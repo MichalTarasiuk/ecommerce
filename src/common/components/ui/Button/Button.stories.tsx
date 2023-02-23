@@ -2,12 +2,10 @@ import {Button} from './Button';
 
 import type {Meta, StoryFn} from '@storybook/react';
 
-const meta: Meta<typeof Button> = {
+export default {
   title: 'components/atoms/Button',
   component: Button,
-};
-
-export default meta;
+} satisfies Meta<typeof Button>;
 
 export const ButtonType: StoryFn<typeof Button> = (props) => {
   return <Button {...props}>Example</Button>;

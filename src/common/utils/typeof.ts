@@ -37,3 +37,6 @@ export const isArray = (operand: unknown): operand is ArrayType.Any =>
 
 export const isError = (operand: unknown): operand is Error =>
   operand instanceof Error;
+
+export const isUndefined = (operand: unknown): operand is undefined =>
+  inferType(operand) === 'undefined';

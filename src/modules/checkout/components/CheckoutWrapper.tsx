@@ -8,13 +8,9 @@ type CheckoutWrapperProps = {
 
 export const CheckoutWrapper = ({children}: CheckoutWrapperProps) => {
   return (
-    <div className='px-6'>
-      <div className='max-w-4xl min-h-screen mx-auto'>
-        <div>
-          <LanguageSelect />
-        </div>
-        {children}
-      </div>
+    <div className='max-w-4xl min-h-screen mx-auto'>
+      <LanguageSelect />
+      {children}
     </div>
   );
 };

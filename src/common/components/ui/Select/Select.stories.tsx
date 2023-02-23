@@ -3,16 +3,10 @@ import {Select} from './Select';
 import type {SelectOption} from './Select';
 import type {Meta, StoryFn} from '@storybook/react';
 
-const meta: Meta<typeof Select> = {
+export default {
   title: 'components/atoms/Select',
   component: Select,
-};
-
-export default meta;
-
-export const Basic: StoryFn<typeof Select> = (props) => {
-  return <Select {...props}>Example heading</Select>;
-};
+} satisfies Meta<typeof Select>;
 
 const options: readonly SelectOption[] = [
   {children: 'Durward Reynolds', value: 'Durward Reynolds'},
@@ -22,12 +16,25 @@ const options: readonly SelectOption[] = [
   {children: 'Katelyn Rohan', value: 'Katelyn Rohan'},
 ];
 
+export const Placeholder: StoryFn<typeof Select> = (props) => {
+  return <Select {...props} />;
+};
+
+Placeholder.args = {
+  placeholder: 'Select option',
+  options,
+};
+
+export const Basic: StoryFn<typeof Select> = (props) => {
+  return <Select {...props} />;
+};
+
 Basic.args = {
   options,
 };
 
 export const Disabled: StoryFn<typeof Select> = (props) => {
-  return <Select {...props}>Example heading</Select>;
+  return <Select {...props} />;
 };
 
 Disabled.args = {

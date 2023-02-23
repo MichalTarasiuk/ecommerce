@@ -2,14 +2,12 @@ import {VisuallyHidden} from './VisuallyHidden';
 
 import type {Meta, StoryFn} from '@storybook/react';
 
-const meta: Meta<typeof VisuallyHidden> = {
+export default {
   title: 'components/atoms/VisuallyHidden',
   component: VisuallyHidden,
-};
+} satisfies Meta<typeof VisuallyHidden>;
 
-export default meta;
-
-export const Default: StoryFn<typeof VisuallyHidden> = (props) => {
+export const Primary: StoryFn<typeof VisuallyHidden> = (props) => {
   return (
     <VisuallyHidden {...props}>
       <button>visually hidden content</button>
@@ -17,7 +15,7 @@ export const Default: StoryFn<typeof VisuallyHidden> = (props) => {
   );
 };
 
-Default.args = {
+Primary.args = {
   tag: 'span',
 };
 
