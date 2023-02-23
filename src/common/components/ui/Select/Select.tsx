@@ -10,44 +10,61 @@ import type {
   ChangeEvent,
 } from 'react';
 
-export type SelectOption = ObjectType.Required<
+type SelectOption = ObjectType.Required<
   OptionHTMLAttributes<HTMLOptionElement>,
   'value' | 'children'
 >;
 
-export type SelectProps = {
+export type SelectProps = Omit<
+  SelectHTMLAttributes<HTMLSelectElement>,
+  'className'
+> & {
   readonly options: readonly SelectOption[];
-} & SelectHTMLAttributes<HTMLSelectElement>;
+  readonly containerClassName?: string;
+  readonly selectClassName?: string;
+};
 
-const defaultValue = 'default_value';
+const defaultSelectValue = 'default_select_value';
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(
-  ({value, options, placeholder, onChange: onChangeImpl, ...props}, ref) => {
+  (
+    {
+      value,
+      options,
+      containerClassName,
+      selectClassName,
+      placeholder,
+      onChange,
+      ...props
+    },
+    ref,
+  ) => {
     const [showPlaceholder, setShowPlaceholder] = useState(
       Boolean(placeholder),
     );
 
-    const onChange = (changeEvent: ChangeEvent<HTMLSelectElement>) => {
+    const onChangeHandler = (changeEvent: ChangeEvent<HTMLSelectElement>) => {
       setShowPlaceholder(false);
 
-      onChangeImpl?.(changeEvent);
+      onChange?.(changeEvent);
     };
 
     return (
-      <div className={classNames('relative', props.className)}>
+      <div className={classNames('relative', containerClassName)}>
         <select
           ref={ref}
-          onChange={onChange}
+          onChange={onChangeHandler}
           className={classNames(
-            'absolute border border-primary rounded text-base p-2 w-full appearance-none',
+            'border border-primary rounded text-base p-2 w-full appearance-none',
             'outline-none hover:border-active focus:border-active cursor-pointer',
             'disabled:pointer-events-none disabled:select-none disabled:text-secondary',
+            selectClassName,
           )}
-          {...(showPlaceholder && {value: defaultValue})}
+          value={showPlaceholder ? defaultSelectValue : value}
           {...props}
         >
           {showPlaceholder && (
-            <option value={defaultValue} disabled>
+            <option value={defaultSelectValue} disabled>
               {placeholder}
             </option>
           )}
@@ -55,7 +72,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
             <option key={option.value?.toString()} {...option} />
           ))}
         </select>
-        <div className='absolute top-[calc(.5rem+1px)] right-2 pl-2 border-l'>
+        <div className='absolute top-[calc(.5rem+1px)] right-2 pl-2 border-l pointer-events-none'>
           <ChervonDownIcon />
         </div>
       </div>

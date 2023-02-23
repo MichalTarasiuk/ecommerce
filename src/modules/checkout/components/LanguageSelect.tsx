@@ -1,6 +1,6 @@
 import {useMemo} from 'react';
 
-import {Select} from '@/common/components/components';
+import {IconButton, Select} from '@/common/components/components';
 import {useLocale, useTranslate} from '@/common/hooks/hooks';
 import {
   hasOwn,
@@ -9,10 +9,11 @@ import {
   objectEvery,
 } from '@/common/utils/utils';
 import {i18nConfig} from '@root/i18n';
+import {ReactComponent as LanguageIcon} from 'public/icons/language.svg';
 
 import type {ChangeEvent} from 'react';
 
-export const LanguageSelect = () => {
+export function LanguageSelect() {
   const {locale, setLocale} = useLocale();
   const {translate} = useTranslate('common');
 
@@ -39,11 +40,30 @@ export const LanguageSelect = () => {
     });
   }, [translate]);
 
+  const selectedChildrenOption = useMemo(() => {
+    const {children} = options.find((option) => option.value === locale) ?? {};
+
+    return children;
+  }, [locale, options]);
+
   const onChange = ({target: {value}}: ChangeEvent<HTMLSelectElement>) => {
     if (isSupportedLocale(value)) {
       void setLocale(value);
     }
   };
 
-  return <Select value={locale} options={options} onChange={onChange} />;
-};
+  return (
+    <div className='relative'>
+      {selectedChildrenOption && (
+        <IconButton icon={LanguageIcon}>{selectedChildrenOption}</IconButton>
+      )}
+      <Select
+        value={locale}
+        options={options}
+        onChange={onChange}
+        containerClassName='!absolute top-0 opacity-0 h-full w-full'
+        selectClassName='!p-0 h-full'
+      />
+    </div>
+  );
+}

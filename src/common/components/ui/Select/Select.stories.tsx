@@ -1,6 +1,6 @@
 import {Select} from './Select';
 
-import type {SelectOption} from './Select';
+import type {SelectProps} from './Select';
 import type {Meta, StoryFn} from '@storybook/react';
 
 export default {
@@ -8,7 +8,7 @@ export default {
   component: Select,
 } satisfies Meta<typeof Select>;
 
-const options: readonly SelectOption[] = [
+const options: SelectProps['options'] = [
   {children: 'Durward Reynolds', value: 'Durward Reynolds'},
   {children: 'Kenton Towne', value: 'Kenton Towne'},
   {children: 'Therese Wunsch', value: 'Therese Wunsch'},

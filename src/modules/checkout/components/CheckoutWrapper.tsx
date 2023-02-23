@@ -6,11 +6,13 @@ type CheckoutWrapperProps = {
   readonly children: ReactNode;
 };
 
-export const CheckoutWrapper = ({children}: CheckoutWrapperProps) => {
+export function CheckoutWrapper({children}: CheckoutWrapperProps) {
   return (
     <div className='max-w-4xl min-h-screen mx-auto'>
-      <LanguageSelect />
+      <div className='flex justify-end my-7'>
+        <LanguageSelect />
+      </div>
       {children}
     </div>
   );
-};
+}
