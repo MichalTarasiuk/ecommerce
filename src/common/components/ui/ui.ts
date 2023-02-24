@@ -6,4 +6,4 @@ export * from './Button/Button';
 export * from './Spinner/Spinner';
 export * from './Select/Select';
 export * from './IconButton/IconButton';
-export * from './IconButton/IconButton';
+export * from './Checkbox/Checkbox';

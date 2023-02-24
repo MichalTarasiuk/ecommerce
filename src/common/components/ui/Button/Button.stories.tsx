@@ -3,22 +3,22 @@ import {Button} from './Button';
 import type {Meta, StoryFn} from '@storybook/react';
 
 export default {
-  title: 'components/atoms/Button',
+  title: 'components/ui/Button',
   component: Button,
 } satisfies Meta<typeof Button>;
 
-export const ButtonType: StoryFn<typeof Button> = (props) => {
+const Template: StoryFn<typeof Button> = (props) => {
   return <Button {...props}>Example</Button>;
 };
+
+export const ButtonType = Template.bind(undefined);
 
 ButtonType.args = {
   type: 'button',
   variant: 'green',
 };
 
-export const LinkType: StoryFn<typeof Button> = (props) => {
-  return <Button {...props}>Example</Button>;
-};
+export const LinkType = Template.bind(undefined);
 
 LinkType.args = {
   type: 'link',

@@ -4,7 +4,7 @@ import type {SelectProps} from './Select';
 import type {Meta, StoryFn} from '@storybook/react';
 
 export default {
-  title: 'components/atoms/Select',
+  title: 'components/ui/Select',
   component: Select,
 } satisfies Meta<typeof Select>;
 
@@ -16,26 +16,24 @@ const options: SelectProps['options'] = [
   {children: 'Katelyn Rohan', value: 'Katelyn Rohan'},
 ];
 
-export const Placeholder: StoryFn<typeof Select> = (props) => {
+const Template: StoryFn<typeof Select> = (props) => {
   return <Select {...props} />;
 };
+
+export const Placeholder = Template.bind(undefined);
 
 Placeholder.args = {
   placeholder: 'Select option',
   options,
 };
 
-export const Basic: StoryFn<typeof Select> = (props) => {
-  return <Select {...props} />;
-};
+export const Basic = Template.bind(undefined);
 
 Basic.args = {
   options,
 };
 
-export const Disabled: StoryFn<typeof Select> = (props) => {
-  return <Select {...props} />;
-};
+export const Disabled = Template.bind(undefined);
 
 Disabled.args = {
   options,

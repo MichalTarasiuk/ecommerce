@@ -14,7 +14,7 @@ const variants = {
 
 export const Button = typedForwardRef((...renderParams: RenderParams) => {
   const className = classNames(
-    'my-2 py-1.5 w-full rounded-md transition duration-100 text-sm',
+    'w-full my-2 py-1.5 rounded-md text-sm transition duration-100 ',
     variants[renderParams[0].variant],
   );
 

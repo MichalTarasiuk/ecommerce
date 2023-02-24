@@ -3,13 +3,15 @@ import {Text} from './Text';
 import type {Meta, StoryFn} from '@storybook/react';
 
 export default {
-  title: 'components/atoms/Text',
+  title: 'components/ui/Text',
   component: Text,
 } satisfies Meta<typeof Text>;
 
-export const Primary: StoryFn<typeof Text> = (props) => {
+const Template: StoryFn<typeof Text> = (props) => {
   return <Text {...props}>Example text</Text>;
 };
+
+export const Primary = Template.bind(undefined);
 
 Primary.args = {
   variant: 'default',
@@ -17,9 +19,7 @@ Primary.args = {
   tag: 'p',
 };
 
-export const ErrorText: StoryFn<typeof Text> = (props) => {
-  return <Text {...props}>Example text</Text>;
-};
+export const ErrorText = Template.bind(undefined);
 
 ErrorText.args = {
   variant: 'error',

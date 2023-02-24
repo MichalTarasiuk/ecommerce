@@ -3,22 +3,22 @@ import {TextInput} from './TextInput';
 import type {Meta, StoryFn} from '@storybook/react';
 
 export default {
-  title: 'components/atoms/TextInput',
+  title: 'components/ui/TextInput',
   component: TextInput,
 } satisfies Meta<typeof TextInput>;
 
-export const Primary: StoryFn<typeof TextInput> = (props) => {
+const Template: StoryFn<typeof TextInput> = (props) => {
   return <TextInput {...props} />;
 };
+
+export const Primary = Template.bind(undefined);
 
 Primary.args = {
   type: 'text',
   label: 'Text',
 };
 
-export const Error: StoryFn<typeof TextInput> = (props) => {
-  return <TextInput {...props} />;
-};
+export const Error = Template.bind(undefined);
 
 Error.args = {
   type: 'text',

@@ -14,8 +14,9 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         ref={ref}
         className={classNames(
           className,
-          'flex gap-2 py-1.5 px-3 border rounded border-primary',
-          'focus:border-active hover:border-active',
+          'flex gap-2',
+          'py-1.5 px-3',
+          'border rounded border-primary focus:border-active hover:border-active',
         )}
         {...props}
       >
