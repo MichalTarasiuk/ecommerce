@@ -8,11 +8,13 @@ type CheckoutWrapperProps = {
 
 export function CheckoutWrapper({children}: CheckoutWrapperProps) {
   return (
-    <div className='max-w-4xl min-h-screen mx-auto'>
-      <div className='flex justify-end my-7'>
-        <LanguageSelect />
+    <div className='bg-snow-white'>
+      <div className='max-w-4xl min-h-screen mx-auto '>
+        <div className='flex justify-end py-9'>
+          <LanguageSelect />
+        </div>
+        {children}
       </div>
-      {children}
     </div>
   );
 }
