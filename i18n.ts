@@ -66,13 +66,3 @@ export const i18nConfig = {
   loader: false,
   skipInitialProps: true,
 } satisfies ExtendedI18nConfig;
-
-//  colors: {
-//     text: {
-//       secondary: 'hsl(220, 10%, 58%)',
-//     },
-//     border: {
-//       primary: 'hsl(218, 19%, 77%)',
-//       active: 'hsl(223, 18%, 27%)',
-//     },
-//   },
