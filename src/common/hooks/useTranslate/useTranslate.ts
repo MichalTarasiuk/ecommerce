@@ -6,7 +6,7 @@ import type {Namespaces} from './namespaces';
 import type {ArrayType, ObjectType} from '@/common/types/types';
 import type {i18nConfig, ReadonlyPages} from '@root/i18n';
 
-type InferNamespaceKey<AnyReadonlyPages extends ReadonlyPages> = {
+export type InferNamespaceKey<AnyReadonlyPages extends ReadonlyPages> = {
   readonly [Key in keyof AnyReadonlyPages]: AnyReadonlyPages[Key] extends ReadonlyArray<string>
     ? AnyReadonlyPages[Key][number]
     : AnyReadonlyPages[Key] extends ((
@@ -16,7 +16,7 @@ type InferNamespaceKey<AnyReadonlyPages extends ReadonlyPages> = {
     : never;
 }[keyof AnyReadonlyPages];
 
-export type NamespaceKeyUnion = InferNamespaceKey<(typeof i18nConfig)['pages']>;
+type NamespaceKeyUnion = InferNamespaceKey<(typeof i18nConfig)['pages']>;
 
 export const useTranslate = <NamespaceKey extends NamespaceKeyUnion>(
   namespaceKey: NamespaceKey,
