@@ -10,15 +10,12 @@ export const useRouter = () => {
   const region = useRegion();
 
   const push = useCallback(
-    async (pathname: Url, options?: TransitionOptions | undefined) => {
-      const resolved = await nativeRouter.push(
+    (pathname: Url, options?: TransitionOptions | undefined) =>
+      nativeRouter.push(
         region.pathname + pathname.toString(),
         undefined,
         options,
-      );
-
-      return resolved;
-    },
+      ),
     [nativeRouter, region.pathname],
   );
 
