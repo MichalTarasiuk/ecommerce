@@ -34,6 +34,6 @@ export const fetchLayoutData = async (
 
 const logError = (reason: unknown) => {
   if (isError(reason)) {
-    console.log(reason.message);
+    console.error(reason.message);
   }
 };

@@ -1,4 +1,3 @@
-import {useRouter} from 'next/router';
 import {Toaster} from 'sonner';
 
 import {i18nConfig} from '@root/i18n';
@@ -23,10 +22,6 @@ type AppPropsWithLayout = AppProps & {
 function AppRoot({Component, pageProps}: AppPropsWithLayout) {
   useAuthorization();
   useRouteProgress();
-
-  const router = useRouter();
-
-  console.log(router);
 
   const getLayout = Component.getLayout ?? ((page) => page);
 

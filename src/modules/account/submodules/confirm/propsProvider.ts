@@ -70,7 +70,7 @@ export const getServerSideProps = async ({
       }
     } catch (error) {
       if (isError(error)) {
-        console.log(error);
+        console.error(error);
       }
     }
   }

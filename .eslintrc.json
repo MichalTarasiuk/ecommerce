@@ -73,7 +73,8 @@
         "newlines-between": "always",
         "warnOnUnassignedImports": true
       }
-    ]
+    ],
+    "no-console": ["error", {"allow": ["error"]}]
   },
   "overrides": [
     {
