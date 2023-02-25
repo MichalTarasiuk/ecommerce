@@ -56,7 +56,7 @@ export function LoginForm() {
     if (
       isObject(router.query) &&
       hasOwn(router.query, 'confirm') &&
-      Boolean(router.query.confirm)
+      true.toString() === router.query.confirm
     ) {
       toast.success(translate('toast_confirm_account_message'));
     }
