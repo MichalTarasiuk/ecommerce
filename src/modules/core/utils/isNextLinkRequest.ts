@@ -1,10 +1,6 @@
-import invariant from 'invariant';
+import {appConfig} from '@/app/config';
 
 import type {GetServerSidePropsContext} from 'next';
-
-const hostname = process.env['NEXT_PUBLIC_HOSTNAME'];
-
-invariant(hostname, `process.env['NEXT_PUBLIC_HOSTNAME'] is not defined`);
 
 const getHostname = (referer: string) => {
   try {
@@ -25,5 +21,5 @@ export const isNextLinkRequest = (
     return false;
   }
 
-  return getHostname(referer) === hostname;
+  return getHostname(referer) === appConfig.hostname;
 };

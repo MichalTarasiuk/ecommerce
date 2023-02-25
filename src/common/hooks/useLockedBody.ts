@@ -1,5 +1,7 @@
 import {useInsertionEffect, useState} from 'react';
 
+import {appConfig} from '@/app/config';
+
 import {usePrevious} from './usePrevious';
 
 export const useLockBodyScroll = (initialLocked = false) => {
@@ -27,7 +29,7 @@ export const useLockBodyScroll = (initialLocked = false) => {
 
     document.body.style.overflow = 'hidden';
 
-    const root = document.getElementById('__next');
+    const root = document.getElementById(appConfig.root);
     const scrollBarWidth = root ? root.offsetWidth - root.scrollWidth : 0;
 
     if (scrollBarWidth) {

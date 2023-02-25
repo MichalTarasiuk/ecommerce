@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions -- api response */
-import invariant from 'invariant';
 import wretch from 'wretch';
 
+import {appConfig} from '@/app/config';
 import {authorization} from '@/app/hooks/useAuthorization';
 import {refreshTokenMutation} from '@/common/graphql/mutations/mutations';
 
@@ -16,10 +16,6 @@ import type {DocumentNode} from 'graphql';
 
 type AnyVariables = Record<string, unknown>;
 
-const apiUrl = process.env['NEXT_PUBLIC_SALEOR_API_URL'];
-
-invariant(apiUrl, `process.env['NEXT_PUBLIC_SALEOR_API_URL'] is not defined`);
-
 let refreshTokenMutationPromise: Promise<RefreshTokenMutation> | null = null;
 
 export const request = <
@@ -32,7 +28,7 @@ export const request = <
   const {token, csrfToken} = authorization.getState();
   const {query, operationName} = resolveRequestDocument(documentNode);
 
-  return wretch(apiUrl)
+  return wretch(appConfig.apiUrl)
     .headers({...(token && {Authorization: `Bearer ${token}`})})
     .post({
       query,
