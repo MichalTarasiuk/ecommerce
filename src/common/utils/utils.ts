@@ -13,3 +13,4 @@ export * from './region';
 export * from './canUseDOM';
 export * from './isKeyof';
 export * from './objectEvery';
+export * from './json';

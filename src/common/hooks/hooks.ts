@@ -16,3 +16,4 @@ export * from './useLocale';
 export * from './useRegion';
 export * from './useRouteIsChanging';
 export * from './useMount';
+export * from './useLocalStorage';
