@@ -3,7 +3,7 @@ import {useRouter} from 'next/router';
 import {useCallback} from 'react';
 import {useForm} from 'react-hook-form';
 
-import {authorization} from '@/app/hooks/useAuthorization';
+import {session} from '@/app/hooks/useSession';
 import {request} from '@/app/queryClient/request/request';
 import {Heading, TextInput, Button} from '@/common/components/components';
 import {changePasswordMutation} from '@/common/graphql/mutations/mutations';
@@ -60,7 +60,7 @@ export function ChangePasswordForm() {
           ).setPassword ?? {};
 
         if (token && csrfToken) {
-          authorization.login(token, csrfToken);
+          session.login(token, csrfToken);
 
           return;
         }

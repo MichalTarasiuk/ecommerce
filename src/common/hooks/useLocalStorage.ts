@@ -22,24 +22,6 @@ export const useLocalStorage = <Item>(
   });
   const syncedPredicate = useSyncedRef(predicate);
 
-  const setItem = useCallback(
-    (resolvableItem: Resolvable<Item>) => {
-      const nextItem = resolve(resolvableItem);
-      const stringifyNextItem = toJSON(nextItem);
-
-      if (stringifyNextItem) {
-        localStorage.setItem(key, stringifyNextItem);
-
-        setItemState(nextItem);
-
-        return;
-      }
-
-      console.error(`could not save ${key} to localStorage`);
-    },
-    [key],
-  );
-
   useEffect(() => {
     const storageHandler = (storageEvent: StorageEvent) => {
       if (storageEvent.key !== key) {
@@ -58,6 +40,24 @@ export const useLocalStorage = <Item>(
       window.removeEventListener('storage', storageHandler);
     };
   }, [key, syncedPredicate]);
+
+  const setItem = useCallback(
+    (resolvableItem: Resolvable<Item>) => {
+      const nextItem = resolve(resolvableItem);
+      const stringifyNextItem = toJSON(nextItem);
+
+      if (stringifyNextItem) {
+        localStorage.setItem(key, stringifyNextItem);
+
+        setItemState(nextItem);
+
+        return;
+      }
+
+      console.error(`could not save ${key} to localStorage`);
+    },
+    [key],
+  );
 
   return [item, setItem] as const;
 };

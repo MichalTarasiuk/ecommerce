@@ -4,7 +4,7 @@ import {useCallback} from 'react';
 import {useForm} from 'react-hook-form';
 import {toast} from 'sonner';
 
-import {authorization} from '@/app/hooks/useAuthorization';
+import {session} from '@/app/hooks/useSession';
 import {request} from '@/app/queryClient/request/request';
 import {
   Heading,
@@ -68,7 +68,7 @@ export function LoginForm() {
         (await loginMutate({email, password})).tokenCreate ?? {};
 
       if (token && csrfToken) {
-        authorization.login(token, csrfToken);
+        session.login(token, csrfToken);
 
         return;
       }

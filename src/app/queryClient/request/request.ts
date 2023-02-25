@@ -2,7 +2,7 @@
 import wretch from 'wretch';
 
 import {appConfig} from '@/app/config';
-import {authorization} from '@/app/hooks/useAuthorization';
+import {session} from '@/app/hooks/useSession';
 import {refreshTokenMutation} from '@/common/graphql/mutations/mutations';
 
 import {getResponseData, isUnauthenticated} from './assertions';
@@ -25,7 +25,7 @@ export const request = <
   documentNode: DocumentNode,
   variables?: Variables,
 ): Promise<Resolved> => {
-  const {token, csrfToken} = authorization.getState();
+  const {token, csrfToken} = session.getState();
   const {query, operationName} = resolveRequestDocument(documentNode);
 
   return wretch(appConfig.apiUrl)
@@ -51,12 +51,12 @@ export const request = <
         refreshTokenMutationPromise = null;
 
         if (tokenRefresh?.token) {
-          authorization.updateToken(tokenRefresh?.token);
+          session.updateToken(tokenRefresh?.token);
 
           return request(documentNode, variables);
         }
 
-        authorization.logout();
+        session.logout();
       }
 
       return data;

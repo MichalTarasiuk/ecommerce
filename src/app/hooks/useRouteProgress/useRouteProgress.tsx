@@ -5,18 +5,17 @@ import {useCallback, useEffect} from 'react';
 import {useCSS} from '@/common/hooks/useCSS';
 import {useEvent} from '@/common/hooks/useEvent';
 
-import {config} from './consts';
-import {getStyles} from './helpers';
+import {getStyles, routeProgressConfig} from './helpers';
 
 import type {TransitionOptions} from '@/common/types/types';
 
-NProgress.configure({showSpinner: config.showSpinner});
+NProgress.configure({showSpinner: routeProgressConfig.showSpinner});
 
 export const useRouteProgress = () => {
   const router = useRouter();
   const getUrl = useEvent(() => router.asPath);
 
-  useCSS(useCallback(() => getStyles(config), []));
+  useCSS(useCallback(() => getStyles(routeProgressConfig), []));
 
   useEffect(() => {
     const routeChangeStartHandler = (
@@ -26,7 +25,7 @@ export const useRouteProgress = () => {
       const url = getUrl();
 
       if (nextUrl !== url && !shallow) {
-        NProgress.set(config.startPosition);
+        NProgress.set(routeProgressConfig.startPosition);
         NProgress.start();
       }
     };

@@ -1,5 +1,5 @@
 /* eslint-disable functional/prefer-readonly-type -- state should be writable */
-import {useCallback, useEffect} from 'react';
+import {useEffect} from 'react';
 
 import {routes} from '@/common/consts/routes';
 import {useRouter} from '@/common/hooks/useRouter';
@@ -12,50 +12,50 @@ type State = {
 
 const eventHub = createEventHub();
 
-const events = {
-  login: 'login',
-  logout: 'logout',
-};
-
 const state: State = {
   token: null,
   csrfToken: isClient() ? localStorage.getItem('csrfToken') : null,
 };
 
-export const authorization = {
+const events = {
+  login: 'login',
+  logout: 'logout',
+};
+
+export const session = {
   getState: () => state,
   updateToken: (nextToken: string) => {
-    state.token = nextToken;
+    if (isClient()) {
+      state.token = nextToken;
+    }
   },
   login: (token: string, csrfToken: string) => {
-    state.token = token;
-    state.csrfToken = csrfToken;
-
     if (isClient()) {
-      localStorage.setItem('csrfToken', token);
-    }
+      state.token = token;
+      state.csrfToken = csrfToken;
 
-    eventHub.emit(events.login);
+      localStorage.setItem('csrfToken', token);
+
+      eventHub.emit(events.login);
+    }
   },
   logout: () => {
-    state.token = null;
-    state.csrfToken = null;
+    if (isClient()) {
+      state.token = null;
+      state.csrfToken = null;
 
-    eventHub.emit(events.logout);
+      eventHub.emit(events.logout);
+    }
   },
 };
 
-export const useAuthorization = () => {
+export const useSession = () => {
   const router = useRouter();
 
-  const loginHandler = useCallback(() => router.push(routes.home), [router]);
-
-  const logoutHandler = useCallback(
-    () => router.push(routes.account.login),
-    [router],
-  );
-
   useEffect(() => {
+    const loginHandler = () => router.push(routes.home);
+    const logoutHandler = () => router.push(routes.account.login);
+
     eventHub.on(events.login, loginHandler);
     eventHub.on(events.logout, logoutHandler);
 
@@ -63,5 +63,5 @@ export const useAuthorization = () => {
       eventHub.on(events.login, loginHandler);
       eventHub.off(events.logout, logoutHandler);
     };
-  }, [loginHandler, logoutHandler]);
+  }, [router]);
 };

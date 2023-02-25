@@ -1,2 +1,2 @@
 export * from './useRouteProgress/useRouteProgress';
-export * from './useAuthorization';
+export * from './useSession';
