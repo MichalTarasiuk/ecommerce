@@ -22,14 +22,17 @@ export function LanguageSelect() {
       returnObjects: true,
     });
 
+    if (
+      !objectEvery<Record<typeof locale, string>>(
+        languageSelectObject,
+        isString,
+      )
+    ) {
+      return [];
+    }
+
     return i18nConfig.locales.flatMap((locale) => {
-      if (
-        hasOwn(languageSelectObject, locale) &&
-        objectEvery<Record<typeof locale, string>>(
-          languageSelectObject,
-          isString,
-        )
-      ) {
+      if (hasOwn(languageSelectObject, locale)) {
         const children = languageSelectObject[locale];
         const option = {value: locale, children};
 
