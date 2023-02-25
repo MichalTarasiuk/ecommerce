@@ -1,6 +1,7 @@
 import {useMutation} from '@tanstack/react-query';
 import {useCallback} from 'react';
 import {useForm} from 'react-hook-form';
+import {toast} from 'sonner';
 
 import {request} from '@/app/queryClient/request/request';
 import {Heading, TextInput, Link, Button} from '@/common/components/components';
@@ -60,6 +61,8 @@ export function RegisterForm() {
       if (canResetForm) {
         reset();
 
+        toast.success(translate('toast_success_message'));
+
         return;
       }
 
@@ -71,7 +74,14 @@ export function RegisterForm() {
         }
       });
     },
-    [region.pathname, region.variables, registerMutate, reset, setError],
+    [
+      region.pathname,
+      region.variables,
+      registerMutate,
+      reset,
+      setError,
+      translate,
+    ],
   );
 
   const {ref: emailInputRef, ...emailInputHandler} = register(

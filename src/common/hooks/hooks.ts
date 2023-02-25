@@ -15,3 +15,4 @@ export * from './useChannel';
 export * from './useLocale';
 export * from './useRegion';
 export * from './useRouteIsChanging';
+export * from './useMount';

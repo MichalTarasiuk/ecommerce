@@ -5,5 +5,6 @@
     "password": "Password",
     "submit_button_text": "Register",
     "login_link": "Log in to existing account"
-  }
+  },
+  "toast_success_message": "Confirmation link has been sent to your mailbox."
 }

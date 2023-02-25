@@ -5,5 +5,6 @@
     "password": "Hasło",
     "submit_button_text": "Zarejestruj się",
     "login_link": "Zaloguj się do istniejącego konta"
-  }
+  },
+  "toast_success_message": "Link potwierdzający został wysłany na twoją skrzynkę pocztową."
 }

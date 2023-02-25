@@ -1,6 +1,8 @@
 import {useMutation} from '@tanstack/react-query';
+import {useRouter} from 'next/router';
 import {useCallback} from 'react';
 import {useForm} from 'react-hook-form';
+import {toast} from 'sonner';
 
 import {authorization} from '@/app/hooks/useAuthorization';
 import {request} from '@/app/queryClient/request/request';
@@ -17,8 +19,9 @@ import {
   useTranslate,
   useHasMounted,
   useRouteIsChanging,
+  useMount,
 } from '@/common/hooks/hooks';
-import {isKeyof} from '@/common/utils/utils';
+import {hasOwn, isKeyof, isObject} from '@/common/utils/utils';
 
 import {fieldNames} from './consts';
 
@@ -44,8 +47,20 @@ export function LoginForm() {
 
   const {translate} = useTranslate('account.login');
 
+  const router = useRouter();
   const routeIsChanging = useRouteIsChanging();
+
   const hasMounted = useHasMounted();
+
+  useMount(() => {
+    if (
+      isObject(router.query) &&
+      hasOwn(router.query, 'confirm') &&
+      Boolean(router.query.confirm)
+    ) {
+      toast.success(translate('toast_confirm_account_message'));
+    }
+  });
 
   const submit = useCallback(
     async ({email, password}: FieldsValues) => {

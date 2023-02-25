@@ -7,5 +7,6 @@
     "submit_button_text": "Log in",
     "forgot_password_text": "Forgot password?",
     "register_link": "Register a new account"
-  }
+  },
+  "toast_confirm_account_message": "Account is confirmed, now you can log in."
 }

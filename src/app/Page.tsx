@@ -1,3 +1,6 @@
+import {useRouter} from 'next/router';
+import {Toaster} from 'sonner';
+
 import {i18nConfig} from '@root/i18n';
 
 import {inconsolata} from './fonts';
@@ -21,6 +24,10 @@ function AppRoot({Component, pageProps}: AppPropsWithLayout) {
   useAuthorization();
   useRouteProgress();
 
+  const router = useRouter();
+
+  console.log(router);
+
   const getLayout = Component.getLayout ?? ((page) => page);
 
   return (
@@ -30,6 +37,7 @@ function AppRoot({Component, pageProps}: AppPropsWithLayout) {
           font-family: ${inconsolata.style.fontFamily};
         }
       `}</style>
+      <Toaster position='top-right' />
       {getLayout(<Component {...pageProps} />)}
     </AppProviders>
   );

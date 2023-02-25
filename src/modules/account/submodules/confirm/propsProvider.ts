@@ -63,7 +63,7 @@ export const getServerSideProps = async ({
       if (confirmAccount?.user?.isActive) {
         return {
           redirect: {
-            destination: `${regionPathname}/${routes.account.login}`,
+            destination: `${regionPathname}/${routes.account.login}?confirm=true`,
             permanent: false,
           },
         } satisfies GetServerSidePropsResult<Record<PropertyKey, unknown>>;

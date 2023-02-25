@@ -1,6 +1,7 @@
 import {useMutation} from '@tanstack/react-query';
 import {useCallback} from 'react';
 import {useForm} from 'react-hook-form';
+import {toast} from 'sonner';
 
 import {request} from '@/app/queryClient/request/request';
 import {
@@ -63,6 +64,8 @@ export function ForgotPasswordForm() {
       if (requestPasswordReset?.errors.length === 0) {
         reset();
 
+        toast.success(translate('toast_success_message'));
+
         return;
       }
 
@@ -80,6 +83,7 @@ export function ForgotPasswordForm() {
       requestPasswordResetMutate,
       reset,
       setError,
+      translate,
     ],
   );
 

@@ -7,5 +7,6 @@
     "submit_button_text": "Zaloguj się",
     "forgot_password_text": "Zapomniałeś hasła?",
     "register_link": "Zarejestruj nowe konto"
-  }
+  },
+  "toast_confirm_account_message": "Konto zostało potwierdzone, teraz możesz się zalogować."
 }
