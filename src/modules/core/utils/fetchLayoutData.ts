@@ -16,6 +16,12 @@ type FetchLayoutDataConfig = {
   readonly isNextLinkRequest: boolean;
 };
 
+const logError = (reason: unknown) => {
+  if (isError(reason)) {
+    console.error(reason.message);
+  }
+};
+
 export const fetchLayoutData = async (
   queryClient: QueryClient,
   {region, isNextLinkRequest}: FetchLayoutDataConfig,
@@ -29,11 +35,5 @@ export const fetchLayoutData = async (
         })
         .catch(logError),
     ]);
-  }
-};
-
-const logError = (reason: unknown) => {
-  if (isError(reason)) {
-    console.error(reason.message);
   }
 };

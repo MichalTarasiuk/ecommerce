@@ -24883,9 +24883,9 @@ export type CreateCartMutationVariables = Exact<{
 
 export type CreateCartMutation = {
   __typename?: 'Mutation';
-  checkoutCreate?: {
+  cartCreate?: {
     __typename?: 'CheckoutCreate';
-    checkout?: {__typename?: 'Checkout'; id: string; token: any} | null;
+    cart?: {__typename?: 'Checkout'; id: string; token: any} | null;
     errors: Array<{
       __typename?: 'CheckoutError';
       field?: string | null;
@@ -24985,7 +24985,7 @@ export type CartByTokenQueryVariables = Exact<{
 
 export type CartByTokenQuery = {
   __typename?: 'Query';
-  checkout?: {__typename?: 'Checkout'; id: string; token: any} | null;
+  cart?: {__typename?: 'Checkout'; id: string; token: any} | null;
 };
 
 export type ChannelsQueryVariables = Exact<{[key: string]: never}>;
@@ -25518,6 +25518,7 @@ export const CreateCartDocument = {
         selections: [
           {
             kind: 'Field',
+            alias: {kind: 'Name', value: 'cartCreate'},
             name: {kind: 'Name', value: 'checkoutCreate'},
             arguments: [
               {
@@ -25559,6 +25560,7 @@ export const CreateCartDocument = {
               selections: [
                 {
                   kind: 'Field',
+                  alias: {kind: 'Name', value: 'cart'},
                   name: {kind: 'Name', value: 'checkout'},
                   selectionSet: {
                     kind: 'SelectionSet',
@@ -25953,6 +25955,7 @@ export const CartByTokenDocument = {
         selections: [
           {
             kind: 'Field',
+            alias: {kind: 'Name', value: 'cart'},
             name: {kind: 'Name', value: 'checkout'},
             arguments: [
               {

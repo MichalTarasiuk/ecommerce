@@ -27,7 +27,7 @@ const documents = {
     types.ChangePasswordDocument,
   '\n  mutation ConfirmAccount($email: String!, $token: String!) {\n    confirmAccount(email: $email, token: $token) {\n      errors {\n        ...AccountErrorFragment\n      }\n      user {\n        email\n        isActive\n      }\n    }\n  }\n  \n':
     types.ConfirmAccountDocument,
-  '\n  mutation CreateCart(\n    $email: String\n    $lines: [CheckoutLineInput!]!\n    $channel: String!\n  ) {\n    checkoutCreate(input: {channel: $channel, email: $email, lines: $lines}) {\n      checkout {\n        ...CartFragment\n      }\n      errors {\n        ...CheckoutErrorFragment\n      }\n    }\n  }\n  \n  \n':
+  '\n  mutation CreateCart(\n    $email: String\n    $lines: [CheckoutLineInput!]!\n    $channel: String!\n  ) {\n    cartCreate: checkoutCreate(\n      input: {channel: $channel, email: $email, lines: $lines}\n    ) {\n      cart: checkout {\n        ...CartFragment\n      }\n      errors {\n        ...CheckoutErrorFragment\n      }\n    }\n  }\n  \n  \n':
     types.CreateCartDocument,
   '\n  mutation login($email: String!, $password: String!) {\n    tokenCreate(email: $email, password: $password) {\n      csrfToken\n      token\n      errors {\n        ...AccountErrorFragment\n      }\n    }\n  }\n  \n':
     types.LoginDocument,
@@ -39,7 +39,7 @@ const documents = {
     types.RequestPasswordResetDocument,
   '\n  mutation verifyToken($token: String!) {\n    tokenVerify(token: $token) {\n      isValid\n    }\n  }\n':
     types.VerifyTokenDocument,
-  '\n  query CartByToken($cartToken: UUID!) {\n    checkout(token: $cartToken) {\n      ...CartFragment\n    }\n  }\n  \n':
+  '\n  query CartByToken($cartToken: UUID!) {\n    cart: checkout(token: $cartToken) {\n      ...CartFragment\n    }\n  }\n  \n':
     types.CartByTokenDocument,
   '\n  query Channels {\n    channels {\n      id\n      slug\n      name\n      isActive\n    }\n  }\n':
     types.ChannelsDocument,
@@ -107,8 +107,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation CreateCart(\n    $email: String\n    $lines: [CheckoutLineInput!]!\n    $channel: String!\n  ) {\n    checkoutCreate(input: {channel: $channel, email: $email, lines: $lines}) {\n      checkout {\n        ...CartFragment\n      }\n      errors {\n        ...CheckoutErrorFragment\n      }\n    }\n  }\n  \n  \n',
-): (typeof documents)['\n  mutation CreateCart(\n    $email: String\n    $lines: [CheckoutLineInput!]!\n    $channel: String!\n  ) {\n    checkoutCreate(input: {channel: $channel, email: $email, lines: $lines}) {\n      checkout {\n        ...CartFragment\n      }\n      errors {\n        ...CheckoutErrorFragment\n      }\n    }\n  }\n  \n  \n'];
+  source: '\n  mutation CreateCart(\n    $email: String\n    $lines: [CheckoutLineInput!]!\n    $channel: String!\n  ) {\n    cartCreate: checkoutCreate(\n      input: {channel: $channel, email: $email, lines: $lines}\n    ) {\n      cart: checkout {\n        ...CartFragment\n      }\n      errors {\n        ...CheckoutErrorFragment\n      }\n    }\n  }\n  \n  \n',
+): (typeof documents)['\n  mutation CreateCart(\n    $email: String\n    $lines: [CheckoutLineInput!]!\n    $channel: String!\n  ) {\n    cartCreate: checkoutCreate(\n      input: {channel: $channel, email: $email, lines: $lines}\n    ) {\n      cart: checkout {\n        ...CartFragment\n      }\n      errors {\n        ...CheckoutErrorFragment\n      }\n    }\n  }\n  \n  \n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -143,8 +143,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query CartByToken($cartToken: UUID!) {\n    checkout(token: $cartToken) {\n      ...CartFragment\n    }\n  }\n  \n',
-): (typeof documents)['\n  query CartByToken($cartToken: UUID!) {\n    checkout(token: $cartToken) {\n      ...CartFragment\n    }\n  }\n  \n'];
+  source: '\n  query CartByToken($cartToken: UUID!) {\n    cart: checkout(token: $cartToken) {\n      ...CartFragment\n    }\n  }\n  \n',
+): (typeof documents)['\n  query CartByToken($cartToken: UUID!) {\n    cart: checkout(token: $cartToken) {\n      ...CartFragment\n    }\n  }\n  \n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

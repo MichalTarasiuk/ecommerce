@@ -19,30 +19,34 @@ export const useCreateCartMutation = ({
   cartToken,
 }: UseCreateCartMutationParams) => {
   const {
-    data: {checkoutCreate} = {},
+    data: {cartCreate} = {},
     mutateAsync: createCartMutate,
     reset,
   } = useMutation<CreateCartMutation, unknown, CreateCartMutationVariables>(
     (variables) => request(createCartMutation, variables),
   );
 
-  const hasMounted = useHasMounted();
-
-  const {checkout} = checkoutCreate ?? {};
-  const cartState = useMemo(
+  const {cart} = cartCreate ?? {};
+  const cartMutationState = useMemo(
     () =>
-      checkout?.token && isString(checkout.token)
-        ? {token: checkout.token, id: checkout.id}
+      cart?.token && isString(cart.token)
+        ? {token: cart.token, id: cart.id}
         : null,
-    [checkout],
+    [cart],
   );
 
-  if (hasMounted && isObject(cartState) && cartToken !== cartState.token) {
+  const hasMounted = useHasMounted();
+
+  if (
+    hasMounted &&
+    isObject(cartMutationState) &&
+    cartToken !== cartMutationState.token
+  ) {
     reset();
   }
 
   return {
-    cartState,
+    cartMutationState,
     createCartMutate,
   };
 };

@@ -8,8 +8,10 @@ export const createCartMutation = gql`
     $lines: [CheckoutLineInput!]!
     $channel: String!
   ) {
-    checkoutCreate(input: {channel: $channel, email: $email, lines: $lines}) {
-      checkout {
+    cartCreate: checkoutCreate(
+      input: {channel: $channel, email: $email, lines: $lines}
+    ) {
+      cart: checkout {
         ...CartFragment
       }
       errors {

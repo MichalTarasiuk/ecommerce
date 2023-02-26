@@ -20,6 +20,25 @@ type NavigationItemProps = {
     >)
 );
 
+function NavigationItem({child, ...props}: NavigationItemProps) {
+  const className =
+    'hover:text-blue-500 h-full flex justify-center items-center font-semibold';
+
+  if (props.type === 'link') {
+    return (
+      <Link {...props} className={className}>
+        {isString(child) ? child : <RenderIcon icon={child} />}{' '}
+      </Link>
+    );
+  }
+
+  return (
+    <button className={className} {...props}>
+      {isString(child) ? child : <RenderIcon icon={child} />}
+    </button>
+  );
+}
+
 export function Navigation() {
   const setUIstate = useUIHandler();
 
@@ -66,24 +85,5 @@ export function Navigation() {
         );
       })}
     </nav>
-  );
-}
-
-function NavigationItem({child, ...props}: NavigationItemProps) {
-  const className =
-    'hover:text-blue-500 h-full flex justify-center items-center font-semibold';
-
-  if (props.type === 'link') {
-    return (
-      <Link {...props} className={className}>
-        {isString(child) ? child : <RenderIcon icon={child} />}{' '}
-      </Link>
-    );
-  }
-
-  return (
-    <button className={className} {...props}>
-      {isString(child) ? child : <RenderIcon icon={child} />}
-    </button>
   );
 }

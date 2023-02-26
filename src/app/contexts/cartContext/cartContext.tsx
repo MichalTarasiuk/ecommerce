@@ -37,22 +37,24 @@ const CartProvider = ({children}: CartProviderProps) => {
   );
   const region = useRegion();
 
-  const {cartState, createCartMutate} = useCreateCartMutation({cartToken});
+  const {cartMutationState, createCartMutate} = useCreateCartMutation({
+    cartToken,
+  });
 
   const createCart = useCallback(
     async (
       createCartMutationVariables: Omit<CreateCartMutationVariables, 'channel'>,
     ) => {
-      const {checkout: nextCart} =
+      const {cart} =
         (
           await createCartMutate({
             ...createCartMutationVariables,
             channel: region.variables.channel,
           })
-        ).checkoutCreate ?? {};
+        ).cartCreate ?? {};
 
-      if (nextCart?.token && isString(nextCart.token)) {
-        setCartToken(nextCart.token);
+      if (cart?.token && isString(cart.token)) {
+        setCartToken(cart.token);
       }
     },
     [createCartMutate, region.variables.channel, setCartToken],
@@ -62,11 +64,11 @@ const CartProvider = ({children}: CartProviderProps) => {
 
   const value = useMemo(
     () => ({
-      cart: cartState,
+      cart: cartMutationState,
       createCart,
       resetCartToken,
     }),
-    [cartState, createCart, resetCartToken],
+    [cartMutationState, createCart, resetCartToken],
   );
 
   return <NativeCartProvider value={value}>{children}</NativeCartProvider>;
