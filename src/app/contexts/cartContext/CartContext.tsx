@@ -23,13 +23,10 @@ type CartProviderProps = ObjectType.Required<
 >;
 
 type CartContextValue = {
-  readonly cartState: {
-    readonly token: string;
-    readonly id: string;
-  } | null;
+  readonly cartState: ReturnType<typeof getCartState>;
   readonly createCart: (
     createCartMutationVariables: Omit<CreateCartMutationVariables, 'channel'>,
-  ) => Promise<void>;
+  ) => Promise<ReturnType<typeof getCartState>>;
   readonly resetCartToken: FunctionType.Noop;
 };
 
@@ -43,6 +40,7 @@ function CartProvider({children}: CartProviderProps) {
     cartTokenName,
     (nextCartToken) => (isString(nextCartToken) ? nextCartToken : null),
   );
+
   const region = useRegion();
 
   const {cartMutationState, createCartMutate} = useCreateCartMutation({
@@ -76,6 +74,8 @@ function CartProvider({children}: CartProviderProps) {
       if (cart?.token && isString(cart.token)) {
         setCartToken(cart.token);
       }
+
+      return getCartState(cart);
     },
     [createCartMutate, region.variables.channel, setCartToken],
   );
