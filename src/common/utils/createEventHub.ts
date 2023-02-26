@@ -1,4 +1,3 @@
-// TODO: {} to Map
 import {hasOwn} from './hasOwn';
 import {isSet} from './typeof';
 

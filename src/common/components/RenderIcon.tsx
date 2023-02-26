@@ -1,5 +1,7 @@
+import type {ComponentType} from 'react';
+
 type RenderIconProps = {
-  readonly icon: React.FC<React.SVGProps<SVGSVGElement>>;
+  readonly icon: ComponentType<React.SVGProps<SVGSVGElement>>;
 } & React.SVGProps<SVGSVGElement>;
 
 export function RenderIcon({icon: Icon, ...props}: RenderIconProps) {

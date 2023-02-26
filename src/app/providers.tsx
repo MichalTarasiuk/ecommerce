@@ -1,5 +1,5 @@
 import {UIStateProvider} from './contexts';
-import {QueryClientProvider} from './queryClient/queryClientProvider';
+import {QueryClientProvider} from './queryClient/queryClient';
 
 import type {ReactNode} from 'react';
 

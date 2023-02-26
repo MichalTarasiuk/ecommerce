@@ -4,14 +4,14 @@ import Link from 'next/link';
 import {useUIHandler} from '@/app/contexts';
 import {RenderIcon} from '@/common/components/components';
 import {isLastIndex, isString, objectKeys} from '@/common/utils/utils';
-import MenuIcon from 'public/icons/menu.svg';
+import {ReactComponent as MenuIcon} from 'public/icons/menu.svg';
 
 import {navigationListing} from './consts';
 
-import type {ButtonHTMLAttributes} from 'react';
+import type {ButtonHTMLAttributes, ComponentType} from 'react';
 
 type NavigationItemProps = {
-  readonly child: React.FC<React.SVGProps<SVGSVGElement>> | string;
+  readonly child: ComponentType<React.SVGProps<SVGSVGElement>> | string;
 } & (
   | {readonly type: 'link'; readonly href: string}
   | ({readonly type: 'button'} & Pick<

@@ -30,7 +30,7 @@ export const createFastContext = <Store extends Record<PropertyKey, unknown>>(
   name: string,
   initialStore: Store,
 ) => {
-  const [FastContextProviderImpl, useFastContextImpl] =
+  const [NativeFastContextProvider, useNativeFastContext] =
     createSafeContext<CreateFastContext<Store>>(name);
 
   const FastContextProvider = ({children}: FastContextProviderProps) => {
@@ -68,9 +68,9 @@ export const createFastContext = <Store extends Record<PropertyKey, unknown>>(
     );
 
     return (
-      <FastContextProviderImpl value={value}>
+      <NativeFastContextProvider value={value}>
         {children}
-      </FastContextProviderImpl>
+      </NativeFastContextProvider>
     );
   };
 
@@ -82,7 +82,7 @@ export const createFastContext = <Store extends Record<PropertyKey, unknown>>(
   >(
     selector?: Selector<Store, Selected>,
   ) => {
-    const {get, setStore, subscribe} = useFastContextImpl();
+    const {get, setStore, subscribe} = useNativeFastContext();
 
     const getSnapshot = useCallback(
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions -- hard to infer
@@ -99,11 +99,11 @@ export const createFastContext = <Store extends Record<PropertyKey, unknown>>(
     return [selectedStore, setStore] as const;
   };
 
-  const useFastContextHandler = () => {
-    const {setStore} = useFastContextImpl();
+  const useSetFastContext = () => {
+    const {setStore} = useNativeFastContext();
 
     return setStore;
   };
 
-  return [FastContextProvider, useFastContext, useFastContextHandler] as const;
+  return [FastContextProvider, useFastContext, useSetFastContext] as const;
 };

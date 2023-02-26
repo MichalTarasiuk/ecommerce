@@ -5,7 +5,7 @@ import {useForm} from 'react-hook-form';
 import {toast} from 'sonner';
 
 import {session} from '@/app/hooks/useSession';
-import {request} from '@/app/queryClient/request/request';
+import {request} from '@/app/queryClient/queryClient';
 import {
   Heading,
   TextInput,

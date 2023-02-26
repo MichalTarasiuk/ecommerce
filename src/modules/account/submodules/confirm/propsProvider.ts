@@ -1,6 +1,6 @@
 import {QueryClient} from '@tanstack/react-query';
 
-import {request} from '@/app/queryClient/request/request';
+import {request} from '@/app/queryClient/queryClient';
 import {routes} from '@/common/consts/routes';
 import {confirmAccountMutation} from '@/common/graphql/mutations/mutations';
 import {

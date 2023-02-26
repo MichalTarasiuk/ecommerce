@@ -3,7 +3,7 @@ import {useCallback} from 'react';
 import {useForm} from 'react-hook-form';
 import {toast} from 'sonner';
 
-import {request} from '@/app/queryClient/request/request';
+import {request} from '@/app/queryClient/queryClient';
 import {
   Heading,
   TextInput,

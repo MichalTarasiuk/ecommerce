@@ -9,7 +9,7 @@ import {
   useResize,
   useRouteChangeStart,
 } from '@/common/hooks/hooks';
-import CloseIcon from 'public/icons/close.svg';
+import {ReactComponent as CloseIcon} from 'public/icons/close.svg';
 
 import {navigationListing} from './consts';
 
