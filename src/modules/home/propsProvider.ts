@@ -8,7 +8,7 @@ import {getRegion} from '@/common/utils/utils';
 import {fetchLayoutData} from '@/modules/core/utils/utils';
 import {i18nConfig} from '@root/i18n';
 
-import type {ChannelsQuery} from '@/common/graphql/generated/graphql';
+import type {ChannelsQuery} from '@/common/types/generated/graphql';
 import type {InferParsedQuery} from '@/common/types/types';
 import type {
   GetStaticPathsResult,

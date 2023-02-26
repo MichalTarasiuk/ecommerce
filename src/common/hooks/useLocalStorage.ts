@@ -10,6 +10,7 @@ export const useLocalStorage = <Item>(
   key: string,
   predicate: (nextItem: unknown) => Item | null,
 ) => {
+  const syncedPredicate = useSyncedRef(predicate);
   const [item, setItemState] = useState<Item | null>(() => {
     if (isClient()) {
       const parsedNextItem = parseJSON(localStorage.getItem(key));
@@ -20,7 +21,6 @@ export const useLocalStorage = <Item>(
 
     return null;
   });
-  const syncedPredicate = useSyncedRef(predicate);
 
   useEffect(() => {
     const storageHandler = (storageEvent: StorageEvent) => {
@@ -42,7 +42,7 @@ export const useLocalStorage = <Item>(
   }, [key, syncedPredicate]);
 
   const setItem = useCallback(
-    (resolvableItem: Resolvable<Item>) => {
+    (resolvableItem: Resolvable<Item | null>) => {
       const nextItem = resolve(resolvableItem);
       const stringifyNextItem = toJSON(nextItem);
 

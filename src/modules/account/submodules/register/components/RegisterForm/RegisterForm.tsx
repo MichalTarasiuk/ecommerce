@@ -21,7 +21,7 @@ import type {FieldsValues} from './consts';
 import type {
   RegisterMutation,
   RegisterMutationVariables,
-} from '@/common/graphql/generated/graphql';
+} from '@/common/types/generated/graphql';
 
 export function RegisterForm() {
   const {

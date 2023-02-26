@@ -27,7 +27,7 @@ import type {FieldsValues} from './consts';
 import type {
   RequestPasswordResetMutation,
   RequestPasswordResetMutationVariables,
-} from '@/common/graphql/generated/graphql';
+} from '@/common/types/generated/graphql';
 
 export function ForgotPasswordForm() {
   const {

@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import Link from 'next/link';
 
-import {useUIHandler} from '@/app/contexts';
+import {useUIHandler} from '@/app/contexts/contexts';
 import {RenderIcon} from '@/common/components/components';
 import {isLastIndex, isString, objectKeys} from '@/common/utils/utils';
 import {ReactComponent as MenuIcon} from 'public/icons/menu.svg';

@@ -5,7 +5,7 @@ import {isError} from '@/common/utils/utils';
 import type {
   LanguageCodeEnum,
   MainMenuQueryVariables,
-} from '@/common/graphql/generated/graphql';
+} from '@/common/types/generated/graphql';
 import type {QueryClient} from '@tanstack/react-query';
 
 type FetchLayoutDataConfig = {

@@ -11,7 +11,7 @@ const config: CodegenConfig = {
   overwrite: true,
   documents: 'src/**/*.ts',
   generates: {
-    'src/common/graphql/generated/': {
+    'src/common/types/generated/': {
       preset: 'client',
       presetConfig: {
         fragmentMasking: false,

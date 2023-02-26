@@ -1,6 +1,6 @@
 import {useInsertionEffect, useState} from 'react';
 
-import {appConfig} from '@/app/config';
+import {appConfig} from '@/app/appConfig';
 
 import {usePrevious} from './usePrevious';
 

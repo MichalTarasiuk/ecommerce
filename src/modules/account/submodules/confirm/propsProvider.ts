@@ -15,7 +15,7 @@ import {
 import type {
   ConfirmAccountMutation,
   ConfirmAccountMutationVariables,
-} from '@/common/graphql/generated/graphql';
+} from '@/common/types/generated/graphql';
 import type {MutationObserverOptions} from '@tanstack/react-query';
 import type {GetServerSidePropsContext, GetServerSidePropsResult} from 'next';
 

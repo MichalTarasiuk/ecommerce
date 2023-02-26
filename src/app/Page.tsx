@@ -1,13 +1,14 @@
+import appWithI18n from 'next-translate/appWithI18n';
 import {Toaster} from 'sonner';
 
 import {i18nConfig} from '@root/i18n';
 
 import {inconsolata} from './fonts';
 import {useSession, useRouteProgress} from './hooks/hooks';
-import {typedAppWithI18n} from './i18n';
-import {AppProviders} from './providers';
+import {AppProviders} from './Providers';
 
-import type {NextPage} from 'next';
+import type {ExtendedI18nConfig} from '@root/i18n';
+import type {NextPage, NextComponentType, NextPageContext} from 'next';
 import type {AppProps} from 'next/app';
 import type {ReactElement, ReactNode} from 'react';
 
@@ -37,5 +38,11 @@ function AppRoot({Component, pageProps}: AppPropsWithLayout) {
     </AppProviders>
   );
 }
+
+// eslint-disable-next-line @typescript-eslint/consistent-type-assertions -- extend config type (readonly)
+const typedAppWithI18n = appWithI18n as unknown as (
+  nextComponent: NextComponentType<NextPageContext, unknown, AppProps>,
+  config?: ExtendedI18nConfig,
+) => ReturnType<typeof appWithI18n>;
 
 export const App = typedAppWithI18n(AppRoot, i18nConfig);

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions -- api response */
 import wretch from 'wretch';
 
-import {appConfig} from '@/app/config';
+import {appConfig} from '@/app/appConfig';
 import {session} from '@/app/hooks/useSession';
 import {refreshTokenMutation} from '@/common/graphql/mutations/mutations';
 
@@ -11,7 +11,7 @@ import {resolveRequestDocument} from './resolveRequestDocument';
 import type {
   RefreshTokenMutation,
   RefreshTokenMutationVariables,
-} from '@/common/graphql/generated/graphql';
+} from '@/common/types/generated/graphql';
 import type {DocumentNode} from 'graphql';
 
 type AnyVariables = Record<string, unknown>;

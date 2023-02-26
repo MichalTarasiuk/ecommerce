@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import {useCallback, useRef} from 'react';
 
-import {useUIState} from '@/app/contexts';
+import {useUIState} from '@/app/contexts/contexts';
 import {
   useLockBodyScroll,
   useClickOutside,

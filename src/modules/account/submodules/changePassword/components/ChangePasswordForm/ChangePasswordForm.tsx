@@ -21,7 +21,7 @@ import type {FieldsValues} from './consts';
 import type {
   ChangePasswordMutation,
   ChangePasswordMutationVariables,
-} from '@/common/graphql/generated/graphql';
+} from '@/common/types/generated/graphql';
 
 export function ChangePasswordForm() {
   const {query} = useRouter();

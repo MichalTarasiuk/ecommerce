@@ -29,7 +29,7 @@ import type {FieldsValues} from './consts';
 import type {
   LoginMutation,
   LoginMutationVariables,
-} from '@/common/graphql/generated/graphql';
+} from '@/common/types/generated/graphql';
 
 export function LoginForm() {
   const {

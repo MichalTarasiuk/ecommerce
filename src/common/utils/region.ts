@@ -1,7 +1,7 @@
 import {locales, defaultLocale} from '@/common/consts/consts';
+import {LanguageCodeEnum} from '@/common/types/generated/graphql';
 
 import {defaultRegion} from '../consts/region';
-import {LanguageCodeEnum} from '../graphql/generated/graphql';
 
 import {isString} from './typeof';
 
