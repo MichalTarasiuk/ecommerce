@@ -10,7 +10,7 @@ export const inconsolata = Inconsolata({
   display: 'swap',
 });
 
-export const FontDecorator = (Story: StoryFn) => {
+export function FontDecorator(Story: StoryFn) {
   return (
     <>
       <style jsx global>
@@ -23,4 +23,4 @@ export const FontDecorator = (Story: StoryFn) => {
       <Story />
     </>
   );
-};
+}

@@ -8,7 +8,7 @@ type AppProvidersProps = {
   readonly pageProps: Record<PropertyKey, unknown>;
 };
 
-export const AppProviders = ({children, pageProps}: AppProvidersProps) => {
+export function AppProviders({children, pageProps}: AppProvidersProps) {
   return (
     <QueryClientProvider pageProps={pageProps}>
       <CartProvider>
@@ -16,4 +16,4 @@ export const AppProviders = ({children, pageProps}: AppProvidersProps) => {
       </CartProvider>
     </QueryClientProvider>
   );
-};
+}

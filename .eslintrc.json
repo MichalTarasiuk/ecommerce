@@ -6,7 +6,13 @@
   "env": {
     "es6": true
   },
-  "plugins": ["functional", "import", "eslint-comments", "@typescript-eslint"],
+  "plugins": [
+    "functional",
+    "import",
+    "eslint-comments",
+    "@typescript-eslint",
+    "react"
+  ],
   "extends": [
     "next/core-web-vitals",
     "plugin:react-hooks/recommended",
@@ -75,7 +81,14 @@
         "warnOnUnassignedImports": true
       }
     ],
-    "no-console": ["error", {"allow": ["error"]}]
+    "no-console": ["error", {"allow": ["error"]}],
+    "react/function-component-definition": [
+      "error",
+      {
+        "namedComponents": "function-declaration",
+        "unnamedComponents": "arrow-function"
+      }
+    ]
   },
   "overrides": [
     {
@@ -94,7 +107,8 @@
     {
       "files": ["./.storybook/**/*", "*.stories.@(ts|tsx)"],
       "rules": {
-        "import/no-default-export": "off"
+        "import/no-default-export": "off",
+        "react/function-component-definition": "off"
       }
     }
   ]

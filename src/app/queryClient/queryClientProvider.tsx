@@ -14,10 +14,10 @@ type QueryClientProviderProps = {
   readonly pageProps: Record<PropertyKey, unknown>;
 };
 
-export const QueryClientProvider = ({
+export function QueryClientProvider({
   children,
   pageProps,
-}: QueryClientProviderProps) => {
+}: QueryClientProviderProps) {
   const queryClient = useConst(() => new QueryClient());
 
   return (
@@ -26,4 +26,4 @@ export const QueryClientProvider = ({
       <Hydrate state={pageProps['dehydratedState']}>{children}</Hydrate>
     </QueryClientProviderInner>
   );
-};
+}

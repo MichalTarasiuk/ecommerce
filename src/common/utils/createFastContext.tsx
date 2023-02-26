@@ -33,7 +33,7 @@ export const createFastContext = <Store extends Record<PropertyKey, unknown>>(
   const [NativeFastContextProvider, useNativeFastContext] =
     createSafeContext<CreateFastContext<Store>>(name);
 
-  const FastContextProvider = ({children}: FastContextProviderProps) => {
+  function FastContextProvider({children}: FastContextProviderProps) {
     const store = useRef(initialStore);
 
     const get = useCallback(() => store.current, []);
@@ -72,7 +72,7 @@ export const createFastContext = <Store extends Record<PropertyKey, unknown>>(
         {children}
       </NativeFastContextProvider>
     );
-  };
+  }
 
   const useFastContext = <
     Selected,

@@ -23,10 +23,10 @@ const namespaces: Record<
   'account.change-password': accountChangePasswordNamespace,
 };
 
-export const TranslateDecorator = (Story: StoryFn) => {
+export function TranslateDecorator(Story: StoryFn) {
   return (
     <I18nProvider lang={i18nConfig.defaultLocale} namespaces={namespaces}>
       <Story />
     </I18nProvider>
   );
-};
+}

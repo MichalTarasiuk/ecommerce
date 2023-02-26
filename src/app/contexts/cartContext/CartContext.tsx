@@ -30,7 +30,7 @@ const cartTokenName = 'cartToken';
 const [NativeCartProvider, useCart] =
   createSafeContext<CartContextValue>('cart');
 
-const CartProvider = ({children}: CartProviderProps) => {
+function CartProvider({children}: CartProviderProps) {
   const [cartToken, setCartToken] = useLocalStorage(
     cartTokenName,
     (nextCartToken) => (isString(nextCartToken) ? nextCartToken : null),
@@ -72,6 +72,6 @@ const CartProvider = ({children}: CartProviderProps) => {
   );
 
   return <NativeCartProvider value={value}>{children}</NativeCartProvider>;
-};
+}
 
 export {CartProvider, useCart};
