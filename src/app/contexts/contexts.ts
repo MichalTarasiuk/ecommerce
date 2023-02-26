@@ -1,4 +1,4 @@
-export * from './cartContext/cartContext';
+export * from './cartContext/CartContext';
 
 import {createFastContext} from '@/common/utils/utils';
 

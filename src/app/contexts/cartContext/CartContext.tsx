@@ -53,7 +53,7 @@ function CartProvider({children}: CartProviderProps) {
       request<CartByTokenQuery, CartByTokenQueryVariables>(cartByTokenQuery, {
         cartToken,
       }),
-    enabled: isClient() && Boolean(cartToken) && Boolean(cartMutationState),
+    enabled: isClient() && Boolean(cartToken) && !cartMutationState,
   });
 
   const cartState = useMemo(

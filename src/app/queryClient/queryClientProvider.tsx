@@ -5,7 +5,7 @@ import {
 } from '@tanstack/react-query';
 import {ReactQueryDevtools} from '@tanstack/react-query-devtools';
 
-import {useConst} from '@/common/hooks/hooks';
+import {useConst} from '@/common/hooks/useConst';
 
 import type {ReactNode} from 'react';
 
