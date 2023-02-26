@@ -15,7 +15,7 @@ import type {
   CartByTokenQueryVariables,
   CreateCartMutationVariables,
 } from '@/common/types/generated/graphql';
-import type {FunctionType, InferProps, ObjectType} from '@/common/types/types';
+import type {InferProps} from '@/common/types/types';
 
 type CartProviderProps = ObjectType.Required<
   Omit<InferProps<typeof NativeCartProvider>, 'value'>,

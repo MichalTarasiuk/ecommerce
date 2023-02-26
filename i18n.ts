@@ -3,7 +3,6 @@ import {defaultLocale, locales, signs} from '@/common/consts/consts';
 import {routes} from '@/common/consts/routes';
 import {isError, isObject} from '@/common/utils/utils';
 
-import type {Custom} from '@/common/types/types';
 import type {I18nConfig} from 'next-translate';
 
 type Pages = I18nConfig extends {

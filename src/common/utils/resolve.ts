@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions -- narrow type down */
 import {isFunction} from './typeof';
 
-import type {FunctionType} from '@/common/types/types';
-
 export type Resolvable<
   Resolved,
   Params extends readonly unknown[] = readonly never[],

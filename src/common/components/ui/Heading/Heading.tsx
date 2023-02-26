@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 
 import type {inconsolataWeight} from '@/app/fonts';
-import type {Custom} from '@/common/types/types';
 import type {ReactNode, HTMLAttributes} from 'react';
 
 type TextSize = 'small' | 'medium' | 'large';

@@ -5,8 +5,6 @@ import {defaultRegion} from '../consts/region';
 
 import {isString} from './typeof';
 
-import type {Custom} from '@/common/types/types';
-
 type Locale = Custom.ValueOf<typeof locales>;
 
 type Region = ReturnType<typeof getRegion>;

@@ -1,5 +1,4 @@
 /* eslint-disable functional/prefer-readonly-type -- just ignore */
-import type {FunctionType, ArrayType} from '@/common/types/types';
 
 const inferType = (operand: unknown, exact = false) => {
   const type = typeof operand;

@@ -1,5 +1,3 @@
-import type {ObjectType} from '../types/types';
-
 type HasOwn<
   AnyObject extends Record<PropertyKey, unknown>,
   Key extends PropertyKey,

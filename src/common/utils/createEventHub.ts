@@ -1,8 +1,6 @@
 import {hasOwn} from './hasOwn';
 import {isSet} from './typeof';
 
-import type {FunctionType} from '../types/types';
-
 type EventHub<Key extends string = string> = Record<
   Key,
   // eslint-disable-next-line functional/prefer-readonly-type -- should be writable

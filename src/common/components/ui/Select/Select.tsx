@@ -3,7 +3,6 @@ import {forwardRef, useState} from 'react';
 
 import {ReactComponent as ChervonDownIcon} from 'public/icons/chervonDown.svg';
 
-import type {ObjectType} from '@/common/types/types';
 import type {
   SelectHTMLAttributes,
   OptionHTMLAttributes,

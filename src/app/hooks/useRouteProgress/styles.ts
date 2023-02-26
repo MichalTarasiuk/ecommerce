@@ -1,7 +1,5 @@
 import {none, signs} from '@/common/consts/consts';
 
-import type {Custom} from '@/common/types/types';
-
 type AnyPlaceholderValue = `::${string}::`;
 type Placeholder = Record<string, AnyPlaceholderValue>;
 

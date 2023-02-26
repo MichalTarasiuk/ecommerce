@@ -5,7 +5,6 @@ import {createEventHub} from './createEventHub';
 import {createSafeContext} from './createSafeContext';
 import {isObject} from './typeof';
 
-import type {Custom, FunctionType} from '../types/types';
 import type {Draft} from 'immer';
 import type {ReactNode} from 'react';
 

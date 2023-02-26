@@ -2,8 +2,6 @@ import {useCallback, useRef} from 'react';
 
 import {useLayout} from './useLayout';
 
-import type {FunctionType} from '@/common/types/types';
-
 export const useEvent = <Fn extends FunctionType.Any>(fn: Fn) => {
   const savedFn = useRef(fn);
 

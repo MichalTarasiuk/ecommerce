@@ -1,5 +1,3 @@
-import type {ObjectType} from '@/common/types/types';
-
 type CommonNamespace = {
   readonly pl: typeof import('src/app/locales/pl-PL/common.json');
   readonly en: typeof import('src/app/locales/en-US/common.json');

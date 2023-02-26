@@ -1,6 +1,6 @@
 import {forwardRef} from 'react';
 
-import type {ForwardRef, InferProps, ObjectType} from '@/common/types/types';
+import type {ForwardRef, InferProps} from '@/common/types/types';
 import type NextLink from 'next/link';
 import type {ButtonHTMLAttributes} from 'react';
 

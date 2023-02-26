@@ -3,7 +3,6 @@ import {useCallback, useMemo} from 'react';
 
 import {getChannel, getLocale} from '@/common/utils/utils';
 
-import type {Custom} from '@/common/types/types';
 import type {i18nConfig} from '@root/i18n';
 
 export const useLocale = () => {

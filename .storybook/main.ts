@@ -7,7 +7,6 @@ import {
   isFunction,
 } from '@/common/utils/utils';
 
-import type {Custom, FunctionType} from '@/common/types/types';
 import type {StorybookConfig} from '@storybook/nextjs';
 
 type Configuration = Awaited<

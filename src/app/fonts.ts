@@ -1,6 +1,5 @@
 import {Inconsolata} from '@next/font/google';
 
-import type {ArrayType} from '@/common/types/types';
 import type {NextFont, NextFontWithVariable} from '@next/font';
 
 type InferFontWeighArrayt<Font> = Font extends (options: {

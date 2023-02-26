@@ -2,7 +2,6 @@ import {useEffect} from 'react';
 
 import {useSyncedRef} from './useSyncedRef';
 
-import type {FunctionType} from '@/common/types/types';
 import type {MutableRefObject, RefObject} from 'react';
 
 export const useClickOutside = <RefValue extends HTMLElement>(
