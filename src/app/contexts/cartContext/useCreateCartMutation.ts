@@ -4,7 +4,9 @@ import {useMemo} from 'react';
 import {request} from '@/app/queryClient/request/request';
 import {createCartMutation} from '@/common/graphql/mutations/createCartMutation';
 import {useHasMounted} from '@/common/hooks/useHasMounted';
-import {isObject, isString} from '@/common/utils/utils';
+import {isObject} from '@/common/utils/utils';
+
+import {getCartState} from './helpers';
 
 import type {
   CreateCartMutation,
@@ -27,13 +29,7 @@ export const useCreateCartMutation = ({
   );
 
   const {cart} = cartCreate ?? {};
-  const cartMutationState = useMemo(
-    () =>
-      cart?.token && isString(cart.token)
-        ? {token: cart.token, id: cart.id}
-        : null,
-    [cart],
-  );
+  const cartMutationState = useMemo(() => getCartState(cart), [cart]);
 
   const hasMounted = useHasMounted();
 

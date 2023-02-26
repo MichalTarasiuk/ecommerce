@@ -1,12 +1,20 @@
+import {useQuery} from '@tanstack/react-query';
 import {useCallback, useMemo} from 'react';
 
+import {request} from '@/app/queryClient/queryClient';
+import {cartByTokenQuery} from '@/common/graphql/queries/cartByTokenQuery';
 import {useLocalStorage} from '@/common/hooks/useLocalStorage';
 import {useRegion} from '@/common/hooks/useRegion';
-import {createSafeContext, isString} from '@/common/utils/utils';
+import {createSafeContext, isClient, isString} from '@/common/utils/utils';
 
+import {getCartState} from './helpers';
 import {useCreateCartMutation} from './useCreateCartMutation';
 
-import type {CreateCartMutationVariables} from '@/common/types/generated/graphql';
+import type {
+  CartByTokenQuery,
+  CartByTokenQueryVariables,
+  CreateCartMutationVariables,
+} from '@/common/types/generated/graphql';
 import type {FunctionType, InferProps, ObjectType} from '@/common/types/types';
 
 type CartProviderProps = ObjectType.Required<
@@ -15,7 +23,7 @@ type CartProviderProps = ObjectType.Required<
 >;
 
 type CartContextValue = {
-  readonly cart: {
+  readonly cartState: {
     readonly token: string;
     readonly id: string;
   } | null;
@@ -40,6 +48,18 @@ function CartProvider({children}: CartProviderProps) {
   const {cartMutationState, createCartMutate} = useCreateCartMutation({
     cartToken,
   });
+  const {data: {cart: fallbackCart} = {}} = useQuery({
+    queryFn: () =>
+      request<CartByTokenQuery, CartByTokenQueryVariables>(cartByTokenQuery, {
+        cartToken,
+      }),
+    enabled: isClient() && Boolean(cartToken) && Boolean(cartMutationState),
+  });
+
+  const cartState = useMemo(
+    () => cartMutationState ?? getCartState(fallbackCart),
+    [fallbackCart, cartMutationState],
+  );
 
   const createCart = useCallback(
     async (
@@ -64,11 +84,11 @@ function CartProvider({children}: CartProviderProps) {
 
   const value = useMemo(
     () => ({
-      cart: cartMutationState,
+      cartState,
       createCart,
       resetCartToken,
     }),
-    [cartMutationState, createCart, resetCartToken],
+    [cartState, createCart, resetCartToken],
   );
 
   return <NativeCartProvider value={value}>{children}</NativeCartProvider>;
