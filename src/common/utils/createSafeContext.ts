@@ -3,7 +3,7 @@ import {createContext, useContext} from 'react';
 import {uppercaseFirst} from './uppercaseFirst';
 
 export const createSafeContext = <ContextValue>(name: string) => {
-  const initialContextValue = Symbol();
+  const initialContextValue = Symbol('initial-context-value');
   const contextName = uppercaseFirst(name);
 
   const safeContext = createContext<ContextValue | typeof initialContextValue>(
