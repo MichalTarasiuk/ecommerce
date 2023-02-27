@@ -71,6 +71,7 @@
     "file-loader": "^6.2.0",
     "graphql-tag": "^2.12.6",
     "husky": "^8.0.3",
+    "inspx": "0.0.1-alpha.6",
     "lint-staged": "^13.1.0",
     "next-router-mock": "^0.9.1",
     "path-browserify": "^1.0.1",

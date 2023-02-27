@@ -1,3 +1,4 @@
+import Inspect from 'inspx';
 import appWithI18n from 'next-translate/appWithI18n';
 import {Toaster} from 'sonner';
 
@@ -34,7 +35,11 @@ function AppRoot({Component, pageProps}: AppPropsWithLayout) {
         }
       `}</style>
       <Toaster position='top-right' />
-      {getLayout(<Component {...pageProps} />)}
+      {getLayout(
+        <Inspect>
+          <Component {...pageProps} />
+        </Inspect>,
+      )}
     </AppProviders>
   );
 }

@@ -47,6 +47,7 @@ function CartProvider({children}: CartProviderProps) {
     cartToken,
   });
   const {data: {cart: fallbackCart} = {}} = useQuery({
+    queryKey: ['cart-by-token'],
     queryFn: () =>
       request<CartByTokenQuery, CartByTokenQueryVariables>(cartByTokenQuery, {
         cartToken,

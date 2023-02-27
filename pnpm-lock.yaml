@@ -47,6 +47,7 @@ specifiers:
   graphql-tag: ^2.12.6
   husky: ^8.0.3
   immer: ^9.0.19
+  inspx: 0.0.1-alpha.6
   invariant: ^2.2.4
   lint-staged: ^13.1.0
   next: 13.1.4
@@ -129,6 +130,7 @@ devDependencies:
   file-loader: 6.2.0_webpack@5.75.0
   graphql-tag: 2.12.6_graphql@16.6.0
   husky: 8.0.3
+  inspx: 0.0.1-alpha.6_react@18.2.0
   lint-staged: 13.1.2
   next-router-mock: 0.9.1_next@13.1.4+react@18.2.0
   path-browserify: 1.0.1
@@ -2895,6 +2897,13 @@ packages:
       schema-utils: 3.1.1
       source-map: 0.7.4
       webpack: 5.75.0_esbuild@0.16.17
+    dev: true
+
+  /@radix-ui/popper/0.0.10:
+    resolution: {integrity: sha512-YFKuPqQPKscreQid7NuB4it3PMzSwGg03vgrud6sVliHkI43QNAOHyrHyMNo015jg6QK5GVDn+7J2W5uygqSGA==}
+    dependencies:
+      '@babel/runtime': 7.20.13
+      csstype: 3.1.1
     dev: true
 
   /@repeaterjs/repeater/3.0.4:
@@ -8395,6 +8404,16 @@ packages:
       strip-ansi: 6.0.1
       through: 2.3.8
       wrap-ansi: 7.0.0
+    dev: true
+
+  /inspx/0.0.1-alpha.6_react@18.2.0:
+    resolution: {integrity: sha512-2ZWTOUyPq11AUaHMiePWUkp47qLuSuQryQ5JGKQ61PCOi1N3PHYvFvR0/0l1elEjXEqLgwubjpYZ8JnPJQRjDw==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>=16'
+    dependencies:
+      '@radix-ui/popper': 0.0.10
+      react: 18.2.0
     dev: true
 
   /internal-slot/1.0.5:
