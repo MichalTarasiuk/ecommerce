@@ -27,5 +27,5 @@ export const routeProgressConfig = {
   startPosition: 0.3,
   showSpinner: false,
   color: 'hsl(234, 72%, 63%)' satisfies HSLColor,
-  height: `5px` satisfies Height,
+  height: `3px` satisfies Height,
 } as const;

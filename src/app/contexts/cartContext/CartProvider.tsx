@@ -17,16 +17,18 @@ import type {
 } from '@/common/types/generated/graphql';
 import type {InferProps} from '@/common/types/types';
 
+type CartState = ReturnType<typeof getCartState>;
+
 type CartProviderProps = ObjectType.Required<
   Omit<InferProps<typeof NativeCartProvider>, 'value'>,
   'children'
 >;
 
 type CartContextValue = {
-  readonly cartState: ReturnType<typeof getCartState>;
+  readonly cartState: CartState;
   readonly createCart: (
     createCartMutationVariables: Omit<CreateCartMutationVariables, 'channel'>,
-  ) => Promise<ReturnType<typeof getCartState>>;
+  ) => Promise<CartState>;
   readonly resetCartToken: FunctionType.Noop;
 };
 
