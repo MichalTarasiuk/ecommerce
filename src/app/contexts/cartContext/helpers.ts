@@ -6,9 +6,9 @@ type Cart = NonNullable<CreateCartMutation['cartCreate']>['cart'];
 
 export const getCartState = (cart: Cart) => {
   if (cart?.token && isString(cart.token)) {
-    const {token, id} = cart;
+    const {token: cartToken, id} = cart;
 
-    return {token, id};
+    return {cartToken, id};
   }
 
   return null;

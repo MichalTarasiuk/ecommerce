@@ -36,7 +36,7 @@ export const useCreateCartMutation = ({
   if (
     hasMounted &&
     isObject(cartMutationState) &&
-    cartToken !== cartMutationState.token
+    cartToken !== cartMutationState.cartToken
   ) {
     reset();
   }

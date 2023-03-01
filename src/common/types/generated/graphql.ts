@@ -24835,6 +24835,24 @@ export type MenuItemWithChildrenFragmentFragment = {
   }> | null;
 };
 
+export type CartAddProductLineMutationVariables = Exact<{
+  cartToken: Scalars['UUID'];
+  variantId: Scalars['ID'];
+}>;
+
+export type CartAddProductLineMutation = {
+  __typename?: 'Mutation';
+  cartLinesAdd?: {
+    __typename?: 'CheckoutLinesAdd';
+    errors: Array<{
+      __typename?: 'CheckoutError';
+      field?: string | null;
+      message?: string | null;
+      code: CheckoutErrorCode;
+    }>;
+  } | null;
+};
+
 export type ChangePasswordMutationVariables = Exact<{
   token: Scalars['String'];
   email: Scalars['String'];
@@ -25303,6 +25321,109 @@ export const MenuItemWithChildrenFragmentFragmentDoc = {
     ...MenuItemFragmentFragmentDoc.definitions,
   ],
 } as unknown as DocumentNode<MenuItemWithChildrenFragmentFragment, unknown>;
+export const CartAddProductLineDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: {kind: 'Name', value: 'cartAddProductLine'},
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: {kind: 'Name', value: 'cartToken'},
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {kind: 'NamedType', name: {kind: 'Name', value: 'UUID'}},
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: {kind: 'Name', value: 'variantId'},
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {kind: 'NamedType', name: {kind: 'Name', value: 'ID'}},
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            alias: {kind: 'Name', value: 'cartLinesAdd'},
+            name: {kind: 'Name', value: 'checkoutLinesAdd'},
+            arguments: [
+              {
+                kind: 'Argument',
+                name: {kind: 'Name', value: 'token'},
+                value: {
+                  kind: 'Variable',
+                  name: {kind: 'Name', value: 'cartToken'},
+                },
+              },
+              {
+                kind: 'Argument',
+                name: {kind: 'Name', value: 'lines'},
+                value: {
+                  kind: 'ListValue',
+                  values: [
+                    {
+                      kind: 'ObjectValue',
+                      fields: [
+                        {
+                          kind: 'ObjectField',
+                          name: {kind: 'Name', value: 'quantity'},
+                          value: {kind: 'IntValue', value: '1'},
+                        },
+                        {
+                          kind: 'ObjectField',
+                          name: {kind: 'Name', value: 'variantId'},
+                          value: {
+                            kind: 'Variable',
+                            name: {kind: 'Name', value: 'variantId'},
+                          },
+                        },
+                      ],
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: {kind: 'Name', value: 'errors'},
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: {kind: 'Name', value: 'CheckoutErrorFragment'},
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    ...CheckoutErrorFragmentFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<
+  CartAddProductLineMutation,
+  CartAddProductLineMutationVariables
+>;
 export const ChangePasswordDocument = {
   kind: 'Document',
   definitions: [

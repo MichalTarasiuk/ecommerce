@@ -23,6 +23,8 @@ const documents = {
     types.MenuItemFragmentFragmentDoc,
   '\n  fragment MenuItemWithChildrenFragment on MenuItem {\n    id\n    name\n    translation(languageCode: $languageCode) {\n      id\n      name\n    }\n    category {\n      id\n      slug\n    }\n    collection {\n      id\n      slug\n    }\n    page {\n      id\n      slug\n    }\n    children {\n      ...MenuItemFragment\n      children {\n        ...MenuItemFragment\n      }\n    }\n    url\n  }\n  \n':
     types.MenuItemWithChildrenFragmentFragmentDoc,
+  '\n  mutation cartAddProductLine($cartToken: UUID!, $variantId: ID!) {\n    cartLinesAdd: checkoutLinesAdd(\n      token: $cartToken\n      lines: [{quantity: 1, variantId: $variantId}]\n    ) {\n      errors {\n        ...CheckoutErrorFragment\n      }\n    }\n  }\n  \n':
+    types.CartAddProductLineDocument,
   '\n  mutation changePassword(\n    $token: String!\n    $email: String!\n    $password: String!\n  ) {\n    setPassword(token: $token, email: $email, password: $password) {\n      errors {\n        ...AccountErrorFragment\n      }\n      token\n      csrfToken\n    }\n  }\n  \n':
     types.ChangePasswordDocument,
   '\n  mutation ConfirmAccount($email: String!, $token: String!) {\n    confirmAccount(email: $email, token: $token) {\n      errors {\n        ...AccountErrorFragment\n      }\n      user {\n        email\n        isActive\n      }\n    }\n  }\n  \n':
@@ -91,6 +93,12 @@ export function graphql(
 export function graphql(
   source: '\n  fragment MenuItemWithChildrenFragment on MenuItem {\n    id\n    name\n    translation(languageCode: $languageCode) {\n      id\n      name\n    }\n    category {\n      id\n      slug\n    }\n    collection {\n      id\n      slug\n    }\n    page {\n      id\n      slug\n    }\n    children {\n      ...MenuItemFragment\n      children {\n        ...MenuItemFragment\n      }\n    }\n    url\n  }\n  \n',
 ): (typeof documents)['\n  fragment MenuItemWithChildrenFragment on MenuItem {\n    id\n    name\n    translation(languageCode: $languageCode) {\n      id\n      name\n    }\n    category {\n      id\n      slug\n    }\n    collection {\n      id\n      slug\n    }\n    page {\n      id\n      slug\n    }\n    children {\n      ...MenuItemFragment\n      children {\n        ...MenuItemFragment\n      }\n    }\n    url\n  }\n  \n'];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation cartAddProductLine($cartToken: UUID!, $variantId: ID!) {\n    cartLinesAdd: checkoutLinesAdd(\n      token: $cartToken\n      lines: [{quantity: 1, variantId: $variantId}]\n    ) {\n      errors {\n        ...CheckoutErrorFragment\n      }\n    }\n  }\n  \n',
+): (typeof documents)['\n  mutation cartAddProductLine($cartToken: UUID!, $variantId: ID!) {\n    cartLinesAdd: checkoutLinesAdd(\n      token: $cartToken\n      lines: [{quantity: 1, variantId: $variantId}]\n    ) {\n      errors {\n        ...CheckoutErrorFragment\n      }\n    }\n  }\n  \n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
