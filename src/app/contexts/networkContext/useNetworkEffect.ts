@@ -1,11 +1,17 @@
-import {usePrevious} from '../usePrevious';
+import {usePrevious} from '@/common/hooks/usePrevious';
 
-import {isOffline, isOnline} from './helpers';
-import {useNetwork} from './useNetwork';
+import {isOffline, isOnline} from './helpers/helpers';
+import {useNetwork} from './NetworkProvider';
 
-import type {AnyNetwork, OfflineNetwork, OnlineNetwork} from './helpers';
+import type {
+  NetworkState,
+  OfflineNetwork,
+  OnlineNetwork,
+} from './helpers/helpers';
 
-type EffectNetworkCallback<Network = AnyNetwork> = (network: Network) => void;
+type EffectNetworkCallback<Network = NetworkState | undefined> = (
+  network: Network,
+) => void;
 
 const useNetworkEffect = (effectNetworkCallback: EffectNetworkCallback) => {
   const network = useNetwork();

@@ -1,2 +1,2 @@
-export * from './useNetwork';
+export * from './NetworkProvider';
 export * from './useNetworkEffect';
