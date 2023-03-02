@@ -1,4 +1,4 @@
-import {LanguageSelect} from './LanguageSelect';
+import {LanguageSelect} from './LanguageSelect/LanguageSelect';
 
 import type {ReactNode} from 'react';
 

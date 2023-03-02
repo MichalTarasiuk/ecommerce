@@ -1,3 +1,4 @@
+import {OfflineCartProvider} from './offline/offlineCartContext';
 import {OnlineCartProvider} from './online/onlineCartContext';
 
 import type {ReactNode} from 'react';
@@ -7,5 +8,9 @@ type CartProviderProps = {
 };
 
 export function CartProvider({children}: CartProviderProps) {
-  return <OnlineCartProvider>{children}</OnlineCartProvider>;
+  return (
+    <OnlineCartProvider>
+      <OfflineCartProvider>{children}</OfflineCartProvider>
+    </OnlineCartProvider>
+  );
 }

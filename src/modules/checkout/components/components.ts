@@ -1,2 +1,2 @@
 export * from './CheckoutWrapper';
-export * from './LanguageSelect';
+export * from './LanguageSelect/LanguageSelect';
