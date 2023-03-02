@@ -1,10 +1,7 @@
-import invariant from 'invariant';
+import {environment} from './environment';
 
-const hostname = process.env['NEXT_PUBLIC_HOSTNAME'];
-invariant(hostname, `process.env['NEXT_PUBLIC_HOSTNAME'] is not defined`);
-
-const apiUrl = process.env['NEXT_PUBLIC_SALEOR_API_URL'];
-invariant(apiUrl, `process.env['NEXT_PUBLIC_SALEOR_API_URL'] is not defined`);
+const {NEXT_PUBLIC_HOSTNAME: hostname, NEXT_PUBLIC_SALEOR_API_URL: apiUrl} =
+  environment;
 
 export const appConfig = {
   root: '__next',
