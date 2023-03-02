@@ -24837,7 +24837,7 @@ export type MenuItemWithChildrenFragmentFragment = {
 
 export type CartAddProductLineMutationVariables = Exact<{
   cartToken: Scalars['UUID'];
-  variantId: Scalars['ID'];
+  lines: Array<CheckoutLineInput> | CheckoutLineInput;
 }>;
 
 export type CartAddProductLineMutation = {
@@ -25342,13 +25342,19 @@ export const CartAddProductLineDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: {kind: 'Name', value: 'variantId'},
-          },
+          variable: {kind: 'Variable', name: {kind: 'Name', value: 'lines'}},
           type: {
             kind: 'NonNullType',
-            type: {kind: 'NamedType', name: {kind: 'Name', value: 'ID'}},
+            type: {
+              kind: 'ListType',
+              type: {
+                kind: 'NonNullType',
+                type: {
+                  kind: 'NamedType',
+                  name: {kind: 'Name', value: 'CheckoutLineInput'},
+                },
+              },
+            },
           },
         },
       ],
@@ -25371,29 +25377,7 @@ export const CartAddProductLineDocument = {
               {
                 kind: 'Argument',
                 name: {kind: 'Name', value: 'lines'},
-                value: {
-                  kind: 'ListValue',
-                  values: [
-                    {
-                      kind: 'ObjectValue',
-                      fields: [
-                        {
-                          kind: 'ObjectField',
-                          name: {kind: 'Name', value: 'quantity'},
-                          value: {kind: 'IntValue', value: '1'},
-                        },
-                        {
-                          kind: 'ObjectField',
-                          name: {kind: 'Name', value: 'variantId'},
-                          value: {
-                            kind: 'Variable',
-                            name: {kind: 'Name', value: 'variantId'},
-                          },
-                        },
-                      ],
-                    },
-                  ],
-                },
+                value: {kind: 'Variable', name: {kind: 'Name', value: 'lines'}},
               },
             ],
             selectionSet: {

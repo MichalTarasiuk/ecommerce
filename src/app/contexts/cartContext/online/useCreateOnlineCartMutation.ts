@@ -6,43 +6,46 @@ import {createCartMutation} from '@/common/graphql/mutations/createCartMutation'
 import {useHasMounted} from '@/common/hooks/useHasMounted';
 import {isObject} from '@/common/utils/utils';
 
-import {getCartState} from './helpers';
+import {getOnlineCartState} from './helpers';
 
 import type {
   CreateCartMutation,
   CreateCartMutationVariables,
 } from '@/common/types/generated/graphql';
 
-type UseCreateCartMutationParams = {
+type UseCreateOnlineCartMutationParams = {
   readonly cartToken: string | null;
 };
 
-export const useCreateCartMutation = ({
+export const useCreateOnlineCartMutation = ({
   cartToken,
-}: UseCreateCartMutationParams) => {
+}: UseCreateOnlineCartMutationParams) => {
   const {
     data: {cartCreate} = {},
-    mutateAsync: createCartMutate,
+    mutateAsync: createOnlineCartMutate,
     reset,
   } = useMutation<CreateCartMutation, unknown, CreateCartMutationVariables>(
     (variables) => request(createCartMutation, variables),
   );
 
   const {cart} = cartCreate ?? {};
-  const cartMutationState = useMemo(() => getCartState(cart), [cart]);
+  const onlineCartMutationState = useMemo(
+    () => getOnlineCartState(cart),
+    [cart],
+  );
 
   const hasMounted = useHasMounted();
 
   if (
     hasMounted &&
-    isObject(cartMutationState) &&
-    cartToken !== cartMutationState.cartToken
+    isObject(onlineCartMutationState) &&
+    cartToken !== onlineCartMutationState.cartToken
   ) {
     reset();
   }
 
   return {
-    cartMutationState,
-    createCartMutate,
+    onlineCartMutationState,
+    createOnlineCartMutate,
   };
 };

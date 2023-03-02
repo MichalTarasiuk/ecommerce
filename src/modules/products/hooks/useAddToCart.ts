@@ -9,10 +9,11 @@ import {cartAddProductLineMutation} from '@/common/graphql/mutations/cartAddProd
 import type {
   CartAddProductLineMutation,
   CartAddProductLineMutationVariables,
+  CheckoutLineInput,
 } from '@/common/types/generated/graphql';
 
 export const useAddToCart = () => {
-  const {cartState, createCart} = useCart();
+  const {onlineCartState, createOnlineCart} = useCart();
 
   const {mutateAsync: cartAddProductLineMutate} = useMutation<
     CartAddProductLineMutation,
@@ -22,12 +23,15 @@ export const useAddToCart = () => {
 
   const addToCart = useCallback(
     async (variantId: string) => {
-      if (cartState) {
-        const {cartToken} = cartState;
+      // eslint-disable-next-line functional/prefer-readonly-type -- should be writeable
+      const lines: Array<CheckoutLineInput> = [{variantId, quantity: 1}];
+
+      if (onlineCartState) {
+        const {cartToken} = onlineCartState;
 
         const {cartLinesAdd} = await cartAddProductLineMutate({
           cartToken,
-          variantId,
+          lines,
         });
 
         cartLinesAdd?.errors.forEach((error) => {
@@ -35,13 +39,11 @@ export const useAddToCart = () => {
             toast.error(error.message);
           }
         });
-
-        return;
       }
 
-      await createCart({lines: [{quantity: 1, variantId}]});
+      await createOnlineCart({lines});
     },
-    [cartState, cartAddProductLineMutate, createCart],
+    [onlineCartState, createOnlineCart, cartAddProductLineMutate],
   );
 
   return addToCart;
