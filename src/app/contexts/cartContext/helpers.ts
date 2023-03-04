@@ -6,15 +6,8 @@ import {
   isString,
 } from '@/common/utils/utils';
 
+import type {Cart} from './types';
 import type {CheckoutLineInput} from '@/common/types/generated/graphql';
-
-// eslint-disable-next-line functional/prefer-readonly-type -- should be writeable
-type CartLines = Array<CheckoutLineInput>;
-
-export type OfflineCart = {
-  readonly cartToken: string;
-  readonly lines: CartLines;
-};
 
 const isCartLine = (value: unknown): value is CheckoutLineInput => {
   if (!isObject(value)) {
@@ -29,7 +22,7 @@ const isCartLine = (value: unknown): value is CheckoutLineInput => {
   );
 };
 
-export const isOfflineCart = (value: unknown): value is OfflineCart => {
+export const isCart = (value: unknown): value is Cart => {
   if (!isObject(value)) {
     return false;
   }

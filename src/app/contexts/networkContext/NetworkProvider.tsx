@@ -4,20 +4,18 @@ import {createSafeContext, isClient} from '@/common/utils/utils';
 
 import {networkInformation} from './helpers/helpers';
 
-import type {InferProps} from '@/common/types/types';
+import type {ReactNode} from 'react';
 
-type NetworkProviderProps = ObjectType.Required<
-  Omit<InferProps<typeof NativeNetworkProvider>, 'value'>,
-  'children'
->;
-
+type NetworkProviderProps = {
+  readonly children: ReactNode;
+};
 export type NetworkState = {
-  readonly online: boolean | undefined;
+  readonly online: boolean;
 };
 
 export const getNetworkStateState = () => {
   return {
-    online: navigator?.onLine,
+    online: navigator?.onLine ?? false,
   };
 };
 

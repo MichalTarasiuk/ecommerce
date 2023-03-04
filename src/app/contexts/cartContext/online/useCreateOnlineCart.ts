@@ -17,7 +17,7 @@ type UseCreateOnlineCartMutationParams = {
   readonly cartToken: string | null;
 };
 
-export const useCreateOnlineCartMutation = ({
+export const useCreateOnlineCart = ({
   cartToken,
 }: UseCreateOnlineCartMutationParams) => {
   const {

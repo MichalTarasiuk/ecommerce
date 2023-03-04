@@ -1,35 +1,29 @@
-import {useQuery} from '@tanstack/react-query';
 import {useCallback, useMemo} from 'react';
 
-import {request} from '@/app/queryClient/queryClient';
-import {cartByTokenQuery} from '@/common/graphql/queries/cartByTokenQuery';
 import {useLocalStorage} from '@/common/hooks/useLocalStorage';
 import {useRegion} from '@/common/hooks/useRegion';
-import {createSafeContext, isClient, isString} from '@/common/utils/utils';
+import {createSafeContext, isString} from '@/common/utils/utils';
 
-import {getOnlineCartState} from './helpers';
-import {useCreateOnlineCartMutation} from './useCreateOnlineCartMutation';
+import {useOnlineCartAddProductLine} from './useOnlineCartAddProductLine';
+import {useOnlineCartState} from './useOnlineCartState';
 
-import type {
-  CartByTokenQuery,
-  CartByTokenQueryVariables,
-  CreateCartMutationVariables,
-} from '@/common/types/generated/graphql';
-import type {InferProps} from '@/common/types/types';
+import type {getOnlineCartState} from './helpers';
+import type {CartLine} from '../types';
+import type {ReactNode} from 'react';
+
+type OnlineCartProviderProps = {
+  readonly children: ReactNode;
+};
 
 type OnlineCartState = ReturnType<typeof getOnlineCartState>;
 
-type OnlineCartProviderProps = ObjectType.Required<
-  Omit<InferProps<typeof NativeOnlineCartProvider>, 'value'>,
-  'children'
->;
-
 type OnlineCartContextValue = {
   readonly onlineCartState: OnlineCartState;
-  readonly createOnlineCart: (
-    createCartMutationVariables: Omit<CreateCartMutationVariables, 'channel'>,
-  ) => Promise<string | null>;
+  readonly createOnlineCart: (cartLine: CartLine) => Promise<string | null>;
   readonly resetCartToken: FunctionType.Noop;
+  readonly onlineCartAddProductLine: ReturnType<
+    typeof useOnlineCartAddProductLine
+  >;
 };
 
 const cartTokenName = 'cartToken';
@@ -42,35 +36,20 @@ function OnlineCartProvider({children}: OnlineCartProviderProps) {
     cartTokenName,
     (nextCartToken) => (isString(nextCartToken) ? nextCartToken : null),
   );
-
-  const {onlineCartMutationState, createOnlineCartMutate} =
-    useCreateOnlineCartMutation({
-      cartToken,
-    });
-  const {data: {cart: fallbackCart} = {}} = useQuery({
-    queryKey: ['cart-by-token'],
-    queryFn: () =>
-      request<CartByTokenQuery, CartByTokenQueryVariables>(cartByTokenQuery, {
-        cartToken,
-      }),
-    enabled: isClient() && Boolean(cartToken) && !onlineCartMutationState,
-  });
-
-  const onlineCartState = useMemo(
-    () => onlineCartMutationState ?? getOnlineCartState(fallbackCart),
-    [onlineCartMutationState, fallbackCart],
-  );
-
   const region = useRegion();
 
+  const {onlineCartState, createOnlineCartMutate} =
+    useOnlineCartState(cartToken);
+  const onlineCartAddProductLine = useOnlineCartAddProductLine(cartToken);
+
   const createOnlineCart = useCallback(
-    async (
-      createCartMutationVariables: Omit<CreateCartMutationVariables, 'channel'>,
-    ) => {
+    async (cartLine: CartLine) => {
+      const lines = [cartLine];
+
       const {cart} =
         (
           await createOnlineCartMutate({
-            ...createCartMutationVariables,
+            lines,
             channel: region.variables.channel,
           })
         ).cartCreate ?? {};
@@ -93,8 +72,14 @@ function OnlineCartProvider({children}: OnlineCartProviderProps) {
       onlineCartState,
       createOnlineCart,
       resetCartToken,
+      onlineCartAddProductLine,
     }),
-    [createOnlineCart, onlineCartState, resetCartToken],
+    [
+      createOnlineCart,
+      onlineCartAddProductLine,
+      onlineCartState,
+      resetCartToken,
+    ],
   );
 
   return (

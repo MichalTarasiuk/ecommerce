@@ -3,45 +3,43 @@ import {useCallback} from 'react';
 import {useOnlineNetworkEffect} from '@/app/contexts/networkContext/networkContext';
 import {useLocalStorage} from '@/common/hooks/useLocalStorage';
 
-import {isOfflineCart} from './helpers';
+import {isCart} from '../helpers';
 
-import type {OfflineCart} from './helpers';
-import type {CartAddProductLineMutationVariables} from '@/common/types/generated/graphql';
+import type {Cart, CartLine} from '../types';
 
 export const useOfflineCart = () => {
-  const [_offlineCart, setOfflineCart] = useLocalStorage<OfflineCart>(
+  const [_offlineCart, setOfflineCart] = useLocalStorage<Cart>(
     'offline-cart',
-    (value) => (isOfflineCart(value) ? value : null),
+    (value) => (isCart(value) ? value : null),
   );
 
   useOnlineNetworkEffect(() => {});
 
+  const createOfflineCart = useCallback(
+    (nextCart: Cart) => {
+      setOfflineCart(nextCart);
+    },
+    [setOfflineCart],
+  );
+
   const offlineCartAddProductLine = useCallback(
-    (
-      cartAddProductLineMutationVariables: CartAddProductLineMutationVariables,
-    ) => {
-      if (isOfflineCart(cartAddProductLineMutationVariables)) {
-        const {cartToken, lines} = cartAddProductLineMutationVariables;
-
-        setOfflineCart((offlineCart) => {
-          if (offlineCart?.cartToken === cartToken) {
-            return {
-              ...offlineCart,
-              lines: [...offlineCart.lines, ...lines],
-            };
-          }
-
+    (cartLine: CartLine) => {
+      setOfflineCart((offlineCart) => {
+        if (offlineCart) {
           return {
-            cartToken,
-            lines,
+            ...offlineCart,
+            lines: [...offlineCart.lines, cartLine],
           };
-        });
-      }
+        }
+
+        return offlineCart;
+      });
     },
     [setOfflineCart],
   );
 
   return {
+    createOfflineCart,
     offlineCartAddProductLine,
   };
 };

@@ -1,54 +1,53 @@
 import {useCallback} from 'react';
 
 import {useOfflineCart} from './offline/offlineCart';
-import {
-  useCartAddProductLineMutation,
-  useOnlineCart,
-} from './online/onlineCart';
+import {useOnlineCart} from './online/onlineCart';
 
-import type {
-  CartAddProductLineMutationVariables,
-  CheckoutLineInput,
-} from '@/common/types/generated/graphql';
+import type {CartLine} from './types';
 
 export const useCart = () => {
-  const {onlineCartState, createOnlineCart, resetCartToken} = useOnlineCart();
-  const cartAddProductLineMutation = useCartAddProductLineMutation();
+  const {
+    onlineCartState,
+    onlineCartAddProductLine,
+    createOnlineCart,
+    resetCartToken,
+  } = useOnlineCart();
+  const {createOfflineCart, offlineCartAddProductLine} = useOfflineCart();
 
-  const {offlineCartAddProductLine} = useOfflineCart();
+  const createCart = useCallback(
+    async (cartLine: CartLine) => {
+      const cartToken = await createOnlineCart(cartLine);
 
-  const cartAddProductLine = useCallback(
-    async (
-      cartAddProductLineMutationVariables: CartAddProductLineMutationVariables,
-    ) => {
-      const cartLinesAdd = await cartAddProductLineMutation(
-        cartAddProductLineMutationVariables,
-      );
-
-      if (!cartLinesAdd?.errors?.length) {
-        offlineCartAddProductLine(cartAddProductLineMutationVariables);
+      if (cartToken) {
+        createOfflineCart({cartToken, lines: [cartLine]});
       }
     },
-    [cartAddProductLineMutation, offlineCartAddProductLine],
+    [createOfflineCart, createOnlineCart],
+  );
+
+  const cartAddProductLine = useCallback(
+    async (cartLine: CartLine) => {
+      const cartLinesAdd = await onlineCartAddProductLine(cartLine);
+
+      if (!cartLinesAdd?.errors?.length) {
+        offlineCartAddProductLine(cartLine);
+      }
+    },
+    [offlineCartAddProductLine, onlineCartAddProductLine],
   );
 
   const addToCart = useCallback(
     async (variantId: string) => {
       // eslint-disable-next-line functional/prefer-readonly-type -- should be writeable
-      const lines: Array<CheckoutLineInput> = [{variantId, quantity: 1}];
+      const cartLine: CartLine = {variantId, quantity: 1};
 
       if (onlineCartState) {
-        const {cartToken} = onlineCartState;
-
-        await cartAddProductLine({
-          cartToken,
-          lines,
-        });
+        await cartAddProductLine(cartLine);
       }
 
-      await createOnlineCart({lines});
+      await createCart(cartLine);
     },
-    [cartAddProductLine, createOnlineCart, onlineCartState],
+    [cartAddProductLine, createCart, onlineCartState],
   );
 
   return {
