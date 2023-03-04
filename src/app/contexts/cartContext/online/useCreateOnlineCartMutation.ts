@@ -28,11 +28,11 @@ export const useCreateOnlineCartMutation = ({
     (variables) => request(createCartMutation, variables),
   );
 
-  const {cart} = cartCreate ?? {};
-  const onlineCartMutationState = useMemo(
-    () => getOnlineCartState(cart),
-    [cart],
-  );
+  const onlineCartMutationState = useMemo(() => {
+    const {cart} = cartCreate ?? {};
+
+    return getOnlineCartState(cart);
+  }, [cartCreate]);
 
   const hasMounted = useHasMounted();
 

@@ -28,7 +28,7 @@ type OnlineCartContextValue = {
   readonly onlineCartState: OnlineCartState;
   readonly createOnlineCart: (
     createCartMutationVariables: Omit<CreateCartMutationVariables, 'channel'>,
-  ) => Promise<void>;
+  ) => Promise<string | null>;
   readonly resetCartToken: FunctionType.Noop;
 };
 
@@ -77,7 +77,11 @@ function OnlineCartProvider({children}: OnlineCartProviderProps) {
 
       if (cart?.token && isString(cart.token)) {
         setCartToken(cart.token);
+
+        return cart.token;
       }
+
+      return null;
     },
     [region.variables.channel, createOnlineCartMutate, setCartToken],
   );

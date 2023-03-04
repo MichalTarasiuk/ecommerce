@@ -1,6 +1,6 @@
 import {isObject, hasOwn} from '@/common/utils/utils';
 
-import type {NetworkState} from './networkState';
+import type {NetworkState} from '../NetworkProvider';
 
 type AnyStatus = 'online' | 'offline';
 
@@ -34,8 +34,3 @@ export const isOnline = (
 export type OfflineNetwork = NetworkState & {
   readonly online: false;
 };
-
-export const isOffline = (
-  network: NetworkState | undefined,
-): network is OfflineNetwork =>
-  isObject(network) && assertNetworkStatus(network, 'offline');

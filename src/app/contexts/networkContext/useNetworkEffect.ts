@@ -1,13 +1,10 @@
 import {usePrevious} from '@/common/hooks/usePrevious';
 
-import {isOffline, isOnline} from './helpers/helpers';
+import {isOnline} from './helpers/helpers';
 import {useNetwork} from './NetworkProvider';
 
-import type {
-  NetworkState,
-  OfflineNetwork,
-  OnlineNetwork,
-} from './helpers/helpers';
+import type {OnlineNetwork} from './helpers/helpers';
+import type {NetworkState} from './NetworkProvider';
 
 type EffectNetworkCallback<Network = NetworkState | undefined> = (
   network: Network,
@@ -30,16 +27,6 @@ export const useOnlineNetworkEffect = (
 ) => {
   useNetworkEffect((network) => {
     if (isOnline(network)) {
-      effectNetworkCallback(network);
-    }
-  });
-};
-
-export const useOfflineNetworkEffect = (
-  effectNetworkCallback: EffectNetworkCallback<OfflineNetwork>,
-) => {
-  useNetworkEffect((network) => {
-    if (isOffline(network)) {
       effectNetworkCallback(network);
     }
   });

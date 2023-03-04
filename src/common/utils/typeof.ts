@@ -39,3 +39,6 @@ export const isError = (operand: unknown): operand is Error =>
 
 export const isUndefined = (operand: unknown): operand is undefined =>
   inferType(operand) === 'undefined';
+
+export const isNumber = (operand: unknown): operand is number =>
+  inferType(operand) === 'number';

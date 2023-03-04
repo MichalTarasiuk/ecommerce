@@ -32,7 +32,7 @@ export const request = <
     .headers({...(token && {Authorization: `Bearer ${token}`})})
     .post({
       query,
-      ...(variables && {operationName}),
+      ...(operationName && {operationName}),
       ...(variables && {variables}),
     })
     .json()

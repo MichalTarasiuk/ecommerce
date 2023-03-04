@@ -42,19 +42,21 @@ export const useLocalStorage = <Item>(
   }, [key, syncedPredicate]);
 
   const setItem = useCallback(
-    (resolvableItem: Resolvable<Item | null>) => {
-      const nextItem = resolve(resolvableItem);
-      const stringifyNextItem = toJSON(nextItem);
+    (resolvableItem: Resolvable<Item | null, readonly [Item | null]>) => {
+      setItemState((item) => {
+        const nextItem = resolve(resolvableItem, item);
+        const stringifyNextItem = toJSON(nextItem);
 
-      if (stringifyNextItem) {
-        localStorage.setItem(key, stringifyNextItem);
+        if (stringifyNextItem) {
+          localStorage.setItem(key, stringifyNextItem);
 
-        setItemState(nextItem);
+          return nextItem;
+        }
 
-        return;
-      }
+        console.error(`could not save ${key} to localStorage`);
 
-      console.error(`could not save ${key} to localStorage`);
+        return item;
+      });
     },
     [key],
   );
