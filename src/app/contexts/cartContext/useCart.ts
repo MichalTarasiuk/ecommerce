@@ -14,17 +14,6 @@ export const useCart = () => {
   } = useOnlineCart();
   const {createOfflineCart, offlineCartAddProductLine} = useOfflineCart();
 
-  const createCart = useCallback(
-    async (cartLine: CartLine) => {
-      const cartToken = await createOnlineCart(cartLine);
-
-      if (cartToken) {
-        createOfflineCart({cartToken, lines: [cartLine]});
-      }
-    },
-    [createOfflineCart, createOnlineCart],
-  );
-
   const cartAddProductLine = useCallback(
     async (cartLine: CartLine) => {
       const cartLinesAdd = await onlineCartAddProductLine(cartLine);
@@ -45,14 +34,16 @@ export const useCart = () => {
         await cartAddProductLine(cartLine);
       }
 
-      await createCart(cartLine);
+      const cartToken = await createOnlineCart(cartLine);
+
+      if (cartToken) {
+        createOfflineCart({cartToken, lines: [cartLine]});
+      }
     },
-    [cartAddProductLine, createCart, onlineCartState],
+    [cartAddProductLine, createOfflineCart, createOnlineCart, onlineCartState],
   );
 
   return {
-    onlineCartState,
-    createOnlineCart,
     resetCartToken,
     addToCart,
   };

@@ -13,7 +13,10 @@ export const useOfflineCart = () => {
     (value) => (isCart(value) ? value : null),
   );
 
-  useOnlineNetworkEffect(() => {});
+  useOnlineNetworkEffect(() => {
+    // TODO:
+    // add logic of update cart
+  });
 
   const createOfflineCart = useCallback(
     (nextCart: Cart) => {
