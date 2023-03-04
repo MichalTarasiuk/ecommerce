@@ -4,10 +4,11 @@ import {useLocalStorage} from '@/common/hooks/useLocalStorage';
 import {useRegion} from '@/common/hooks/useRegion';
 import {createSafeContext, isString} from '@/common/utils/utils';
 
+import {getOnlineCartState} from './helpers';
+import {useCartByToken} from './useCartByToken';
+import {useCreateOnlineCart} from './useCreateOnlineCart';
 import {useOnlineCartAddProductLine} from './useOnlineCartAddProductLine';
-import {useOnlineCartState} from './useOnlineCartState';
 
-import type {getOnlineCartState} from './helpers';
 import type {CartLine} from '../types';
 import type {ReactNode} from 'react';
 
@@ -36,10 +37,24 @@ function OnlineCartProvider({children}: OnlineCartProviderProps) {
     cartTokenName,
     (nextCartToken) => (isString(nextCartToken) ? nextCartToken : null),
   );
+
   const region = useRegion();
 
-  const {onlineCartState, createOnlineCartMutate} =
-    useOnlineCartState(cartToken);
+  const {onlineCartMutationState, createOnlineCartMutate} = useCreateOnlineCart(
+    {
+      cartToken,
+    },
+  );
+  const cartByToken = useCartByToken(
+    cartToken,
+    Boolean(cartToken) && !onlineCartMutationState,
+  );
+
+  const onlineCartState = useMemo(
+    () => onlineCartMutationState ?? getOnlineCartState(cartByToken),
+    [cartByToken, onlineCartMutationState],
+  );
+
   const onlineCartAddProductLine = useOnlineCartAddProductLine(cartToken);
 
   const createOnlineCart = useCallback(
