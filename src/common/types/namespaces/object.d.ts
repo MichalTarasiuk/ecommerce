@@ -46,8 +46,8 @@ declare namespace ObjectType {
     never
   >;
 
-  type Required<AnyObject, Keys extends keyof AnyObject> = Omit<
+  type Required<
     AnyObject,
-    Keys
-  > & {readonly [Key in Keys]-?: AnyObject[Key]};
+    Keys extends keyof AnyObject = keyof AnyObject,
+  > = Omit<AnyObject, Keys> & {readonly [Key in Keys]-?: AnyObject[Key]};
 }

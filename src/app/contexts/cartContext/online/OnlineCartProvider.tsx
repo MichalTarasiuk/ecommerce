@@ -43,8 +43,6 @@ function OnlineCartProvider({children}: OnlineCartProviderProps) {
     (nextCartToken) => (isString(nextCartToken) ? nextCartToken : null),
   );
 
-  const region = useRegion();
-
   const {onlineCartMutationState, createOnlineCartMutate} =
     useCreateOnlineCartMutation({
       cartToken,
@@ -62,6 +60,8 @@ function OnlineCartProvider({children}: OnlineCartProviderProps) {
     () => onlineCartMutationState ?? getOnlineCartState(fallbackCart),
     [onlineCartMutationState, fallbackCart],
   );
+
+  const region = useRegion();
 
   const createOnlineCart = useCallback(
     async (

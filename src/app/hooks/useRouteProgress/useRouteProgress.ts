@@ -1,6 +1,6 @@
 import {useRouter} from 'next/router';
 import * as NProgress from 'nprogress';
-import {useCallback, useEffect} from 'react';
+import {useEffect} from 'react';
 
 import {useCSS} from '@/common/hooks/useCSS';
 import {useEvent} from '@/common/hooks/useEvent';
@@ -15,7 +15,7 @@ export const useRouteProgress = () => {
   const router = useRouter();
   const getUrl = useEvent(() => router.asPath);
 
-  useCSS(useCallback(() => getStyles(routeProgressConfig), []));
+  useCSS(() => getStyles(routeProgressConfig));
 
   useEffect(() => {
     const routeChangeStartHandler = (

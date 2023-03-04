@@ -1,13 +1,19 @@
 import {z} from 'zod';
 
-import {isProduction} from '@/common/utils/utils';
+import {isProduction, valuesToKeys} from '@/common/utils/utils';
 
 import type {TypeOf} from 'zod';
+
+type EnvironmentSchemaInput = ObjectType.Required<
+  (typeof environmentSchema)['_input']
+>;
 
 const fallbackEnvironment = {
   NEXT_PUBLIC_SALEOR_API_URL: 'localhost:8080',
   NEXT_PUBLIC_HOSTNAME: 'localhost',
 };
+
+const environmentKeys = valuesToKeys(fallbackEnvironment);
 
 const withDevDefault = <Schema extends z.ZodTypeAny>(
   schema: Schema,
@@ -25,7 +31,13 @@ const environmentSchema = z.object({
   ),
 });
 
-const parsed = environmentSchema.safeParse(process.env);
+const environmentSchemaInput: EnvironmentSchemaInput = {
+  NEXT_PUBLIC_SALEOR_API_URL:
+    process.env[environmentKeys.NEXT_PUBLIC_SALEOR_API_URL],
+  NEXT_PUBLIC_HOSTNAME: process.env[environmentKeys.NEXT_PUBLIC_HOSTNAME],
+};
+
+const parsed = environmentSchema.safeParse(environmentSchemaInput);
 
 if (!parsed.success) {
   console.error(

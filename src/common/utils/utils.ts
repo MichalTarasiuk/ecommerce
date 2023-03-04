@@ -14,3 +14,6 @@ export * from './canUseDOM';
 export * from './isKeyof';
 export * from './objectEvery';
 export * from './json';
+export * from './valuesToKeys';
+export * from './entries';
+export * from './fromEntries';
