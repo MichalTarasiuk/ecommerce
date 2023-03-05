@@ -6,17 +6,28 @@ const schema = process.env['NEXT_PUBLIC_SALEOR_API_URL'];
 
 invariant(schema, `process.env['NEXT_PUBLIC_SALEOR_API_URL'] is not defined`);
 
+const warningPlugin = {
+  add: {
+    content: `/**
+* NOTE: THIS IS AN AUTO-GENERATED FILE. DO NOT MODIFY IT DIRECTLY.
+*/`,
+  },
+};
+
 const config: CodegenConfig = {
   schema,
   overwrite: true,
   documents: 'src/**/*.ts',
+  hooks: {
+    afterAllFileWrite: 'pnpm run format',
+  },
   generates: {
     'src/common/types/generated/': {
       preset: 'client',
       presetConfig: {
         fragmentMasking: false,
       },
-      plugins: [],
+      plugins: [warningPlugin],
     },
   },
 };

@@ -40,6 +40,7 @@
     "@babel/plugin-transform-typescript": "^7.20.13",
     "@commitlint/cli": "^17.4.2",
     "@commitlint/config-conventional": "^17.4.2",
+    "@graphql-codegen/add": "^4.0.1",
     "@graphql-codegen/cli": "2.16.4",
     "@graphql-codegen/client-preset": "1.2.6",
     "@graphql-typed-document-node/core": "^3.1.1",

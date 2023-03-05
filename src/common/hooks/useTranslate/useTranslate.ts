@@ -7,7 +7,7 @@ import type {i18nConfig, ReadonlyPages} from '@root/i18n';
 
 export type InferNamespaceKey<AnyReadonlyPages extends ReadonlyPages> = {
   readonly [Key in keyof AnyReadonlyPages]: AnyReadonlyPages[Key] extends ReadonlyArray<string>
-    ? AnyReadonlyPages[Key][number]
+    ? Custom.ValueOf<AnyReadonlyPages[Key]>
     : AnyReadonlyPages[Key] extends ((
         context: Record<string, unknown>,
       ) => infer Namespaces extends ReadonlyArray<string>)
