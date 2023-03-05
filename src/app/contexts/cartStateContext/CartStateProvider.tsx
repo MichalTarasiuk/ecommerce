@@ -17,7 +17,7 @@ type CartStateProviderProps = {
 
 type CartStateContextValue = {
   readonly cartState: CartState;
-  readonly createStateCart: (cartLine: CartLine) => Promise<void>;
+  readonly createCartState: (cartLine: CartLine) => Promise<void>;
   readonly resetCartState: FunctionType.Noop;
 };
 
@@ -35,18 +35,17 @@ function CartStateProvider({children}: CartStateProviderProps) {
   const region = useRegion();
 
   const {cartMutationState, createCartMutate} = useCartMutation();
-
-  const cartByToken = useCartByToken({
+  const cartByTokenState = useCartByToken({
     cartToken,
     enabled: Boolean(cartToken) && !cartMutationState,
   });
 
   const cartState = useMemo(
-    () => cartMutationState ?? getCartState(cartByToken),
-    [cartByToken, cartMutationState],
+    () => cartMutationState ?? getCartState(cartByTokenState),
+    [cartByTokenState, cartMutationState],
   );
 
-  const createStateCart = useCallback(
+  const createCartState = useCallback(
     async (cartLine: CartLine) => {
       const lines = [cartLine];
 
@@ -70,10 +69,10 @@ function CartStateProvider({children}: CartStateProviderProps) {
   const value = useMemo(
     () => ({
       cartState,
-      createStateCart,
+      createCartState,
       resetCartState,
     }),
-    [cartState, createStateCart, resetCartState],
+    [cartState, createCartState, resetCartState],
   );
 
   return (

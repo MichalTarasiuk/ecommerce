@@ -13,7 +13,7 @@ import type {
 } from '@/common/types/generated/graphql';
 
 export const useAddToCart = () => {
-  const {cartState, createStateCart} = useCartState();
+  const {cartState, createCartState} = useCartState();
 
   const {mutateAsync: cartAddProductLineMutate} = useMutation<
     CartAddProductLineMutation,
@@ -42,9 +42,9 @@ export const useAddToCart = () => {
         return;
       }
 
-      await createStateCart(cartLine);
+      await createCartState(cartLine);
     },
-    [cartAddProductLineMutate, cartState, createStateCart],
+    [cartAddProductLineMutate, cartState, createCartState],
   );
 
   return addToCart;
