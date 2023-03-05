@@ -9,20 +9,22 @@ import type {
   CartByTokenQueryVariables,
 } from '@/common/types/generated/graphql';
 
-type UseCartByTokenParams = {
+export const useCartByToken = ({
+  cartToken,
+  enabled,
+}: {
   readonly cartToken: string | null;
   readonly enabled: boolean;
-};
-
-export const useCartByToken = ({cartToken, enabled}: UseCartByTokenParams) => {
-  const {data: {cart} = {}} = useQuery({
+}) => {
+  const {data} = useQuery({
     queryKey: ['cart-by-token'],
     queryFn: () =>
       request<CartByTokenQuery, CartByTokenQueryVariables>(cartByTokenQuery, {
         cartToken,
       }),
+    staleTime: Infinity,
     enabled: isClient() && enabled,
   });
 
-  return cart;
+  return data?.cart;
 };

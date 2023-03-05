@@ -11,7 +11,7 @@ export type InferNamespaceKey<AnyReadonlyPages extends ReadonlyPages> = {
     : AnyReadonlyPages[Key] extends ((
         context: Record<string, unknown>,
       ) => infer Namespaces extends ReadonlyArray<string>)
-    ? Namespaces[number]
+    ? Custom.ValueOf<Namespaces>
     : never;
 }[keyof AnyReadonlyPages];
 

@@ -1,3 +1,4 @@
+import type {getCartState} from './helpers';
 import type {CheckoutLineInput} from '@/common/types/generated/graphql';
 
 export type CartLine = Pick<CheckoutLineInput, 'variantId' | 'quantity'>;
@@ -8,3 +9,5 @@ export type Cart = {
   readonly cartToken: string;
   readonly lines: CartLines;
 };
+
+export type CartState = ReturnType<typeof getCartState>;

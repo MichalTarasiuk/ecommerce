@@ -1,7 +1,7 @@
-import {useCart} from '@/app/contexts/contexts';
+import {useAddToCart} from './hooks/hooks';
 
 export function ProductsPage() {
-  const {addToCart} = useCart();
+  const addToCart = useAddToCart();
 
   return (
     <button

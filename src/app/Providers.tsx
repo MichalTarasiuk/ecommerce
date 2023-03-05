@@ -1,8 +1,4 @@
-import {
-  CartProvider,
-  NetworkProvider,
-  UIStateProvider,
-} from './contexts/contexts';
+import {CartStateProvider, UIStateProvider} from './contexts/contexts';
 import {QueryClientProvider} from './queryClient/queryClient';
 
 import type {ReactNode} from 'react';
@@ -15,11 +11,9 @@ type AppProvidersProps = {
 export function AppProviders({children, pageProps}: AppProvidersProps) {
   return (
     <QueryClientProvider pageProps={pageProps}>
-      <NetworkProvider>
-        <CartProvider>
-          <UIStateProvider>{children}</UIStateProvider>
-        </CartProvider>
-      </NetworkProvider>
+      <CartStateProvider>
+        <UIStateProvider>{children}</UIStateProvider>
+      </CartStateProvider>
     </QueryClientProvider>
   );
 }

@@ -2,12 +2,15 @@ import {
   hasOwn,
   isArray,
   isNumber,
-  isObject,
   isString,
+  isObject,
 } from '@/common/utils/utils';
 
 import type {Cart} from './types';
-import type {CheckoutLineInput} from '@/common/types/generated/graphql';
+import type {
+  CheckoutLineInput,
+  CreateCartMutation,
+} from '@/common/types/generated/graphql';
 
 const isCartLine = (value: unknown): value is CheckoutLineInput => {
   if (!isObject(value)) {
@@ -34,4 +37,16 @@ export const isCart = (value: unknown): value is Cart => {
     value.lines.every(isCartLine);
 
   return hasCartToken && hasLines;
+};
+
+export const getCartState = (
+  cart: NonNullable<CreateCartMutation['cartCreate']>['cart'],
+) => {
+  if (cart?.token && isString(cart.token)) {
+    const {token: cartToken, id} = cart;
+
+    return {cartToken, id};
+  }
+
+  return null;
 };

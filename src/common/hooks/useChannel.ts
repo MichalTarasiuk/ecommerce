@@ -2,7 +2,7 @@ import {useQuery} from '@tanstack/react-query';
 import {useRouter} from 'next/router';
 import {useCallback, useMemo} from 'react';
 
-import {useCart} from '@/app/contexts/contexts';
+import {useCartState} from '@/app/contexts/contexts';
 import {request} from '@/app/queryClient/request/request';
 import {channelsQuery} from '@/common/graphql/queries/queries';
 import {getChannel, getLocale} from '@/common/utils/utils';
@@ -12,7 +12,7 @@ import type {ChannelsQuery} from '@/common/types/generated/graphql';
 export const useChannel = () => {
   const router = useRouter();
 
-  const {resetCartToken} = useCart();
+  const {resetCartState} = useCartState();
   const {data} = useQuery<ChannelsQuery>({
     queryFn: () => request(channelsQuery),
   });
@@ -47,14 +47,14 @@ export const useChannel = () => {
           },
         });
 
-        resetCartToken();
+        resetCartState();
 
         return resolvedPush;
       }
 
       return false;
     },
-    [channels, resetCartToken, router],
+    [channels, resetCartState, router],
   );
 
   return {

@@ -16,7 +16,7 @@ const warningPlugin = {
 
 const config: CodegenConfig = {
   schema,
-  overwrite: true,
+  debug: true,
   documents: 'src/**/*.ts',
   hooks: {
     afterAllFileWrite: 'pnpm run format',
