@@ -13,13 +13,13 @@ import type {
   CreateCartMutationVariables,
 } from '@/common/types/generated/graphql';
 
-type UseCreateOnlineCartMutationParams = {
+type UseOnlineCartMutationParams = {
   readonly cartToken: string | null;
 };
 
-export const useCreateOnlineCart = ({
+export const useOnlineCartMutation = ({
   cartToken,
-}: UseCreateOnlineCartMutationParams) => {
+}: UseOnlineCartMutationParams) => {
   const {
     data: {cartCreate} = {},
     mutateAsync: createOnlineCartMutate,

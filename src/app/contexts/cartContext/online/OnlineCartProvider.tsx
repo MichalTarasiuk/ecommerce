@@ -6,8 +6,8 @@ import {createSafeContext, isString} from '@/common/utils/utils';
 
 import {getOnlineCartState} from './helpers';
 import {useCartByToken} from './useCartByToken';
-import {useCreateOnlineCart} from './useCreateOnlineCart';
 import {useOnlineCartAddProductLine} from './useOnlineCartAddProductLine';
+import {useOnlineCartMutation} from './useOnlineCartMutation';
 
 import type {CartLine} from '../types';
 import type {ReactNode} from 'react';
@@ -40,15 +40,15 @@ function OnlineCartProvider({children}: OnlineCartProviderProps) {
 
   const region = useRegion();
 
-  const {onlineCartMutationState, createOnlineCartMutate} = useCreateOnlineCart(
-    {
+  const {onlineCartMutationState, createOnlineCartMutate} =
+    useOnlineCartMutation({
       cartToken,
-    },
-  );
-  const cartByToken = useCartByToken(
+    });
+
+  const cartByToken = useCartByToken({
     cartToken,
-    Boolean(cartToken) && !onlineCartMutationState,
-  );
+    enabled: Boolean(cartToken) && !onlineCartMutationState,
+  });
 
   const onlineCartState = useMemo(
     () => onlineCartMutationState ?? getOnlineCartState(cartByToken),
