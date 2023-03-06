@@ -3,6 +3,11 @@ type CommonNamespace = {
   readonly en: typeof import('src/app/locales/en-US/common.json');
 };
 
+type CheckoutNamespace = {
+  readonly pl: typeof import('src/app/locales/pl-PL/checkout.json');
+  readonly en: typeof import('src/app/locales/en-US/checkout.json');
+};
+
 type AccountRegisterNamespace = {
   readonly pl: typeof import('src/app/locales/pl-PL/account/register.json');
   readonly en: typeof import('src/app/locales/en-US/account/register.json');
@@ -27,6 +32,10 @@ export type Namespaces = {
   readonly common: ObjectType.Intersection<
     CommonNamespace['pl'],
     CommonNamespace['en']
+  >;
+  readonly checkout: ObjectType.Intersection<
+    CheckoutNamespace['pl'],
+    CheckoutNamespace['en']
   >;
   readonly ['account.register']: ObjectType.Intersection<
     AccountRegisterNamespace['en'],

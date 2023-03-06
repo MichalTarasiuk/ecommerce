@@ -11,13 +11,18 @@ export const getStaticPaths = async () => {
   const queryClient = new QueryClient();
 
   const channelsQueryResult = await queryClient.fetchQuery<ChannelsQuery>({
+    queryKey: ['channels'],
     queryFn: () => request(channelsQuery),
   });
 
   const channels =
-    channelsQueryResult.channels?.flatMap(({isActive, slug}) =>
-      isActive ? [slug] : [],
-    ) ?? [];
+    channelsQueryResult.channels?.flatMap(({isActive, slug}) => {
+      if (isActive) {
+        return [slug];
+      }
+
+      return [];
+    }) ?? [];
 
   const paths = i18nConfig.locales.flatMap((locale) =>
     channels.map((channel) => ({

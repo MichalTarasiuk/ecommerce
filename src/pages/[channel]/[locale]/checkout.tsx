@@ -1,4 +1,5 @@
 export {
   CheckoutPage as default,
-  getServerSideProps,
+  getStaticProps,
 } from '@/modules/checkout/checkout';
+export {getStaticPaths} from '@/modules/core/utils/utils';

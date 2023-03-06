@@ -5,6 +5,7 @@ import accountChangePasswordNamespace from '@/app/locales/en-US/account/change-p
 import accountForgotPasswordNamespace from '@/app/locales/en-US/account/forgot-password.json';
 import accountLoginNamespace from '@/app/locales/en-US/account/login.json';
 import accountRegisterNamespace from '@/app/locales/en-US/account/register.json';
+import checkoutNamespace from '@/app/locales/en-US/checkout.json';
 import commonNamespace from '@/app/locales/en-US/common.json';
 import {i18nConfig} from '@root/i18n';
 
@@ -17,6 +18,7 @@ const namespaces: Record<
   I18nDictionary
 > = {
   common: commonNamespace,
+  checkout: checkoutNamespace,
   'account.register': accountRegisterNamespace,
   'account.login': accountLoginNamespace,
   'account.forgot-password': accountForgotPasswordNamespace,

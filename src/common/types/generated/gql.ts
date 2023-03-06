@@ -47,6 +47,7 @@ const documents = {
     types.ChannelsDocument,
   '\n  query MainMenu($languageCode: LanguageCodeEnum!, $channel: String!) {\n    menu(slug: "navbar", channel: $channel) {\n      id\n      items {\n        ...MenuItemWithChildrenFragment\n      }\n    }\n  }\n  \n':
     types.MainMenuDocument,
+  '\n  query Me {\n    me {\n      email\n    }\n  }\n': types.MeDocument,
 };
 
 /**
@@ -165,6 +166,12 @@ export function graphql(
 export function graphql(
   source: '\n  query MainMenu($languageCode: LanguageCodeEnum!, $channel: String!) {\n    menu(slug: "navbar", channel: $channel) {\n      id\n      items {\n        ...MenuItemWithChildrenFragment\n      }\n    }\n  }\n  \n',
 ): (typeof documents)['\n  query MainMenu($languageCode: LanguageCodeEnum!, $channel: String!) {\n    menu(slug: "navbar", channel: $channel) {\n      id\n      items {\n        ...MenuItemWithChildrenFragment\n      }\n    }\n  }\n  \n'];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query Me {\n    me {\n      email\n    }\n  }\n',
+): (typeof documents)['\n  query Me {\n    me {\n      email\n    }\n  }\n'];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

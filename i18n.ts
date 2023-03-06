@@ -33,6 +33,7 @@ export const i18nConfig = {
   defaultLocale,
   pages: {
     '*': ['common'] as const,
+    [routes.checkout]: ['checkout'] as const,
     [routes.account.register]: ['account.register'] as const,
     [routes.account.login]: ['account.login'] as const,
     [routes.account.forgotPassword]: ['account.forgot-password'] as const,

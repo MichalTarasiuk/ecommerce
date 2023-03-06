@@ -25085,6 +25085,13 @@ export type MainMenuQuery = {
   } | null;
 };
 
+export type MeQueryVariables = Exact<{[key: string]: never}>;
+
+export type MeQuery = {
+  __typename?: 'Query';
+  me?: {__typename?: 'User'; email: string} | null;
+};
+
 export const AccountErrorFragmentFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -26200,3 +26207,28 @@ export const MainMenuDocument = {
     ...MenuItemWithChildrenFragmentFragmentDoc.definitions,
   ],
 } as unknown as DocumentNode<MainMenuQuery, MainMenuQueryVariables>;
+export const MeDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: {kind: 'Name', value: 'Me'},
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: {kind: 'Name', value: 'me'},
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {kind: 'Field', name: {kind: 'Name', value: 'email'}},
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<MeQuery, MeQueryVariables>;

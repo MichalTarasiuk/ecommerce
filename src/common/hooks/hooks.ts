@@ -17,3 +17,4 @@ export * from './useRegion';
 export * from './useRouteIsChanging';
 export * from './useMount';
 export * from './useLocalStorage';
+export * from './generated/generated';

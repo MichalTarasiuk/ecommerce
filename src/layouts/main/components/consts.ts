@@ -1,6 +1,6 @@
-import AccountIcon from 'public/icons/account.svg';
-import CartIcon from 'public/icons/cart.svg';
-import SearchIcon from 'public/icons/search.svg';
+import {ReactComponent as AccountIcon} from 'public/icons/account.svg';
+import {ReactComponent as CartIcon} from 'public/icons/cart.svg';
+import {ReactComponent as SearchIcon} from 'public/icons/search.svg';
 
 export const navigationListing = {
   left: [

@@ -30,6 +30,7 @@ export const fetchLayoutData = async (
     await Promise.all([
       queryClient
         .prefetchQuery({
+          queryKey: ['main-menu'],
           queryFn: () =>
             request<unknown, MainMenuQueryVariables>(mainMenuQuery, region),
         })

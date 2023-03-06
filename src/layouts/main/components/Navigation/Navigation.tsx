@@ -1,43 +1,12 @@
 import classNames from 'classnames';
-import Link from 'next/link';
 
 import {useUIHandler} from '@/app/contexts/contexts';
-import {RenderIcon} from '@/common/components/components';
-import {isLastIndex, isString, objectKeys} from '@/common/utils/utils';
+import {isLastIndex, objectKeys} from '@/common/utils/utils';
 import {ReactComponent as MenuIcon} from 'public/icons/menu.svg';
 
-import {navigationListing} from './consts';
+import {navigationListing} from '../consts';
 
-import type {ButtonHTMLAttributes, ComponentType} from 'react';
-
-type NavigationItemProps = {
-  readonly child: ComponentType<React.SVGProps<SVGSVGElement>> | string;
-} & (
-  | {readonly type: 'link'; readonly href: string}
-  | ({readonly type: 'button'} & Pick<
-      ButtonHTMLAttributes<HTMLElement>,
-      'onClick'
-    >)
-);
-
-function NavigationItem({child, ...props}: NavigationItemProps) {
-  const className =
-    'hover:text-blue-500 h-full flex justify-center items-center font-semibold';
-
-  if (props.type === 'link') {
-    return (
-      <Link {...props} className={className}>
-        {isString(child) ? child : <RenderIcon icon={child} />}{' '}
-      </Link>
-    );
-  }
-
-  return (
-    <button className={className} {...props}>
-      {isString(child) ? child : <RenderIcon icon={child} />}
-    </button>
-  );
-}
+import {NavigationItem} from './NavigationItem';
 
 export function Navigation() {
   const setUIstate = useUIHandler();
