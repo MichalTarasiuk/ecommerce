@@ -1,4 +1,5 @@
 export {
   AccountLoginPage as default,
-  getServerSideProps,
+  getStaticProps,
 } from '@/modules/account/submodules/login/login';
+export {getStaticPaths} from '@/modules/core/utils/utils';

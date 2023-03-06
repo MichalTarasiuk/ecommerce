@@ -50,4 +50,14 @@ declare namespace ObjectType {
     AnyObject,
     Keys extends keyof AnyObject = keyof AnyObject,
   > = Omit<AnyObject, Keys> & {readonly [Key in Keys]-?: AnyObject[Key]};
+
+  type DeepValueOf<AnyObject extends Record<PropertyKey, unknown>> =
+    Custom.ValueOf<{
+      readonly [Key in keyof AnyObject]: AnyObject[Key] extends Record<
+        PropertyKey,
+        unknown
+      >
+        ? DeepValueOf<AnyObject[Key]>
+        : AnyObject[Key];
+    }>;
 }

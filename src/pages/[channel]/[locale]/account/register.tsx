@@ -1,4 +1,5 @@
 export {
   AccountRegisterPage as default,
-  getServerSideProps,
+  getStaticProps,
 } from '@/modules/account/submodules/register/register';
+export {getStaticPaths} from '@/modules/core/utils/utils';
