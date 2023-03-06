@@ -24,7 +24,7 @@ type PropsProviderResult =
 export const createNamespacesProvider = (
   pathname: ObjectType.DeepValueOf<typeof routes>,
 ) => {
-  const propsProvider = async ({
+  const namespacesPropsProvider = async ({
     params,
   }: PropsProviderContext<InferParsedQuery<typeof getStaticPaths>>) => {
     const {locale} = getRegion(params);
@@ -41,5 +41,5 @@ export const createNamespacesProvider = (
     } satisfies PropsProviderResult;
   };
 
-  return propsProvider;
+  return namespacesPropsProvider;
 };
