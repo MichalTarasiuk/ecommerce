@@ -1,6 +1,7 @@
 import loadNamespaces from 'next-translate/loadNamespaces';
 
-import {getRegion} from '@/common/utils/utils';
+import {getRegion, hasOwn} from '@/common/utils/utils';
+import {i18nConfig} from '@root/i18n';
 
 import type {getStaticPaths} from './getStaticPaths';
 import type {routes} from '@/common/consts/consts';
@@ -24,6 +25,10 @@ type PropsProviderResult =
 export const createNamespacesProvider = (
   pathname: ObjectType.DeepValueOf<typeof routes>,
 ) => {
+  if (!hasOwn(i18nConfig.pages, pathname)) {
+    throw Error(`${pathname} is not supported by next translate`);
+  }
+
   const namespacesPropsProvider = async ({
     params,
   }: PropsProviderContext<InferParsedQuery<typeof getStaticPaths>>) => {
