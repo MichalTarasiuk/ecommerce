@@ -14,8 +14,11 @@ const localeToLanguageCode: Record<Locale, LanguageCodeEnum> = {
   'pl-PL': LanguageCodeEnum.Pl,
 };
 
-export const isSupportedLocale = (value: unknown): value is Locale =>
-  locales.some((locale) => value === locale);
+export const isSupportedLocale = (value: unknown): value is Locale => {
+  const unknownLocales: readonly string[] = locales;
+
+  return isString(value) && unknownLocales.includes(value);
+};
 
 export const getLocale = (params: {readonly locale?: string}) => {
   if (isSupportedLocale(params.locale)) {
