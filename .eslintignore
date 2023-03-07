@@ -49,3 +49,6 @@ src/common/types/generated/**
 
 # storybook
 !.storybook
+
+# node
+.nvmrc

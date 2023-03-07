@@ -50,3 +50,6 @@ src/common/graphql/generated/**
 
 # pnpm
 .npmrc
+
+# node
+.nvmrc
