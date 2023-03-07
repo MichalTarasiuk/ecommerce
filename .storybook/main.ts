@@ -5,7 +5,7 @@ import {
   isObject,
   hasOwn,
   isFunction,
-} from '@/common/utils/utils';
+} from '~utils/utils';
 
 import type {StorybookConfig} from '@storybook/nextjs';
 

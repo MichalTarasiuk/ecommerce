@@ -1,4 +1,4 @@
-import '../src/app/styles/globals.css';
+import '~styles/globals.css';
 
 export {decorators} from './decorators/decorators';
 
