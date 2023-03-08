@@ -92,13 +92,13 @@
   },
   "overrides": [
     {
-      "files": ["src/pages/**/*.tsx", "./*.ts", "./*.js", "./*.mjs", "*.d.ts"],
+      "files": ["pages/**/*.tsx", "config/**/*", "*.d.ts", "next.config.mjs"],
       "rules": {
         "import/no-default-export": "off"
       }
     },
     {
-      "files": ["./**.js", "./**.mjs"],
+      "files": ["*.js", "*.mjs"],
       "rules": {
         "@typescript-eslint/no-unsafe-call": "off",
         "@typescript-eslint/no-unsafe-member-access": "off"
