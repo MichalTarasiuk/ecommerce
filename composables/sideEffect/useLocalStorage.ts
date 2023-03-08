@@ -1,6 +1,6 @@
 import {useCallback, useEffect, useState} from 'react';
 
-import {useSyncedRef} from '~composables/state/state';
+import {useSyncedRef} from '~composables/state';
 import {isClient, parseJSON, resolve, toJSON} from '~utils/utils';
 
 import type {Resolvable} from '~utils/utils';

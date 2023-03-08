@@ -2,7 +2,7 @@ import {useEffect, useInsertionEffect} from 'react';
 
 import {resolve} from '~utils/utils';
 
-import {useSyncedRef} from '../state/state';
+import {useSyncedRef} from '../state';
 
 import type {MutableRefObject, RefObject} from 'react';
 
