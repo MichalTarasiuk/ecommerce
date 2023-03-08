@@ -1,8 +1,7 @@
-import {useRef, useState, useMemo} from 'react';
+import {useRef, useState} from 'react';
 
+import {useLayout} from '~composables/lifecycle';
 import {resolve} from '~utils/utils';
-
-import {useLayout} from './lifecycle';
 
 export const usePrevious = <Value>(
   value: Value,
@@ -27,20 +26,4 @@ export const useConst = <State>(resolvableState: State | (() => State)) => {
   });
 
   return state;
-};
-
-export const useSyncedRef = <Value>(value: Value) => {
-  const ref = useRef(value);
-
-  ref.current = value;
-
-  return useMemo(
-    () =>
-      Object.freeze({
-        get current() {
-          return ref.current;
-        },
-      }),
-    [],
-  );
 };

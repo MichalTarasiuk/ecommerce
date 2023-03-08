@@ -1,7 +1,7 @@
-import {useMe} from '~composables/graphql/generated';
 import {useEffectOnce} from '~composables/lifecycle';
 import {useRouter} from '~composables/router/router';
 import {routes} from '~constants/constants';
+import {useMe} from '~graphql/hooks/generated';
 
 import type {ReactNode} from 'react';
 

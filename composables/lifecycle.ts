@@ -4,7 +4,7 @@ import {isClient} from '~utils/utils';
 
 export const useLayout = isClient() ? useLayoutEffect : useEffect;
 
-import {useSyncedRef} from './state';
+import {useSyncedRef} from './state/useSyncedRef';
 
 import type {EffectCallback} from 'react';
 

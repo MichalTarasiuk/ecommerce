@@ -2,8 +2,8 @@ import {useMutation} from '@tanstack/react-query';
 import {useCallback} from 'react';
 import {toast} from 'sonner';
 
-import {useCartState} from '~app/contexts/contexts';
 import {request} from '~app/queryClient/queryClient';
+import {useCartState} from '~composables/cartState/cartContext';
 import {cartAddProductLineMutation} from '~graphql/mutations/mutations';
 
 import type {

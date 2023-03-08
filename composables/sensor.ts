@@ -1,6 +1,6 @@
 import {useEffect} from 'react';
 
-import {useSyncedRef} from './state';
+import {useSyncedRef} from './state/state';
 
 export const useResize = (
   onResize: (this: Window, uiEvent: UIEvent) => void,

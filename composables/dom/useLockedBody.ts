@@ -1,6 +1,6 @@
 import {useInsertionEffect, useState} from 'react';
 
-import {usePrevious} from '~composables/state';
+import {usePrevious} from '~composables/state/state';
 import {appConfig} from '~constants/appConfig';
 
 export const useLockBodyScroll = (initialLocked = false) => {
