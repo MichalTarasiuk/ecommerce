@@ -1,7 +1,7 @@
 import {
   FormWrapper,
   ProtectedPage,
-} from '~modules/account/components/components';
+} from 'modules/account/components/components';
 
 import {LoginForm} from './components/components';
 

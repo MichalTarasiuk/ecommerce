@@ -1,1 +1,1 @@
-export {ProductsPage as default} from '~modules/products/products';
+export {ProductsPage as default} from 'modules/products/products';

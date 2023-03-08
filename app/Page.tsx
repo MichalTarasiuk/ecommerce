@@ -2,17 +2,17 @@ import Inspect from 'inspx';
 import appWithI18n from 'next-translate/appWithI18n';
 import {Toaster} from 'sonner';
 
-import {useRouteProgress} from '~composables/router';
-import {useSession} from '~composables/session';
-import {i18nConfig} from '~config/i18n';
-import {Fonts} from '~styles/Fonts';
+import {i18nConfig} from 'config/i18n';
+import {useRouteProgress} from 'lib/router';
+import {useSession} from 'lib/session';
+import {Fonts} from 'styles/Fonts';
 
 import {AppProviders} from './Providers';
 
+import type {ExtendedI18nConfig} from 'config/i18n';
 import type {NextPage, NextComponentType, NextPageContext} from 'next';
 import type {AppProps} from 'next/app';
 import type {ReactElement, ReactNode} from 'react';
-import type {ExtendedI18nConfig} from '~config/i18n';
 
 export type NextPageWithLayout<Props = {}> = NextPage<Props> & {
   readonly getLayout?: (page: ReactElement) => ReactNode;

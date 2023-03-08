@@ -1,13 +1,13 @@
 import {dehydrate, QueryClient} from '@tanstack/react-query';
 import loadNamespaces from 'next-translate/loadNamespaces';
 
-import {getRegion} from '~composables/region/region';
-import {routes} from '~constants/constants';
-import {fetchLayoutData} from '~modules/core/utils/utils';
+import {routes} from 'constants/constants';
+import {getRegion} from 'lib/region/region';
+import {fetchLayoutData} from 'modules/core/utils/utils';
 
+import type {getStaticPaths} from 'modules/core/utils/utils';
 import type {GetStaticPropsContext, GetStaticPropsResult} from 'next';
-import type {getStaticPaths} from '~modules/core/utils/utils';
-import type {InferParsedQuery} from '~types/types';
+import type {InferParsedQuery} from 'types/types';
 
 export const getStaticProps = async ({
   params,

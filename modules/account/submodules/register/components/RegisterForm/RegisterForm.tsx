@@ -3,15 +3,15 @@ import {useCallback} from 'react';
 import {useForm} from 'react-hook-form';
 import {toast} from 'sonner';
 
-import {request} from '~app/queryClient/queryClient';
-import {Heading, TextInput, Link, Button} from '~components/components';
-import {useHasMounted} from '~composables/lifecycle';
-import {useRegion} from '~composables/region/region';
-import {useRouteIsChanging} from '~composables/router/router';
-import {useTranslate} from '~composables/translate/translate';
-import {routes} from '~constants/constants';
-import {registerMutation} from '~graphql/mutations/mutations';
-import {isKeyof} from '~utils/utils';
+import {request} from 'app/queryClient/queryClient';
+import {Heading, TextInput, Link, Button} from 'components/components';
+import {routes} from 'constants/constants';
+import {registerMutation} from 'graphql/mutations/mutations';
+import {useHasMounted} from 'lib/lifecycle';
+import {useRegion} from 'lib/region/region';
+import {useRouteIsChanging} from 'lib/router/router';
+import {useTranslate} from 'lib/translate/translate';
+import {isKeyof} from 'utils/utils';
 
 import {fieldNames} from './consts';
 
@@ -19,7 +19,7 @@ import type {FieldsValues} from './consts';
 import type {
   RegisterMutation,
   RegisterMutationVariables,
-} from '~types/generated/graphql';
+} from 'types/generated/graphql';
 
 export function RegisterForm() {
   const {

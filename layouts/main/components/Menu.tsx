@@ -3,10 +3,10 @@ import Link from 'next/link';
 import {useCallback, useRef} from 'react';
 
 import {ReactComponent as CloseIcon} from 'public/icons/close.svg';
-import {useClickOutside, useLockBodyScroll} from '~composables/dom';
-import {useRouteChangeStart} from '~composables/router/router';
-import {useResize} from '~composables/sensor';
-import {useUIState} from '~composables/ui';
+import {useClickOutside, useLockBodyScroll} from 'lib/dom';
+import {useRouteChangeStart} from 'lib/router/router';
+import {useResize} from 'lib/sensor';
+import {useUIState} from 'lib/ui';
 
 import {navigationListing} from './consts';
 

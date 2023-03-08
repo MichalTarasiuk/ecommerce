@@ -1,9 +1,9 @@
 import {useCallback, useMemo} from 'react';
 
-import {useRegion} from '~composables/region/useRegion';
-import {createSafeContext} from '~composables/safeContext';
-import {useLocalStorage} from '~composables/sideEffect/sideEffect';
-import {isString} from '~utils/utils';
+import {useRegion} from 'lib/region/useRegion';
+import {createSafeContext} from 'lib/safeContext';
+import {useLocalStorage} from 'lib/sideEffect/sideEffect';
+import {isString} from 'utils/utils';
 
 import {getCartState} from './helpers';
 import {useCartByToken, useCartMutation} from './hooks';

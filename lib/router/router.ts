@@ -4,7 +4,7 @@ import {useCallback, useEffect, useState} from 'react';
 import {useRegion} from '../region/region';
 import {useSyncedRef} from '../state';
 
-import type {TransitionOptions, Url} from '~types/types';
+import type {TransitionOptions, Url} from 'types/types';
 
 export const useRouter = () => {
   const nativeRouter = useNativeRouter();

@@ -1,9 +1,9 @@
 import NextLink from 'next/link';
 import {forwardRef} from 'react';
 
-import {useRegion} from '~composables/region/region';
+import {useRegion} from 'lib/region/region';
 
-import type {InferProps} from '~types/types';
+import type {InferProps} from 'types/types';
 
 type LinkProps = InferProps<typeof NextLink>;
 

@@ -3,7 +3,7 @@ import {useCallback, useMemo} from 'react';
 
 import {getChannel, getLocale} from './helpers';
 
-import type {i18nConfig} from '~config/i18n';
+import type {i18nConfig} from 'config/i18n';
 
 type Locale = Custom.ValueOf<(typeof i18nConfig)['locales']>;
 

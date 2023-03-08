@@ -1,6 +1,6 @@
 import {useEffect, useInsertionEffect} from 'react';
 
-import {resolve} from '~utils/utils';
+import {resolve} from 'utils/utils';
 
 import {useSyncedRef} from '../state';
 

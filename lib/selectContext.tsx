@@ -1,18 +1,18 @@
 import {produce} from 'immer';
 import {useCallback, useMemo, useRef, useSyncExternalStore} from 'react';
 
-import {isObject, createEventHub} from '~utils/utils';
+import {isObject, createEventHub} from 'utils/utils';
 
 import {createSafeContext} from './safeContext';
 
 import type {Draft} from 'immer';
 import type {ReactNode} from 'react';
 
-type FastContextProviderProps = {
+type SelectContextProviderProps = {
   readonly children: ReactNode;
 };
 
-type CreateFastContext<Store extends Record<PropertyKey, unknown>> = {
+type CreateSelectContext<Store extends Record<PropertyKey, unknown>> = {
   readonly get: () => Store;
   readonly setStore: (
     nextStore: Partial<Store> | ((draft: Draft<Store>) => void),
@@ -25,14 +25,14 @@ type Selector<Store extends Record<PropertyKey, unknown>, Selected> = (
 
 const eventHub = createEventHub();
 
-export const createFastContext = <Store extends Record<PropertyKey, unknown>>(
+export const createSelectContext = <Store extends Record<PropertyKey, unknown>>(
   name: string,
   initialStore: Store,
 ) => {
-  const [NativeFastContextProvider, useNativeFastContext] =
-    createSafeContext<CreateFastContext<Store>>(name);
+  const [NativeSelectContextProvider, useNativeSelectContext] =
+    createSafeContext<CreateSelectContext<Store>>(name);
 
-  function FastContextProvider({children}: FastContextProviderProps) {
+  function SelectContextProvider({children}: SelectContextProviderProps) {
     const store = useRef(initialStore);
 
     const get = useCallback(() => store.current, []);
@@ -67,13 +67,13 @@ export const createFastContext = <Store extends Record<PropertyKey, unknown>>(
     );
 
     return (
-      <NativeFastContextProvider value={value}>
+      <NativeSelectContextProvider value={value}>
         {children}
-      </NativeFastContextProvider>
+      </NativeSelectContextProvider>
     );
   }
 
-  const useFastContext = <
+  const useSelectContext = <
     Selected,
     SafeSelected = Custom.Equals<Selected, unknown> extends 1
       ? Store
@@ -81,7 +81,7 @@ export const createFastContext = <Store extends Record<PropertyKey, unknown>>(
   >(
     selector?: Selector<Store, Selected>,
   ) => {
-    const {get, setStore, subscribe} = useNativeFastContext();
+    const {get, setStore, subscribe} = useNativeSelectContext();
 
     const getSnapshot = useCallback(
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions -- hard to infer
@@ -98,11 +98,15 @@ export const createFastContext = <Store extends Record<PropertyKey, unknown>>(
     return [selectedStore, setStore] as const;
   };
 
-  const useSetFastContext = () => {
-    const {setStore} = useNativeFastContext();
+  const useSetSelectContext = () => {
+    const {setStore} = useNativeSelectContext();
 
     return setStore;
   };
 
-  return [FastContextProvider, useFastContext, useSetFastContext] as const;
+  return [
+    SelectContextProvider,
+    useSelectContext,
+    useSetSelectContext,
+  ] as const;
 };

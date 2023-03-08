@@ -1,6 +1,6 @@
 import {useEffect, useLayoutEffect, useRef} from 'react';
 
-import {isClient} from '~utils/utils';
+import {isClient} from 'utils/utils';
 
 export const useLayout = isClient() ? useLayoutEffect : useEffect;
 

@@ -1,6 +1,6 @@
-import {Text} from '~components/components';
-import {useTranslate} from '~composables/translate/translate';
-import {MainLayout} from '~layouts/layouts';
+import {Text} from 'components/components';
+import {MainLayout} from 'layouts/layouts';
+import {useTranslate} from 'lib/translate/translate';
 
 import type {getStaticProps} from './propsProvider';
 import type {InferGetStaticPropsType} from 'next';

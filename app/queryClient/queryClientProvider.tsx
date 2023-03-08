@@ -5,7 +5,7 @@ import {
 } from '@tanstack/react-query';
 import {ReactQueryDevtools} from '@tanstack/react-query-devtools';
 
-import {useConst} from '~composables/state/state';
+import {useConst} from 'lib/state/state';
 
 import type {ReactNode} from 'react';
 

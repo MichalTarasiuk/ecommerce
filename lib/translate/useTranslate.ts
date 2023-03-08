@@ -3,7 +3,7 @@
 import useTranslation from 'next-translate/useTranslation';
 
 import type {Namespaces} from './namespaces';
-import type {i18nConfig, ReadonlyPages} from '~config/i18n';
+import type {i18nConfig, ReadonlyPages} from 'config/i18n';
 
 export type InferNamespaceKey<AnyReadonlyPages extends ReadonlyPages> = {
   readonly [Key in keyof AnyReadonlyPages]: AnyReadonlyPages[Key] extends ReadonlyArray<string>

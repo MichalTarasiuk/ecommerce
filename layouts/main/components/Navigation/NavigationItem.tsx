@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
-import {RenderIcon} from '~components/components';
-import {isString} from '~utils/utils';
+import {RenderIcon} from 'components/components';
+import {isString} from 'utils/utils';
 
 import type {ButtonHTMLAttributes, ComponentType} from 'react';
 

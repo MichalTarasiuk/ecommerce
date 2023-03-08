@@ -1,10 +1,10 @@
 import {useMutation, useQuery} from '@tanstack/react-query';
 import {useMemo} from 'react';
 
-import {request} from '~app/queryClient/queryClient';
-import {createCartMutation} from '~graphql/mutations/mutations';
-import {cartByTokenQuery} from '~graphql/queries/queries';
-import {isClient} from '~utils/utils';
+import {request} from 'app/queryClient/queryClient';
+import {createCartMutation} from 'graphql/mutations/mutations';
+import {cartByTokenQuery} from 'graphql/queries/queries';
+import {isClient} from 'utils/utils';
 
 import {getCartState} from './helpers';
 
@@ -13,7 +13,7 @@ import type {
   CartByTokenQueryVariables,
   CreateCartMutation,
   CreateCartMutationVariables,
-} from '~types/generated/graphql';
+} from 'types/generated/graphql';
 
 export const useCartByToken = ({
   cartToken,

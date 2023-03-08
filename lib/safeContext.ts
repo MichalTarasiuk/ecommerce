@@ -1,6 +1,6 @@
 import {createContext, useContext} from 'react';
 
-import {uppercaseFirst} from '~utils/utils';
+import {uppercaseFirst} from 'utils/utils';
 
 export const createSafeContext = <ContextValue>(name: string) => {
   const initialContextValue = Symbol('initial-context-value');

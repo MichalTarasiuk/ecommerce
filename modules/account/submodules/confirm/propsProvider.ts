@@ -1,17 +1,17 @@
 import {QueryClient} from '@tanstack/react-query';
 
-import {request} from '~app/queryClient/queryClient';
-import {getRegion, regionToPathname} from '~composables/region/region';
-import {routes} from '~constants/routes';
-import {confirmAccountMutation} from '~graphql/mutations/mutations';
-import {isObject, isString, hasOwn, isError} from '~utils/utils';
+import {request} from 'app/queryClient/queryClient';
+import {routes} from 'constants/routes';
+import {confirmAccountMutation} from 'graphql/mutations/mutations';
+import {getRegion, regionToPathname} from 'lib/region/region';
+import {isObject, isString, hasOwn, isError} from 'utils/utils';
 
 import type {MutationObserverOptions} from '@tanstack/react-query';
 import type {GetServerSidePropsContext, GetServerSidePropsResult} from 'next';
 import type {
   ConfirmAccountMutation,
   ConfirmAccountMutationVariables,
-} from '~types/generated/graphql';
+} from 'types/generated/graphql';
 
 export const getServerSideProps = async ({
   query,

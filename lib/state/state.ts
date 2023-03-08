@@ -1,7 +1,7 @@
 import {useRef, useState} from 'react';
 
-import {useLayout} from '~composables/lifecycle';
-import {resolve} from '~utils/utils';
+import {useLayout} from 'lib/lifecycle';
+import {resolve} from 'utils/utils';
 
 export const usePrevious = <Value>(
   value: Value,

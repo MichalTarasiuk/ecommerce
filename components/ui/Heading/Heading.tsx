@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 
 import type {ReactNode, HTMLAttributes} from 'react';
-import type {inconsolataWeight} from '~styles/Fonts';
+import type {inconsolataWeight} from 'styles/Fonts';
 
 type TextSize = 'small' | 'medium' | 'large';
 

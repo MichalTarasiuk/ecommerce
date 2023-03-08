@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access -- to unkown */
-import {defaultLocale, locales, signs} from '~constants/constants';
-import {routes} from '~constants/routes';
-import {isError, isObject} from '~utils/utils';
+import {defaultLocale, locales, signs} from 'constants/constants';
+import {routes} from 'constants/routes';
+import {isError, isObject} from 'utils/utils';
 
 import type {I18nConfig} from 'next-translate';
 

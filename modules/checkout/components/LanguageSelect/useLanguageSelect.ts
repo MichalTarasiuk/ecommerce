@@ -1,10 +1,10 @@
 import {useMemo} from 'react';
 
-import {useTranslate} from '~composables/translate/translate';
-import {i18nConfig} from '~config/i18n';
-import {hasOwn, isString, objectEvery} from '~utils/utils';
+import {i18nConfig} from 'config/i18n';
+import {useTranslate} from 'lib/translate/translate';
+import {hasOwn, isString, objectEvery} from 'utils/utils';
 
-import type {locales} from '~constants/constants';
+import type {locales} from 'constants/constants';
 
 type Locale = Custom.ValueOf<typeof locales>;
 

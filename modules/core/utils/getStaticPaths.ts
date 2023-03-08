@@ -1,11 +1,11 @@
 import {QueryClient} from '@tanstack/react-query';
 
-import {request} from '~app/queryClient/queryClient';
-import {i18nConfig} from '~config/i18n';
-import {channelsQuery} from '~graphql/queries/queries';
+import {request} from 'app/queryClient/queryClient';
+import {i18nConfig} from 'config/i18n';
+import {channelsQuery} from 'graphql/queries/queries';
 
 import type {GetStaticPathsResult} from 'next';
-import type {ChannelsQuery} from '~types/generated/graphql';
+import type {ChannelsQuery} from 'types/generated/graphql';
 
 export const getStaticPaths = async () => {
   const queryClient = new QueryClient();

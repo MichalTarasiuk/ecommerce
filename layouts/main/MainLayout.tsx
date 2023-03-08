@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import {Navigation, Footer} from './components/components';
 
 import type {ReactNode} from 'react';
-import type {InferProps} from '~types/types';
+import type {InferProps} from 'types/types';
 
 type DefaultLayoutProps = {
   readonly children: ReactNode;

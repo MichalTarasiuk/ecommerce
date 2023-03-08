@@ -4,15 +4,15 @@ import {useCallback} from 'react';
 import {useForm} from 'react-hook-form';
 import {toast} from 'sonner';
 
-import {request} from '~app/queryClient/queryClient';
-import {Heading, TextInput, Text, Link, Button} from '~components/components';
-import {useEffectOnce, useHasMounted} from '~composables/lifecycle';
-import {useRouteIsChanging} from '~composables/router/router';
-import {session} from '~composables/session';
-import {useTranslate} from '~composables/translate/translate';
-import {routes} from '~constants/constants';
-import {loginMutation} from '~graphql/mutations/mutations';
-import {hasOwn, isKeyof, isObject} from '~utils/utils';
+import {request} from 'app/queryClient/queryClient';
+import {Heading, TextInput, Text, Link, Button} from 'components/components';
+import {routes} from 'constants/constants';
+import {loginMutation} from 'graphql/mutations/mutations';
+import {useEffectOnce, useHasMounted} from 'lib/lifecycle';
+import {useRouteIsChanging} from 'lib/router/router';
+import {session} from 'lib/session';
+import {useTranslate} from 'lib/translate/translate';
+import {hasOwn, isKeyof, isObject} from 'utils/utils';
 
 import {fieldNames} from './consts';
 
@@ -20,7 +20,7 @@ import type {FieldsValues} from './consts';
 import type {
   LoginMutation,
   LoginMutationVariables,
-} from '~types/generated/graphql';
+} from 'types/generated/graphql';
 
 export function LoginForm() {
   const {

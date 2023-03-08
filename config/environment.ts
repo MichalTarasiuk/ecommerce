@@ -1,6 +1,6 @@
 import {z} from 'zod';
 
-import {isProduction, valuesToKeys} from '~utils/utils';
+import {isProduction, valuesToKeys} from 'utils/utils';
 
 import type {TypeOf} from 'zod';
 
@@ -17,8 +17,8 @@ const environmentKeys = valuesToKeys(fallbackEnvironment);
 
 const withDevDefault = <Schema extends z.ZodTypeAny>(
   schema: Schema,
-  val: TypeOf<Schema>,
-) => (isProduction() ? schema : schema.default(val));
+  value: TypeOf<Schema>,
+) => (isProduction() ? schema : schema.default(value));
 
 const environmentSchema = z.object({
   NEXT_PUBLIC_SALEOR_API_URL: withDevDefault(

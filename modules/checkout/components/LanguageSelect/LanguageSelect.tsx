@@ -1,6 +1,6 @@
+import {IconButton, Select} from 'components/components';
+import {isSupportedLocale, useLocale} from 'lib/region/region';
 import {ReactComponent as LanguageIcon} from 'public/icons/language.svg';
-import {IconButton, Select} from '~components/components';
-import {isSupportedLocale, useLocale} from '~composables/region/region';
 
 import {useLanguageSelect} from './useLanguageSelect';
 

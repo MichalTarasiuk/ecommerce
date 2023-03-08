@@ -1,12 +1,12 @@
-import {request} from '~app/queryClient/queryClient';
-import {mainMenuQuery} from '~graphql/queries/queries';
-import {isError} from '~utils/utils';
+import {request} from 'app/queryClient/queryClient';
+import {mainMenuQuery} from 'graphql/queries/queries';
+import {isError} from 'utils/utils';
 
 import type {QueryClient} from '@tanstack/react-query';
 import type {
   LanguageCodeEnum,
   MainMenuQueryVariables,
-} from '~types/generated/graphql';
+} from 'types/generated/graphql';
 
 type FetchLayoutDataConfig = {
   readonly region: {

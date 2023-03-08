@@ -2,12 +2,12 @@ import {useRouter} from 'next/router';
 import * as NProgress from 'nprogress';
 import {useEffect} from 'react';
 
-import {useEvent} from '~composables/callback';
-import {useCSS} from '~composables/dom/dom';
+import {useEvent} from 'lib/callback';
+import {useCSS} from 'lib/dom/dom';
 
 import {getStyles, routeProgressConfig} from './helpers';
 
-import type {TransitionOptions} from '~types/types';
+import type {TransitionOptions} from 'types/types';
 
 NProgress.configure({showSpinner: routeProgressConfig.showSpinner});
 

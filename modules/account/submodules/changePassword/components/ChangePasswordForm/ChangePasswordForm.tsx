@@ -3,14 +3,14 @@ import {useRouter} from 'next/router';
 import {useCallback} from 'react';
 import {useForm} from 'react-hook-form';
 
-import {request} from '~app/queryClient/queryClient';
-import {Heading, TextInput, Button} from '~components/components';
-import {useHasMounted} from '~composables/lifecycle';
-import {useRouteIsChanging} from '~composables/router/router';
-import {session} from '~composables/session';
-import {useTranslate} from '~composables/translate/translate';
-import {changePasswordMutation} from '~graphql/mutations/mutations';
-import {isKeyof} from '~utils/utils';
+import {request} from 'app/queryClient/queryClient';
+import {Heading, TextInput, Button} from 'components/components';
+import {changePasswordMutation} from 'graphql/mutations/mutations';
+import {useHasMounted} from 'lib/lifecycle';
+import {useRouteIsChanging} from 'lib/router/router';
+import {session} from 'lib/session';
+import {useTranslate} from 'lib/translate/translate';
+import {isKeyof} from 'utils/utils';
 
 import {fieldNames} from './consts';
 import {getDefaultValues, getToken} from './helpers';
@@ -19,7 +19,7 @@ import type {FieldsValues} from './consts';
 import type {
   ChangePasswordMutation,
   ChangePasswordMutationVariables,
-} from '~types/generated/graphql';
+} from 'types/generated/graphql';
 
 export function ChangePasswordForm() {
   const {query} = useRouter();

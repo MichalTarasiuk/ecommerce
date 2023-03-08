@@ -2,9 +2,9 @@
 
 import wretch from 'wretch';
 
-import {session} from '~composables/session';
-import {appConfig} from '~constants/appConfig';
-import {refreshTokenMutation} from '~graphql/mutations/mutations';
+import {appConfig} from 'constants/appConfig';
+import {refreshTokenMutation} from 'graphql/mutations/mutations';
+import {session} from 'lib/session';
 
 import {getResponseData, isUnauthenticated} from './assertions';
 import {resolveRequestDocument} from './resolveRequestDocument';
@@ -13,7 +13,7 @@ import type {DocumentNode} from 'graphql';
 import type {
   RefreshTokenMutation,
   RefreshTokenMutationVariables,
-} from '~types/generated/graphql';
+} from 'types/generated/graphql';
 
 type AnyVariables = Record<string, unknown>;
 

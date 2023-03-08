@@ -1,10 +1,11 @@
 import loadNamespaces from 'next-translate/loadNamespaces';
 
-import {getRegion} from '~composables/region/region';
-import {i18nConfig} from '~config/i18n';
-import {hasOwn} from '~utils/utils';
+import {i18nConfig} from 'config/i18n';
+import {getRegion} from 'lib/region/region';
+import {hasOwn} from 'utils/utils';
 
 import type {getStaticPaths} from './getStaticPaths';
+import type {routes} from 'constants/constants';
 import type {
   GetServerSidePropsContext,
   GetServerSidePropsResult,
@@ -12,8 +13,7 @@ import type {
   GetStaticPropsContext,
 } from 'next';
 import type {ParsedUrlQuery as AnyParsedUrlQuery} from 'querystring';
-import type {routes} from '~constants/constants';
-import type {InferParsedQuery} from '~types/types';
+import type {InferParsedQuery} from 'types/types';
 
 type PropsProviderContext<ParsedUrlQuery extends AnyParsedUrlQuery> =
   | GetServerSidePropsContext<ParsedUrlQuery>

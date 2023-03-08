@@ -1,5 +1,5 @@
+import {useTranslate} from 'lib/translate/translate';
 import {ReactComponent as RefreshIcon} from 'public/icons/refresh.svg';
-import {useTranslate} from '~composables/translate/translate';
 
 import {Text} from '../Text/Text';
 import {VisuallyHidden} from '../VisuallyHidden/VisuallyHidden';

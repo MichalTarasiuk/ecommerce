@@ -1,8 +1,8 @@
 import loadNamespaces from 'next-translate/loadNamespaces';
 
-import {getRegion, regionToPathname} from '~composables/region/region';
-import {routes} from '~constants/constants';
-import {isObject, isString, hasOwn} from '~utils/utils';
+import {routes} from 'constants/constants';
+import {getRegion, regionToPathname} from 'lib/region/region';
+import {isObject, isString, hasOwn} from 'utils/utils';
 
 import type {GetServerSidePropsContext, GetServerSidePropsResult} from 'next';
 

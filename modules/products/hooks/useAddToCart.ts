@@ -2,15 +2,15 @@ import {useMutation} from '@tanstack/react-query';
 import {useCallback} from 'react';
 import {toast} from 'sonner';
 
-import {request} from '~app/queryClient/queryClient';
-import {useCartState} from '~composables/cartState/cartContext';
-import {cartAddProductLineMutation} from '~graphql/mutations/mutations';
+import {request} from 'app/queryClient/queryClient';
+import {cartAddProductLineMutation} from 'graphql/mutations/mutations';
+import {useCartState} from 'lib/cartState/cartContext';
 
 import type {
   CartAddProductLineMutation,
   CartAddProductLineMutationVariables,
   CheckoutLineInput,
-} from '~types/generated/graphql';
+} from 'types/generated/graphql';
 
 export const useAddToCart = () => {
   const {cartState, createCartState} = useCartState();

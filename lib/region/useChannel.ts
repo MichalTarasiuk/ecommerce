@@ -2,13 +2,13 @@ import {useQuery} from '@tanstack/react-query';
 import {useRouter} from 'next/router';
 import {useCallback, useMemo} from 'react';
 
-import {request} from '~app/queryClient/request/request';
-import {useCartState} from '~composables/cartState/cartContext';
-import {channelsQuery} from '~graphql/queries/queries';
+import {request} from 'app/queryClient/request/request';
+import {channelsQuery} from 'graphql/queries/queries';
+import {useCartState} from 'lib/cartState/cartContext';
 
 import {getChannel, getLocale} from './helpers';
 
-import type {ChannelsQuery} from '~types/generated/graphql';
+import type {ChannelsQuery} from 'types/generated/graphql';
 
 export const useChannel = () => {
   const router = useRouter();

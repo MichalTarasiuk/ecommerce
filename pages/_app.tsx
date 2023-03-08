@@ -1,2 +1,2 @@
 import '../styles/globals.css';
-export {App as default} from '~app/Page';
+export {App as default} from 'app/Page';

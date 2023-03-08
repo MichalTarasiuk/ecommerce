@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 
+import {useUIHandler} from 'lib/ui';
 import {ReactComponent as MenuIcon} from 'public/icons/menu.svg';
-import {useUIHandler} from '~composables/ui';
-import {isLastIndex, objectKeys} from '~utils/utils';
+import {isLastIndex, objectKeys} from 'utils/utils';
 
 import {navigationListing} from '../consts';
 

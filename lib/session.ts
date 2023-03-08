@@ -2,8 +2,8 @@
 import {useRouter} from 'next/router';
 import {useEffect} from 'react';
 
-import {routes} from '~constants/constants';
-import {createEventHub, isClient} from '~utils/utils';
+import {routes} from 'constants/constants';
+import {createEventHub, isClient} from 'utils/utils';
 
 type State = {
   token: string | null;

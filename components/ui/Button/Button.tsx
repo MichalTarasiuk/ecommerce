@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 
-import {none} from '~constants/constants';
+import {none} from 'constants/constants';
 
 import {Link} from '../../Link';
 

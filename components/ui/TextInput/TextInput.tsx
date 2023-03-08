@@ -1,6 +1,6 @@
 import {forwardRef, useId} from 'react';
 
-import {isString} from '~utils/utils';
+import {isString} from 'utils/utils';
 
 import {Text} from '../Text/Text';
 

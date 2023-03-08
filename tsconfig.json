@@ -23,21 +23,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "incremental": true,
-    "baseUrl": ".",
-    "paths": {
-      "~app/*": ["./app/*"],
-      "~components/*": ["./components/*"],
-      "~composables/*": ["./composables/*"],
-      "~config/*": ["./config/*"],
-      "~constants/*": ["./constants/*"],
-      "~graphql/*": ["./graphql/*"],
-      "~layouts/*": ["./layouts/*"],
-      "~locales/*": ["./locales/*"],
-      "~modules/*": ["./modules/*"],
-      "~styles/*": ["./styles/*"],
-      "~types/*": ["./types/*"],
-      "~utils/*": ["./utils/*"]
-    }
+    "baseUrl": "."
   },
   "include": [
     "types/next-env.d.ts",

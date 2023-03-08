@@ -1,9 +1,9 @@
 import {useCallback, useEffect, useState} from 'react';
 
-import {useSyncedRef} from '~composables/state';
-import {isClient, parseJSON, resolve, toJSON} from '~utils/utils';
+import {useSyncedRef} from 'lib/state';
+import {isClient, parseJSON, resolve, toJSON} from 'utils/utils';
 
-import type {Resolvable} from '~utils/utils';
+import type {Resolvable} from 'utils/utils';
 
 export const useLocalStorage = <Item>(
   key: string,

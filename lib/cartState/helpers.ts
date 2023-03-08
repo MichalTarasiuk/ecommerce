@@ -1,10 +1,10 @@
-import {hasOwn, isArray, isNumber, isString, isObject} from '~utils/utils';
+import {hasOwn, isArray, isNumber, isString, isObject} from 'utils/utils';
 
 import type {Cart} from './types';
 import type {
   CheckoutLineInput,
   CreateCartMutation,
-} from '~types/generated/graphql';
+} from 'types/generated/graphql';
 
 const isCartLine = (value: unknown): value is CheckoutLineInput => {
   if (!isObject(value)) {

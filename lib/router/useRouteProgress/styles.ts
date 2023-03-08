@@ -1,4 +1,4 @@
-import {none, signs} from '~constants/constants';
+import {none, signs} from 'constants/constants';
 
 type AnyPlaceholderValue = `::${string}::`;
 type Placeholder = Record<string, AnyPlaceholderValue>;
