@@ -8,7 +8,7 @@ import type {ChangeEvent} from 'react';
 
 export function LanguageSelect() {
   const {locale, setLocale} = useLocale();
-  const {options, selectedChildrenOption} = useLanguageSelect(locale);
+  const {options, selectedOption} = useLanguageSelect(locale);
 
   const onChange = ({target: {value}}: ChangeEvent<HTMLSelectElement>) => {
     if (isSupportedLocale(value)) {
@@ -18,8 +18,8 @@ export function LanguageSelect() {
 
   return (
     <div className='relative'>
-      {selectedChildrenOption && (
-        <IconButton icon={LanguageIcon}>{selectedChildrenOption}</IconButton>
+      {selectedOption && (
+        <IconButton icon={LanguageIcon}>{selectedOption.children}</IconButton>
       )}
       <Select
         value={locale}

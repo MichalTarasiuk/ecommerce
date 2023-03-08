@@ -37,14 +37,13 @@ export const useLanguageSelect = (locale: Locale) => {
     });
   }, [translate]);
 
-  const selectedChildrenOption = useMemo(() => {
-    const {children} = options.find((option) => option.value === locale) ?? {};
-
-    return children;
-  }, [locale, options]);
+  const selectedOption = useMemo(
+    () => options.find((option) => option.value === locale),
+    [locale, options],
+  );
 
   return {
     options,
-    selectedChildrenOption,
+    selectedOption,
   };
 };
