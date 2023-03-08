@@ -1,13 +1,12 @@
 import classNames from 'classnames';
 
+import {ReactComponent as MenuIcon} from 'public/icons/menu.svg';
 import {useUIHandler} from '~composables/ui';
 import {isLastIndex, objectKeys} from '~utils/utils';
 
 import {navigationListing} from '../consts';
 
 import {NavigationItem} from './NavigationItem';
-
-import {ReactComponent as MenuIcon} from '~icons/menu.svg';
 
 export function Navigation() {
   const setUIstate = useUIHandler();

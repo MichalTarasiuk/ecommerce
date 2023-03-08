@@ -41,7 +41,7 @@ export const i18nConfig = {
   },
   loadLocaleFrom: (locale = defaultLocale, namespace) => {
     return import(
-      `./locales/${locale}/${namespace.replace(signs.dot, signs.slash)}.json`
+      `../locales/${locale}/${namespace.replace(signs.dot, signs.slash)}.json`
     )
       .then((moduleObject) => {
         const locale: unknown = moduleObject.default;

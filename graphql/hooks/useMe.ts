@@ -7,6 +7,7 @@ import type {MeQuery} from '~types/generated/graphql';
 
 export const useMe = () => {
   const {data, isLoading} = useQuery<MeQuery>({
+    queryKey: ['me'],
     queryFn: () => request(meQuery),
   });
 
