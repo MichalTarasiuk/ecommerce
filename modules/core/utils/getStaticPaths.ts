@@ -25,7 +25,7 @@ export const getStaticPaths = async () => {
     }) ?? [];
 
   const paths = i18nConfig.locales.flatMap((locale) =>
-    ['default-channel'].map((channel) => ({
+    channels.map((channel) => ({
       params: {
         locale,
         channel,
