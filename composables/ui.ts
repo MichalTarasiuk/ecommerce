@@ -1,6 +1,4 @@
-import {createFastContext} from '~composables/fastContext';
-
-export * from './cartStateContext/cartStateContext';
+import {createFastContext} from './fastContext';
 
 export const [UIStateProvider, useUIState, useUIHandler] = createFastContext(
   'UIState',

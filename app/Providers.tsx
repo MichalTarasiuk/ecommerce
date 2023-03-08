@@ -1,5 +1,6 @@
-import {CartStateProvider, UIStateProvider} from './contexts/contexts';
-import {QueryClientProvider} from './queryClient/queryClient';
+import {QueryClientProvider} from '~app/queryClient/queryClient';
+import {CartStateProvider} from '~composables/cartState/cartContext';
+import {UIStateProvider} from '~composables/ui';
 
 import type {ReactNode} from 'react';
 

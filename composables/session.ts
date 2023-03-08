@@ -1,5 +1,4 @@
 /* eslint-disable functional/prefer-readonly-type -- state should be writable */
-
 import {useRouter} from 'next/router';
 import {useEffect} from 'react';
 

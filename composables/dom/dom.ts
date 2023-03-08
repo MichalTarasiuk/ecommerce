@@ -1,5 +1,3 @@
-export * from './useLockedBody';
-
 import {useEffect, useInsertionEffect} from 'react';
 
 import {resolve} from '~utils/utils';

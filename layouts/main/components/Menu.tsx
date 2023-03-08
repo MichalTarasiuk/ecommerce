@@ -5,7 +5,7 @@ import {useCallback, useRef} from 'react';
 import {ReactComponent as CloseIcon} from 'public/icons/close.svg';
 import {useUIState} from '~app/contexts/contexts';
 import {useClickOutside, useLockBodyScroll} from '~composables/dom/dom';
-import {useRouteChangeStart} from '~composables/router';
+import {useRouteChangeStart} from '~composables/router/router';
 import {useResize} from '~composables/sensor';
 
 import {navigationListing} from './consts';

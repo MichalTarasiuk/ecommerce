@@ -1,8 +1,8 @@
 import {useRouter as useNativeRouter} from 'next/router';
 import {useCallback, useEffect, useState} from 'react';
 
-import {useRegion} from './region/region';
-import {useSyncedRef} from './state';
+import {useRegion} from '../region/region';
+import {useSyncedRef} from '../state';
 
 import type {TransitionOptions, Url} from '~types/types';
 

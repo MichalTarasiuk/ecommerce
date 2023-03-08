@@ -15,9 +15,19 @@ export const inconsolataWeight = [
   '700',
 ] as const satisfies ArrayType.ToReadonly<InconsolataWeight>;
 
-export const inconsolata = Inconsolata({
+const inconsolata = Inconsolata({
   subsets: ['latin'],
   variable: '--font-inconsolata',
   weight: ['400', '700'] satisfies typeof inconsolataWeight,
   display: 'swap',
 });
+
+export function Fonts() {
+  return (
+    <style jsx global>{`
+      html {
+        font-family: ${inconsolata.style.fontFamily};
+      }
+    `}</style>
+  );
+}

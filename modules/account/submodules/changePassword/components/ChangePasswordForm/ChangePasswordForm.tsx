@@ -3,11 +3,11 @@ import {useRouter} from 'next/router';
 import {useCallback} from 'react';
 import {useForm} from 'react-hook-form';
 
-import {session} from '~app/hooks/useSession';
 import {request} from '~app/queryClient/queryClient';
 import {Heading, TextInput, Button} from '~components/components';
 import {useHasMounted} from '~composables/lifecycle';
-import {useRouteIsChanging} from '~composables/router';
+import {useRouteIsChanging} from '~composables/router/router';
+import {session} from '~composables/session';
 import {useTranslate} from '~composables/translate/translate';
 import {changePasswordMutation} from '~graphql/mutations/mutations';
 import {isKeyof} from '~utils/utils';

@@ -7,7 +7,7 @@ import {request} from '~app/queryClient/queryClient';
 import {Heading, TextInput, Text, Link, Button} from '~components/components';
 import {useHasMounted} from '~composables/lifecycle';
 import {useRegion} from '~composables/region/region';
-import {useRouteIsChanging} from '~composables/router';
+import {useRouteIsChanging} from '~composables/router/router';
 import {useTranslate} from '~composables/translate/translate';
 import {routes} from '~constants/routes';
 import {requestPasswordResetMutation} from '~graphql/mutations/mutations';

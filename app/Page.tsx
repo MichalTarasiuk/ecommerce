@@ -2,10 +2,11 @@ import Inspect from 'inspx';
 import appWithI18n from 'next-translate/appWithI18n';
 import {Toaster} from 'sonner';
 
+import {useRouteProgress} from '~composables/router';
+import {useSession} from '~composables/session';
 import {i18nConfig} from '~config/i18n';
+import {Fonts} from '~styles/Fonts';
 
-import {inconsolata} from './fonts';
-import {useSession, useRouteProgress} from './hooks/hooks';
 import {AppProviders} from './Providers';
 
 import type {NextPage, NextComponentType, NextPageContext} from 'next';
@@ -29,11 +30,7 @@ function AppRoot({Component, pageProps}: AppPropsWithLayout) {
 
   return (
     <AppProviders pageProps={pageProps}>
-      <style jsx global>{`
-        html {
-          font-family: ${inconsolata.style.fontFamily};
-        }
-      `}</style>
+      <Fonts />
       <Toaster position='top-right' />
       {getLayout(
         <Inspect>

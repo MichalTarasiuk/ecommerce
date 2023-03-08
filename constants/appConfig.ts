@@ -1,4 +1,4 @@
-import {environment} from './environment';
+import {environment} from '../config/environment';
 
 const {NEXT_PUBLIC_HOSTNAME: hostname, NEXT_PUBLIC_SALEOR_API_URL: apiUrl} =
   environment;

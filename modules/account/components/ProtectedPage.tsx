@@ -1,6 +1,6 @@
-import {useMe} from '~composables/generated/generated';
+import {useMe} from '~composables/graphql/generated';
 import {useEffectOnce} from '~composables/lifecycle';
-import {useRouter} from '~composables/router';
+import {useRouter} from '~composables/router/router';
 import {routes} from '~constants/constants';
 
 import type {ReactNode} from 'react';

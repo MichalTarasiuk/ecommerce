@@ -4,11 +4,11 @@ import {useCallback} from 'react';
 import {useForm} from 'react-hook-form';
 import {toast} from 'sonner';
 
-import {session} from '~app/hooks/hooks';
 import {request} from '~app/queryClient/queryClient';
 import {Heading, TextInput, Text, Link, Button} from '~components/components';
 import {useEffectOnce, useHasMounted} from '~composables/lifecycle';
-import {useRouteIsChanging} from '~composables/router';
+import {useRouteIsChanging} from '~composables/router/router';
+import {session} from '~composables/session';
 import {useTranslate} from '~composables/translate/translate';
 import {routes} from '~constants/constants';
 import {loginMutation} from '~graphql/mutations/mutations';

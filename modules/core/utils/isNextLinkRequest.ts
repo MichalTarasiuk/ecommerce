@@ -1,4 +1,4 @@
-import {appConfig} from '~app/appConfig';
+import {appConfig} from '~constants/appConfig';
 
 import type {GetServerSidePropsContext} from 'next';
 

@@ -2,8 +2,8 @@
 
 import wretch from 'wretch';
 
-import {appConfig} from '~app/appConfig';
-import {session} from '~app/hooks/useSession';
+import {session} from '~composables/session';
+import {appConfig} from '~constants/appConfig';
 import {refreshTokenMutation} from '~graphql/mutations/mutations';
 
 import {getResponseData, isUnauthenticated} from './assertions';

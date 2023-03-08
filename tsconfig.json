@@ -34,6 +34,7 @@
       "~layouts/*": ["./layouts/*"],
       "~locales/*": ["./locales/*"],
       "~modules/*": ["./modules/*"],
+      "~styles/*": ["./styles/*"],
       "~types/*": ["./types/*"],
       "~utils/*": ["./utils/*"]
     }

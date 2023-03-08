@@ -2,8 +2,8 @@ import {useQuery} from '@tanstack/react-query';
 import {useRouter} from 'next/router';
 import {useCallback, useMemo} from 'react';
 
-import {useCartState} from '~app/contexts/contexts';
 import {request} from '~app/queryClient/request/request';
+import {useCartState} from '~composables/cartState/cartContext';
 import {channelsQuery} from '~graphql/queries/queries';
 
 import {getChannel, getLocale} from './helpers';
