@@ -1,5 +1,5 @@
 import {routes} from 'constants/constants';
-import {useMe} from 'graphql/hooks/generated';
+import {useMe} from 'lib/generated/generated';
 import {useEffectOnce} from 'lib/lifecycle';
 import {useRouter} from 'lib/nextRouter/router';
 
