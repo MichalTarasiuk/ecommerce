@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 
-import type {inconsolataWeight} from '@root/app/fonts';
 import type {ReactNode} from 'react';
+import type {inconsolataWeight} from '~styles/Fonts';
 
 type TextSize = 'small' | 'medium' | 'large';
 type TextPosition = 'left' | 'center' | 'right';
