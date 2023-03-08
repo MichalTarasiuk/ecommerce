@@ -8,8 +8,8 @@ import {Heading, TextInput, Link, Button} from 'components/components';
 import {routes} from 'constants/constants';
 import {registerMutation} from 'graphql/mutations/mutations';
 import {useHasMounted} from 'lib/lifecycle';
+import {useRouteIsChanging} from 'lib/nextRouter/router';
 import {useRegion} from 'lib/region/region';
-import {useRouteIsChanging} from 'lib/router/router';
 import {useTranslate} from 'lib/translate/translate';
 import {isKeyof} from 'utils/utils';
 

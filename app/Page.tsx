@@ -3,7 +3,7 @@ import appWithI18n from 'next-translate/appWithI18n';
 import {Toaster} from 'sonner';
 
 import {i18nConfig} from 'config/i18n';
-import {useRouteProgress} from 'lib/router';
+import {useRouteProgress} from 'lib/nextRouter';
 import {useSession} from 'lib/session';
 import {Fonts} from 'styles/Fonts';
 

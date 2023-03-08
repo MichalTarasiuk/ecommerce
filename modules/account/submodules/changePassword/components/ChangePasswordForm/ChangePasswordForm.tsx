@@ -7,7 +7,7 @@ import {request} from 'app/queryClient/queryClient';
 import {Heading, TextInput, Button} from 'components/components';
 import {changePasswordMutation} from 'graphql/mutations/mutations';
 import {useHasMounted} from 'lib/lifecycle';
-import {useRouteIsChanging} from 'lib/router/router';
+import {useRouteIsChanging} from 'lib/nextRouter/router';
 import {session} from 'lib/session';
 import {useTranslate} from 'lib/translate/translate';
 import {isKeyof} from 'utils/utils';

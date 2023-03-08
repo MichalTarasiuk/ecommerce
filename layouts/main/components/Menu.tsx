@@ -4,7 +4,7 @@ import {useCallback, useRef} from 'react';
 
 import {ReactComponent as CloseIcon} from 'public/icons/close.svg';
 import {useClickOutside, useLockBodyScroll} from 'lib/dom';
-import {useRouteChangeStart} from 'lib/router/router';
+import {useRouteChangeStart} from 'lib/nextRouter/router';
 import {useResize} from 'lib/sensor';
 import {useUIState} from 'lib/ui';
 

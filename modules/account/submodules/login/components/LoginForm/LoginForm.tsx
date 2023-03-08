@@ -9,7 +9,7 @@ import {Heading, TextInput, Text, Link, Button} from 'components/components';
 import {routes} from 'constants/constants';
 import {loginMutation} from 'graphql/mutations/mutations';
 import {useEffectOnce, useHasMounted} from 'lib/lifecycle';
-import {useRouteIsChanging} from 'lib/router/router';
+import {useRouteIsChanging} from 'lib/nextRouter/router';
 import {session} from 'lib/session';
 import {useTranslate} from 'lib/translate/translate';
 import {hasOwn, isKeyof, isObject} from 'utils/utils';
