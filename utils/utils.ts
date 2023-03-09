@@ -14,4 +14,3 @@ export * from './json';
 export * from './valuesToKeys';
 export * from './entries';
 export * from './fromEntries';
-export * from './plurals';

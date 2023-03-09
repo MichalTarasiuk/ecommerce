@@ -1,6 +1,6 @@
-import {objectEvery} from './objectEvery';
-import {objectKeys} from './objectKeys';
-import {isString} from './typeof';
+import {objectEvery} from 'utils/objectEvery';
+import {objectKeys} from 'utils/objectKeys';
+import {isString} from 'utils/typeof';
 
 import type {Locale} from 'lib/translate/types';
 
