@@ -13,7 +13,7 @@ import type {
   GetStaticPropsContext,
 } from 'next';
 import type {ParsedUrlQuery as AnyParsedUrlQuery} from 'querystring';
-import type {InferParsedQuery} from 'types/types';
+import type {InferParsedQuery} from 'types/next';
 
 type PropsProviderContext<ParsedUrlQuery extends AnyParsedUrlQuery> =
   | GetServerSidePropsContext<ParsedUrlQuery>

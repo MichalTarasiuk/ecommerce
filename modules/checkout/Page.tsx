@@ -1,5 +1,5 @@
 import {CheckoutWrapper} from './components/components';
 
-export function CheckoutPage() {
+export const CheckoutPage = () => {
   return <CheckoutWrapper>{}</CheckoutWrapper>;
-}
+};

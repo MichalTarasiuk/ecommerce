@@ -5,10 +5,11 @@ import {useTranslate} from 'lib/translate/translate';
 import type {getStaticProps} from './propsProvider';
 import type {InferGetStaticPropsType} from 'next';
 import type {ReactElement} from 'react';
+import type {NextPageWithLayout} from 'types/next';
 
 type HomePageProps = InferGetStaticPropsType<typeof getStaticProps>;
 
-export function HomePage({}: HomePageProps) {
+export const HomePage: NextPageWithLayout<HomePageProps> = ({}) => {
   const {translate} = useTranslate('common');
 
   return (
@@ -16,7 +17,7 @@ export function HomePage({}: HomePageProps) {
       {translate('title')}
     </Text>
   );
-}
+};
 
 HomePage.getLayout = (page: ReactElement) => (
   <DefaultLayout>{page}</DefaultLayout>

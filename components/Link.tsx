@@ -3,7 +3,7 @@ import {forwardRef} from 'react';
 
 import {useRegion} from 'lib/region/region';
 
-import type {InferProps} from 'types/types';
+import type {InferProps} from 'types/react';
 
 type LinkProps = InferProps<typeof NextLink>;
 

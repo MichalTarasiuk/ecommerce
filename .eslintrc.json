@@ -92,6 +92,17 @@
   },
   "overrides": [
     {
+      "files": ["modules/**/Page.tsx"],
+      "rules": {
+        "react/function-component-definition": [
+          "error",
+          {
+            "namedComponents": "arrow-function"
+          }
+        ]
+      }
+    },
+    {
       "files": ["pages/**/*.tsx", "config/**/*", "*.d.ts", "next.config.mjs"],
       "rules": {
         "import/no-default-export": "off"

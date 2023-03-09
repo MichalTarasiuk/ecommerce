@@ -1,5 +1,3 @@
-import type {GetStaticPaths} from 'next';
-import type {NextRouter} from 'next/router';
 import type {
   ForwardRefExoticComponent,
   RefAttributes,
@@ -7,9 +5,6 @@ import type {
   PropsWithoutRef,
   ComponentType,
 } from 'react';
-import type {UrlObject} from 'url';
-
-export type Url = UrlObject | string;
 
 export type ForwardRef<Params extends readonly [props: {}, instance: unknown]> =
   (
@@ -22,16 +17,6 @@ export type ForwardRef<Params extends readonly [props: {}, instance: unknown]> =
       : never
   >;
 
-export type TransitionOptions = NextRouter extends {
-  readonly push: (
-    url: Url,
-    as?: Url,
-    options?: infer TransitionOptions,
-  ) => unknown;
-}
-  ? TransitionOptions
-  : never;
-
 export type InferProps<Component> = Component extends ForwardRefExoticComponent<
   infer Props
 >
@@ -39,10 +24,3 @@ export type InferProps<Component> = Component extends ForwardRefExoticComponent<
   : Component extends ComponentType<infer Props>
   ? Props
   : never;
-
-export type InferParsedQuery<AnyGetStaticPaths extends GetStaticPaths> =
-  Awaited<ReturnType<AnyGetStaticPaths>>['paths'][number] extends {
-    readonly params: infer Params;
-  }
-    ? Params
-    : never;

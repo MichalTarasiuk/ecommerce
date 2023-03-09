@@ -1,6 +1,6 @@
 import {useAddToCart} from './hooks/hooks';
 
-export function ProductsPage() {
+export const ProductsPage = () => {
   const addToCart = useAddToCart();
 
   return (
@@ -12,4 +12,4 @@ export function ProductsPage() {
       add to cart
     </button>
   );
-}
+};

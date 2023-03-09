@@ -19,13 +19,14 @@ import type {
 
 export const useChangePasswordSubmit = () => {
   const {setError} = useFormContext();
-  const {query} = useRouter();
 
   const {isLoading, mutateAsync: changePasswordMutate} = useMutation<
     ChangePasswordMutation,
     unknown,
     ChangePasswordMutationVariables
   >((variables) => request(changePasswordMutation, variables));
+
+  const {query} = useRouter();
 
   const changePasswordSubmit = useCallback(
     async ({email, password}: FieldsValues) => {

@@ -7,7 +7,7 @@ import {fetchLayoutData} from 'modules/core/utils/utils';
 
 import type {getStaticPaths} from 'modules/core/utils/utils';
 import type {GetStaticPropsContext, GetStaticPropsResult} from 'next';
-import type {InferParsedQuery} from 'types/types';
+import type {InferParsedQuery} from 'types/next';
 
 export const getStaticProps = async ({
   params,

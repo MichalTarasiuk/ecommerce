@@ -7,7 +7,7 @@ import {useCSS} from 'lib/dom/dom';
 
 import {getStyles, routeProgressConfig} from './helpers';
 
-import type {TransitionOptions} from 'types/types';
+import type {TransitionOptions} from 'types/next';
 
 NProgress.configure({showSpinner: routeProgressConfig.showSpinner});
 

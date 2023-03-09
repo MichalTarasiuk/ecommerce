@@ -2,7 +2,7 @@ import {forwardRef} from 'react';
 
 import type NextLink from 'next/link';
 import type {ButtonHTMLAttributes} from 'react';
-import type {ForwardRef, InferProps} from 'types/types';
+import type {ForwardRef, InferProps} from 'types/react';
 
 type CommonProps = {
   readonly variant: 'green';
