@@ -3,7 +3,7 @@ import Link from 'next/link';
 import {useCallback, useRef} from 'react';
 
 import {useClickOutside, useLockBodyScroll} from 'lib/dom';
-import {useRouteChangeStart} from 'lib/nextRouter/router';
+import {useRouteChangeStart} from 'lib/nextRouter/nextRouter';
 import {useResize} from 'lib/sensor';
 import {useUIState} from 'lib/ui';
 import {ReactComponent as CloseIcon} from 'public/icons/close.svg';

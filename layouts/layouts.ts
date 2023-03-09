@@ -1,1 +1,2 @@
-export * from './main/MainLayout';
+export * from './default/DefaultLayout';
+export * from './AccountLayout';

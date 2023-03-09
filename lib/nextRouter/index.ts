@@ -1,2 +1,2 @@
-export * from './router';
+export * from './nextRouter';
 export * from './useRouteProgress/useRouteProgress';

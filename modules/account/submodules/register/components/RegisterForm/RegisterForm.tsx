@@ -1,86 +1,29 @@
-import {useMutation} from '@tanstack/react-query';
-import {useCallback} from 'react';
-import {useForm} from 'react-hook-form';
-import {toast} from 'sonner';
+import {FormProvider, useForm, useFormContext} from 'react-hook-form';
 
-import {request} from 'app/queryClient/queryClient';
 import {Heading, TextInput, Link, Button} from 'components/components';
 import {routes} from 'constants/constants';
-import {registerMutation} from 'graphql/mutations/mutations';
 import {useHasMounted} from 'lib/lifecycle';
-import {useRouteIsChanging} from 'lib/nextRouter/router';
-import {useRegion} from 'lib/region/region';
+import {useRouteIsChanging} from 'lib/nextRouter/nextRouter';
 import {useTranslate} from 'lib/translate/translate';
-import {isKeyof} from 'utils/utils';
 
 import {fieldNames} from './consts';
+import {useRegisterSubmit} from './useRegisterSubmit';
 
 import type {FieldsValues} from './consts';
-import type {
-  RegisterMutation,
-  RegisterMutationVariables,
-} from 'types/generated/graphql';
 
-export function RegisterForm() {
+function RegisterFormTag() {
   const {
-    formState: {errors: errorsState},
-    reset,
+    formState: {errors},
     register,
     handleSubmit,
-    setError,
-  } = useForm<FieldsValues>();
+  } = useFormContext<FieldsValues>();
 
-  const {isLoading, mutateAsync: registerMutate} = useMutation<
-    RegisterMutation,
-    unknown,
-    RegisterMutationVariables
-  >((variables) => request(registerMutation, variables));
-
-  const region = useRegion();
-  const {translate} = useTranslate('account.register');
+  const {isLoading, registerSubmit} = useRegisterSubmit();
 
   const routeIsChanging = useRouteIsChanging();
   const hasMounted = useHasMounted();
 
-  const submit = useCallback(
-    async (fieldsValues: FieldsValues) => {
-      const redirectUrl = `${window.location.origin}${region.pathname}${routes.account.confirm}`;
-
-      const {accountRegister} = await registerMutate({
-        input: {
-          ...fieldsValues,
-          ...region.variables,
-          redirectUrl,
-        },
-      });
-
-      const canResetForm = accountRegister?.errors.length === 0;
-
-      if (canResetForm) {
-        reset();
-
-        toast.success(translate('toast_success_message'));
-
-        return;
-      }
-
-      accountRegister?.errors?.forEach((error) => {
-        const fieldName = error.field;
-
-        if (error.message && fieldName && isKeyof(fieldNames, fieldName)) {
-          setError(fieldName, {message: error.message});
-        }
-      });
-    },
-    [
-      region.pathname,
-      region.variables,
-      registerMutate,
-      reset,
-      setError,
-      translate,
-    ],
-  );
+  const {translate} = useTranslate('account.register');
 
   const {ref: emailInputRef, ...emailInputHandler} = register(
     fieldNames.email,
@@ -93,7 +36,7 @@ export function RegisterForm() {
 
   return (
     <form
-      onSubmit={handleSubmit(submit)}
+      onSubmit={handleSubmit(registerSubmit)}
       className='md:w-52 md:px-0 px-3 w-60'
       noValidate
     >
@@ -111,7 +54,7 @@ export function RegisterForm() {
         }}
         type='email'
         label={translate('form.email')}
-        errorMessage={errorsState.email?.message}
+        errorMessage={errors.email?.message}
         disabled={disabled}
       />
       <TextInput
@@ -120,7 +63,7 @@ export function RegisterForm() {
         })}
         type='password'
         label={translate('form.password')}
-        errorMessage={errorsState.password?.message}
+        errorMessage={errors.password?.message}
         disabled={disabled}
       />
       <Button type='submit' variant='green' disabled={disabled}>
@@ -130,5 +73,15 @@ export function RegisterForm() {
         {translate('form.login_link')}
       </Link>
     </form>
+  );
+}
+
+export function RegisterForm() {
+  const form = useForm();
+
+  return (
+    <FormProvider {...form}>
+      <RegisterFormTag />
+    </FormProvider>
   );
 }

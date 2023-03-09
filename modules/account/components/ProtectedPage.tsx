@@ -1,7 +1,7 @@
 import {routes} from 'constants/constants';
 import {useMe} from 'lib/generated/generated';
 import {useEffectOnce} from 'lib/lifecycle';
-import {useRouter} from 'lib/nextRouter/router';
+import {useRouter} from 'lib/nextRouter/nextRouter';
 
 import type {ReactNode} from 'react';
 

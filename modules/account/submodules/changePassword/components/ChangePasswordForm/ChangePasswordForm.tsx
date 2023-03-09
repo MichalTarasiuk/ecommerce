@@ -1,79 +1,30 @@
-import {useMutation} from '@tanstack/react-query';
 import {useRouter} from 'next/router';
-import {useCallback} from 'react';
-import {useForm} from 'react-hook-form';
+import {FormProvider, useForm, useFormContext} from 'react-hook-form';
 
-import {request} from 'app/queryClient/queryClient';
 import {Heading, TextInput, Button} from 'components/components';
-import {changePasswordMutation} from 'graphql/mutations/mutations';
 import {useHasMounted} from 'lib/lifecycle';
-import {useRouteIsChanging} from 'lib/nextRouter/router';
-import {session} from 'lib/session';
+import {useRouteIsChanging} from 'lib/nextRouter/nextRouter';
 import {useTranslate} from 'lib/translate/translate';
-import {isKeyof} from 'utils/utils';
 
 import {fieldNames} from './consts';
-import {getDefaultValues, getToken} from './helpers';
+import {getDefaultValues} from './helpers';
+import {useChangePasswordSubmit} from './useChangePasswordSubmit';
 
 import type {FieldsValues} from './consts';
-import type {
-  ChangePasswordMutation,
-  ChangePasswordMutationVariables,
-} from 'types/generated/graphql';
 
-export function ChangePasswordForm() {
-  const {query} = useRouter();
+function ChangePasswordFormTag() {
   const {
     formState: {errors},
     register,
     handleSubmit,
-    setError,
-  } = useForm<FieldsValues>({
-    defaultValues: getDefaultValues(query),
-  });
+  } = useFormContext<FieldsValues>();
 
-  const {isLoading, mutateAsync: changePasswordMutate} = useMutation<
-    ChangePasswordMutation,
-    unknown,
-    ChangePasswordMutationVariables
-  >((variables) => request(changePasswordMutation, variables));
-
-  const {translate} = useTranslate('account.change-password');
+  const {isLoading, changePasswordSubmit} = useChangePasswordSubmit();
 
   const routeIsChanging = useRouteIsChanging();
   const hasMounted = useHasMounted();
 
-  const submit = useCallback(
-    async ({email, password}: FieldsValues) => {
-      const queryToken = getToken(query);
-
-      if (queryToken) {
-        const {errors, token, csrfToken} =
-          (
-            await changePasswordMutate({
-              email,
-              password,
-              token: queryToken,
-            })
-          ).setPassword ?? {};
-
-        if (token && csrfToken) {
-          session.login(token, csrfToken);
-
-          return;
-        }
-
-        errors?.forEach((error) => {
-          const fieldName = error.field;
-
-          if (error.message && fieldName && isKeyof(fieldNames, fieldName)) {
-            setError(fieldName, {message: error.message});
-          }
-        });
-      }
-    },
-    [changePasswordMutate, query, setError],
-  );
+  const {translate} = useTranslate('account.change-password');
 
   const {ref: passwordInputRef, ...passwordInputHandler} = register(
     fieldNames.password,
@@ -86,7 +37,7 @@ export function ChangePasswordForm() {
 
   return (
     <form
-      onSubmit={handleSubmit(submit)}
+      onSubmit={handleSubmit(changePasswordSubmit)}
       className='md:w-52 md:px-0 px-3 w-60'
       noValidate
     >
@@ -120,5 +71,18 @@ export function ChangePasswordForm() {
         {translate('form.submit_button_text')}
       </Button>
     </form>
+  );
+}
+
+export function ChangePasswordForm() {
+  const {query} = useRouter();
+  const form = useForm({
+    defaultValues: getDefaultValues(query),
+  });
+
+  return (
+    <FormProvider {...form}>
+      <ChangePasswordFormTag />
+    </FormProvider>
   );
 }
