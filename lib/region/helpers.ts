@@ -2,7 +2,7 @@ import {defaultLocale, defaultRegion, locales} from 'constants/constants';
 import {LanguageCodeEnum} from 'types/generated/graphql';
 import {isString} from 'utils/utils';
 
-type Locale = Custom.ValueOf<typeof locales>;
+import type {Locale} from 'lib/translate/types';
 
 type Region = ReturnType<typeof getRegion>;
 

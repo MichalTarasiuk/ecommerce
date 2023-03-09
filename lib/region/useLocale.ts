@@ -3,9 +3,7 @@ import {useCallback, useMemo} from 'react';
 
 import {getChannel, getLocale} from './helpers';
 
-import type {i18nConfig} from 'config/i18n';
-
-type Locale = Custom.ValueOf<(typeof i18nConfig)['locales']>;
+import type {Locale} from 'lib/translate/types';
 
 export const useLocale = () => {
   const router = useRouter();
