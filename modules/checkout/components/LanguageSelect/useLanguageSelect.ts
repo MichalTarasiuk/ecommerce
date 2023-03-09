@@ -4,9 +4,7 @@ import {i18nConfig} from 'config/i18n';
 import {useTranslate} from 'lib/translate/translate';
 import {hasOwn, isString, objectEvery} from 'utils/utils';
 
-import type {locales} from 'constants/constants';
-
-type Locale = Custom.ValueOf<typeof locales>;
+import type {Locale} from 'lib/translate/translate';
 
 export const useLanguageSelect = (locale: Locale) => {
   const {translate} = useTranslate('common');
