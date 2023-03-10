@@ -20,15 +20,15 @@ import type {
 
 export const useRegisterSubmit = () => {
   const {reset, setError} = useFormContext<FieldsValues>();
+
   const region = useRegion();
+  const {translate} = useTranslate('account.register');
 
   const {isLoading, mutateAsync: registerMutate} = useMutation<
     RegisterMutation,
     unknown,
     RegisterMutationVariables
   >((variables) => request(registerMutation, variables));
-
-  const {translate} = useTranslate('account.register');
 
   const registerSubmit = useCallback(
     async (fieldsValues: FieldsValues) => {

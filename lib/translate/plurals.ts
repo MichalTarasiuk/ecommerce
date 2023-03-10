@@ -9,14 +9,14 @@ type Translations = Record<string, unknown>;
 type LDMLPluralRulesNames = Custom.UnionToTuple<Intl.LDMLPluralRule>;
 type LDMLPluralRules = Record<Intl.LDMLPluralRule, string>;
 
-const ldmlPluralRulesNames: LDMLPluralRulesNames = [
+const ldmlPluralRulesNames = [
   'zero',
   'one',
   'two',
   'few',
   'many',
   'other',
-];
+] satisfies LDMLPluralRulesNames;
 
 const isLDMLPluralRules = (
   translations: Translations,

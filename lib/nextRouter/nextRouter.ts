@@ -12,7 +12,7 @@ export const useRouter = () => {
   const region = useRegion();
 
   const push = useCallback(
-    (pathname: Url, options?: TransitionOptions | undefined) =>
+    (pathname: Url | string, options?: TransitionOptions | undefined) =>
       nativeRouter.push(
         region.pathname + pathname.toString(),
         undefined,

@@ -21,14 +21,14 @@ import type {
 export const useForgotPasswordSubmit = () => {
   const {reset, setError} = useFormContext<FieldsValues>();
 
+  const region = useRegion();
+  const {translate} = useTranslate('account.forgot-password');
+
   const {isLoading, mutateAsync: requestPasswordResetMutate} = useMutation<
     RequestPasswordResetMutation,
     unknown,
     RequestPasswordResetMutationVariables
   >((variables) => request(requestPasswordResetMutation, variables));
-
-  const region = useRegion();
-  const {translate} = useTranslate('account.forgot-password');
 
   const forgotPasswordSubmit = useCallback(
     async ({email}: FieldsValues) => {
