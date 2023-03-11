@@ -1,5 +1,5 @@
 import {QueryClientProvider} from 'app/queryClient/queryClient';
-import {CartStateProvider} from 'lib/cartState/cartContext';
+import {CartStateProvider} from 'lib/cartState/cartState';
 import {UIStateProvider} from 'lib/ui';
 
 import type {ReactNode} from 'react';

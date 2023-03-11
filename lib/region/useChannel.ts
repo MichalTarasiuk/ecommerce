@@ -4,7 +4,7 @@ import {useCallback, useMemo} from 'react';
 
 import {request} from 'app/queryClient/request/request';
 import {channelsQuery} from 'graphql/queries/queries';
-import {useCartState} from 'lib/cartState/cartContext';
+import {useCartState} from 'lib/cartState/cartState';
 
 import {getChannel, getLocale} from './helpers';
 

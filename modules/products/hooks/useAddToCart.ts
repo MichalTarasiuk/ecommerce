@@ -4,7 +4,7 @@ import {toast} from 'sonner';
 
 import {request} from 'app/queryClient/queryClient';
 import {cartAddProductLineMutation} from 'graphql/mutations/mutations';
-import {useCartState} from 'lib/cartState/cartContext';
+import {useCartState} from 'lib/cartState/cartState';
 
 import type {
   CartAddProductLineMutation,
