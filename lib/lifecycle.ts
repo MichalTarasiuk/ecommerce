@@ -8,9 +8,6 @@ import {useSyncedRef} from './state/useSyncedRef';
 
 import type {EffectCallback} from 'react';
 
-/**
- * Use with caution.
- */
 export const useEffectOnce = (effect: EffectCallback) => {
   const syncedEffect = useSyncedRef(effect);
   const initialized = useRef(false);
