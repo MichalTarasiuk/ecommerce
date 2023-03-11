@@ -16,7 +16,7 @@ export function Navigation() {
   };
 
   return (
-    <nav className='flex h-20 items-center justify-between'>
+    <nav className='flex items-center justify-between h-20'>
       {objectKeys(navigationListing).map((key) => {
         const isLeftColumn = key === 'left';
         const isRightColumn = key === 'right';

@@ -31,7 +31,7 @@ export const TextInput = forwardRef<HTMLInputElement, InputProps>(
           id={id}
           ref={ref}
           type={type}
-          className='w-full text-sm px-4 py-2 border-2 rounded-md mb-1'
+          className='w-full px-4 py-2 mb-1 text-sm border-2 rounded-md'
           spellCheck={type === ('email' && 'password')}
           autoComplete='off'
           {...props}

@@ -8,13 +8,13 @@ export function Spinner() {
   const {translate} = useTranslate('common');
 
   return (
-    <div className='flex justify-center items-center'>
+    <div className='flex items-center justify-center'>
       <VisuallyHidden>
         <Text tag='p' size='small'>
           {translate('loading')}
         </Text>
       </VisuallyHidden>
-      <RefreshIcon className='animate-spin w-5 h-5' />
+      <RefreshIcon className='w-5 h-5 animate-spin' />
     </div>
   );
 }

@@ -7,7 +7,7 @@ type AccountLayoutProps = {
 export function AccountLayout({children}: AccountLayoutProps) {
   return (
     <div className='min-h-screen bg-gradient-to-r from-blue-100 to-blue-500'>
-      <div className='md:w-1/2 min-h-screen flex items-center justify-center bg-white ml-auto'>
+      <div className='flex items-center justify-center min-h-screen ml-auto bg-white md:w-1/2'>
         {children}
       </div>
     </div>

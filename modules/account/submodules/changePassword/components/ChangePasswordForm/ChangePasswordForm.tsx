@@ -38,7 +38,7 @@ function ChangePasswordFormTag() {
   return (
     <form
       onSubmit={handleSubmit(changePasswordSubmit)}
-      className='md:w-52 md:px-0 px-3 w-60'
+      className='px-3 md:w-52 md:px-0 w-60'
       noValidate
     >
       <Heading tag='h1' size='medium' weight='700'>

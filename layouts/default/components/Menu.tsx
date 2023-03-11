@@ -33,15 +33,15 @@ export function Menu() {
     >
       <nav
         ref={navigationRef}
-        className='h-screen max-w-sm ml-auto py-7 px-8 bg-white'
+        className='h-screen max-w-sm px-8 ml-auto bg-white py-7'
       >
-        <button onClick={closeMenu} className='ml-auto block'>
+        <button onClick={closeMenu} className='block ml-auto'>
           <CloseIcon />
         </button>
-        <ul className='flex flex-col mt-6 gap-4'>
+        <ul className='flex flex-col gap-4 mt-6'>
           {navigationListing.left.map(({child, href}) => (
             <li key={href}>
-              <Link href={href} className='text-2xl block font-semibold'>
+              <Link href={href} className='block text-2xl font-semibold'>
                 {child}
               </Link>
             </li>

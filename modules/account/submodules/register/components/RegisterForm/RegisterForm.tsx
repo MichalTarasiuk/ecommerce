@@ -37,7 +37,7 @@ function RegisterFormTag() {
   return (
     <form
       onSubmit={handleSubmit(registerSubmit)}
-      className='md:w-52 md:px-0 px-3 w-60'
+      className='px-3 md:w-52 md:px-0 w-60'
       noValidate
     >
       <Heading tag='h1' size='medium' weight='700'>
@@ -69,7 +69,7 @@ function RegisterFormTag() {
       <Button type='submit' variant='green' disabled={disabled}>
         {translate('form.submit_button_text')}
       </Button>
-      <Link href={routes.account.login} className='text-xs mt-9 block'>
+      <Link href={routes.account.login} className='block text-xs mt-9'>
         {translate('form.login_link')}
       </Link>
     </form>

@@ -5,11 +5,7 @@ import {isError, isObject} from 'utils/utils';
 
 import type {I18nConfig} from 'next-translate';
 
-type Pages = I18nConfig extends {
-  readonly pages?: infer Pages;
-}
-  ? Pages
-  : never;
+type Pages = Exclude<I18nConfig['pages'], undefined>;
 
 type I18nProviderProps = Awaited<
   ReturnType<Exclude<I18nConfig['loadLocaleFrom'], undefined>>
