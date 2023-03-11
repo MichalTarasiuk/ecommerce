@@ -1,43 +1,47 @@
+import {useMemo} from 'react';
 import {FormProvider, useForm, useFormContext} from 'react-hook-form';
 
 import {Heading, TextInput, Text, Link, Button} from 'components/components';
 import {routes} from 'constants/routes';
-import {useHasMounted} from 'lib/lifecycle';
+import {mergeRefs} from 'lib/mergeRefs';
 import {useRouteIsChanging} from 'lib/nextRouter/nextRouter';
 import {useTranslate} from 'lib/translate/translate';
+import {focusInput} from 'utils/utils';
 
 import {fieldNames} from './consts';
 import {useForgotPasswordSubmit} from './useForgotPasswordSubmit';
 
 import type {FieldsValues} from './consts';
 
-function ForgotPasswordFormTag() {
+function ForgotPasswordFormInner() {
   const {
     formState: {errors},
     register,
     handleSubmit,
   } = useFormContext<FieldsValues>();
 
-  const {isLoading, forgotPasswordSubmit} = useForgotPasswordSubmit();
-
-  const routeIsChanging = useRouteIsChanging();
-  const hasMounted = useHasMounted();
-
-  const {translate} = useTranslate('account.forgot-password');
-
-  const {ref: emailInputRef, ...emailInputHandler} = register(
+  const {ref: registerEmailInput, ...emailInputHandler} = register(
     fieldNames.email,
     {
       required: true,
     },
   );
+  const emailInputRef = useMemo(
+    () => mergeRefs<HTMLInputElement>(registerEmailInput, focusInput),
+    [registerEmailInput],
+  );
+
+  const {isLoading, forgotPasswordSubmit} = useForgotPasswordSubmit();
+  const routeIsChanging = useRouteIsChanging();
 
   const disabled = routeIsChanging || isLoading;
+
+  const {translate} = useTranslate('account.forgot-password');
 
   return (
     <form
       onSubmit={handleSubmit(forgotPasswordSubmit)}
-      className='md:w-52 md:px-0 px-3 w-60'
+      className='px-3 md:w-52 md:px-0 w-60'
       noValidate
     >
       <div>
@@ -50,13 +54,7 @@ function ForgotPasswordFormTag() {
       </div>
       <TextInput
         {...emailInputHandler}
-        ref={(emailInputElement) => {
-          emailInputRef(emailInputElement);
-
-          if (!hasMounted.current) {
-            emailInputElement?.focus();
-          }
-        }}
+        ref={emailInputRef}
         type='email'
         label={translate('form.email')}
         errorMessage={errors.email?.message}
@@ -65,7 +63,7 @@ function ForgotPasswordFormTag() {
       <Button type='submit' variant='green' disabled={disabled}>
         {translate('form.submit_button_text')}
       </Button>
-      <Link href={routes.account.login} className='text-xs mt-9 block'>
+      <Link href={routes.account.login} className='block text-xs mt-9'>
         {translate('form.login_link')}
       </Link>
     </form>
@@ -77,7 +75,7 @@ export function ForgotPasswordForm() {
 
   return (
     <FormProvider {...form}>
-      <ForgotPasswordFormTag />
+      <ForgotPasswordFormInner />
     </FormProvider>
   );
 }

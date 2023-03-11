@@ -1,38 +1,42 @@
+import {useMemo} from 'react';
 import {FormProvider, useForm, useFormContext} from 'react-hook-form';
 
 import {Heading, TextInput, Link, Button} from 'components/components';
 import {routes} from 'constants/constants';
-import {useHasMounted} from 'lib/lifecycle';
+import {mergeRefs} from 'lib/mergeRefs';
 import {useRouteIsChanging} from 'lib/nextRouter/nextRouter';
 import {useTranslate} from 'lib/translate/translate';
+import {focusInput} from 'utils/utils';
 
 import {fieldNames} from './consts';
 import {useRegisterSubmit} from './useRegisterSubmit';
 
 import type {FieldsValues} from './consts';
 
-function RegisterFormTag() {
+function RegisterFormInner() {
   const {
     formState: {errors},
     register,
     handleSubmit,
   } = useFormContext<FieldsValues>();
 
-  const {isLoading, registerSubmit} = useRegisterSubmit();
-
-  const routeIsChanging = useRouteIsChanging();
-  const hasMounted = useHasMounted();
-
-  const {translate} = useTranslate('account.register');
-
-  const {ref: emailInputRef, ...emailInputHandler} = register(
+  const {ref: registerEmailInput, ...emailInputHandler} = register(
     fieldNames.email,
     {
       required: true,
     },
   );
+  const emailInputRef = useMemo(
+    () => mergeRefs<HTMLInputElement>(registerEmailInput, focusInput),
+    [registerEmailInput],
+  );
+
+  const {isLoading, registerSubmit} = useRegisterSubmit();
+  const routeIsChanging = useRouteIsChanging();
 
   const disabled = isLoading || routeIsChanging;
+
+  const {translate} = useTranslate('account.register');
 
   return (
     <form
@@ -45,13 +49,7 @@ function RegisterFormTag() {
       </Heading>
       <TextInput
         {...emailInputHandler}
-        ref={(emailInputElement) => {
-          emailInputRef(emailInputElement);
-
-          if (!hasMounted.current) {
-            emailInputElement?.focus();
-          }
-        }}
+        ref={emailInputRef}
         type='email'
         label={translate('form.email')}
         errorMessage={errors.email?.message}
@@ -81,7 +79,7 @@ export function RegisterForm() {
 
   return (
     <FormProvider {...form}>
-      <RegisterFormTag />
+      <RegisterFormInner />
     </FormProvider>
   );
 }

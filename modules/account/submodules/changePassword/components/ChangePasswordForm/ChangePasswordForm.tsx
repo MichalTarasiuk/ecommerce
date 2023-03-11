@@ -1,10 +1,12 @@
 import {useRouter} from 'next/router';
+import {useMemo} from 'react';
 import {FormProvider, useForm, useFormContext} from 'react-hook-form';
 
 import {Heading, TextInput, Button} from 'components/components';
-import {useHasMounted} from 'lib/lifecycle';
+import {mergeRefs} from 'lib/mergeRefs';
 import {useRouteIsChanging} from 'lib/nextRouter/nextRouter';
 import {useTranslate} from 'lib/translate/translate';
+import {focusInput} from 'utils/utils';
 
 import {fieldNames} from './consts';
 import {getDefaultValues} from './helpers';
@@ -12,28 +14,30 @@ import {useChangePasswordSubmit} from './useChangePasswordSubmit';
 
 import type {FieldsValues} from './consts';
 
-function ChangePasswordFormTag() {
+function ChangePasswordFormInner() {
   const {
     formState: {errors},
     register,
     handleSubmit,
   } = useFormContext<FieldsValues>();
 
-  const {isLoading, changePasswordSubmit} = useChangePasswordSubmit();
-
-  const routeIsChanging = useRouteIsChanging();
-  const hasMounted = useHasMounted();
-
-  const {translate} = useTranslate('account.change-password');
-
-  const {ref: passwordInputRef, ...passwordInputHandler} = register(
+  const {ref: registerPasswordInput, ...passwordInputHandler} = register(
     fieldNames.password,
     {
       required: true,
     },
   );
+  const passwordInputRef = useMemo(
+    () => mergeRefs<HTMLInputElement>(registerPasswordInput, focusInput),
+    [registerPasswordInput],
+  );
+
+  const {isLoading, changePasswordSubmit} = useChangePasswordSubmit();
+  const routeIsChanging = useRouteIsChanging();
 
   const disabled = routeIsChanging || isLoading;
+
+  const {translate} = useTranslate('account.change-password');
 
   return (
     <form
@@ -55,13 +59,7 @@ function ChangePasswordFormTag() {
       />
       <TextInput
         {...passwordInputHandler}
-        ref={(passwordInputElement) => {
-          passwordInputRef(passwordInputElement);
-
-          if (!hasMounted.current) {
-            passwordInputElement?.focus();
-          }
-        }}
+        ref={passwordInputRef}
         type='password'
         label={translate('form.password')}
         errorMessage={errors.password?.message}
@@ -82,7 +80,7 @@ export function ChangePasswordForm() {
 
   return (
     <FormProvider {...form}>
-      <ChangePasswordFormTag />
+      <ChangePasswordFormInner />
     </FormProvider>
   );
 }

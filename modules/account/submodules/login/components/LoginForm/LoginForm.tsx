@@ -1,32 +1,43 @@
 import {useRouter} from 'next/router';
+import {useMemo} from 'react';
 import {FormProvider, useForm, useFormContext} from 'react-hook-form';
 import {toast} from 'sonner';
 
 import {Heading, TextInput, Text, Link, Button} from 'components/components';
 import {routes} from 'constants/constants';
-import {useEffectOnce, useHasMounted} from 'lib/lifecycle';
+import {useEffectOnce} from 'lib/lifecycle';
+import {mergeRefs} from 'lib/mergeRefs';
 import {useRouteIsChanging} from 'lib/nextRouter/nextRouter';
 import {useTranslate} from 'lib/translate/translate';
-import {hasOwn, isObject} from 'utils/utils';
+import {focusInput, hasOwn, isObject} from 'utils/utils';
 
 import {fieldNames} from './consts';
 import {useLoginSubmit} from './useLoginSubmit';
 
 import type {FieldsValues} from './consts';
 
-function LoginFormTag() {
+function LoginFormInner() {
   const {
     formState: {errors},
     register,
     handleSubmit,
   } = useFormContext<FieldsValues>();
 
+  const {ref: registerEmailInput, ...emailInputHandler} = register(
+    fieldNames.email,
+    {
+      required: true,
+    },
+  );
+  const emailInputRef = useMemo(
+    () => mergeRefs<HTMLInputElement>(registerEmailInput, focusInput),
+    [registerEmailInput],
+  );
+
   const {isLoading, loginSubmit} = useLoginSubmit();
 
   const router = useRouter();
   const routeIsChanging = useRouteIsChanging();
-
-  const hasMounted = useHasMounted();
 
   const {translate} = useTranslate('account.login');
 
@@ -40,19 +51,12 @@ function LoginFormTag() {
     }
   });
 
-  const {ref: emailInputRef, ...emailInputHandler} = register(
-    fieldNames.email,
-    {
-      required: true,
-    },
-  );
-
   const disabled = isLoading || routeIsChanging;
 
   return (
     <form
       onSubmit={handleSubmit(loginSubmit)}
-      className='md:w-52 md:px-0 px-3 w-60'
+      className='px-3 md:w-52 md:px-0 w-60'
       noValidate
     >
       <div>
@@ -65,13 +69,7 @@ function LoginFormTag() {
       </div>
       <TextInput
         {...emailInputHandler}
-        ref={(emailInputElement) => {
-          emailInputRef(emailInputElement);
-
-          if (!hasMounted.current) {
-            emailInputElement?.focus();
-          }
-        }}
+        ref={emailInputRef}
         type='email'
         label={translate('form.email')}
         errorMessage={errors.email?.message}
@@ -88,14 +86,14 @@ function LoginFormTag() {
       />
       <Link
         href={routes.account.forgotPassword}
-        className='text-xs mb-4 block text-blue-600'
+        className='block mb-4 text-xs text-blue-600'
       >
         {translate('form.forgot_password_text')}
       </Link>
       <Button type='submit' variant='green' disabled={disabled}>
         {translate('form.submit_button_text')}
       </Button>
-      <Link href={routes.account.register} className='text-xs mt-9 block'>
+      <Link href={routes.account.register} className='block text-xs mt-9'>
         {translate('form.register_link')}
       </Link>
     </form>
@@ -107,7 +105,7 @@ export function LoginForm() {
 
   return (
     <FormProvider {...form}>
-      <LoginFormTag />
+      <LoginFormInner />
     </FormProvider>
   );
 }
