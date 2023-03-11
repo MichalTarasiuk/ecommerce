@@ -1,5 +1,12 @@
-import {CheckoutWrapper} from './components/components';
+import {CheckoutLayout} from 'layouts/layouts';
 
-export const CheckoutPage = () => {
-  return <CheckoutWrapper>{}</CheckoutWrapper>;
+import type {ReactElement} from 'react';
+import type {NextPageWithLayout} from 'types/next';
+
+export const CheckoutPage: NextPageWithLayout = ({}) => {
+  return null;
 };
+
+CheckoutPage.getLayout = (page: ReactElement) => (
+  <CheckoutLayout>{page}</CheckoutLayout>
+);

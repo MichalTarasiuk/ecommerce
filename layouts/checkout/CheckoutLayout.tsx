@@ -1,12 +1,12 @@
-import {LanguageSelect} from './LanguageSelect/LanguageSelect';
+import {LanguageSelect} from './components/components';
 
 import type {ReactNode} from 'react';
 
-type CheckoutWrapperProps = {
+type CheckoutLayoutProps = {
   readonly children: ReactNode;
 };
 
-export function CheckoutWrapper({children}: CheckoutWrapperProps) {
+export function CheckoutLayout({children}: CheckoutLayoutProps) {
   return (
     <div className='bg-snow-white'>
       <div className='max-w-4xl min-h-screen mx-auto '>
