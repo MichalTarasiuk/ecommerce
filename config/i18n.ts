@@ -41,9 +41,11 @@ export const i18nConfig = {
     )
       .then((moduleObject) => {
         const locale: unknown = moduleObject.default;
+
         if (isI18nProviderProps(locale)) {
           return locale;
         }
+
         throw Error('locale is not i18n provider props');
       })
       .catch((error) => {

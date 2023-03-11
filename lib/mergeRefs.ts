@@ -11,18 +11,18 @@ const isMutableRefObject = <Current>(
 ): value is MutableRefObject<Current> =>
   isObject(value) && hasOwn(value, 'current');
 
-export const mergeRefs = <Current>(
-  ...refs: ReadonlyArray<LegacyRef<Current> | MutableRefObject<Current>>
-): RefCallback<Current> => {
+export const mergeRefs = <Element extends HTMLElement = HTMLElement>(
+  ...refs: ReadonlyArray<LegacyRef<Element> | MutableRefObject<Element>>
+): RefCallback<Element> => {
   return (current) => {
     refs.forEach((ref) => {
-      if (isRefCallback<Current>(ref)) {
+      if (isRefCallback<Element>(ref)) {
         ref(current);
 
         return;
       }
 
-      if (isMutableRefObject<Current | null>(ref)) {
+      if (isMutableRefObject<Element | null>(ref)) {
         ref.current = current;
       }
     });

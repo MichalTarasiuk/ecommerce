@@ -9,7 +9,6 @@ type Translations = Record<string, unknown>;
 type LDMLPluralRulesNames = Custom.UnionToTuple<Intl.LDMLPluralRule>;
 type LDMLPluralRules = Record<Intl.LDMLPluralRule, string>;
 
-// @ts-ignore
 const ldmlPluralRulesNames: LDMLPluralRulesNames = [
   'zero',
   'one',
