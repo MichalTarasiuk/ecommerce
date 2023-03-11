@@ -35,14 +35,14 @@ function CartStateProvider({children}: CartStateProviderProps) {
   const region = useRegion();
 
   const {cartMutationState, createCartMutate} = useCartMutation();
-  const cartByTokenState = useCartByToken({
+  const cartByToken = useCartByToken({
     cartToken,
     enabled: Boolean(cartToken) && !cartMutationState,
   });
 
   const cartState = useMemo(
-    () => cartMutationState ?? getCartState(cartByTokenState),
-    [cartByTokenState, cartMutationState],
+    () => cartMutationState ?? getCartState(cartByToken),
+    [cartByToken, cartMutationState],
   );
 
   const createCartState = useCallback(
