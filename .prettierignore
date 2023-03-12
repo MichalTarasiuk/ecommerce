@@ -37,7 +37,7 @@ next-env.d.ts
 .gitkeep
 
 # graphql codegen
-types/generated/**
+generated/generated/**
 
 # eslint
 .eslintignore

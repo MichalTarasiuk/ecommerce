@@ -1,13 +1,48 @@
 /* eslint-disable */
 /**
-* NOTE: THIS IS AN AUTO-GENERATED FILE. DO NOT MODIFY IT DIRECTLY.
-*/
-import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
+ * NOTE: THIS IS AN AUTO-GENERATED FILE. DO NOT MODIFY IT DIRECTLY.
+ */
+import {TypedDocumentNode as DocumentNode} from '@graphql-typed-document-node/core';
+import {
+  useMutation,
+  useQuery,
+  UseMutationOptions,
+  UseQueryOptions,
+} from '@tanstack/react-query';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type Exact<T extends {[key: string]: unknown}> = {[K in keyof T]: T[K]};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
+
+function fetcher<TData, TVariables>(
+  endpoint: string,
+  requestInit: RequestInit,
+  query: string,
+  variables?: TVariables,
+) {
+  return async (): Promise<TData> => {
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      ...requestInit,
+      body: JSON.stringify({query, variables}),
+    });
+
+    const json = await res.json();
+
+    if (json.errors) {
+      const {message} = json.errors[0];
+
+      throw new Error(message);
+    }
+
+    return json.data;
+  };
+}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -156,7 +191,7 @@ export enum AccountErrorCode {
   PasswordTooShort = 'PASSWORD_TOO_SHORT',
   PasswordTooSimilar = 'PASSWORD_TOO_SIMILAR',
   Required = 'REQUIRED',
-  Unique = 'UNIQUE'
+  Unique = 'UNIQUE',
 }
 
 export type AccountInput = {
@@ -242,97 +277,94 @@ export type AccountUpdate = {
 };
 
 /** Represents user address data. */
-export type Address = Node & ObjectWithMetadata & {
-  __typename?: 'Address';
-  city: Scalars['String'];
-  cityArea: Scalars['String'];
-  companyName: Scalars['String'];
-  /** Shop's default country. */
-  country: CountryDisplay;
-  countryArea: Scalars['String'];
-  firstName: Scalars['String'];
-  id: Scalars['ID'];
-  /** Address is user's default billing address. */
-  isDefaultBillingAddress?: Maybe<Scalars['Boolean']>;
-  /** Address is user's default shipping address. */
-  isDefaultShippingAddress?: Maybe<Scalars['Boolean']>;
-  lastName: Scalars['String'];
-  /**
-   * List of public metadata items. Can be accessed without permissions.
-   *
-   * Added in Saleor 3.10.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metadata: Array<MetadataItem>;
-  /**
-   * A single key from public metadata.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.10.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafield?: Maybe<Scalars['String']>;
-  /**
-   * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.10.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafields?: Maybe<Scalars['Metadata']>;
-  phone?: Maybe<Scalars['String']>;
-  postalCode: Scalars['String'];
-  /**
-   * List of private metadata items. Requires staff permissions to access.
-   *
-   * Added in Saleor 3.10.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetadata: Array<MetadataItem>;
-  /**
-   * A single key from private metadata. Requires staff permissions to access.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.10.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafield?: Maybe<Scalars['String']>;
-  /**
-   * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.10.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafields?: Maybe<Scalars['Metadata']>;
-  streetAddress1: Scalars['String'];
-  streetAddress2: Scalars['String'];
-};
-
+export type Address = Node &
+  ObjectWithMetadata & {
+    __typename?: 'Address';
+    city: Scalars['String'];
+    cityArea: Scalars['String'];
+    companyName: Scalars['String'];
+    /** Shop's default country. */
+    country: CountryDisplay;
+    countryArea: Scalars['String'];
+    firstName: Scalars['String'];
+    id: Scalars['ID'];
+    /** Address is user's default billing address. */
+    isDefaultBillingAddress?: Maybe<Scalars['Boolean']>;
+    /** Address is user's default shipping address. */
+    isDefaultShippingAddress?: Maybe<Scalars['Boolean']>;
+    lastName: Scalars['String'];
+    /**
+     * List of public metadata items. Can be accessed without permissions.
+     *
+     * Added in Saleor 3.10.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metadata: Array<MetadataItem>;
+    /**
+     * A single key from public metadata.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.10.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafield?: Maybe<Scalars['String']>;
+    /**
+     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.10.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafields?: Maybe<Scalars['Metadata']>;
+    phone?: Maybe<Scalars['String']>;
+    postalCode: Scalars['String'];
+    /**
+     * List of private metadata items. Requires staff permissions to access.
+     *
+     * Added in Saleor 3.10.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetadata: Array<MetadataItem>;
+    /**
+     * A single key from private metadata. Requires staff permissions to access.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.10.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafield?: Maybe<Scalars['String']>;
+    /**
+     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.10.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafields?: Maybe<Scalars['Metadata']>;
+    streetAddress1: Scalars['String'];
+    streetAddress2: Scalars['String'];
+  };
 
 /** Represents user address data. */
 export type AddressMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 /** Represents user address data. */
 export type AddressMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
 
-
 /** Represents user address data. */
 export type AddressPrivateMetafieldArgs = {
   key: Scalars['String'];
 };
-
 
 /** Represents user address data. */
 export type AddressPrivateMetafieldsArgs = {
@@ -453,7 +485,7 @@ export type AddressSetDefault = {
 /** An enumeration. */
 export enum AddressTypeEnum {
   Billing = 'BILLING',
-  Shipping = 'SHIPPING'
+  Shipping = 'SHIPPING',
 }
 
 /**
@@ -542,133 +574,130 @@ export type Allocation = Node & {
  */
 export enum AllocationStrategyEnum {
   PrioritizeHighStock = 'PRIORITIZE_HIGH_STOCK',
-  PrioritizeSortingOrder = 'PRIORITIZE_SORTING_ORDER'
+  PrioritizeSortingOrder = 'PRIORITIZE_SORTING_ORDER',
 }
 
 /** Represents app data. */
-export type App = Node & ObjectWithMetadata & {
-  __typename?: 'App';
-  /** Description of this app. */
-  aboutApp?: Maybe<Scalars['String']>;
-  /** JWT token used to authenticate by thridparty app. */
-  accessToken?: Maybe<Scalars['String']>;
-  /** URL to iframe with the app. */
-  appUrl?: Maybe<Scalars['String']>;
-  /**
-   * URL to iframe with the configuration for the app.
-   * @deprecated This field will be removed in Saleor 4.0. Use `appUrl` instead.
-   */
-  configurationUrl?: Maybe<Scalars['String']>;
-  /** The date and time when the app was created. */
-  created?: Maybe<Scalars['DateTime']>;
-  /**
-   * Description of the data privacy defined for this app.
-   * @deprecated This field will be removed in Saleor 4.0. Use `dataPrivacyUrl` instead.
-   */
-  dataPrivacy?: Maybe<Scalars['String']>;
-  /** URL to details about the privacy policy on the app owner page. */
-  dataPrivacyUrl?: Maybe<Scalars['String']>;
-  /**
-   * App's dashboard extensions.
-   *
-   * Added in Saleor 3.1.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  extensions: Array<AppExtension>;
-  /** Homepage of the app. */
-  homepageUrl?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  /** Determine if app will be set active or not. */
-  isActive?: Maybe<Scalars['Boolean']>;
-  /**
-   * URL to manifest used during app's installation.
-   *
-   * Added in Saleor 3.5.
-   */
-  manifestUrl?: Maybe<Scalars['String']>;
-  /** List of public metadata items. Can be accessed without permissions. */
-  metadata: Array<MetadataItem>;
-  /**
-   * A single key from public metadata.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafield?: Maybe<Scalars['String']>;
-  /**
-   * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafields?: Maybe<Scalars['Metadata']>;
-  /** Name of the app. */
-  name?: Maybe<Scalars['String']>;
-  /** List of the app's permissions. */
-  permissions?: Maybe<Array<Permission>>;
-  /** List of private metadata items. Requires staff permissions to access. */
-  privateMetadata: Array<MetadataItem>;
-  /**
-   * A single key from private metadata. Requires staff permissions to access.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafield?: Maybe<Scalars['String']>;
-  /**
-   * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafields?: Maybe<Scalars['Metadata']>;
-  /** Support page for the app. */
-  supportUrl?: Maybe<Scalars['String']>;
-  /**
-   * Last 4 characters of the tokens.
-   *
-   * Requires one of the following permissions: MANAGE_APPS, OWNER.
-   */
-  tokens?: Maybe<Array<AppToken>>;
-  /** Type of the app. */
-  type?: Maybe<AppTypeEnum>;
-  /** Version number of the app. */
-  version?: Maybe<Scalars['String']>;
-  /**
-   * List of webhooks assigned to this app.
-   *
-   * Requires one of the following permissions: MANAGE_APPS, OWNER.
-   */
-  webhooks?: Maybe<Array<Webhook>>;
-};
-
+export type App = Node &
+  ObjectWithMetadata & {
+    __typename?: 'App';
+    /** Description of this app. */
+    aboutApp?: Maybe<Scalars['String']>;
+    /** JWT token used to authenticate by thridparty app. */
+    accessToken?: Maybe<Scalars['String']>;
+    /** URL to iframe with the app. */
+    appUrl?: Maybe<Scalars['String']>;
+    /**
+     * URL to iframe with the configuration for the app.
+     * @deprecated This field will be removed in Saleor 4.0. Use `appUrl` instead.
+     */
+    configurationUrl?: Maybe<Scalars['String']>;
+    /** The date and time when the app was created. */
+    created?: Maybe<Scalars['DateTime']>;
+    /**
+     * Description of the data privacy defined for this app.
+     * @deprecated This field will be removed in Saleor 4.0. Use `dataPrivacyUrl` instead.
+     */
+    dataPrivacy?: Maybe<Scalars['String']>;
+    /** URL to details about the privacy policy on the app owner page. */
+    dataPrivacyUrl?: Maybe<Scalars['String']>;
+    /**
+     * App's dashboard extensions.
+     *
+     * Added in Saleor 3.1.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    extensions: Array<AppExtension>;
+    /** Homepage of the app. */
+    homepageUrl?: Maybe<Scalars['String']>;
+    id: Scalars['ID'];
+    /** Determine if app will be set active or not. */
+    isActive?: Maybe<Scalars['Boolean']>;
+    /**
+     * URL to manifest used during app's installation.
+     *
+     * Added in Saleor 3.5.
+     */
+    manifestUrl?: Maybe<Scalars['String']>;
+    /** List of public metadata items. Can be accessed without permissions. */
+    metadata: Array<MetadataItem>;
+    /**
+     * A single key from public metadata.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafield?: Maybe<Scalars['String']>;
+    /**
+     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafields?: Maybe<Scalars['Metadata']>;
+    /** Name of the app. */
+    name?: Maybe<Scalars['String']>;
+    /** List of the app's permissions. */
+    permissions?: Maybe<Array<Permission>>;
+    /** List of private metadata items. Requires staff permissions to access. */
+    privateMetadata: Array<MetadataItem>;
+    /**
+     * A single key from private metadata. Requires staff permissions to access.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafield?: Maybe<Scalars['String']>;
+    /**
+     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafields?: Maybe<Scalars['Metadata']>;
+    /** Support page for the app. */
+    supportUrl?: Maybe<Scalars['String']>;
+    /**
+     * Last 4 characters of the tokens.
+     *
+     * Requires one of the following permissions: MANAGE_APPS, OWNER.
+     */
+    tokens?: Maybe<Array<AppToken>>;
+    /** Type of the app. */
+    type?: Maybe<AppTypeEnum>;
+    /** Version number of the app. */
+    version?: Maybe<Scalars['String']>;
+    /**
+     * List of webhooks assigned to this app.
+     *
+     * Requires one of the following permissions: MANAGE_APPS, OWNER.
+     */
+    webhooks?: Maybe<Array<Webhook>>;
+  };
 
 /** Represents app data. */
 export type AppMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 /** Represents app data. */
 export type AppMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
 
-
 /** Represents app data. */
 export type AppPrivateMetafieldArgs = {
   key: Scalars['String'];
 };
-
 
 /** Represents app data. */
 export type AppPrivateMetafieldsArgs = {
@@ -802,7 +831,7 @@ export enum AppErrorCode {
   OutOfScopeApp = 'OUT_OF_SCOPE_APP',
   OutOfScopePermission = 'OUT_OF_SCOPE_PERMISSION',
   Required = 'REQUIRED',
-  Unique = 'UNIQUE'
+  Unique = 'UNIQUE',
 }
 
 /** Represents app data. */
@@ -862,7 +891,7 @@ export enum AppExtensionMountEnum {
   OrderOverviewMoreActions = 'ORDER_OVERVIEW_MORE_ACTIONS',
   ProductDetailsMoreActions = 'PRODUCT_DETAILS_MORE_ACTIONS',
   ProductOverviewCreate = 'PRODUCT_OVERVIEW_CREATE',
-  ProductOverviewMoreActions = 'PRODUCT_OVERVIEW_MORE_ACTIONS'
+  ProductOverviewMoreActions = 'PRODUCT_OVERVIEW_MORE_ACTIONS',
 }
 
 /**
@@ -874,7 +903,7 @@ export enum AppExtensionMountEnum {
  */
 export enum AppExtensionTargetEnum {
   AppPage = 'APP_PAGE',
-  Popup = 'POPUP'
+  Popup = 'POPUP',
 }
 
 /**
@@ -924,20 +953,21 @@ export type AppInstallInput = {
 };
 
 /** Represents ongoing installation of app. */
-export type AppInstallation = Job & Node & {
-  __typename?: 'AppInstallation';
-  appName: Scalars['String'];
-  /** Created date time of job in ISO 8601 format. */
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ID'];
-  manifestUrl: Scalars['String'];
-  /** Job message. */
-  message?: Maybe<Scalars['String']>;
-  /** Job status. */
-  status: JobStatusEnum;
-  /** Date time of job last update in ISO 8601 format. */
-  updatedAt: Scalars['DateTime'];
-};
+export type AppInstallation = Job &
+  Node & {
+    __typename?: 'AppInstallation';
+    appName: Scalars['String'];
+    /** Created date time of job in ISO 8601 format. */
+    createdAt: Scalars['DateTime'];
+    id: Scalars['ID'];
+    manifestUrl: Scalars['String'];
+    /** Job message. */
+    message?: Maybe<Scalars['String']>;
+    /** Job status. */
+    status: JobStatusEnum;
+    /** Date time of job last update in ISO 8601 format. */
+    updatedAt: Scalars['DateTime'];
+  };
 
 /**
  * Event sent when new app is installed.
@@ -1005,7 +1035,7 @@ export enum AppSortField {
   /** Sort apps by creation date. */
   CreationDate = 'CREATION_DATE',
   /** Sort apps by name. */
-  Name = 'NAME'
+  Name = 'NAME',
 }
 
 export type AppSortingInput = {
@@ -1096,7 +1126,7 @@ export enum AppTypeEnum {
   /** Local Saleor App. The app is fully manageable from dashboard. You can change assigned permissions, add webhooks, or authentication token */
   Local = 'LOCAL',
   /** Third party external App. Installation is fully automated. Saleor uses a defined App manifest to gather all required information. */
-  Thirdparty = 'THIRDPARTY'
+  Thirdparty = 'THIRDPARTY',
 }
 
 /**
@@ -1140,7 +1170,7 @@ export enum AreaUnitsEnum {
   SqInch = 'SQ_INCH',
   SqKm = 'SQ_KM',
   SqM = 'SQ_M',
-  SqYd = 'SQ_YD'
+  SqYd = 'SQ_YD',
 }
 
 /**
@@ -1171,98 +1201,98 @@ export type AssignedVariantAttribute = {
 };
 
 /** Custom attribute of a product. Attributes can be assigned to products and variants at the product type level. */
-export type Attribute = Node & ObjectWithMetadata & {
-  __typename?: 'Attribute';
-  /**
-   * Whether the attribute can be displayed in the admin product list. Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES, MANAGE_PRODUCTS, MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES.
-   * @deprecated This field will be removed in Saleor 4.0.
-   */
-  availableInGrid: Scalars['Boolean'];
-  /** List of attribute's values. */
-  choices?: Maybe<AttributeValueCountableConnection>;
-  /** The entity type which can be used as a reference. */
-  entityType?: Maybe<AttributeEntityTypeEnum>;
-  /**
-   * External ID of this attribute.
-   *
-   * Added in Saleor 3.10.
-   */
-  externalReference?: Maybe<Scalars['String']>;
-  /** Whether the attribute can be filtered in dashboard. Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES, MANAGE_PRODUCTS, MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES. */
-  filterableInDashboard: Scalars['Boolean'];
-  /**
-   * Whether the attribute can be filtered in storefront. Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES, MANAGE_PRODUCTS, MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES.
-   * @deprecated This field will be removed in Saleor 4.0.
-   */
-  filterableInStorefront: Scalars['Boolean'];
-  id: Scalars['ID'];
-  /** The input type to use for entering attribute values in the dashboard. */
-  inputType?: Maybe<AttributeInputTypeEnum>;
-  /** List of public metadata items. Can be accessed without permissions. */
-  metadata: Array<MetadataItem>;
-  /**
-   * A single key from public metadata.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafield?: Maybe<Scalars['String']>;
-  /**
-   * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafields?: Maybe<Scalars['Metadata']>;
-  /** Name of an attribute displayed in the interface. */
-  name?: Maybe<Scalars['String']>;
-  /** List of private metadata items. Requires staff permissions to access. */
-  privateMetadata: Array<MetadataItem>;
-  /**
-   * A single key from private metadata. Requires staff permissions to access.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafield?: Maybe<Scalars['String']>;
-  /**
-   * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafields?: Maybe<Scalars['Metadata']>;
-  productTypes: ProductTypeCountableConnection;
-  productVariantTypes: ProductTypeCountableConnection;
-  /** Internal representation of an attribute name. */
-  slug?: Maybe<Scalars['String']>;
-  /**
-   * The position of the attribute in the storefront navigation (0 by default). Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES, MANAGE_PRODUCTS, MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES.
-   * @deprecated This field will be removed in Saleor 4.0.
-   */
-  storefrontSearchPosition: Scalars['Int'];
-  /** Returns translated attribute fields for the given language code. */
-  translation?: Maybe<AttributeTranslation>;
-  /** The attribute type. */
-  type?: Maybe<AttributeTypeEnum>;
-  /** The unit of attribute values. */
-  unit?: Maybe<MeasurementUnitsEnum>;
-  /** Whether the attribute requires values to be passed or not. Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES, MANAGE_PRODUCTS, MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES. */
-  valueRequired: Scalars['Boolean'];
-  /** Whether the attribute should be visible or not in storefront. Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES, MANAGE_PRODUCTS, MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES. */
-  visibleInStorefront: Scalars['Boolean'];
-  /** Flag indicating that attribute has predefined choices. */
-  withChoices: Scalars['Boolean'];
-};
-
+export type Attribute = Node &
+  ObjectWithMetadata & {
+    __typename?: 'Attribute';
+    /**
+     * Whether the attribute can be displayed in the admin product list. Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES, MANAGE_PRODUCTS, MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES.
+     * @deprecated This field will be removed in Saleor 4.0.
+     */
+    availableInGrid: Scalars['Boolean'];
+    /** List of attribute's values. */
+    choices?: Maybe<AttributeValueCountableConnection>;
+    /** The entity type which can be used as a reference. */
+    entityType?: Maybe<AttributeEntityTypeEnum>;
+    /**
+     * External ID of this attribute.
+     *
+     * Added in Saleor 3.10.
+     */
+    externalReference?: Maybe<Scalars['String']>;
+    /** Whether the attribute can be filtered in dashboard. Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES, MANAGE_PRODUCTS, MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES. */
+    filterableInDashboard: Scalars['Boolean'];
+    /**
+     * Whether the attribute can be filtered in storefront. Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES, MANAGE_PRODUCTS, MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES.
+     * @deprecated This field will be removed in Saleor 4.0.
+     */
+    filterableInStorefront: Scalars['Boolean'];
+    id: Scalars['ID'];
+    /** The input type to use for entering attribute values in the dashboard. */
+    inputType?: Maybe<AttributeInputTypeEnum>;
+    /** List of public metadata items. Can be accessed without permissions. */
+    metadata: Array<MetadataItem>;
+    /**
+     * A single key from public metadata.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafield?: Maybe<Scalars['String']>;
+    /**
+     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafields?: Maybe<Scalars['Metadata']>;
+    /** Name of an attribute displayed in the interface. */
+    name?: Maybe<Scalars['String']>;
+    /** List of private metadata items. Requires staff permissions to access. */
+    privateMetadata: Array<MetadataItem>;
+    /**
+     * A single key from private metadata. Requires staff permissions to access.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafield?: Maybe<Scalars['String']>;
+    /**
+     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafields?: Maybe<Scalars['Metadata']>;
+    productTypes: ProductTypeCountableConnection;
+    productVariantTypes: ProductTypeCountableConnection;
+    /** Internal representation of an attribute name. */
+    slug?: Maybe<Scalars['String']>;
+    /**
+     * The position of the attribute in the storefront navigation (0 by default). Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES, MANAGE_PRODUCTS, MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES.
+     * @deprecated This field will be removed in Saleor 4.0.
+     */
+    storefrontSearchPosition: Scalars['Int'];
+    /** Returns translated attribute fields for the given language code. */
+    translation?: Maybe<AttributeTranslation>;
+    /** The attribute type. */
+    type?: Maybe<AttributeTypeEnum>;
+    /** The unit of attribute values. */
+    unit?: Maybe<MeasurementUnitsEnum>;
+    /** Whether the attribute requires values to be passed or not. Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES, MANAGE_PRODUCTS, MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES. */
+    valueRequired: Scalars['Boolean'];
+    /** Whether the attribute should be visible or not in storefront. Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES, MANAGE_PRODUCTS, MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES. */
+    visibleInStorefront: Scalars['Boolean'];
+    /** Flag indicating that attribute has predefined choices. */
+    withChoices: Scalars['Boolean'];
+  };
 
 /** Custom attribute of a product. Attributes can be assigned to products and variants at the product type level. */
 export type AttributeChoicesArgs = {
@@ -1274,30 +1304,25 @@ export type AttributeChoicesArgs = {
   sortBy?: InputMaybe<AttributeChoicesSortingInput>;
 };
 
-
 /** Custom attribute of a product. Attributes can be assigned to products and variants at the product type level. */
 export type AttributeMetafieldArgs = {
   key: Scalars['String'];
 };
-
 
 /** Custom attribute of a product. Attributes can be assigned to products and variants at the product type level. */
 export type AttributeMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
 
-
 /** Custom attribute of a product. Attributes can be assigned to products and variants at the product type level. */
 export type AttributePrivateMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 /** Custom attribute of a product. Attributes can be assigned to products and variants at the product type level. */
 export type AttributePrivateMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
-
 
 /** Custom attribute of a product. Attributes can be assigned to products and variants at the product type level. */
 export type AttributeProductTypesArgs = {
@@ -1307,7 +1332,6 @@ export type AttributeProductTypesArgs = {
   last?: InputMaybe<Scalars['Int']>;
 };
 
-
 /** Custom attribute of a product. Attributes can be assigned to products and variants at the product type level. */
 export type AttributeProductVariantTypesArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -1315,7 +1339,6 @@ export type AttributeProductVariantTypesArgs = {
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
-
 
 /** Custom attribute of a product. Attributes can be assigned to products and variants at the product type level. */
 export type AttributeTranslationArgs = {
@@ -1340,7 +1363,7 @@ export enum AttributeChoicesSortField {
   /** Sort attribute choice by name. */
   Name = 'NAME',
   /** Sort attribute choice by slug. */
-  Slug = 'SLUG'
+  Slug = 'SLUG',
 }
 
 export type AttributeChoicesSortingInput = {
@@ -1484,7 +1507,7 @@ export type AttributeDeleted = Event & {
 export enum AttributeEntityTypeEnum {
   Page = 'PAGE',
   Product = 'PRODUCT',
-  ProductVariant = 'PRODUCT_VARIANT'
+  ProductVariant = 'PRODUCT_VARIANT',
 }
 
 export type AttributeEntityTypeEnumFilterInput = {
@@ -1511,7 +1534,7 @@ export enum AttributeErrorCode {
   Invalid = 'INVALID',
   NotFound = 'NOT_FOUND',
   Required = 'REQUIRED',
-  Unique = 'UNIQUE'
+  Unique = 'UNIQUE',
 }
 
 export type AttributeFilterInput = {
@@ -1563,7 +1586,7 @@ export enum AttributeInputTypeEnum {
   PlainText = 'PLAIN_TEXT',
   Reference = 'REFERENCE',
   RichText = 'RICH_TEXT',
-  Swatch = 'SWATCH'
+  Swatch = 'SWATCH',
 }
 
 export type AttributeInputTypeEnumFilterInput = {
@@ -1605,7 +1628,7 @@ export enum AttributeSortField {
   /** Sort attributes by the value required flag */
   ValueRequired = 'VALUE_REQUIRED',
   /** Sort attributes by visibility in the storefront */
-  VisibleInStorefront = 'VISIBLE_IN_STOREFRONT'
+  VisibleInStorefront = 'VISIBLE_IN_STOREFRONT',
 }
 
 export type AttributeSortingInput = {
@@ -1627,7 +1650,6 @@ export type AttributeTranslatableContent = Node & {
   /** Returns translated attribute fields for the given language code. */
   translation?: Maybe<AttributeTranslation>;
 };
-
 
 export type AttributeTranslatableContentTranslationArgs = {
   languageCode: LanguageCodeEnum;
@@ -1657,7 +1679,7 @@ export type AttributeTranslation = Node & {
 /** An enumeration. */
 export enum AttributeTypeEnum {
   PageType = 'PAGE_TYPE',
-  ProductType = 'PRODUCT_TYPE'
+  ProductType = 'PRODUCT_TYPE',
 }
 
 export type AttributeTypeEnumFilterInput = {
@@ -1785,7 +1807,6 @@ export type AttributeValue = Node & {
   /** Represent value of the attribute value (e.g. color values for swatch attributes). */
   value?: Maybe<Scalars['String']>;
 };
-
 
 /** Represents a value of an attribute. */
 export type AttributeValueTranslationArgs = {
@@ -2017,7 +2038,6 @@ export type AttributeValueTranslatableContent = Node & {
   translation?: Maybe<AttributeValueTranslation>;
 };
 
-
 export type AttributeValueTranslatableContentTranslationArgs = {
   languageCode: LanguageCodeEnum;
 };
@@ -2248,79 +2268,79 @@ export type CatalogueInput = {
 };
 
 /** Represents a single category of products. Categories allow to organize products in a tree-hierarchies which can be used for navigation in the storefront. */
-export type Category = Node & ObjectWithMetadata & {
-  __typename?: 'Category';
-  /** List of ancestors of the category. */
-  ancestors?: Maybe<CategoryCountableConnection>;
-  backgroundImage?: Maybe<Image>;
-  /** List of children of the category. */
-  children?: Maybe<CategoryCountableConnection>;
-  /**
-   * Description of the category.
-   *
-   * Rich text format. For reference see https://editorjs.io/
-   */
-  description?: Maybe<Scalars['JSONString']>;
-  /**
-   * Description of the category.
-   *
-   * Rich text format. For reference see https://editorjs.io/
-   * @deprecated This field will be removed in Saleor 4.0. Use the `description` field instead.
-   */
-  descriptionJson?: Maybe<Scalars['JSONString']>;
-  id: Scalars['ID'];
-  level: Scalars['Int'];
-  /** List of public metadata items. Can be accessed without permissions. */
-  metadata: Array<MetadataItem>;
-  /**
-   * A single key from public metadata.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafield?: Maybe<Scalars['String']>;
-  /**
-   * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafields?: Maybe<Scalars['Metadata']>;
-  name: Scalars['String'];
-  parent?: Maybe<Category>;
-  /** List of private metadata items. Requires staff permissions to access. */
-  privateMetadata: Array<MetadataItem>;
-  /**
-   * A single key from private metadata. Requires staff permissions to access.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafield?: Maybe<Scalars['String']>;
-  /**
-   * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafields?: Maybe<Scalars['Metadata']>;
-  /** List of products in the category. Requires the following permissions to include the unpublished items: MANAGE_ORDERS, MANAGE_DISCOUNTS, MANAGE_PRODUCTS. */
-  products?: Maybe<ProductCountableConnection>;
-  seoDescription?: Maybe<Scalars['String']>;
-  seoTitle?: Maybe<Scalars['String']>;
-  slug: Scalars['String'];
-  /** Returns translated category fields for the given language code. */
-  translation?: Maybe<CategoryTranslation>;
-};
-
+export type Category = Node &
+  ObjectWithMetadata & {
+    __typename?: 'Category';
+    /** List of ancestors of the category. */
+    ancestors?: Maybe<CategoryCountableConnection>;
+    backgroundImage?: Maybe<Image>;
+    /** List of children of the category. */
+    children?: Maybe<CategoryCountableConnection>;
+    /**
+     * Description of the category.
+     *
+     * Rich text format. For reference see https://editorjs.io/
+     */
+    description?: Maybe<Scalars['JSONString']>;
+    /**
+     * Description of the category.
+     *
+     * Rich text format. For reference see https://editorjs.io/
+     * @deprecated This field will be removed in Saleor 4.0. Use the `description` field instead.
+     */
+    descriptionJson?: Maybe<Scalars['JSONString']>;
+    id: Scalars['ID'];
+    level: Scalars['Int'];
+    /** List of public metadata items. Can be accessed without permissions. */
+    metadata: Array<MetadataItem>;
+    /**
+     * A single key from public metadata.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafield?: Maybe<Scalars['String']>;
+    /**
+     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafields?: Maybe<Scalars['Metadata']>;
+    name: Scalars['String'];
+    parent?: Maybe<Category>;
+    /** List of private metadata items. Requires staff permissions to access. */
+    privateMetadata: Array<MetadataItem>;
+    /**
+     * A single key from private metadata. Requires staff permissions to access.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafield?: Maybe<Scalars['String']>;
+    /**
+     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafields?: Maybe<Scalars['Metadata']>;
+    /** List of products in the category. Requires the following permissions to include the unpublished items: MANAGE_ORDERS, MANAGE_DISCOUNTS, MANAGE_PRODUCTS. */
+    products?: Maybe<ProductCountableConnection>;
+    seoDescription?: Maybe<Scalars['String']>;
+    seoTitle?: Maybe<Scalars['String']>;
+    slug: Scalars['String'];
+    /** Returns translated category fields for the given language code. */
+    translation?: Maybe<CategoryTranslation>;
+  };
 
 /** Represents a single category of products. Categories allow to organize products in a tree-hierarchies which can be used for navigation in the storefront. */
 export type CategoryAncestorsArgs = {
@@ -2330,13 +2350,11 @@ export type CategoryAncestorsArgs = {
   last?: InputMaybe<Scalars['Int']>;
 };
 
-
 /** Represents a single category of products. Categories allow to organize products in a tree-hierarchies which can be used for navigation in the storefront. */
 export type CategoryBackgroundImageArgs = {
   format?: InputMaybe<ThumbnailFormatEnum>;
   size?: InputMaybe<Scalars['Int']>;
 };
-
 
 /** Represents a single category of products. Categories allow to organize products in a tree-hierarchies which can be used for navigation in the storefront. */
 export type CategoryChildrenArgs = {
@@ -2346,30 +2364,25 @@ export type CategoryChildrenArgs = {
   last?: InputMaybe<Scalars['Int']>;
 };
 
-
 /** Represents a single category of products. Categories allow to organize products in a tree-hierarchies which can be used for navigation in the storefront. */
 export type CategoryMetafieldArgs = {
   key: Scalars['String'];
 };
-
 
 /** Represents a single category of products. Categories allow to organize products in a tree-hierarchies which can be used for navigation in the storefront. */
 export type CategoryMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
 
-
 /** Represents a single category of products. Categories allow to organize products in a tree-hierarchies which can be used for navigation in the storefront. */
 export type CategoryPrivateMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 /** Represents a single category of products. Categories allow to organize products in a tree-hierarchies which can be used for navigation in the storefront. */
 export type CategoryPrivateMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
-
 
 /** Represents a single category of products. Categories allow to organize products in a tree-hierarchies which can be used for navigation in the storefront. */
 export type CategoryProductsArgs = {
@@ -2381,7 +2394,6 @@ export type CategoryProductsArgs = {
   last?: InputMaybe<Scalars['Int']>;
   sortBy?: InputMaybe<ProductOrder>;
 };
-
 
 /** Represents a single category of products. Categories allow to organize products in a tree-hierarchies which can be used for navigation in the storefront. */
 export type CategoryTranslationArgs = {
@@ -2531,7 +2543,7 @@ export enum CategorySortField {
   /** Sort categories by product count. */
   ProductCount = 'PRODUCT_COUNT',
   /** Sort categories by subcategory count. */
-  SubcategoryCount = 'SUBCATEGORY_COUNT'
+  SubcategoryCount = 'SUBCATEGORY_COUNT',
 }
 
 export type CategorySortingInput = {
@@ -2574,7 +2586,6 @@ export type CategoryTranslatableContent = Node & {
   /** Returns translated category fields for the given language code. */
   translation?: Maybe<CategoryTranslation>;
 };
-
 
 export type CategoryTranslatableContentTranslationArgs = {
   languageCode: LanguageCodeEnum;
@@ -2725,7 +2736,6 @@ export type Channel = Node & {
    */
   warehouses: Array<Warehouse>;
 };
-
 
 /** Represents channel. */
 export type ChannelAvailableShippingMethodsPerCountryArgs = {
@@ -2894,7 +2904,7 @@ export enum ChannelErrorCode {
   Invalid = 'INVALID',
   NotFound = 'NOT_FOUND',
   Required = 'REQUIRED',
-  Unique = 'UNIQUE'
+  Unique = 'UNIQUE',
 }
 
 /**
@@ -3012,160 +3022,157 @@ export type ChannelUpdated = Event & {
 };
 
 /** Checkout object. */
-export type Checkout = Node & ObjectWithMetadata & {
-  __typename?: 'Checkout';
-  /**
-   * Collection points that can be used for this order.
-   *
-   * Added in Saleor 3.1.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  availableCollectionPoints: Array<Warehouse>;
-  /** List of available payment gateways. */
-  availablePaymentGateways: Array<PaymentGateway>;
-  /**
-   * Shipping methods that can be used with this checkout.
-   * @deprecated This field will be removed in Saleor 4.0. Use `shippingMethods` instead.
-   */
-  availableShippingMethods: Array<ShippingMethod>;
-  billingAddress?: Maybe<Address>;
-  channel: Channel;
-  created: Scalars['DateTime'];
-  /**
-   * The delivery method selected for this checkout.
-   *
-   * Added in Saleor 3.1.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  deliveryMethod?: Maybe<DeliveryMethod>;
-  discount?: Maybe<Money>;
-  discountName?: Maybe<Scalars['String']>;
-  /**
-   * Determines whether checkout prices should include taxes when displayed in a storefront.
-   *
-   * Added in Saleor 3.9.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  displayGrossPrices: Scalars['Boolean'];
-  /** Email of a customer. */
-  email?: Maybe<Scalars['String']>;
-  /** List of gift cards associated with this checkout. */
-  giftCards: Array<GiftCard>;
-  id: Scalars['ID'];
-  /** Returns True, if checkout requires shipping. */
-  isShippingRequired: Scalars['Boolean'];
-  /** Checkout language code. */
-  languageCode: LanguageCodeEnum;
-  lastChange: Scalars['DateTime'];
-  /** A list of checkout lines, each containing information about an item in the checkout. */
-  lines: Array<CheckoutLine>;
-  /** List of public metadata items. Can be accessed without permissions. */
-  metadata: Array<MetadataItem>;
-  /**
-   * A single key from public metadata.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafield?: Maybe<Scalars['String']>;
-  /**
-   * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafields?: Maybe<Scalars['Metadata']>;
-  note: Scalars['String'];
-  /** List of private metadata items. Requires staff permissions to access. */
-  privateMetadata: Array<MetadataItem>;
-  /**
-   * A single key from private metadata. Requires staff permissions to access.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafield?: Maybe<Scalars['String']>;
-  /**
-   * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafields?: Maybe<Scalars['Metadata']>;
-  /** The number of items purchased. */
-  quantity: Scalars['Int'];
-  shippingAddress?: Maybe<Address>;
-  /**
-   * The shipping method related with checkout.
-   * @deprecated This field will be removed in Saleor 4.0. Use `deliveryMethod` instead.
-   */
-  shippingMethod?: Maybe<ShippingMethod>;
-  /** Shipping methods that can be used with this checkout. */
-  shippingMethods: Array<ShippingMethod>;
-  /** The price of the shipping, with all the taxes included. */
-  shippingPrice: TaxedMoney;
-  /**
-   * Date when oldest stock reservation for this checkout expires or null if no stock is reserved.
-   *
-   * Added in Saleor 3.1.
-   */
-  stockReservationExpires?: Maybe<Scalars['DateTime']>;
-  /** The price of the checkout before shipping, with taxes included. */
-  subtotalPrice: TaxedMoney;
-  /**
-   * Returns True if checkout has to be exempt from taxes.
-   *
-   * Added in Saleor 3.8.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  taxExemption: Scalars['Boolean'];
-  /** The checkout's token. */
-  token: Scalars['UUID'];
-  /** The sum of the the checkout line prices, with all the taxes,shipping costs, and discounts included. */
-  totalPrice: TaxedMoney;
-  /**
-   * List of transactions for the checkout. Requires one of the following permissions: MANAGE_CHECKOUTS, HANDLE_PAYMENTS.
-   *
-   * Added in Saleor 3.4.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  transactions?: Maybe<Array<TransactionItem>>;
-  translatedDiscountName?: Maybe<Scalars['String']>;
-  user?: Maybe<User>;
-  voucherCode?: Maybe<Scalars['String']>;
-};
-
+export type Checkout = Node &
+  ObjectWithMetadata & {
+    __typename?: 'Checkout';
+    /**
+     * Collection points that can be used for this order.
+     *
+     * Added in Saleor 3.1.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    availableCollectionPoints: Array<Warehouse>;
+    /** List of available payment gateways. */
+    availablePaymentGateways: Array<PaymentGateway>;
+    /**
+     * Shipping methods that can be used with this checkout.
+     * @deprecated This field will be removed in Saleor 4.0. Use `shippingMethods` instead.
+     */
+    availableShippingMethods: Array<ShippingMethod>;
+    billingAddress?: Maybe<Address>;
+    channel: Channel;
+    created: Scalars['DateTime'];
+    /**
+     * The delivery method selected for this checkout.
+     *
+     * Added in Saleor 3.1.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    deliveryMethod?: Maybe<DeliveryMethod>;
+    discount?: Maybe<Money>;
+    discountName?: Maybe<Scalars['String']>;
+    /**
+     * Determines whether checkout prices should include taxes when displayed in a storefront.
+     *
+     * Added in Saleor 3.9.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    displayGrossPrices: Scalars['Boolean'];
+    /** Email of a customer. */
+    email?: Maybe<Scalars['String']>;
+    /** List of gift cards associated with this checkout. */
+    giftCards: Array<GiftCard>;
+    id: Scalars['ID'];
+    /** Returns True, if checkout requires shipping. */
+    isShippingRequired: Scalars['Boolean'];
+    /** Checkout language code. */
+    languageCode: LanguageCodeEnum;
+    lastChange: Scalars['DateTime'];
+    /** A list of checkout lines, each containing information about an item in the checkout. */
+    lines: Array<CheckoutLine>;
+    /** List of public metadata items. Can be accessed without permissions. */
+    metadata: Array<MetadataItem>;
+    /**
+     * A single key from public metadata.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafield?: Maybe<Scalars['String']>;
+    /**
+     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafields?: Maybe<Scalars['Metadata']>;
+    note: Scalars['String'];
+    /** List of private metadata items. Requires staff permissions to access. */
+    privateMetadata: Array<MetadataItem>;
+    /**
+     * A single key from private metadata. Requires staff permissions to access.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafield?: Maybe<Scalars['String']>;
+    /**
+     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafields?: Maybe<Scalars['Metadata']>;
+    /** The number of items purchased. */
+    quantity: Scalars['Int'];
+    shippingAddress?: Maybe<Address>;
+    /**
+     * The shipping method related with checkout.
+     * @deprecated This field will be removed in Saleor 4.0. Use `deliveryMethod` instead.
+     */
+    shippingMethod?: Maybe<ShippingMethod>;
+    /** Shipping methods that can be used with this checkout. */
+    shippingMethods: Array<ShippingMethod>;
+    /** The price of the shipping, with all the taxes included. */
+    shippingPrice: TaxedMoney;
+    /**
+     * Date when oldest stock reservation for this checkout expires or null if no stock is reserved.
+     *
+     * Added in Saleor 3.1.
+     */
+    stockReservationExpires?: Maybe<Scalars['DateTime']>;
+    /** The price of the checkout before shipping, with taxes included. */
+    subtotalPrice: TaxedMoney;
+    /**
+     * Returns True if checkout has to be exempt from taxes.
+     *
+     * Added in Saleor 3.8.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    taxExemption: Scalars['Boolean'];
+    /** The checkout's token. */
+    token: Scalars['UUID'];
+    /** The sum of the the checkout line prices, with all the taxes,shipping costs, and discounts included. */
+    totalPrice: TaxedMoney;
+    /**
+     * List of transactions for the checkout. Requires one of the following permissions: MANAGE_CHECKOUTS, HANDLE_PAYMENTS.
+     *
+     * Added in Saleor 3.4.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    transactions?: Maybe<Array<TransactionItem>>;
+    translatedDiscountName?: Maybe<Scalars['String']>;
+    user?: Maybe<User>;
+    voucherCode?: Maybe<Scalars['String']>;
+  };
 
 /** Checkout object. */
 export type CheckoutMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 /** Checkout object. */
 export type CheckoutMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
 
-
 /** Checkout object. */
 export type CheckoutPrivateMetafieldArgs = {
   key: Scalars['String'];
 };
-
 
 /** Checkout object. */
 export type CheckoutPrivateMetafieldsArgs = {
@@ -3387,7 +3394,7 @@ export enum CheckoutErrorCode {
   UnavailableVariantInChannel = 'UNAVAILABLE_VARIANT_IN_CHANNEL',
   Unique = 'UNIQUE',
   VoucherNotApplicable = 'VOUCHER_NOT_APPLICABLE',
-  ZeroQuantity = 'ZERO_QUANTITY'
+  ZeroQuantity = 'ZERO_QUANTITY',
 }
 
 export type CheckoutFilterInput = {
@@ -3438,93 +3445,90 @@ export type CheckoutLanguageCodeUpdate = {
 };
 
 /** Represents an item in the checkout. */
-export type CheckoutLine = Node & ObjectWithMetadata & {
-  __typename?: 'CheckoutLine';
-  id: Scalars['ID'];
-  /**
-   * List of public metadata items. Can be accessed without permissions.
-   *
-   * Added in Saleor 3.5.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metadata: Array<MetadataItem>;
-  /**
-   * A single key from public metadata.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.5.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafield?: Maybe<Scalars['String']>;
-  /**
-   * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.5.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafields?: Maybe<Scalars['Metadata']>;
-  /**
-   * List of private metadata items. Requires staff permissions to access.
-   *
-   * Added in Saleor 3.5.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetadata: Array<MetadataItem>;
-  /**
-   * A single key from private metadata. Requires staff permissions to access.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.5.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafield?: Maybe<Scalars['String']>;
-  /**
-   * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.5.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafields?: Maybe<Scalars['Metadata']>;
-  quantity: Scalars['Int'];
-  /** Indicates whether the item need to be delivered. */
-  requiresShipping: Scalars['Boolean'];
-  /** The sum of the checkout line price, taxes and discounts. */
-  totalPrice: TaxedMoney;
-  /** The sum of the checkout line price, without discounts. */
-  undiscountedTotalPrice: Money;
-  /** The unit price of the checkout line, without discounts. */
-  undiscountedUnitPrice: Money;
-  /** The unit price of the checkout line, with taxes and discounts. */
-  unitPrice: TaxedMoney;
-  variant: ProductVariant;
-};
-
+export type CheckoutLine = Node &
+  ObjectWithMetadata & {
+    __typename?: 'CheckoutLine';
+    id: Scalars['ID'];
+    /**
+     * List of public metadata items. Can be accessed without permissions.
+     *
+     * Added in Saleor 3.5.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metadata: Array<MetadataItem>;
+    /**
+     * A single key from public metadata.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.5.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafield?: Maybe<Scalars['String']>;
+    /**
+     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.5.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafields?: Maybe<Scalars['Metadata']>;
+    /**
+     * List of private metadata items. Requires staff permissions to access.
+     *
+     * Added in Saleor 3.5.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetadata: Array<MetadataItem>;
+    /**
+     * A single key from private metadata. Requires staff permissions to access.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.5.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafield?: Maybe<Scalars['String']>;
+    /**
+     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.5.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafields?: Maybe<Scalars['Metadata']>;
+    quantity: Scalars['Int'];
+    /** Indicates whether the item need to be delivered. */
+    requiresShipping: Scalars['Boolean'];
+    /** The sum of the checkout line price, taxes and discounts. */
+    totalPrice: TaxedMoney;
+    /** The sum of the checkout line price, without discounts. */
+    undiscountedTotalPrice: Money;
+    /** The unit price of the checkout line, without discounts. */
+    undiscountedUnitPrice: Money;
+    /** The unit price of the checkout line, with taxes and discounts. */
+    unitPrice: TaxedMoney;
+    variant: ProductVariant;
+  };
 
 /** Represents an item in the checkout. */
 export type CheckoutLineMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 /** Represents an item in the checkout. */
 export type CheckoutLineMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
 
-
 /** Represents an item in the checkout. */
 export type CheckoutLinePrivateMetafieldArgs = {
   key: Scalars['String'];
 };
-
 
 /** Represents an item in the checkout. */
 export type CheckoutLinePrivateMetafieldsArgs = {
@@ -3709,7 +3713,7 @@ export enum CheckoutSortField {
   /** Sort checkouts by customer. */
   Customer = 'CUSTOMER',
   /** Sort checkouts by payment. */
-  Payment = 'PAYMENT'
+  Payment = 'PAYMENT',
 }
 
 export type CheckoutSortingInput = {
@@ -3754,81 +3758,81 @@ export type ChoiceValue = {
 };
 
 /** Represents a collection of products. */
-export type Collection = Node & ObjectWithMetadata & {
-  __typename?: 'Collection';
-  backgroundImage?: Maybe<Image>;
-  /** Channel given to retrieve this collection. Also used by federation gateway to resolve this object in a federated query. */
-  channel?: Maybe<Scalars['String']>;
-  /**
-   * List of channels in which the collection is available.
-   *
-   * Requires one of the following permissions: MANAGE_PRODUCTS.
-   */
-  channelListings?: Maybe<Array<CollectionChannelListing>>;
-  /**
-   * Description of the collection.
-   *
-   * Rich text format. For reference see https://editorjs.io/
-   */
-  description?: Maybe<Scalars['JSONString']>;
-  /**
-   * Description of the collection.
-   *
-   * Rich text format. For reference see https://editorjs.io/
-   * @deprecated This field will be removed in Saleor 4.0. Use the `description` field instead.
-   */
-  descriptionJson?: Maybe<Scalars['JSONString']>;
-  id: Scalars['ID'];
-  /** List of public metadata items. Can be accessed without permissions. */
-  metadata: Array<MetadataItem>;
-  /**
-   * A single key from public metadata.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafield?: Maybe<Scalars['String']>;
-  /**
-   * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafields?: Maybe<Scalars['Metadata']>;
-  name: Scalars['String'];
-  /** List of private metadata items. Requires staff permissions to access. */
-  privateMetadata: Array<MetadataItem>;
-  /**
-   * A single key from private metadata. Requires staff permissions to access.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafield?: Maybe<Scalars['String']>;
-  /**
-   * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafields?: Maybe<Scalars['Metadata']>;
-  /** List of products in this collection. */
-  products?: Maybe<ProductCountableConnection>;
-  seoDescription?: Maybe<Scalars['String']>;
-  seoTitle?: Maybe<Scalars['String']>;
-  slug: Scalars['String'];
-  /** Returns translated collection fields for the given language code. */
-  translation?: Maybe<CollectionTranslation>;
-};
-
+export type Collection = Node &
+  ObjectWithMetadata & {
+    __typename?: 'Collection';
+    backgroundImage?: Maybe<Image>;
+    /** Channel given to retrieve this collection. Also used by federation gateway to resolve this object in a federated query. */
+    channel?: Maybe<Scalars['String']>;
+    /**
+     * List of channels in which the collection is available.
+     *
+     * Requires one of the following permissions: MANAGE_PRODUCTS.
+     */
+    channelListings?: Maybe<Array<CollectionChannelListing>>;
+    /**
+     * Description of the collection.
+     *
+     * Rich text format. For reference see https://editorjs.io/
+     */
+    description?: Maybe<Scalars['JSONString']>;
+    /**
+     * Description of the collection.
+     *
+     * Rich text format. For reference see https://editorjs.io/
+     * @deprecated This field will be removed in Saleor 4.0. Use the `description` field instead.
+     */
+    descriptionJson?: Maybe<Scalars['JSONString']>;
+    id: Scalars['ID'];
+    /** List of public metadata items. Can be accessed without permissions. */
+    metadata: Array<MetadataItem>;
+    /**
+     * A single key from public metadata.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafield?: Maybe<Scalars['String']>;
+    /**
+     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafields?: Maybe<Scalars['Metadata']>;
+    name: Scalars['String'];
+    /** List of private metadata items. Requires staff permissions to access. */
+    privateMetadata: Array<MetadataItem>;
+    /**
+     * A single key from private metadata. Requires staff permissions to access.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafield?: Maybe<Scalars['String']>;
+    /**
+     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafields?: Maybe<Scalars['Metadata']>;
+    /** List of products in this collection. */
+    products?: Maybe<ProductCountableConnection>;
+    seoDescription?: Maybe<Scalars['String']>;
+    seoTitle?: Maybe<Scalars['String']>;
+    slug: Scalars['String'];
+    /** Returns translated collection fields for the given language code. */
+    translation?: Maybe<CollectionTranslation>;
+  };
 
 /** Represents a collection of products. */
 export type CollectionBackgroundImageArgs = {
@@ -3836,30 +3840,25 @@ export type CollectionBackgroundImageArgs = {
   size?: InputMaybe<Scalars['Int']>;
 };
 
-
 /** Represents a collection of products. */
 export type CollectionMetafieldArgs = {
   key: Scalars['String'];
 };
-
 
 /** Represents a collection of products. */
 export type CollectionMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
 
-
 /** Represents a collection of products. */
 export type CollectionPrivateMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 /** Represents a collection of products. */
 export type CollectionPrivateMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
-
 
 /** Represents a collection of products. */
 export type CollectionProductsArgs = {
@@ -3870,7 +3869,6 @@ export type CollectionProductsArgs = {
   last?: InputMaybe<Scalars['Int']>;
   sortBy?: InputMaybe<ProductOrder>;
 };
-
 
 /** Represents a collection of products. */
 export type CollectionTranslationArgs = {
@@ -4050,7 +4048,6 @@ export type CollectionCreated = Event & {
   version?: Maybe<Scalars['String']>;
 };
 
-
 /**
  * Event sent when new collection is created.
  *
@@ -4096,7 +4093,6 @@ export type CollectionDeleted = Event & {
   version?: Maybe<Scalars['String']>;
 };
 
-
 /**
  * Event sent when collection is deleted.
  *
@@ -4128,7 +4124,7 @@ export enum CollectionErrorCode {
   Invalid = 'INVALID',
   NotFound = 'NOT_FOUND',
   Required = 'REQUIRED',
-  Unique = 'UNIQUE'
+  Unique = 'UNIQUE',
 }
 
 export type CollectionFilterInput = {
@@ -4205,7 +4201,6 @@ export type CollectionMetadataUpdated = Event & {
   version?: Maybe<Scalars['String']>;
 };
 
-
 /**
  * Event sent when collection metadata is updated.
  *
@@ -4219,7 +4214,7 @@ export type CollectionMetadataUpdatedCollectionArgs = {
 
 export enum CollectionPublished {
   Hidden = 'HIDDEN',
-  Published = 'PUBLISHED'
+  Published = 'PUBLISHED',
 }
 
 /**
@@ -4272,7 +4267,7 @@ export enum CollectionSortField {
    *
    * This option requires a channel filter to work as the values can vary between channels.
    */
-  PublishedAt = 'PUBLISHED_AT'
+  PublishedAt = 'PUBLISHED_AT',
 }
 
 export type CollectionSortingInput = {
@@ -4315,7 +4310,6 @@ export type CollectionTranslatableContent = Node & {
   /** Returns translated collection fields for the given language code. */
   translation?: Maybe<CollectionTranslation>;
 };
-
 
 export type CollectionTranslatableContentTranslationArgs = {
   languageCode: LanguageCodeEnum;
@@ -4391,7 +4385,6 @@ export type CollectionUpdated = Event & {
   version?: Maybe<Scalars['String']>;
 };
 
-
 /**
  * Event sent when collection is updated.
  *
@@ -4433,7 +4426,7 @@ export enum ConfigurationTypeFieldEnum {
   Password = 'PASSWORD',
   Secret = 'SECRET',
   Secretmultiline = 'SECRETMULTILINE',
-  String = 'STRING'
+  String = 'STRING',
 }
 
 /** Confirm user account with token sent by email during registration. */
@@ -4711,7 +4704,7 @@ export enum CountryCode {
   Yt = 'YT',
   Za = 'ZA',
   Zm = 'ZM',
-  Zw = 'ZW'
+  Zw = 'ZW',
 }
 
 export type CountryDisplay = {
@@ -4875,7 +4868,7 @@ export enum CustomerEventsEnum {
   PasswordChanged = 'PASSWORD_CHANGED',
   PasswordReset = 'PASSWORD_RESET',
   PasswordResetLinkSent = 'PASSWORD_RESET_LINK_SENT',
-  PlacedOrder = 'PLACED_ORDER'
+  PlacedOrder = 'PLACED_ORDER',
 }
 
 export type CustomerFilterInput = {
@@ -5026,75 +5019,72 @@ export type DeletePrivateMetadata = {
  */
 export type DeliveryMethod = ShippingMethod | Warehouse;
 
-export type DigitalContent = Node & ObjectWithMetadata & {
-  __typename?: 'DigitalContent';
-  automaticFulfillment: Scalars['Boolean'];
-  contentFile: Scalars['String'];
-  id: Scalars['ID'];
-  maxDownloads?: Maybe<Scalars['Int']>;
-  /** List of public metadata items. Can be accessed without permissions. */
-  metadata: Array<MetadataItem>;
-  /**
-   * A single key from public metadata.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafield?: Maybe<Scalars['String']>;
-  /**
-   * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafields?: Maybe<Scalars['Metadata']>;
-  /** List of private metadata items. Requires staff permissions to access. */
-  privateMetadata: Array<MetadataItem>;
-  /**
-   * A single key from private metadata. Requires staff permissions to access.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafield?: Maybe<Scalars['String']>;
-  /**
-   * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafields?: Maybe<Scalars['Metadata']>;
-  /** Product variant assigned to digital content. */
-  productVariant: ProductVariant;
-  urlValidDays?: Maybe<Scalars['Int']>;
-  /** List of URLs for the digital variant. */
-  urls?: Maybe<Array<DigitalContentUrl>>;
-  useDefaultSettings: Scalars['Boolean'];
-};
-
+export type DigitalContent = Node &
+  ObjectWithMetadata & {
+    __typename?: 'DigitalContent';
+    automaticFulfillment: Scalars['Boolean'];
+    contentFile: Scalars['String'];
+    id: Scalars['ID'];
+    maxDownloads?: Maybe<Scalars['Int']>;
+    /** List of public metadata items. Can be accessed without permissions. */
+    metadata: Array<MetadataItem>;
+    /**
+     * A single key from public metadata.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafield?: Maybe<Scalars['String']>;
+    /**
+     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafields?: Maybe<Scalars['Metadata']>;
+    /** List of private metadata items. Requires staff permissions to access. */
+    privateMetadata: Array<MetadataItem>;
+    /**
+     * A single key from private metadata. Requires staff permissions to access.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafield?: Maybe<Scalars['String']>;
+    /**
+     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafields?: Maybe<Scalars['Metadata']>;
+    /** Product variant assigned to digital content. */
+    productVariant: ProductVariant;
+    urlValidDays?: Maybe<Scalars['Int']>;
+    /** List of URLs for the digital variant. */
+    urls?: Maybe<Array<DigitalContentUrl>>;
+    useDefaultSettings: Scalars['Boolean'];
+  };
 
 export type DigitalContentMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 export type DigitalContentMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
 
-
 export type DigitalContentPrivateMetafieldArgs = {
   key: Scalars['String'];
 };
-
 
 export type DigitalContentPrivateMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
@@ -5259,18 +5249,18 @@ export enum DiscountErrorCode {
   Invalid = 'INVALID',
   NotFound = 'NOT_FOUND',
   Required = 'REQUIRED',
-  Unique = 'UNIQUE'
+  Unique = 'UNIQUE',
 }
 
 export enum DiscountStatusEnum {
   Active = 'ACTIVE',
   Expired = 'EXPIRED',
-  Scheduled = 'SCHEDULED'
+  Scheduled = 'SCHEDULED',
 }
 
 export enum DiscountValueTypeEnum {
   Fixed = 'FIXED',
-  Percentage = 'PERCENTAGE'
+  Percentage = 'PERCENTAGE',
 }
 
 /** An enumeration. */
@@ -5280,7 +5270,7 @@ export enum DistanceUnitsEnum {
   Inch = 'INCH',
   Km = 'KM',
   M = 'M',
-  Yd = 'YD'
+  Yd = 'YD',
 }
 
 /** Represents shop's domain. */
@@ -5504,7 +5494,7 @@ export enum ErrorPolicyEnum {
   /** Reject all rows if there is at least one error in any of them. */
   RejectEverything = 'REJECT_EVERYTHING',
   /** Reject rows with errors. */
-  RejectFailedRows = 'REJECT_FAILED_ROWS'
+  RejectFailedRows = 'REJECT_FAILED_ROWS',
 }
 
 export type Event = {
@@ -5532,7 +5522,6 @@ export type EventDelivery = Node & {
   /** Event delivery status. */
   status: EventDeliveryStatusEnum;
 };
-
 
 /** Event delivery. */
 export type EventDeliveryAttemptsArgs = {
@@ -5584,7 +5573,7 @@ export type EventDeliveryAttemptCountableEdge = {
 
 export enum EventDeliveryAttemptSortField {
   /** Sort event delivery attempts by created at. */
-  CreatedAt = 'CREATED_AT'
+  CreatedAt = 'CREATED_AT',
 }
 
 export type EventDeliveryAttemptSortingInput = {
@@ -5630,7 +5619,7 @@ export type EventDeliveryRetry = {
 
 export enum EventDeliverySortField {
   /** Sort event deliveries by created at. */
-  CreatedAt = 'CREATED_AT'
+  CreatedAt = 'CREATED_AT',
 }
 
 export type EventDeliverySortingInput = {
@@ -5643,7 +5632,7 @@ export type EventDeliverySortingInput = {
 export enum EventDeliveryStatusEnum {
   Failed = 'FAILED',
   Pending = 'PENDING',
-  Success = 'SUCCESS'
+  Success = 'SUCCESS',
 }
 
 export type ExportError = {
@@ -5661,7 +5650,7 @@ export enum ExportErrorCode {
   GraphqlError = 'GRAPHQL_ERROR',
   Invalid = 'INVALID',
   NotFound = 'NOT_FOUND',
-  Required = 'REQUIRED'
+  Required = 'REQUIRED',
 }
 
 /** History log of export file. */
@@ -5688,28 +5677,29 @@ export enum ExportEventsEnum {
   ExportFailed = 'EXPORT_FAILED',
   ExportFailedInfoSent = 'EXPORT_FAILED_INFO_SENT',
   ExportPending = 'EXPORT_PENDING',
-  ExportSuccess = 'EXPORT_SUCCESS'
+  ExportSuccess = 'EXPORT_SUCCESS',
 }
 
 /** Represents a job data of exported file. */
-export type ExportFile = Job & Node & {
-  __typename?: 'ExportFile';
-  app?: Maybe<App>;
-  /** Created date time of job in ISO 8601 format. */
-  createdAt: Scalars['DateTime'];
-  /** List of events associated with the export. */
-  events?: Maybe<Array<ExportEvent>>;
-  id: Scalars['ID'];
-  /** Job message. */
-  message?: Maybe<Scalars['String']>;
-  /** Job status. */
-  status: JobStatusEnum;
-  /** Date time of job last update in ISO 8601 format. */
-  updatedAt: Scalars['DateTime'];
-  /** The URL of field to download. */
-  url?: Maybe<Scalars['String']>;
-  user?: Maybe<User>;
-};
+export type ExportFile = Job &
+  Node & {
+    __typename?: 'ExportFile';
+    app?: Maybe<App>;
+    /** Created date time of job in ISO 8601 format. */
+    createdAt: Scalars['DateTime'];
+    /** List of events associated with the export. */
+    events?: Maybe<Array<ExportEvent>>;
+    id: Scalars['ID'];
+    /** Job message. */
+    message?: Maybe<Scalars['String']>;
+    /** Job status. */
+    status: JobStatusEnum;
+    /** Date time of job last update in ISO 8601 format. */
+    updatedAt: Scalars['DateTime'];
+    /** The URL of field to download. */
+    url?: Maybe<Scalars['String']>;
+    user?: Maybe<User>;
+  };
 
 export type ExportFileCountableConnection = {
   __typename?: 'ExportFileCountableConnection';
@@ -5740,7 +5730,7 @@ export enum ExportFileSortField {
   CreatedAt = 'CREATED_AT',
   LastModifiedAt = 'LAST_MODIFIED_AT',
   Status = 'STATUS',
-  UpdatedAt = 'UPDATED_AT'
+  UpdatedAt = 'UPDATED_AT',
 }
 
 export type ExportFileSortingInput = {
@@ -5821,7 +5811,7 @@ export enum ExportScope {
   /** Export the filtered products. */
   Filter = 'FILTER',
   /** Export products with given ids. */
-  Ids = 'IDS'
+  Ids = 'IDS',
 }
 
 export type ExternalAuthentication = {
@@ -5867,7 +5857,7 @@ export enum ExternalNotificationErrorCodes {
   ChannelInactive = 'CHANNEL_INACTIVE',
   InvalidModelType = 'INVALID_MODEL_TYPE',
   NotFound = 'NOT_FOUND',
-  Required = 'REQUIRED'
+  Required = 'REQUIRED',
 }
 
 /**
@@ -5946,7 +5936,7 @@ export type File = {
 /** An enumeration. */
 export enum FileTypesEnum {
   Csv = 'CSV',
-  Xlsx = 'XLSX'
+  Xlsx = 'XLSX',
 }
 
 /**
@@ -5963,79 +5953,76 @@ export type FileUpload = {
 };
 
 /** Represents order fulfillment. */
-export type Fulfillment = Node & ObjectWithMetadata & {
-  __typename?: 'Fulfillment';
-  created: Scalars['DateTime'];
-  fulfillmentOrder: Scalars['Int'];
-  id: Scalars['ID'];
-  /** List of lines for the fulfillment. */
-  lines?: Maybe<Array<FulfillmentLine>>;
-  /** List of public metadata items. Can be accessed without permissions. */
-  metadata: Array<MetadataItem>;
-  /**
-   * A single key from public metadata.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafield?: Maybe<Scalars['String']>;
-  /**
-   * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafields?: Maybe<Scalars['Metadata']>;
-  /** List of private metadata items. Requires staff permissions to access. */
-  privateMetadata: Array<MetadataItem>;
-  /**
-   * A single key from private metadata. Requires staff permissions to access.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafield?: Maybe<Scalars['String']>;
-  /**
-   * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafields?: Maybe<Scalars['Metadata']>;
-  status: FulfillmentStatus;
-  /** User-friendly fulfillment status. */
-  statusDisplay?: Maybe<Scalars['String']>;
-  trackingNumber: Scalars['String'];
-  /** Warehouse from fulfillment was fulfilled. */
-  warehouse?: Maybe<Warehouse>;
-};
-
+export type Fulfillment = Node &
+  ObjectWithMetadata & {
+    __typename?: 'Fulfillment';
+    created: Scalars['DateTime'];
+    fulfillmentOrder: Scalars['Int'];
+    id: Scalars['ID'];
+    /** List of lines for the fulfillment. */
+    lines?: Maybe<Array<FulfillmentLine>>;
+    /** List of public metadata items. Can be accessed without permissions. */
+    metadata: Array<MetadataItem>;
+    /**
+     * A single key from public metadata.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafield?: Maybe<Scalars['String']>;
+    /**
+     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafields?: Maybe<Scalars['Metadata']>;
+    /** List of private metadata items. Requires staff permissions to access. */
+    privateMetadata: Array<MetadataItem>;
+    /**
+     * A single key from private metadata. Requires staff permissions to access.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafield?: Maybe<Scalars['String']>;
+    /**
+     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafields?: Maybe<Scalars['Metadata']>;
+    status: FulfillmentStatus;
+    /** User-friendly fulfillment status. */
+    statusDisplay?: Maybe<Scalars['String']>;
+    trackingNumber: Scalars['String'];
+    /** Warehouse from fulfillment was fulfilled. */
+    warehouse?: Maybe<Warehouse>;
+  };
 
 /** Represents order fulfillment. */
 export type FulfillmentMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 /** Represents order fulfillment. */
 export type FulfillmentMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
 
-
 /** Represents order fulfillment. */
 export type FulfillmentPrivateMetafieldArgs = {
   key: Scalars['String'];
 };
-
 
 /** Represents order fulfillment. */
 export type FulfillmentPrivateMetafieldsArgs = {
@@ -6225,7 +6212,7 @@ export enum FulfillmentStatus {
   RefundedAndReturned = 'REFUNDED_AND_RETURNED',
   Replaced = 'REPLACED',
   Returned = 'RETURNED',
-  WaitingForApproval = 'WAITING_FOR_APPROVAL'
+  WaitingForApproval = 'WAITING_FOR_APPROVAL',
 }
 
 /**
@@ -6261,182 +6248,178 @@ export type GatewayConfigLine = {
 };
 
 /** A gift card is a prepaid electronic payment card accepted in stores. They can be used during checkout by providing a valid gift card codes. */
-export type GiftCard = Node & ObjectWithMetadata & {
-  __typename?: 'GiftCard';
-  /**
-   * App which created the gift card.
-   *
-   * Added in Saleor 3.1.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   *
-   * Requires one of the following permissions: MANAGE_APPS, OWNER.
-   */
-  app?: Maybe<App>;
-  /**
-   * Slug of the channel where the gift card was bought.
-   *
-   * Added in Saleor 3.1.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  boughtInChannel?: Maybe<Scalars['String']>;
-  /** Gift card code. Can be fetched by a staff member with MANAGE_GIFT_CARD when gift card wasn't yet used and by the gift card owner. */
-  code: Scalars['String'];
-  created: Scalars['DateTime'];
-  /**
-   * The user who bought or issued a gift card.
-   *
-   * Added in Saleor 3.1.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  createdBy?: Maybe<User>;
-  /**
-   * Email address of the user who bought or issued gift card.
-   *
-   * Added in Saleor 3.1.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   *
-   * Requires one of the following permissions: MANAGE_USERS, OWNER.
-   */
-  createdByEmail?: Maybe<Scalars['String']>;
-  currentBalance: Money;
-  /** Code in format which allows displaying in a user interface. */
-  displayCode: Scalars['String'];
-  /**
-   * End date of gift card.
-   * @deprecated This field will be removed in Saleor 4.0. Use `expiryDate` field instead.
-   */
-  endDate?: Maybe<Scalars['DateTime']>;
-  /**
-   * List of events associated with the gift card.
-   *
-   * Added in Saleor 3.1.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   *
-   * Requires one of the following permissions: MANAGE_GIFT_CARD.
-   */
-  events: Array<GiftCardEvent>;
-  expiryDate?: Maybe<Scalars['Date']>;
-  id: Scalars['ID'];
-  initialBalance: Money;
-  isActive: Scalars['Boolean'];
-  /** Last 4 characters of gift card code. */
-  last4CodeChars: Scalars['String'];
-  lastUsedOn?: Maybe<Scalars['DateTime']>;
-  /** List of public metadata items. Can be accessed without permissions. */
-  metadata: Array<MetadataItem>;
-  /**
-   * A single key from public metadata.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafield?: Maybe<Scalars['String']>;
-  /**
-   * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafields?: Maybe<Scalars['Metadata']>;
-  /** List of private metadata items. Requires staff permissions to access. */
-  privateMetadata: Array<MetadataItem>;
-  /**
-   * A single key from private metadata. Requires staff permissions to access.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafield?: Maybe<Scalars['String']>;
-  /**
-   * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafields?: Maybe<Scalars['Metadata']>;
-  /**
-   * Related gift card product.
-   *
-   * Added in Saleor 3.1.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  product?: Maybe<Product>;
-  /**
-   * Start date of gift card.
-   * @deprecated This field will be removed in Saleor 4.0.
-   */
-  startDate?: Maybe<Scalars['DateTime']>;
-  /**
-   * The gift card tag.
-   *
-   * Added in Saleor 3.1.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   *
-   * Requires one of the following permissions: MANAGE_GIFT_CARD.
-   */
-  tags: Array<GiftCardTag>;
-  /**
-   * The customer who used a gift card.
-   *
-   * Added in Saleor 3.1.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  usedBy?: Maybe<User>;
-  /**
-   * Email address of the customer who used a gift card.
-   *
-   * Added in Saleor 3.1.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  usedByEmail?: Maybe<Scalars['String']>;
-  /**
-   * The customer who bought a gift card.
-   * @deprecated This field will be removed in Saleor 4.0. Use `createdBy` field instead.
-   */
-  user?: Maybe<User>;
-};
-
+export type GiftCard = Node &
+  ObjectWithMetadata & {
+    __typename?: 'GiftCard';
+    /**
+     * App which created the gift card.
+     *
+     * Added in Saleor 3.1.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     *
+     * Requires one of the following permissions: MANAGE_APPS, OWNER.
+     */
+    app?: Maybe<App>;
+    /**
+     * Slug of the channel where the gift card was bought.
+     *
+     * Added in Saleor 3.1.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    boughtInChannel?: Maybe<Scalars['String']>;
+    /** Gift card code. Can be fetched by a staff member with MANAGE_GIFT_CARD when gift card wasn't yet used and by the gift card owner. */
+    code: Scalars['String'];
+    created: Scalars['DateTime'];
+    /**
+     * The user who bought or issued a gift card.
+     *
+     * Added in Saleor 3.1.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    createdBy?: Maybe<User>;
+    /**
+     * Email address of the user who bought or issued gift card.
+     *
+     * Added in Saleor 3.1.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     *
+     * Requires one of the following permissions: MANAGE_USERS, OWNER.
+     */
+    createdByEmail?: Maybe<Scalars['String']>;
+    currentBalance: Money;
+    /** Code in format which allows displaying in a user interface. */
+    displayCode: Scalars['String'];
+    /**
+     * End date of gift card.
+     * @deprecated This field will be removed in Saleor 4.0. Use `expiryDate` field instead.
+     */
+    endDate?: Maybe<Scalars['DateTime']>;
+    /**
+     * List of events associated with the gift card.
+     *
+     * Added in Saleor 3.1.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     *
+     * Requires one of the following permissions: MANAGE_GIFT_CARD.
+     */
+    events: Array<GiftCardEvent>;
+    expiryDate?: Maybe<Scalars['Date']>;
+    id: Scalars['ID'];
+    initialBalance: Money;
+    isActive: Scalars['Boolean'];
+    /** Last 4 characters of gift card code. */
+    last4CodeChars: Scalars['String'];
+    lastUsedOn?: Maybe<Scalars['DateTime']>;
+    /** List of public metadata items. Can be accessed without permissions. */
+    metadata: Array<MetadataItem>;
+    /**
+     * A single key from public metadata.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafield?: Maybe<Scalars['String']>;
+    /**
+     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafields?: Maybe<Scalars['Metadata']>;
+    /** List of private metadata items. Requires staff permissions to access. */
+    privateMetadata: Array<MetadataItem>;
+    /**
+     * A single key from private metadata. Requires staff permissions to access.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafield?: Maybe<Scalars['String']>;
+    /**
+     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafields?: Maybe<Scalars['Metadata']>;
+    /**
+     * Related gift card product.
+     *
+     * Added in Saleor 3.1.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    product?: Maybe<Product>;
+    /**
+     * Start date of gift card.
+     * @deprecated This field will be removed in Saleor 4.0.
+     */
+    startDate?: Maybe<Scalars['DateTime']>;
+    /**
+     * The gift card tag.
+     *
+     * Added in Saleor 3.1.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     *
+     * Requires one of the following permissions: MANAGE_GIFT_CARD.
+     */
+    tags: Array<GiftCardTag>;
+    /**
+     * The customer who used a gift card.
+     *
+     * Added in Saleor 3.1.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    usedBy?: Maybe<User>;
+    /**
+     * Email address of the customer who used a gift card.
+     *
+     * Added in Saleor 3.1.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    usedByEmail?: Maybe<Scalars['String']>;
+    /**
+     * The customer who bought a gift card.
+     * @deprecated This field will be removed in Saleor 4.0. Use `createdBy` field instead.
+     */
+    user?: Maybe<User>;
+  };
 
 /** A gift card is a prepaid electronic payment card accepted in stores. They can be used during checkout by providing a valid gift card codes. */
 export type GiftCardEventsArgs = {
   filter?: InputMaybe<GiftCardEventFilterInput>;
 };
 
-
 /** A gift card is a prepaid electronic payment card accepted in stores. They can be used during checkout by providing a valid gift card codes. */
 export type GiftCardMetafieldArgs = {
   key: Scalars['String'];
 };
-
 
 /** A gift card is a prepaid electronic payment card accepted in stores. They can be used during checkout by providing a valid gift card codes. */
 export type GiftCardMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
 
-
 /** A gift card is a prepaid electronic payment card accepted in stores. They can be used during checkout by providing a valid gift card codes. */
 export type GiftCardPrivateMetafieldArgs = {
   key: Scalars['String'];
 };
-
 
 /** A gift card is a prepaid electronic payment card accepted in stores. They can be used during checkout by providing a valid gift card codes. */
 export type GiftCardPrivateMetafieldsArgs = {
@@ -6748,7 +6731,7 @@ export enum GiftCardErrorCode {
   Invalid = 'INVALID',
   NotFound = 'NOT_FOUND',
   Required = 'REQUIRED',
-  Unique = 'UNIQUE'
+  Unique = 'UNIQUE',
 }
 
 /**
@@ -6819,7 +6802,7 @@ export enum GiftCardEventsEnum {
   SentToCustomer = 'SENT_TO_CUSTOMER',
   TagsUpdated = 'TAGS_UPDATED',
   Updated = 'UPDATED',
-  UsedInOrder = 'USED_IN_ORDER'
+  UsedInOrder = 'USED_IN_ORDER',
 }
 
 export type GiftCardFilterInput = {
@@ -6904,13 +6887,13 @@ export type GiftCardSettingsError = {
 export enum GiftCardSettingsErrorCode {
   GraphqlError = 'GRAPHQL_ERROR',
   Invalid = 'INVALID',
-  Required = 'REQUIRED'
+  Required = 'REQUIRED',
 }
 
 /** An enumeration. */
 export enum GiftCardSettingsExpiryTypeEnum {
   ExpiryPeriod = 'EXPIRY_PERIOD',
-  NeverExpire = 'NEVER_EXPIRE'
+  NeverExpire = 'NEVER_EXPIRE',
 }
 
 /**
@@ -6944,7 +6927,7 @@ export enum GiftCardSortField {
   /** Sort gift cards by product. */
   Product = 'PRODUCT',
   /** Sort gift cards by used by. */
-  UsedBy = 'USED_BY'
+  UsedBy = 'USED_BY',
 }
 
 export type GiftCardSortingInput = {
@@ -7141,85 +7124,83 @@ export type IntRangeInput = {
 };
 
 /** Represents an Invoice. */
-export type Invoice = Job & Node & ObjectWithMetadata & {
-  __typename?: 'Invoice';
-  createdAt: Scalars['DateTime'];
-  externalUrl?: Maybe<Scalars['String']>;
-  /** The ID of the object. */
-  id: Scalars['ID'];
-  message?: Maybe<Scalars['String']>;
-  /** List of public metadata items. Can be accessed without permissions. */
-  metadata: Array<MetadataItem>;
-  /**
-   * A single key from public metadata.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafield?: Maybe<Scalars['String']>;
-  /**
-   * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafields?: Maybe<Scalars['Metadata']>;
-  number?: Maybe<Scalars['String']>;
-  /**
-   * Order related to the invoice.
-   *
-   * Added in Saleor 3.10.
-   */
-  order?: Maybe<Order>;
-  /** List of private metadata items. Requires staff permissions to access. */
-  privateMetadata: Array<MetadataItem>;
-  /**
-   * A single key from private metadata. Requires staff permissions to access.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafield?: Maybe<Scalars['String']>;
-  /**
-   * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafields?: Maybe<Scalars['Metadata']>;
-  /** Job status. */
-  status: JobStatusEnum;
-  updatedAt: Scalars['DateTime'];
-  /** URL to download an invoice. */
-  url?: Maybe<Scalars['String']>;
-};
-
+export type Invoice = Job &
+  Node &
+  ObjectWithMetadata & {
+    __typename?: 'Invoice';
+    createdAt: Scalars['DateTime'];
+    externalUrl?: Maybe<Scalars['String']>;
+    /** The ID of the object. */
+    id: Scalars['ID'];
+    message?: Maybe<Scalars['String']>;
+    /** List of public metadata items. Can be accessed without permissions. */
+    metadata: Array<MetadataItem>;
+    /**
+     * A single key from public metadata.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafield?: Maybe<Scalars['String']>;
+    /**
+     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafields?: Maybe<Scalars['Metadata']>;
+    number?: Maybe<Scalars['String']>;
+    /**
+     * Order related to the invoice.
+     *
+     * Added in Saleor 3.10.
+     */
+    order?: Maybe<Order>;
+    /** List of private metadata items. Requires staff permissions to access. */
+    privateMetadata: Array<MetadataItem>;
+    /**
+     * A single key from private metadata. Requires staff permissions to access.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafield?: Maybe<Scalars['String']>;
+    /**
+     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafields?: Maybe<Scalars['Metadata']>;
+    /** Job status. */
+    status: JobStatusEnum;
+    updatedAt: Scalars['DateTime'];
+    /** URL to download an invoice. */
+    url?: Maybe<Scalars['String']>;
+  };
 
 /** Represents an Invoice. */
 export type InvoiceMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 /** Represents an Invoice. */
 export type InvoiceMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
 
-
 /** Represents an Invoice. */
 export type InvoicePrivateMetafieldArgs = {
   key: Scalars['String'];
 };
-
 
 /** Represents an Invoice. */
 export type InvoicePrivateMetafieldsArgs = {
@@ -7305,7 +7286,7 @@ export enum InvoiceErrorCode {
   NoInvoicePlugin = 'NO_INVOICE_PLUGIN',
   NumberNotSet = 'NUMBER_NOT_SET',
   Required = 'REQUIRED',
-  UrlNotSet = 'URL_NOT_SET'
+  UrlNotSet = 'URL_NOT_SET',
 }
 
 /**
@@ -7434,7 +7415,7 @@ export enum JobStatusEnum {
   Deleted = 'DELETED',
   Failed = 'FAILED',
   Pending = 'PENDING',
-  Success = 'SUCCESS'
+  Success = 'SUCCESS',
 }
 
 /** An enumeration. */
@@ -8217,7 +8198,7 @@ export enum LanguageCodeEnum {
   ZhHantMo = 'ZH_HANT_MO',
   ZhHantTw = 'ZH_HANT_TW',
   Zu = 'ZU',
-  ZuZa = 'ZU_ZA'
+  ZuZa = 'ZU_ZA',
 }
 
 export type LanguageDisplay = {
@@ -8324,7 +8305,7 @@ export enum MeasurementUnitsEnum {
   SqM = 'SQ_M',
   SqYd = 'SQ_YD',
   Tonne = 'TONNE',
-  Yd = 'YD'
+  Yd = 'YD',
 }
 
 export type MeasurementUnitsEnumFilterInput = {
@@ -8336,7 +8317,7 @@ export type MeasurementUnitsEnumFilterInput = {
 
 export enum MediaChoicesSortField {
   /** Sort media by ID. */
-  Id = 'ID'
+  Id = 'ID',
 }
 
 export type MediaSortingInput = {
@@ -8347,72 +8328,69 @@ export type MediaSortingInput = {
 };
 
 /** Represents a single menu - an object that is used to help navigate through the store. */
-export type Menu = Node & ObjectWithMetadata & {
-  __typename?: 'Menu';
-  id: Scalars['ID'];
-  items?: Maybe<Array<MenuItem>>;
-  /** List of public metadata items. Can be accessed without permissions. */
-  metadata: Array<MetadataItem>;
-  /**
-   * A single key from public metadata.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafield?: Maybe<Scalars['String']>;
-  /**
-   * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafields?: Maybe<Scalars['Metadata']>;
-  name: Scalars['String'];
-  /** List of private metadata items. Requires staff permissions to access. */
-  privateMetadata: Array<MetadataItem>;
-  /**
-   * A single key from private metadata. Requires staff permissions to access.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafield?: Maybe<Scalars['String']>;
-  /**
-   * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafields?: Maybe<Scalars['Metadata']>;
-  slug: Scalars['String'];
-};
-
+export type Menu = Node &
+  ObjectWithMetadata & {
+    __typename?: 'Menu';
+    id: Scalars['ID'];
+    items?: Maybe<Array<MenuItem>>;
+    /** List of public metadata items. Can be accessed without permissions. */
+    metadata: Array<MetadataItem>;
+    /**
+     * A single key from public metadata.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafield?: Maybe<Scalars['String']>;
+    /**
+     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafields?: Maybe<Scalars['Metadata']>;
+    name: Scalars['String'];
+    /** List of private metadata items. Requires staff permissions to access. */
+    privateMetadata: Array<MetadataItem>;
+    /**
+     * A single key from private metadata. Requires staff permissions to access.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafield?: Maybe<Scalars['String']>;
+    /**
+     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafields?: Maybe<Scalars['Metadata']>;
+    slug: Scalars['String'];
+  };
 
 /** Represents a single menu - an object that is used to help navigate through the store. */
 export type MenuMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 /** Represents a single menu - an object that is used to help navigate through the store. */
 export type MenuMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
 
-
 /** Represents a single menu - an object that is used to help navigate through the store. */
 export type MenuPrivateMetafieldArgs = {
   key: Scalars['String'];
 };
-
 
 /** Represents a single menu - an object that is used to help navigate through the store. */
 export type MenuPrivateMetafieldsArgs = {
@@ -8493,7 +8471,6 @@ export type MenuCreated = Event & {
   version?: Maybe<Scalars['String']>;
 };
 
-
 /**
  * Event sent when new menu is created.
  *
@@ -8539,7 +8516,6 @@ export type MenuDeleted = Event & {
   version?: Maybe<Scalars['String']>;
 };
 
-
 /**
  * Event sent when menu is deleted.
  *
@@ -8571,7 +8547,7 @@ export enum MenuErrorCode {
   NoMenuItemProvided = 'NO_MENU_ITEM_PROVIDED',
   Required = 'REQUIRED',
   TooManyMenuItems = 'TOO_MANY_MENU_ITEMS',
-  Unique = 'UNIQUE'
+  Unique = 'UNIQUE',
 }
 
 export type MenuFilterInput = {
@@ -8589,89 +8565,85 @@ export type MenuInput = {
 };
 
 /** Represents a single item of the related menu. Can store categories, collection or pages. */
-export type MenuItem = Node & ObjectWithMetadata & {
-  __typename?: 'MenuItem';
-  category?: Maybe<Category>;
-  children?: Maybe<Array<MenuItem>>;
-  /** A collection associated with this menu item. Requires one of the following permissions to include the unpublished items: MANAGE_ORDERS, MANAGE_DISCOUNTS, MANAGE_PRODUCTS. */
-  collection?: Maybe<Collection>;
-  id: Scalars['ID'];
-  level: Scalars['Int'];
-  menu: Menu;
-  /** List of public metadata items. Can be accessed without permissions. */
-  metadata: Array<MetadataItem>;
-  /**
-   * A single key from public metadata.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafield?: Maybe<Scalars['String']>;
-  /**
-   * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafields?: Maybe<Scalars['Metadata']>;
-  name: Scalars['String'];
-  /** A page associated with this menu item. Requires one of the following permissions to include unpublished items: MANAGE_PAGES. */
-  page?: Maybe<Page>;
-  parent?: Maybe<MenuItem>;
-  /** List of private metadata items. Requires staff permissions to access. */
-  privateMetadata: Array<MetadataItem>;
-  /**
-   * A single key from private metadata. Requires staff permissions to access.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafield?: Maybe<Scalars['String']>;
-  /**
-   * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafields?: Maybe<Scalars['Metadata']>;
-  /** Returns translated menu item fields for the given language code. */
-  translation?: Maybe<MenuItemTranslation>;
-  /** URL to the menu item. */
-  url?: Maybe<Scalars['String']>;
-};
-
+export type MenuItem = Node &
+  ObjectWithMetadata & {
+    __typename?: 'MenuItem';
+    category?: Maybe<Category>;
+    children?: Maybe<Array<MenuItem>>;
+    /** A collection associated with this menu item. Requires one of the following permissions to include the unpublished items: MANAGE_ORDERS, MANAGE_DISCOUNTS, MANAGE_PRODUCTS. */
+    collection?: Maybe<Collection>;
+    id: Scalars['ID'];
+    level: Scalars['Int'];
+    menu: Menu;
+    /** List of public metadata items. Can be accessed without permissions. */
+    metadata: Array<MetadataItem>;
+    /**
+     * A single key from public metadata.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafield?: Maybe<Scalars['String']>;
+    /**
+     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafields?: Maybe<Scalars['Metadata']>;
+    name: Scalars['String'];
+    /** A page associated with this menu item. Requires one of the following permissions to include unpublished items: MANAGE_PAGES. */
+    page?: Maybe<Page>;
+    parent?: Maybe<MenuItem>;
+    /** List of private metadata items. Requires staff permissions to access. */
+    privateMetadata: Array<MetadataItem>;
+    /**
+     * A single key from private metadata. Requires staff permissions to access.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafield?: Maybe<Scalars['String']>;
+    /**
+     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafields?: Maybe<Scalars['Metadata']>;
+    /** Returns translated menu item fields for the given language code. */
+    translation?: Maybe<MenuItemTranslation>;
+    /** URL to the menu item. */
+    url?: Maybe<Scalars['String']>;
+  };
 
 /** Represents a single item of the related menu. Can store categories, collection or pages. */
 export type MenuItemMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 /** Represents a single item of the related menu. Can store categories, collection or pages. */
 export type MenuItemMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
-
 
 /** Represents a single item of the related menu. Can store categories, collection or pages. */
 export type MenuItemPrivateMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 /** Represents a single item of the related menu. Can store categories, collection or pages. */
 export type MenuItemPrivateMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
-
 
 /** Represents a single item of the related menu. Can store categories, collection or pages. */
 export type MenuItemTranslationArgs = {
@@ -8760,7 +8732,6 @@ export type MenuItemCreated = Event & {
   version?: Maybe<Scalars['String']>;
 };
 
-
 /**
  * Event sent when new menu item is created.
  *
@@ -8805,7 +8776,6 @@ export type MenuItemDeleted = Event & {
   /** Saleor version that triggered the event. */
   version?: Maybe<Scalars['String']>;
 };
-
 
 /**
  * Event sent when menu item is deleted.
@@ -8879,7 +8849,6 @@ export type MenuItemTranslatableContent = Node & {
   translation?: Maybe<MenuItemTranslation>;
 };
 
-
 export type MenuItemTranslatableContentTranslationArgs = {
   languageCode: LanguageCodeEnum;
 };
@@ -8939,7 +8908,6 @@ export type MenuItemUpdated = Event & {
   version?: Maybe<Scalars['String']>;
 };
 
-
 /**
  * Event sent when menu item is updated.
  *
@@ -8953,14 +8921,14 @@ export type MenuItemUpdatedMenuItemArgs = {
 
 export enum MenuItemsSortField {
   /** Sort menu items by name. */
-  Name = 'NAME'
+  Name = 'NAME',
 }
 
 export enum MenuSortField {
   /** Sort menus by items count. */
   ItemsCount = 'ITEMS_COUNT',
   /** Sort menus by name. */
-  Name = 'NAME'
+  Name = 'NAME',
 }
 
 export type MenuSortingInput = {
@@ -9004,7 +8972,6 @@ export type MenuUpdated = Event & {
   version?: Maybe<Scalars['String']>;
 };
 
-
 /**
  * Event sent when menu is updated.
  *
@@ -9032,7 +8999,7 @@ export enum MetadataErrorCode {
   Invalid = 'INVALID',
   NotFound = 'NOT_FOUND',
   NotUpdated = 'NOT_UPDATED',
-  Required = 'REQUIRED'
+  Required = 'REQUIRED',
 }
 
 export type MetadataFilter = {
@@ -10775,61 +10742,50 @@ export type Mutation = {
   webhookUpdate?: Maybe<WebhookUpdate>;
 };
 
-
 export type MutationAccountAddressCreateArgs = {
   input: AddressInput;
   type?: InputMaybe<AddressTypeEnum>;
 };
 
-
 export type MutationAccountAddressDeleteArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationAccountAddressUpdateArgs = {
   id: Scalars['ID'];
   input: AddressInput;
 };
 
-
 export type MutationAccountDeleteArgs = {
   token: Scalars['String'];
 };
 
-
 export type MutationAccountRegisterArgs = {
   input: AccountRegisterInput;
 };
-
 
 export type MutationAccountRequestDeletionArgs = {
   channel?: InputMaybe<Scalars['String']>;
   redirectUrl: Scalars['String'];
 };
 
-
 export type MutationAccountSetDefaultAddressArgs = {
   id: Scalars['ID'];
   type: AddressTypeEnum;
 };
 
-
 export type MutationAccountUpdateArgs = {
   input: AccountInput;
 };
-
 
 export type MutationAddressCreateArgs = {
   input: AddressInput;
   userId: Scalars['ID'];
 };
 
-
 export type MutationAddressDeleteArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationAddressSetDefaultArgs = {
   addressId: Scalars['ID'];
@@ -10837,108 +10793,88 @@ export type MutationAddressSetDefaultArgs = {
   userId: Scalars['ID'];
 };
 
-
 export type MutationAddressUpdateArgs = {
   id: Scalars['ID'];
   input: AddressInput;
 };
 
-
 export type MutationAppActivateArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationAppCreateArgs = {
   input: AppInput;
 };
 
-
 export type MutationAppDeactivateArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationAppDeleteArgs = {
   id: Scalars['ID'];
 };
 
-
 export type MutationAppDeleteFailedInstallationArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationAppFetchManifestArgs = {
   manifestUrl: Scalars['String'];
 };
 
-
 export type MutationAppInstallArgs = {
   input: AppInstallInput;
 };
-
 
 export type MutationAppRetryInstallArgs = {
   activateAfterInstallation?: InputMaybe<Scalars['Boolean']>;
   id: Scalars['ID'];
 };
 
-
 export type MutationAppTokenCreateArgs = {
   input: AppTokenInput;
 };
-
 
 export type MutationAppTokenDeleteArgs = {
   id: Scalars['ID'];
 };
 
-
 export type MutationAppTokenVerifyArgs = {
   token: Scalars['String'];
 };
-
 
 export type MutationAppUpdateArgs = {
   id: Scalars['ID'];
   input: AppInput;
 };
 
-
 export type MutationAssignNavigationArgs = {
   menu?: InputMaybe<Scalars['ID']>;
   navigationType: NavigationType;
 };
-
 
 export type MutationAssignWarehouseShippingZoneArgs = {
   id: Scalars['ID'];
   shippingZoneIds: Array<Scalars['ID']>;
 };
 
-
 export type MutationAttributeBulkDeleteArgs = {
   ids: Array<Scalars['ID']>;
 };
 
-
 export type MutationAttributeCreateArgs = {
   input: AttributeCreateInput;
 };
-
 
 export type MutationAttributeDeleteArgs = {
   externalReference?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
 };
 
-
 export type MutationAttributeReorderValuesArgs = {
   attributeId: Scalars['ID'];
   moves: Array<ReorderInput>;
 };
-
 
 export type MutationAttributeTranslateArgs = {
   id: Scalars['ID'];
@@ -10946,30 +10882,25 @@ export type MutationAttributeTranslateArgs = {
   languageCode: LanguageCodeEnum;
 };
 
-
 export type MutationAttributeUpdateArgs = {
   externalReference?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
   input: AttributeUpdateInput;
 };
 
-
 export type MutationAttributeValueBulkDeleteArgs = {
   ids: Array<Scalars['ID']>;
 };
-
 
 export type MutationAttributeValueCreateArgs = {
   attribute: Scalars['ID'];
   input: AttributeValueCreateInput;
 };
 
-
 export type MutationAttributeValueDeleteArgs = {
   externalReference?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
 };
-
 
 export type MutationAttributeValueTranslateArgs = {
   id: Scalars['ID'];
@@ -10977,29 +10908,24 @@ export type MutationAttributeValueTranslateArgs = {
   languageCode: LanguageCodeEnum;
 };
 
-
 export type MutationAttributeValueUpdateArgs = {
   externalReference?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
   input: AttributeValueUpdateInput;
 };
 
-
 export type MutationCategoryBulkDeleteArgs = {
   ids: Array<Scalars['ID']>;
 };
-
 
 export type MutationCategoryCreateArgs = {
   input: CategoryInput;
   parent?: InputMaybe<Scalars['ID']>;
 };
 
-
 export type MutationCategoryDeleteArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationCategoryTranslateArgs = {
   id: Scalars['ID'];
@@ -11007,45 +10933,37 @@ export type MutationCategoryTranslateArgs = {
   languageCode: LanguageCodeEnum;
 };
 
-
 export type MutationCategoryUpdateArgs = {
   id: Scalars['ID'];
   input: CategoryInput;
 };
 
-
 export type MutationChannelActivateArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationChannelCreateArgs = {
   input: ChannelCreateInput;
 };
 
-
 export type MutationChannelDeactivateArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationChannelDeleteArgs = {
   id: Scalars['ID'];
   input?: InputMaybe<ChannelDeleteInput>;
 };
 
-
 export type MutationChannelReorderWarehousesArgs = {
   channelId: Scalars['ID'];
   moves: Array<ReorderInput>;
 };
 
-
 export type MutationChannelUpdateArgs = {
   id: Scalars['ID'];
   input: ChannelUpdateInput;
 };
-
 
 export type MutationCheckoutAddPromoCodeArgs = {
   checkoutId?: InputMaybe<Scalars['ID']>;
@@ -11054,7 +10972,6 @@ export type MutationCheckoutAddPromoCodeArgs = {
   token?: InputMaybe<Scalars['UUID']>;
 };
 
-
 export type MutationCheckoutBillingAddressUpdateArgs = {
   billingAddress: AddressInput;
   checkoutId?: InputMaybe<Scalars['ID']>;
@@ -11062,7 +10979,6 @@ export type MutationCheckoutBillingAddressUpdateArgs = {
   token?: InputMaybe<Scalars['UUID']>;
   validationRules?: InputMaybe<CheckoutAddressValidationRules>;
 };
-
 
 export type MutationCheckoutCompleteArgs = {
   checkoutId?: InputMaybe<Scalars['ID']>;
@@ -11074,11 +10990,9 @@ export type MutationCheckoutCompleteArgs = {
   token?: InputMaybe<Scalars['UUID']>;
 };
 
-
 export type MutationCheckoutCreateArgs = {
   input: CheckoutCreateInput;
 };
-
 
 export type MutationCheckoutCustomerAttachArgs = {
   checkoutId?: InputMaybe<Scalars['ID']>;
@@ -11087,20 +11001,17 @@ export type MutationCheckoutCustomerAttachArgs = {
   token?: InputMaybe<Scalars['UUID']>;
 };
 
-
 export type MutationCheckoutCustomerDetachArgs = {
   checkoutId?: InputMaybe<Scalars['ID']>;
   id?: InputMaybe<Scalars['ID']>;
   token?: InputMaybe<Scalars['UUID']>;
 };
 
-
 export type MutationCheckoutDeliveryMethodUpdateArgs = {
   deliveryMethodId?: InputMaybe<Scalars['ID']>;
   id?: InputMaybe<Scalars['ID']>;
   token?: InputMaybe<Scalars['UUID']>;
 };
-
 
 export type MutationCheckoutEmailUpdateArgs = {
   checkoutId?: InputMaybe<Scalars['ID']>;
@@ -11109,14 +11020,12 @@ export type MutationCheckoutEmailUpdateArgs = {
   token?: InputMaybe<Scalars['UUID']>;
 };
 
-
 export type MutationCheckoutLanguageCodeUpdateArgs = {
   checkoutId?: InputMaybe<Scalars['ID']>;
   id?: InputMaybe<Scalars['ID']>;
   languageCode: LanguageCodeEnum;
   token?: InputMaybe<Scalars['UUID']>;
 };
-
 
 export type MutationCheckoutLineDeleteArgs = {
   checkoutId?: InputMaybe<Scalars['ID']>;
@@ -11125,7 +11034,6 @@ export type MutationCheckoutLineDeleteArgs = {
   token?: InputMaybe<Scalars['UUID']>;
 };
 
-
 export type MutationCheckoutLinesAddArgs = {
   checkoutId?: InputMaybe<Scalars['ID']>;
   id?: InputMaybe<Scalars['ID']>;
@@ -11133,13 +11041,11 @@ export type MutationCheckoutLinesAddArgs = {
   token?: InputMaybe<Scalars['UUID']>;
 };
 
-
 export type MutationCheckoutLinesDeleteArgs = {
   id?: InputMaybe<Scalars['ID']>;
   linesIds: Array<Scalars['ID']>;
   token?: InputMaybe<Scalars['UUID']>;
 };
-
 
 export type MutationCheckoutLinesUpdateArgs = {
   checkoutId?: InputMaybe<Scalars['ID']>;
@@ -11148,14 +11054,12 @@ export type MutationCheckoutLinesUpdateArgs = {
   token?: InputMaybe<Scalars['UUID']>;
 };
 
-
 export type MutationCheckoutPaymentCreateArgs = {
   checkoutId?: InputMaybe<Scalars['ID']>;
   id?: InputMaybe<Scalars['ID']>;
   input: PaymentInput;
   token?: InputMaybe<Scalars['UUID']>;
 };
-
 
 export type MutationCheckoutRemovePromoCodeArgs = {
   checkoutId?: InputMaybe<Scalars['ID']>;
@@ -11165,7 +11069,6 @@ export type MutationCheckoutRemovePromoCodeArgs = {
   token?: InputMaybe<Scalars['UUID']>;
 };
 
-
 export type MutationCheckoutShippingAddressUpdateArgs = {
   checkoutId?: InputMaybe<Scalars['ID']>;
   id?: InputMaybe<Scalars['ID']>;
@@ -11174,7 +11077,6 @@ export type MutationCheckoutShippingAddressUpdateArgs = {
   validationRules?: InputMaybe<CheckoutAddressValidationRules>;
 };
 
-
 export type MutationCheckoutShippingMethodUpdateArgs = {
   checkoutId?: InputMaybe<Scalars['ID']>;
   id?: InputMaybe<Scalars['ID']>;
@@ -11182,45 +11084,37 @@ export type MutationCheckoutShippingMethodUpdateArgs = {
   token?: InputMaybe<Scalars['UUID']>;
 };
 
-
 export type MutationCollectionAddProductsArgs = {
   collectionId: Scalars['ID'];
   products: Array<Scalars['ID']>;
 };
 
-
 export type MutationCollectionBulkDeleteArgs = {
   ids: Array<Scalars['ID']>;
 };
-
 
 export type MutationCollectionChannelListingUpdateArgs = {
   id: Scalars['ID'];
   input: CollectionChannelListingUpdateInput;
 };
 
-
 export type MutationCollectionCreateArgs = {
   input: CollectionCreateInput;
 };
 
-
 export type MutationCollectionDeleteArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationCollectionRemoveProductsArgs = {
   collectionId: Scalars['ID'];
   products: Array<Scalars['ID']>;
 };
 
-
 export type MutationCollectionReorderProductsArgs = {
   collectionId: Scalars['ID'];
   moves: Array<MoveProductInput>;
 };
-
 
 export type MutationCollectionTranslateArgs = {
   id: Scalars['ID'];
@@ -11228,45 +11122,37 @@ export type MutationCollectionTranslateArgs = {
   languageCode: LanguageCodeEnum;
 };
 
-
 export type MutationCollectionUpdateArgs = {
   id: Scalars['ID'];
   input: CollectionInput;
 };
-
 
 export type MutationConfirmAccountArgs = {
   email: Scalars['String'];
   token: Scalars['String'];
 };
 
-
 export type MutationConfirmEmailChangeArgs = {
   channel?: InputMaybe<Scalars['String']>;
   token: Scalars['String'];
 };
 
-
 export type MutationCreateWarehouseArgs = {
   input: WarehouseCreateInput;
 };
-
 
 export type MutationCustomerBulkDeleteArgs = {
   ids: Array<Scalars['ID']>;
 };
 
-
 export type MutationCustomerCreateArgs = {
   input: UserCreateInput;
 };
-
 
 export type MutationCustomerDeleteArgs = {
   externalReference?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
 };
-
 
 export type MutationCustomerUpdateArgs = {
   externalReference?: InputMaybe<Scalars['String']>;
@@ -11274,71 +11160,58 @@ export type MutationCustomerUpdateArgs = {
   input: CustomerInput;
 };
 
-
 export type MutationDeleteMetadataArgs = {
   id: Scalars['ID'];
   keys: Array<Scalars['String']>;
 };
-
 
 export type MutationDeletePrivateMetadataArgs = {
   id: Scalars['ID'];
   keys: Array<Scalars['String']>;
 };
 
-
 export type MutationDeleteWarehouseArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationDigitalContentCreateArgs = {
   input: DigitalContentUploadInput;
   variantId: Scalars['ID'];
 };
 
-
 export type MutationDigitalContentDeleteArgs = {
   variantId: Scalars['ID'];
 };
-
 
 export type MutationDigitalContentUpdateArgs = {
   input: DigitalContentInput;
   variantId: Scalars['ID'];
 };
 
-
 export type MutationDigitalContentUrlCreateArgs = {
   input: DigitalContentUrlCreateInput;
 };
-
 
 export type MutationDraftOrderBulkDeleteArgs = {
   ids: Array<Scalars['ID']>;
 };
 
-
 export type MutationDraftOrderCompleteArgs = {
   id: Scalars['ID'];
 };
 
-
 export type MutationDraftOrderCreateArgs = {
   input: DraftOrderCreateInput;
 };
-
 
 export type MutationDraftOrderDeleteArgs = {
   externalReference?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
 };
 
-
 export type MutationDraftOrderLinesBulkDeleteArgs = {
   ids: Array<Scalars['ID']>;
 };
-
 
 export type MutationDraftOrderUpdateArgs = {
   externalReference?: InputMaybe<Scalars['String']>;
@@ -11346,33 +11219,27 @@ export type MutationDraftOrderUpdateArgs = {
   input: DraftOrderInput;
 };
 
-
 export type MutationEventDeliveryRetryArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationExportGiftCardsArgs = {
   input: ExportGiftCardsInput;
 };
 
-
 export type MutationExportProductsArgs = {
   input: ExportProductsInput;
 };
-
 
 export type MutationExternalAuthenticationUrlArgs = {
   input: Scalars['JSONString'];
   pluginId: Scalars['String'];
 };
 
-
 export type MutationExternalLogoutArgs = {
   input: Scalars['JSONString'];
   pluginId: Scalars['String'];
 };
-
 
 export type MutationExternalNotificationTriggerArgs = {
   channel: Scalars['String'];
@@ -11380,160 +11247,130 @@ export type MutationExternalNotificationTriggerArgs = {
   pluginId?: InputMaybe<Scalars['String']>;
 };
 
-
 export type MutationExternalObtainAccessTokensArgs = {
   input: Scalars['JSONString'];
   pluginId: Scalars['String'];
 };
-
 
 export type MutationExternalRefreshArgs = {
   input: Scalars['JSONString'];
   pluginId: Scalars['String'];
 };
 
-
 export type MutationExternalVerifyArgs = {
   input: Scalars['JSONString'];
   pluginId: Scalars['String'];
 };
 
-
 export type MutationFileUploadArgs = {
   file: Scalars['Upload'];
 };
 
-
 export type MutationGiftCardActivateArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationGiftCardAddNoteArgs = {
   id: Scalars['ID'];
   input: GiftCardAddNoteInput;
 };
 
-
 export type MutationGiftCardBulkActivateArgs = {
   ids: Array<Scalars['ID']>;
 };
-
 
 export type MutationGiftCardBulkCreateArgs = {
   input: GiftCardBulkCreateInput;
 };
 
-
 export type MutationGiftCardBulkDeactivateArgs = {
   ids: Array<Scalars['ID']>;
 };
-
 
 export type MutationGiftCardBulkDeleteArgs = {
   ids: Array<Scalars['ID']>;
 };
 
-
 export type MutationGiftCardCreateArgs = {
   input: GiftCardCreateInput;
 };
-
 
 export type MutationGiftCardDeactivateArgs = {
   id: Scalars['ID'];
 };
 
-
 export type MutationGiftCardDeleteArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationGiftCardResendArgs = {
   input: GiftCardResendInput;
 };
 
-
 export type MutationGiftCardSettingsUpdateArgs = {
   input: GiftCardSettingsUpdateInput;
 };
-
 
 export type MutationGiftCardUpdateArgs = {
   id: Scalars['ID'];
   input: GiftCardUpdateInput;
 };
 
-
 export type MutationInvoiceCreateArgs = {
   input: InvoiceCreateInput;
   orderId: Scalars['ID'];
 };
 
-
 export type MutationInvoiceDeleteArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationInvoiceRequestArgs = {
   number?: InputMaybe<Scalars['String']>;
   orderId: Scalars['ID'];
 };
 
-
 export type MutationInvoiceRequestDeleteArgs = {
   id: Scalars['ID'];
 };
 
-
 export type MutationInvoiceSendNotificationArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationInvoiceUpdateArgs = {
   id: Scalars['ID'];
   input: UpdateInvoiceInput;
 };
 
-
 export type MutationMenuBulkDeleteArgs = {
   ids: Array<Scalars['ID']>;
 };
-
 
 export type MutationMenuCreateArgs = {
   input: MenuCreateInput;
 };
 
-
 export type MutationMenuDeleteArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationMenuItemBulkDeleteArgs = {
   ids: Array<Scalars['ID']>;
 };
 
-
 export type MutationMenuItemCreateArgs = {
   input: MenuItemCreateInput;
 };
-
 
 export type MutationMenuItemDeleteArgs = {
   id: Scalars['ID'];
 };
 
-
 export type MutationMenuItemMoveArgs = {
   menu: Scalars['ID'];
   moves: Array<MenuItemMoveInput>;
 };
-
 
 export type MutationMenuItemTranslateArgs = {
   id: Scalars['ID'];
@@ -11541,45 +11378,37 @@ export type MutationMenuItemTranslateArgs = {
   languageCode: LanguageCodeEnum;
 };
 
-
 export type MutationMenuItemUpdateArgs = {
   id: Scalars['ID'];
   input: MenuItemInput;
 };
-
 
 export type MutationMenuUpdateArgs = {
   id: Scalars['ID'];
   input: MenuInput;
 };
 
-
 export type MutationOrderAddNoteArgs = {
   input: OrderAddNoteInput;
   order: Scalars['ID'];
 };
 
-
 export type MutationOrderBulkCancelArgs = {
   ids: Array<Scalars['ID']>;
 };
 
-
 export type MutationOrderCancelArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationOrderCaptureArgs = {
   amount: Scalars['PositiveDecimal'];
   id: Scalars['ID'];
 };
 
-
 export type MutationOrderConfirmArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationOrderCreateFromCheckoutArgs = {
   id: Scalars['ID'];
@@ -11588,29 +11417,24 @@ export type MutationOrderCreateFromCheckoutArgs = {
   removeCheckout?: InputMaybe<Scalars['Boolean']>;
 };
 
-
 export type MutationOrderDiscountAddArgs = {
   input: OrderDiscountCommonInput;
   orderId: Scalars['ID'];
 };
 
-
 export type MutationOrderDiscountDeleteArgs = {
   discountId: Scalars['ID'];
 };
-
 
 export type MutationOrderDiscountUpdateArgs = {
   discountId: Scalars['ID'];
   input: OrderDiscountCommonInput;
 };
 
-
 export type MutationOrderFulfillArgs = {
   input: OrderFulfillInput;
   order?: InputMaybe<Scalars['ID']>;
 };
-
 
 export type MutationOrderFulfillmentApproveArgs = {
   allowStockToBeExceeded?: InputMaybe<Scalars['Boolean']>;
@@ -11618,75 +11442,62 @@ export type MutationOrderFulfillmentApproveArgs = {
   notifyCustomer: Scalars['Boolean'];
 };
 
-
 export type MutationOrderFulfillmentCancelArgs = {
   id: Scalars['ID'];
   input?: InputMaybe<FulfillmentCancelInput>;
 };
-
 
 export type MutationOrderFulfillmentRefundProductsArgs = {
   input: OrderRefundProductsInput;
   order: Scalars['ID'];
 };
 
-
 export type MutationOrderFulfillmentReturnProductsArgs = {
   input: OrderReturnProductsInput;
   order: Scalars['ID'];
 };
-
 
 export type MutationOrderFulfillmentUpdateTrackingArgs = {
   id: Scalars['ID'];
   input: FulfillmentUpdateTrackingInput;
 };
 
-
 export type MutationOrderLineDeleteArgs = {
   id: Scalars['ID'];
 };
 
-
 export type MutationOrderLineDiscountRemoveArgs = {
   orderLineId: Scalars['ID'];
 };
-
 
 export type MutationOrderLineDiscountUpdateArgs = {
   input: OrderDiscountCommonInput;
   orderLineId: Scalars['ID'];
 };
 
-
 export type MutationOrderLineUpdateArgs = {
   id: Scalars['ID'];
   input: OrderLineInput;
 };
-
 
 export type MutationOrderLinesCreateArgs = {
   id: Scalars['ID'];
   input: Array<OrderLineCreateInput>;
 };
 
-
 export type MutationOrderMarkAsPaidArgs = {
   id: Scalars['ID'];
   transactionReference?: InputMaybe<Scalars['String']>;
 };
-
 
 export type MutationOrderRefundArgs = {
   amount: Scalars['PositiveDecimal'];
   id: Scalars['ID'];
 };
 
-
 export type MutationOrderSettingsUpdateArgs = {
   input: OrderSettingsUpdateInput;
 };
-
 
 export type MutationOrderUpdateArgs = {
   externalReference?: InputMaybe<Scalars['String']>;
@@ -11694,50 +11505,41 @@ export type MutationOrderUpdateArgs = {
   input: OrderUpdateInput;
 };
 
-
 export type MutationOrderUpdateShippingArgs = {
   input: OrderUpdateShippingInput;
   order: Scalars['ID'];
 };
 
-
 export type MutationOrderVoidArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationPageAttributeAssignArgs = {
   attributeIds: Array<Scalars['ID']>;
   pageTypeId: Scalars['ID'];
 };
 
-
 export type MutationPageAttributeUnassignArgs = {
   attributeIds: Array<Scalars['ID']>;
   pageTypeId: Scalars['ID'];
 };
 
-
 export type MutationPageBulkDeleteArgs = {
   ids: Array<Scalars['ID']>;
 };
-
 
 export type MutationPageBulkPublishArgs = {
   ids: Array<Scalars['ID']>;
   isPublished: Scalars['Boolean'];
 };
 
-
 export type MutationPageCreateArgs = {
   input: PageCreateInput;
 };
 
-
 export type MutationPageDeleteArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationPageReorderAttributeValuesArgs = {
   attributeId: Scalars['ID'];
@@ -11745,63 +11547,52 @@ export type MutationPageReorderAttributeValuesArgs = {
   pageId: Scalars['ID'];
 };
 
-
 export type MutationPageTranslateArgs = {
   id: Scalars['ID'];
   input: PageTranslationInput;
   languageCode: LanguageCodeEnum;
 };
 
-
 export type MutationPageTypeBulkDeleteArgs = {
   ids: Array<Scalars['ID']>;
 };
-
 
 export type MutationPageTypeCreateArgs = {
   input: PageTypeCreateInput;
 };
 
-
 export type MutationPageTypeDeleteArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationPageTypeReorderAttributesArgs = {
   moves: Array<ReorderInput>;
   pageTypeId: Scalars['ID'];
 };
 
-
 export type MutationPageTypeUpdateArgs = {
   id?: InputMaybe<Scalars['ID']>;
   input: PageTypeUpdateInput;
 };
-
 
 export type MutationPageUpdateArgs = {
   id: Scalars['ID'];
   input: PageInput;
 };
 
-
 export type MutationPasswordChangeArgs = {
   newPassword: Scalars['String'];
   oldPassword: Scalars['String'];
 };
-
 
 export type MutationPaymentCaptureArgs = {
   amount?: InputMaybe<Scalars['PositiveDecimal']>;
   paymentId: Scalars['ID'];
 };
 
-
 export type MutationPaymentCheckBalanceArgs = {
   input: PaymentCheckBalanceInput;
 };
-
 
 export type MutationPaymentInitializeArgs = {
   channel?: InputMaybe<Scalars['String']>;
@@ -11809,33 +11600,27 @@ export type MutationPaymentInitializeArgs = {
   paymentData?: InputMaybe<Scalars['JSONString']>;
 };
 
-
 export type MutationPaymentRefundArgs = {
   amount?: InputMaybe<Scalars['PositiveDecimal']>;
   paymentId: Scalars['ID'];
 };
 
-
 export type MutationPaymentVoidArgs = {
   paymentId: Scalars['ID'];
 };
-
 
 export type MutationPermissionGroupCreateArgs = {
   input: PermissionGroupCreateInput;
 };
 
-
 export type MutationPermissionGroupDeleteArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationPermissionGroupUpdateArgs = {
   id: Scalars['ID'];
   input: PermissionGroupUpdateInput;
 };
-
 
 export type MutationPluginUpdateArgs = {
   channelId?: InputMaybe<Scalars['ID']>;
@@ -11843,73 +11628,60 @@ export type MutationPluginUpdateArgs = {
   input: PluginUpdateInput;
 };
 
-
 export type MutationProductAttributeAssignArgs = {
   operations: Array<ProductAttributeAssignInput>;
   productTypeId: Scalars['ID'];
 };
-
 
 export type MutationProductAttributeAssignmentUpdateArgs = {
   operations: Array<ProductAttributeAssignmentUpdateInput>;
   productTypeId: Scalars['ID'];
 };
 
-
 export type MutationProductAttributeUnassignArgs = {
   attributeIds: Array<Scalars['ID']>;
   productTypeId: Scalars['ID'];
 };
 
-
 export type MutationProductBulkDeleteArgs = {
   ids: Array<Scalars['ID']>;
 };
-
 
 export type MutationProductChannelListingUpdateArgs = {
   id: Scalars['ID'];
   input: ProductChannelListingUpdateInput;
 };
 
-
 export type MutationProductCreateArgs = {
   input: ProductCreateInput;
 };
-
 
 export type MutationProductDeleteArgs = {
   externalReference?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
 };
 
-
 export type MutationProductMediaBulkDeleteArgs = {
   ids: Array<Scalars['ID']>;
 };
-
 
 export type MutationProductMediaCreateArgs = {
   input: ProductMediaCreateInput;
 };
 
-
 export type MutationProductMediaDeleteArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationProductMediaReorderArgs = {
   mediaIds: Array<Scalars['ID']>;
   productId: Scalars['ID'];
 };
 
-
 export type MutationProductMediaUpdateArgs = {
   id: Scalars['ID'];
   input: ProductMediaUpdateInput;
 };
-
 
 export type MutationProductReorderAttributeValuesArgs = {
   attributeId: Scalars['ID'];
@@ -11917,28 +11689,23 @@ export type MutationProductReorderAttributeValuesArgs = {
   productId: Scalars['ID'];
 };
 
-
 export type MutationProductTranslateArgs = {
   id: Scalars['ID'];
   input: TranslationInput;
   languageCode: LanguageCodeEnum;
 };
 
-
 export type MutationProductTypeBulkDeleteArgs = {
   ids: Array<Scalars['ID']>;
 };
-
 
 export type MutationProductTypeCreateArgs = {
   input: ProductTypeInput;
 };
 
-
 export type MutationProductTypeDeleteArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationProductTypeReorderAttributesArgs = {
   moves: Array<ReorderInput>;
@@ -11946,12 +11713,10 @@ export type MutationProductTypeReorderAttributesArgs = {
   type: ProductAttributeType;
 };
 
-
 export type MutationProductTypeUpdateArgs = {
   id: Scalars['ID'];
   input: ProductTypeInput;
 };
-
 
 export type MutationProductUpdateArgs = {
   externalReference?: InputMaybe<Scalars['String']>;
@@ -11959,19 +11724,16 @@ export type MutationProductUpdateArgs = {
   input: ProductInput;
 };
 
-
 export type MutationProductVariantBulkCreateArgs = {
   errorPolicy?: InputMaybe<ErrorPolicyEnum>;
   product: Scalars['ID'];
   variants: Array<ProductVariantBulkCreateInput>;
 };
 
-
 export type MutationProductVariantBulkDeleteArgs = {
   ids?: InputMaybe<Array<Scalars['ID']>>;
   skus?: InputMaybe<Array<Scalars['String']>>;
 };
-
 
 export type MutationProductVariantBulkUpdateArgs = {
   errorPolicy?: InputMaybe<ErrorPolicyEnum>;
@@ -11979,18 +11741,15 @@ export type MutationProductVariantBulkUpdateArgs = {
   variants: Array<ProductVariantBulkUpdateInput>;
 };
 
-
 export type MutationProductVariantChannelListingUpdateArgs = {
   id?: InputMaybe<Scalars['ID']>;
   input: Array<ProductVariantChannelListingAddInput>;
   sku?: InputMaybe<Scalars['String']>;
 };
 
-
 export type MutationProductVariantCreateArgs = {
   input: ProductVariantCreateInput;
 };
-
 
 export type MutationProductVariantDeleteArgs = {
   externalReference?: InputMaybe<Scalars['String']>;
@@ -11998,17 +11757,14 @@ export type MutationProductVariantDeleteArgs = {
   sku?: InputMaybe<Scalars['String']>;
 };
 
-
 export type MutationProductVariantPreorderDeactivateArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationProductVariantReorderArgs = {
   moves: Array<ReorderInput>;
   productId: Scalars['ID'];
 };
-
 
 export type MutationProductVariantReorderAttributeValuesArgs = {
   attributeId: Scalars['ID'];
@@ -12016,18 +11772,15 @@ export type MutationProductVariantReorderAttributeValuesArgs = {
   variantId: Scalars['ID'];
 };
 
-
 export type MutationProductVariantSetDefaultArgs = {
   productId: Scalars['ID'];
   variantId: Scalars['ID'];
 };
 
-
 export type MutationProductVariantStocksCreateArgs = {
   stocks: Array<StockInput>;
   variantId: Scalars['ID'];
 };
-
 
 export type MutationProductVariantStocksDeleteArgs = {
   sku?: InputMaybe<Scalars['String']>;
@@ -12035,20 +11788,17 @@ export type MutationProductVariantStocksDeleteArgs = {
   warehouseIds?: InputMaybe<Array<Scalars['ID']>>;
 };
 
-
 export type MutationProductVariantStocksUpdateArgs = {
   sku?: InputMaybe<Scalars['String']>;
   stocks: Array<StockInput>;
   variantId?: InputMaybe<Scalars['ID']>;
 };
 
-
 export type MutationProductVariantTranslateArgs = {
   id: Scalars['ID'];
   input: NameTranslationInput;
   languageCode: LanguageCodeEnum;
 };
-
 
 export type MutationProductVariantUpdateArgs = {
   externalReference?: InputMaybe<Scalars['String']>;
@@ -12057,7 +11807,6 @@ export type MutationProductVariantUpdateArgs = {
   sku?: InputMaybe<Scalars['String']>;
 };
 
-
 export type MutationRequestEmailChangeArgs = {
   channel?: InputMaybe<Scalars['String']>;
   newEmail: Scalars['String'];
@@ -12065,46 +11814,38 @@ export type MutationRequestEmailChangeArgs = {
   redirectUrl: Scalars['String'];
 };
 
-
 export type MutationRequestPasswordResetArgs = {
   channel?: InputMaybe<Scalars['String']>;
   email: Scalars['String'];
   redirectUrl: Scalars['String'];
 };
 
-
 export type MutationSaleBulkDeleteArgs = {
   ids: Array<Scalars['ID']>;
 };
-
 
 export type MutationSaleCataloguesAddArgs = {
   id: Scalars['ID'];
   input: CatalogueInput;
 };
 
-
 export type MutationSaleCataloguesRemoveArgs = {
   id: Scalars['ID'];
   input: CatalogueInput;
 };
-
 
 export type MutationSaleChannelListingUpdateArgs = {
   id: Scalars['ID'];
   input: SaleChannelListingInput;
 };
 
-
 export type MutationSaleCreateArgs = {
   input: SaleInput;
 };
 
-
 export type MutationSaleDeleteArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationSaleTranslateArgs = {
   id: Scalars['ID'];
@@ -12112,12 +11853,10 @@ export type MutationSaleTranslateArgs = {
   languageCode: LanguageCodeEnum;
 };
 
-
 export type MutationSaleUpdateArgs = {
   id: Scalars['ID'];
   input: SaleInput;
 };
-
 
 export type MutationSetPasswordArgs = {
   email: Scalars['String'];
@@ -12125,39 +11864,32 @@ export type MutationSetPasswordArgs = {
   token: Scalars['String'];
 };
 
-
 export type MutationShippingMethodChannelListingUpdateArgs = {
   id: Scalars['ID'];
   input: ShippingMethodChannelListingInput;
 };
 
-
 export type MutationShippingPriceBulkDeleteArgs = {
   ids: Array<Scalars['ID']>;
 };
-
 
 export type MutationShippingPriceCreateArgs = {
   input: ShippingPriceInput;
 };
 
-
 export type MutationShippingPriceDeleteArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationShippingPriceExcludeProductsArgs = {
   id: Scalars['ID'];
   input: ShippingPriceExcludeProductsInput;
 };
 
-
 export type MutationShippingPriceRemoveProductFromExcludeArgs = {
   id: Scalars['ID'];
   products: Array<Scalars['ID']>;
 };
-
 
 export type MutationShippingPriceTranslateArgs = {
   id: Scalars['ID'];
@@ -12165,130 +11897,106 @@ export type MutationShippingPriceTranslateArgs = {
   languageCode: LanguageCodeEnum;
 };
 
-
 export type MutationShippingPriceUpdateArgs = {
   id: Scalars['ID'];
   input: ShippingPriceInput;
 };
 
-
 export type MutationShippingZoneBulkDeleteArgs = {
   ids: Array<Scalars['ID']>;
 };
-
 
 export type MutationShippingZoneCreateArgs = {
   input: ShippingZoneCreateInput;
 };
 
-
 export type MutationShippingZoneDeleteArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationShippingZoneUpdateArgs = {
   id: Scalars['ID'];
   input: ShippingZoneUpdateInput;
 };
 
-
 export type MutationShopAddressUpdateArgs = {
   input?: InputMaybe<AddressInput>;
 };
 
-
 export type MutationShopDomainUpdateArgs = {
   input?: InputMaybe<SiteDomainInput>;
 };
-
 
 export type MutationShopSettingsTranslateArgs = {
   input: ShopSettingsTranslationInput;
   languageCode: LanguageCodeEnum;
 };
 
-
 export type MutationShopSettingsUpdateArgs = {
   input: ShopSettingsInput;
 };
-
 
 export type MutationStaffBulkDeleteArgs = {
   ids: Array<Scalars['ID']>;
 };
 
-
 export type MutationStaffCreateArgs = {
   input: StaffCreateInput;
 };
-
 
 export type MutationStaffDeleteArgs = {
   id: Scalars['ID'];
 };
 
-
 export type MutationStaffNotificationRecipientCreateArgs = {
   input: StaffNotificationRecipientInput;
 };
 
-
 export type MutationStaffNotificationRecipientDeleteArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationStaffNotificationRecipientUpdateArgs = {
   id: Scalars['ID'];
   input: StaffNotificationRecipientInput;
 };
 
-
 export type MutationStaffUpdateArgs = {
   id: Scalars['ID'];
   input: StaffUpdateInput;
 };
 
-
 export type MutationTaxClassCreateArgs = {
   input: TaxClassCreateInput;
 };
 
-
 export type MutationTaxClassDeleteArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationTaxClassUpdateArgs = {
   id: Scalars['ID'];
   input: TaxClassUpdateInput;
 };
 
-
 export type MutationTaxConfigurationUpdateArgs = {
   id: Scalars['ID'];
   input: TaxConfigurationUpdateInput;
 };
 
-
 export type MutationTaxCountryConfigurationDeleteArgs = {
   countryCode: CountryCode;
 };
-
 
 export type MutationTaxCountryConfigurationUpdateArgs = {
   countryCode: CountryCode;
   updateTaxClassRates: Array<TaxClassRateInput>;
 };
 
-
 export type MutationTaxExemptionManageArgs = {
   id: Scalars['ID'];
   taxExemption: Scalars['Boolean'];
 };
-
 
 export type MutationTokenCreateArgs = {
   audience?: InputMaybe<Scalars['String']>;
@@ -12296,17 +12004,14 @@ export type MutationTokenCreateArgs = {
   password: Scalars['String'];
 };
 
-
 export type MutationTokenRefreshArgs = {
   csrfToken?: InputMaybe<Scalars['String']>;
   refreshToken?: InputMaybe<Scalars['String']>;
 };
 
-
 export type MutationTokenVerifyArgs = {
   token: Scalars['String'];
 };
-
 
 export type MutationTransactionCreateArgs = {
   id: Scalars['ID'];
@@ -12314,13 +12019,11 @@ export type MutationTransactionCreateArgs = {
   transactionEvent?: InputMaybe<TransactionEventInput>;
 };
 
-
 export type MutationTransactionRequestActionArgs = {
   actionType: TransactionActionEnum;
   amount?: InputMaybe<Scalars['PositiveDecimal']>;
   id: Scalars['ID'];
 };
-
 
 export type MutationTransactionUpdateArgs = {
   id: Scalars['ID'];
@@ -12328,86 +12031,71 @@ export type MutationTransactionUpdateArgs = {
   transactionEvent?: InputMaybe<TransactionEventInput>;
 };
 
-
 export type MutationUnassignWarehouseShippingZoneArgs = {
   id: Scalars['ID'];
   shippingZoneIds: Array<Scalars['ID']>;
 };
-
 
 export type MutationUpdateMetadataArgs = {
   id: Scalars['ID'];
   input: Array<MetadataInput>;
 };
 
-
 export type MutationUpdatePrivateMetadataArgs = {
   id: Scalars['ID'];
   input: Array<MetadataInput>;
 };
-
 
 export type MutationUpdateWarehouseArgs = {
   id: Scalars['ID'];
   input: WarehouseUpdateInput;
 };
 
-
 export type MutationUserAvatarUpdateArgs = {
   image: Scalars['Upload'];
 };
-
 
 export type MutationUserBulkSetActiveArgs = {
   ids: Array<Scalars['ID']>;
   isActive: Scalars['Boolean'];
 };
 
-
 export type MutationVariantMediaAssignArgs = {
   mediaId: Scalars['ID'];
   variantId: Scalars['ID'];
 };
-
 
 export type MutationVariantMediaUnassignArgs = {
   mediaId: Scalars['ID'];
   variantId: Scalars['ID'];
 };
 
-
 export type MutationVoucherBulkDeleteArgs = {
   ids: Array<Scalars['ID']>;
 };
-
 
 export type MutationVoucherCataloguesAddArgs = {
   id: Scalars['ID'];
   input: CatalogueInput;
 };
 
-
 export type MutationVoucherCataloguesRemoveArgs = {
   id: Scalars['ID'];
   input: CatalogueInput;
 };
-
 
 export type MutationVoucherChannelListingUpdateArgs = {
   id: Scalars['ID'];
   input: VoucherChannelListingInput;
 };
 
-
 export type MutationVoucherCreateArgs = {
   input: VoucherInput;
 };
 
-
 export type MutationVoucherDeleteArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationVoucherTranslateArgs = {
   id: Scalars['ID'];
@@ -12415,34 +12103,28 @@ export type MutationVoucherTranslateArgs = {
   languageCode: LanguageCodeEnum;
 };
 
-
 export type MutationVoucherUpdateArgs = {
   id: Scalars['ID'];
   input: VoucherInput;
 };
 
-
 export type MutationWebhookCreateArgs = {
   input: WebhookCreateInput;
 };
 
-
 export type MutationWebhookDeleteArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationWebhookDryRunArgs = {
   objectId: Scalars['ID'];
   query: Scalars['String'];
 };
 
-
 export type MutationWebhookTriggerArgs = {
   objectId: Scalars['ID'];
   webhookId: Scalars['ID'];
 };
-
 
 export type MutationWebhookUpdateArgs = {
   id: Scalars['ID'];
@@ -12457,7 +12139,7 @@ export enum NavigationType {
   /** Main storefront navigation. */
   Main = 'MAIN',
   /** Secondary storefront navigation. */
-  Secondary = 'SECONDARY'
+  Secondary = 'SECONDARY',
 }
 
 /** An object with an ID */
@@ -12489,300 +12171,293 @@ export type ObjectWithMetadata = {
   privateMetafields?: Maybe<Scalars['Metadata']>;
 };
 
-
 export type ObjectWithMetadataMetafieldArgs = {
   key: Scalars['String'];
 };
-
 
 export type ObjectWithMetadataMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
 
-
 export type ObjectWithMetadataPrivateMetafieldArgs = {
   key: Scalars['String'];
 };
-
 
 export type ObjectWithMetadataPrivateMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
 
 /** Represents an order in the shop. */
-export type Order = Node & ObjectWithMetadata & {
-  __typename?: 'Order';
-  /** List of actions that can be performed in the current state of an order. */
-  actions: Array<OrderAction>;
-  /**
-   * The authorize status of the order.
-   *
-   * Added in Saleor 3.4.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  authorizeStatus: OrderAuthorizeStatusEnum;
-  /**
-   * Collection points that can be used for this order.
-   *
-   * Added in Saleor 3.1.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  availableCollectionPoints: Array<Warehouse>;
-  /**
-   * Shipping methods that can be used with this order.
-   * @deprecated Use `shippingMethods`, this field will be removed in 4.0
-   */
-  availableShippingMethods?: Maybe<Array<ShippingMethod>>;
-  /** Billing address. The full data can be access for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER. */
-  billingAddress?: Maybe<Address>;
-  /** Informs whether a draft order can be finalized(turned into a regular order). */
-  canFinalize: Scalars['Boolean'];
-  channel: Channel;
-  /**
-   * The charge status of the order.
-   *
-   * Added in Saleor 3.4.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  chargeStatus: OrderChargeStatusEnum;
-  /**
-   * ID of the checkout that the order was created from.
-   *
-   * Added in Saleor 3.11.
-   */
-  checkoutId?: Maybe<Scalars['ID']>;
-  collectionPointName?: Maybe<Scalars['String']>;
-  created: Scalars['DateTime'];
-  customerNote: Scalars['String'];
-  /**
-   * The delivery method selected for this order.
-   *
-   * Added in Saleor 3.1.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  deliveryMethod?: Maybe<DeliveryMethod>;
-  /**
-   * Returns applied discount.
-   * @deprecated This field will be removed in Saleor 4.0. Use the `discounts` field instead.
-   */
-  discount?: Maybe<Money>;
-  /**
-   * Discount name.
-   * @deprecated This field will be removed in Saleor 4.0. Use the `discounts` field instead.
-   */
-  discountName?: Maybe<Scalars['String']>;
-  /** List of all discounts assigned to the order. */
-  discounts: Array<OrderDiscount>;
-  /**
-   * Determines whether checkout prices should include taxes when displayed in a storefront.
-   *
-   * Added in Saleor 3.9.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  displayGrossPrices: Scalars['Boolean'];
-  /** List of errors that occurred during order validation. */
-  errors: Array<OrderError>;
-  /**
-   * List of events associated with the order.
-   *
-   * Requires one of the following permissions: MANAGE_ORDERS.
-   */
-  events: Array<OrderEvent>;
-  /**
-   * External ID of this order.
-   *
-   * Added in Saleor 3.10.
-   */
-  externalReference?: Maybe<Scalars['String']>;
-  /** List of shipments for the order. */
-  fulfillments: Array<Fulfillment>;
-  /** List of user gift cards. */
-  giftCards: Array<GiftCard>;
-  id: Scalars['ID'];
-  /** List of order invoices. Can be fetched for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER. */
-  invoices: Array<Invoice>;
-  /** Informs if an order is fully paid. */
-  isPaid: Scalars['Boolean'];
-  /** Returns True, if order requires shipping. */
-  isShippingRequired: Scalars['Boolean'];
-  /** @deprecated This field will be removed in Saleor 4.0. Use the `languageCodeEnum` field to fetch the language code.  */
-  languageCode: Scalars['String'];
-  /** Order language code. */
-  languageCodeEnum: LanguageCodeEnum;
-  /** List of order lines. */
-  lines: Array<OrderLine>;
-  /** List of public metadata items. Can be accessed without permissions. */
-  metadata: Array<MetadataItem>;
-  /**
-   * A single key from public metadata.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafield?: Maybe<Scalars['String']>;
-  /**
-   * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafields?: Maybe<Scalars['Metadata']>;
-  /** User-friendly number of an order. */
-  number: Scalars['String'];
-  /** The order origin. */
-  origin: OrderOriginEnum;
-  /** The ID of the order that was the base for this order. */
-  original?: Maybe<Scalars['ID']>;
-  /** Internal payment status. */
-  paymentStatus: PaymentChargeStatusEnum;
-  /** User-friendly payment status. */
-  paymentStatusDisplay: Scalars['String'];
-  /** List of payments for the order. */
-  payments: Array<Payment>;
-  /** List of private metadata items. Requires staff permissions to access. */
-  privateMetadata: Array<MetadataItem>;
-  /**
-   * A single key from private metadata. Requires staff permissions to access.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafield?: Maybe<Scalars['String']>;
-  /**
-   * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafields?: Maybe<Scalars['Metadata']>;
-  redirectUrl?: Maybe<Scalars['String']>;
-  /** Shipping address. The full data can be access for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER. */
-  shippingAddress?: Maybe<Address>;
-  /**
-   * Shipping method for this order.
-   * @deprecated This field will be removed in Saleor 4.0. Use `deliveryMethod` instead.
-   */
-  shippingMethod?: Maybe<ShippingMethod>;
-  shippingMethodName?: Maybe<Scalars['String']>;
-  /** Shipping methods related to this order. */
-  shippingMethods: Array<ShippingMethod>;
-  /** Total price of shipping. */
-  shippingPrice: TaxedMoney;
-  /**
-   * Denormalized tax class assigned to the shipping method.
-   *
-   * Added in Saleor 3.9.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   *
-   * Requires one of the following permissions: AUTHENTICATED_STAFF_USER.
-   */
-  shippingTaxClass?: Maybe<TaxClass>;
-  /**
-   * Denormalized public metadata of the shipping method's tax class.
-   *
-   * Added in Saleor 3.9.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  shippingTaxClassMetadata: Array<MetadataItem>;
-  /**
-   * Denormalized name of the tax class assigned to the shipping method.
-   *
-   * Added in Saleor 3.9.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  shippingTaxClassName?: Maybe<Scalars['String']>;
-  /**
-   * Denormalized private metadata of the shipping method's tax class. Requires staff permissions to access.
-   *
-   * Added in Saleor 3.9.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  shippingTaxClassPrivateMetadata: Array<MetadataItem>;
-  /** The shipping tax rate value. */
-  shippingTaxRate: Scalars['Float'];
-  status: OrderStatus;
-  /** User-friendly order status. */
-  statusDisplay: Scalars['String'];
-  /** The sum of line prices not including shipping. */
-  subtotal: TaxedMoney;
-  /**
-   * Returns True if order has to be exempt from taxes.
-   *
-   * Added in Saleor 3.8.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  taxExemption: Scalars['Boolean'];
-  /** @deprecated This field will be removed in Saleor 4.0. Use `id` instead. */
-  token: Scalars['String'];
-  /** Total amount of the order. */
-  total: TaxedMoney;
-  /** Amount authorized for the order. */
-  totalAuthorized: Money;
-  /** The difference between the paid and the order total amount. */
-  totalBalance: Money;
-  /** Amount captured by payment. */
-  totalCaptured: Money;
-  trackingClientId: Scalars['String'];
-  /**
-   * List of transactions for the order. Requires one of the following permissions: MANAGE_ORDERS, HANDLE_PAYMENTS.
-   *
-   * Added in Saleor 3.4.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  transactions: Array<TransactionItem>;
-  /**
-   * Translated discount name.
-   * @deprecated This field will be removed in Saleor 4.0. Use the `discounts` field instead.
-   */
-  translatedDiscountName?: Maybe<Scalars['String']>;
-  /** Undiscounted total amount of the order. */
-  undiscountedTotal: TaxedMoney;
-  updatedAt: Scalars['DateTime'];
-  /** User who placed the order. This field is set only for orders placed by authenticated users. Can be fetched for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_USERS, MANAGE_ORDERS, OWNER. */
-  user?: Maybe<User>;
-  /** Email address of the customer. The full data can be access for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER. */
-  userEmail?: Maybe<Scalars['String']>;
-  voucher?: Maybe<Voucher>;
-  weight: Weight;
-};
-
+export type Order = Node &
+  ObjectWithMetadata & {
+    __typename?: 'Order';
+    /** List of actions that can be performed in the current state of an order. */
+    actions: Array<OrderAction>;
+    /**
+     * The authorize status of the order.
+     *
+     * Added in Saleor 3.4.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    authorizeStatus: OrderAuthorizeStatusEnum;
+    /**
+     * Collection points that can be used for this order.
+     *
+     * Added in Saleor 3.1.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    availableCollectionPoints: Array<Warehouse>;
+    /**
+     * Shipping methods that can be used with this order.
+     * @deprecated Use `shippingMethods`, this field will be removed in 4.0
+     */
+    availableShippingMethods?: Maybe<Array<ShippingMethod>>;
+    /** Billing address. The full data can be access for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER. */
+    billingAddress?: Maybe<Address>;
+    /** Informs whether a draft order can be finalized(turned into a regular order). */
+    canFinalize: Scalars['Boolean'];
+    channel: Channel;
+    /**
+     * The charge status of the order.
+     *
+     * Added in Saleor 3.4.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    chargeStatus: OrderChargeStatusEnum;
+    /**
+     * ID of the checkout that the order was created from.
+     *
+     * Added in Saleor 3.11.
+     */
+    checkoutId?: Maybe<Scalars['ID']>;
+    collectionPointName?: Maybe<Scalars['String']>;
+    created: Scalars['DateTime'];
+    customerNote: Scalars['String'];
+    /**
+     * The delivery method selected for this order.
+     *
+     * Added in Saleor 3.1.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    deliveryMethod?: Maybe<DeliveryMethod>;
+    /**
+     * Returns applied discount.
+     * @deprecated This field will be removed in Saleor 4.0. Use the `discounts` field instead.
+     */
+    discount?: Maybe<Money>;
+    /**
+     * Discount name.
+     * @deprecated This field will be removed in Saleor 4.0. Use the `discounts` field instead.
+     */
+    discountName?: Maybe<Scalars['String']>;
+    /** List of all discounts assigned to the order. */
+    discounts: Array<OrderDiscount>;
+    /**
+     * Determines whether checkout prices should include taxes when displayed in a storefront.
+     *
+     * Added in Saleor 3.9.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    displayGrossPrices: Scalars['Boolean'];
+    /** List of errors that occurred during order validation. */
+    errors: Array<OrderError>;
+    /**
+     * List of events associated with the order.
+     *
+     * Requires one of the following permissions: MANAGE_ORDERS.
+     */
+    events: Array<OrderEvent>;
+    /**
+     * External ID of this order.
+     *
+     * Added in Saleor 3.10.
+     */
+    externalReference?: Maybe<Scalars['String']>;
+    /** List of shipments for the order. */
+    fulfillments: Array<Fulfillment>;
+    /** List of user gift cards. */
+    giftCards: Array<GiftCard>;
+    id: Scalars['ID'];
+    /** List of order invoices. Can be fetched for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER. */
+    invoices: Array<Invoice>;
+    /** Informs if an order is fully paid. */
+    isPaid: Scalars['Boolean'];
+    /** Returns True, if order requires shipping. */
+    isShippingRequired: Scalars['Boolean'];
+    /** @deprecated This field will be removed in Saleor 4.0. Use the `languageCodeEnum` field to fetch the language code.  */
+    languageCode: Scalars['String'];
+    /** Order language code. */
+    languageCodeEnum: LanguageCodeEnum;
+    /** List of order lines. */
+    lines: Array<OrderLine>;
+    /** List of public metadata items. Can be accessed without permissions. */
+    metadata: Array<MetadataItem>;
+    /**
+     * A single key from public metadata.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafield?: Maybe<Scalars['String']>;
+    /**
+     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafields?: Maybe<Scalars['Metadata']>;
+    /** User-friendly number of an order. */
+    number: Scalars['String'];
+    /** The order origin. */
+    origin: OrderOriginEnum;
+    /** The ID of the order that was the base for this order. */
+    original?: Maybe<Scalars['ID']>;
+    /** Internal payment status. */
+    paymentStatus: PaymentChargeStatusEnum;
+    /** User-friendly payment status. */
+    paymentStatusDisplay: Scalars['String'];
+    /** List of payments for the order. */
+    payments: Array<Payment>;
+    /** List of private metadata items. Requires staff permissions to access. */
+    privateMetadata: Array<MetadataItem>;
+    /**
+     * A single key from private metadata. Requires staff permissions to access.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafield?: Maybe<Scalars['String']>;
+    /**
+     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafields?: Maybe<Scalars['Metadata']>;
+    redirectUrl?: Maybe<Scalars['String']>;
+    /** Shipping address. The full data can be access for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER. */
+    shippingAddress?: Maybe<Address>;
+    /**
+     * Shipping method for this order.
+     * @deprecated This field will be removed in Saleor 4.0. Use `deliveryMethod` instead.
+     */
+    shippingMethod?: Maybe<ShippingMethod>;
+    shippingMethodName?: Maybe<Scalars['String']>;
+    /** Shipping methods related to this order. */
+    shippingMethods: Array<ShippingMethod>;
+    /** Total price of shipping. */
+    shippingPrice: TaxedMoney;
+    /**
+     * Denormalized tax class assigned to the shipping method.
+     *
+     * Added in Saleor 3.9.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     *
+     * Requires one of the following permissions: AUTHENTICATED_STAFF_USER.
+     */
+    shippingTaxClass?: Maybe<TaxClass>;
+    /**
+     * Denormalized public metadata of the shipping method's tax class.
+     *
+     * Added in Saleor 3.9.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    shippingTaxClassMetadata: Array<MetadataItem>;
+    /**
+     * Denormalized name of the tax class assigned to the shipping method.
+     *
+     * Added in Saleor 3.9.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    shippingTaxClassName?: Maybe<Scalars['String']>;
+    /**
+     * Denormalized private metadata of the shipping method's tax class. Requires staff permissions to access.
+     *
+     * Added in Saleor 3.9.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    shippingTaxClassPrivateMetadata: Array<MetadataItem>;
+    /** The shipping tax rate value. */
+    shippingTaxRate: Scalars['Float'];
+    status: OrderStatus;
+    /** User-friendly order status. */
+    statusDisplay: Scalars['String'];
+    /** The sum of line prices not including shipping. */
+    subtotal: TaxedMoney;
+    /**
+     * Returns True if order has to be exempt from taxes.
+     *
+     * Added in Saleor 3.8.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    taxExemption: Scalars['Boolean'];
+    /** @deprecated This field will be removed in Saleor 4.0. Use `id` instead. */
+    token: Scalars['String'];
+    /** Total amount of the order. */
+    total: TaxedMoney;
+    /** Amount authorized for the order. */
+    totalAuthorized: Money;
+    /** The difference between the paid and the order total amount. */
+    totalBalance: Money;
+    /** Amount captured by payment. */
+    totalCaptured: Money;
+    trackingClientId: Scalars['String'];
+    /**
+     * List of transactions for the order. Requires one of the following permissions: MANAGE_ORDERS, HANDLE_PAYMENTS.
+     *
+     * Added in Saleor 3.4.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    transactions: Array<TransactionItem>;
+    /**
+     * Translated discount name.
+     * @deprecated This field will be removed in Saleor 4.0. Use the `discounts` field instead.
+     */
+    translatedDiscountName?: Maybe<Scalars['String']>;
+    /** Undiscounted total amount of the order. */
+    undiscountedTotal: TaxedMoney;
+    updatedAt: Scalars['DateTime'];
+    /** User who placed the order. This field is set only for orders placed by authenticated users. Can be fetched for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_USERS, MANAGE_ORDERS, OWNER. */
+    user?: Maybe<User>;
+    /** Email address of the customer. The full data can be access for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER. */
+    userEmail?: Maybe<Scalars['String']>;
+    voucher?: Maybe<Voucher>;
+    weight: Weight;
+  };
 
 /** Represents an order in the shop. */
 export type OrderMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 /** Represents an order in the shop. */
 export type OrderMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
 
-
 /** Represents an order in the shop. */
 export type OrderPrivateMetafieldArgs = {
   key: Scalars['String'];
 };
-
 
 /** Represents an order in the shop. */
 export type OrderPrivateMetafieldsArgs = {
@@ -12797,7 +12472,7 @@ export enum OrderAction {
   /** Represents a refund action. */
   Refund = 'REFUND',
   /** Represents a void action. */
-  Void = 'VOID'
+  Void = 'VOID',
 }
 
 /**
@@ -12840,7 +12515,7 @@ export type OrderAddNoteInput = {
 export enum OrderAuthorizeStatusEnum {
   Full = 'FULL',
   None = 'NONE',
-  Partial = 'PARTIAL'
+  Partial = 'PARTIAL',
 }
 
 /**
@@ -12924,7 +12599,7 @@ export enum OrderChargeStatusEnum {
   Full = 'FULL',
   None = 'NONE',
   Overcharged = 'OVERCHARGED',
-  Partial = 'PARTIAL'
+  Partial = 'PARTIAL',
 }
 
 /**
@@ -13021,7 +12696,7 @@ export enum OrderCreateFromCheckoutErrorCode {
   ShippingMethodNotSet = 'SHIPPING_METHOD_NOT_SET',
   TaxError = 'TAX_ERROR',
   UnavailableVariantInChannel = 'UNAVAILABLE_VARIANT_IN_CHANNEL',
-  VoucherNotApplicable = 'VOUCHER_NOT_APPLICABLE'
+  VoucherNotApplicable = 'VOUCHER_NOT_APPLICABLE',
 }
 
 /**
@@ -13049,7 +12724,7 @@ export enum OrderDirection {
   /** Specifies an ascending sort order. */
   Asc = 'ASC',
   /** Specifies a descending sort order. */
-  Desc = 'DESC'
+  Desc = 'DESC',
 }
 
 /** Contains all details related to the applied discount to the order. */
@@ -13113,7 +12788,7 @@ export type OrderDiscountDelete = {
 /** An enumeration. */
 export enum OrderDiscountType {
   Manual = 'MANUAL',
-  Voucher = 'VOUCHER'
+  Voucher = 'VOUCHER',
 }
 
 /**
@@ -13189,7 +12864,7 @@ export enum OrderErrorCode {
   TaxError = 'TAX_ERROR',
   Unique = 'UNIQUE',
   VoidInactivePayment = 'VOID_INACTIVE_PAYMENT',
-  ZeroQuantity = 'ZERO_QUANTITY'
+  ZeroQuantity = 'ZERO_QUANTITY',
 }
 
 /** History log of the order. */
@@ -13303,7 +12978,7 @@ export enum OrderEventsEmailsEnum {
   OrderRefund = 'ORDER_REFUND',
   PaymentConfirmation = 'PAYMENT_CONFIRMATION',
   ShippingConfirmation = 'SHIPPING_CONFIRMATION',
-  TrackingUpdated = 'TRACKING_UPDATED'
+  TrackingUpdated = 'TRACKING_UPDATED',
 }
 
 /** An enumeration. */
@@ -13353,7 +13028,7 @@ export enum OrderEventsEnum {
   TransactionEvent = 'TRANSACTION_EVENT',
   TransactionRefundRequested = 'TRANSACTION_REFUND_REQUESTED',
   TransactionVoidRequested = 'TRANSACTION_VOID_REQUESTED',
-  UpdatedAddress = 'UPDATED_ADDRESS'
+  UpdatedAddress = 'UPDATED_ADDRESS',
 }
 
 export type OrderFilterInput = {
@@ -13493,162 +13168,158 @@ export type OrderFullyPaid = Event & {
 };
 
 /** Represents order line of particular order. */
-export type OrderLine = Node & ObjectWithMetadata & {
-  __typename?: 'OrderLine';
-  /**
-   * List of allocations across warehouses.
-   *
-   * Requires one of the following permissions: MANAGE_PRODUCTS, MANAGE_ORDERS.
-   */
-  allocations?: Maybe<Array<Allocation>>;
-  digitalContentUrl?: Maybe<DigitalContentUrl>;
-  id: Scalars['ID'];
-  isShippingRequired: Scalars['Boolean'];
-  /**
-   * List of public metadata items. Can be accessed without permissions.
-   *
-   * Added in Saleor 3.5.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metadata: Array<MetadataItem>;
-  /**
-   * A single key from public metadata.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.5.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafield?: Maybe<Scalars['String']>;
-  /**
-   * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.5.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafields?: Maybe<Scalars['Metadata']>;
-  /**
-   * List of private metadata items. Requires staff permissions to access.
-   *
-   * Added in Saleor 3.5.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetadata: Array<MetadataItem>;
-  /**
-   * A single key from private metadata. Requires staff permissions to access.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.5.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafield?: Maybe<Scalars['String']>;
-  /**
-   * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.5.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafields?: Maybe<Scalars['Metadata']>;
-  productName: Scalars['String'];
-  productSku?: Maybe<Scalars['String']>;
-  productVariantId?: Maybe<Scalars['String']>;
-  quantity: Scalars['Int'];
-  quantityFulfilled: Scalars['Int'];
-  /**
-   * A quantity of items remaining to be fulfilled.
-   *
-   * Added in Saleor 3.1.
-   */
-  quantityToFulfill: Scalars['Int'];
-  /**
-   * Denormalized tax class of the product in this order line.
-   *
-   * Added in Saleor 3.9.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   *
-   * Requires one of the following permissions: AUTHENTICATED_STAFF_USER.
-   */
-  taxClass?: Maybe<TaxClass>;
-  /**
-   * Denormalized public metadata of the tax class.
-   *
-   * Added in Saleor 3.9.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  taxClassMetadata: Array<MetadataItem>;
-  /**
-   * Denormalized name of the tax class.
-   *
-   * Added in Saleor 3.9.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  taxClassName?: Maybe<Scalars['String']>;
-  /**
-   * Denormalized private metadata of the tax class. Requires staff permissions to access.
-   *
-   * Added in Saleor 3.9.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  taxClassPrivateMetadata: Array<MetadataItem>;
-  taxRate: Scalars['Float'];
-  thumbnail?: Maybe<Image>;
-  /** Price of the order line. */
-  totalPrice: TaxedMoney;
-  /** Product name in the customer's language */
-  translatedProductName: Scalars['String'];
-  /** Variant name in the customer's language */
-  translatedVariantName: Scalars['String'];
-  /** Price of the single item in the order line without applied an order line discount. */
-  undiscountedUnitPrice: TaxedMoney;
-  /** The discount applied to the single order line. */
-  unitDiscount: Money;
-  unitDiscountReason?: Maybe<Scalars['String']>;
-  /** Type of the discount: fixed or percent */
-  unitDiscountType?: Maybe<DiscountValueTypeEnum>;
-  /** Value of the discount. Can store fixed value or percent value */
-  unitDiscountValue: Scalars['PositiveDecimal'];
-  /** Price of the single item in the order line. */
-  unitPrice: TaxedMoney;
-  /** A purchased product variant. Note: this field may be null if the variant has been removed from stock at all. Requires one of the following permissions to include the unpublished items: MANAGE_ORDERS, MANAGE_DISCOUNTS, MANAGE_PRODUCTS. */
-  variant?: Maybe<ProductVariant>;
-  variantName: Scalars['String'];
-};
-
+export type OrderLine = Node &
+  ObjectWithMetadata & {
+    __typename?: 'OrderLine';
+    /**
+     * List of allocations across warehouses.
+     *
+     * Requires one of the following permissions: MANAGE_PRODUCTS, MANAGE_ORDERS.
+     */
+    allocations?: Maybe<Array<Allocation>>;
+    digitalContentUrl?: Maybe<DigitalContentUrl>;
+    id: Scalars['ID'];
+    isShippingRequired: Scalars['Boolean'];
+    /**
+     * List of public metadata items. Can be accessed without permissions.
+     *
+     * Added in Saleor 3.5.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metadata: Array<MetadataItem>;
+    /**
+     * A single key from public metadata.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.5.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafield?: Maybe<Scalars['String']>;
+    /**
+     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.5.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafields?: Maybe<Scalars['Metadata']>;
+    /**
+     * List of private metadata items. Requires staff permissions to access.
+     *
+     * Added in Saleor 3.5.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetadata: Array<MetadataItem>;
+    /**
+     * A single key from private metadata. Requires staff permissions to access.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.5.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafield?: Maybe<Scalars['String']>;
+    /**
+     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.5.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafields?: Maybe<Scalars['Metadata']>;
+    productName: Scalars['String'];
+    productSku?: Maybe<Scalars['String']>;
+    productVariantId?: Maybe<Scalars['String']>;
+    quantity: Scalars['Int'];
+    quantityFulfilled: Scalars['Int'];
+    /**
+     * A quantity of items remaining to be fulfilled.
+     *
+     * Added in Saleor 3.1.
+     */
+    quantityToFulfill: Scalars['Int'];
+    /**
+     * Denormalized tax class of the product in this order line.
+     *
+     * Added in Saleor 3.9.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     *
+     * Requires one of the following permissions: AUTHENTICATED_STAFF_USER.
+     */
+    taxClass?: Maybe<TaxClass>;
+    /**
+     * Denormalized public metadata of the tax class.
+     *
+     * Added in Saleor 3.9.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    taxClassMetadata: Array<MetadataItem>;
+    /**
+     * Denormalized name of the tax class.
+     *
+     * Added in Saleor 3.9.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    taxClassName?: Maybe<Scalars['String']>;
+    /**
+     * Denormalized private metadata of the tax class. Requires staff permissions to access.
+     *
+     * Added in Saleor 3.9.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    taxClassPrivateMetadata: Array<MetadataItem>;
+    taxRate: Scalars['Float'];
+    thumbnail?: Maybe<Image>;
+    /** Price of the order line. */
+    totalPrice: TaxedMoney;
+    /** Product name in the customer's language */
+    translatedProductName: Scalars['String'];
+    /** Variant name in the customer's language */
+    translatedVariantName: Scalars['String'];
+    /** Price of the single item in the order line without applied an order line discount. */
+    undiscountedUnitPrice: TaxedMoney;
+    /** The discount applied to the single order line. */
+    unitDiscount: Money;
+    unitDiscountReason?: Maybe<Scalars['String']>;
+    /** Type of the discount: fixed or percent */
+    unitDiscountType?: Maybe<DiscountValueTypeEnum>;
+    /** Value of the discount. Can store fixed value or percent value */
+    unitDiscountValue: Scalars['PositiveDecimal'];
+    /** Price of the single item in the order line. */
+    unitPrice: TaxedMoney;
+    /** A purchased product variant. Note: this field may be null if the variant has been removed from stock at all. Requires one of the following permissions to include the unpublished items: MANAGE_ORDERS, MANAGE_DISCOUNTS, MANAGE_PRODUCTS. */
+    variant?: Maybe<ProductVariant>;
+    variantName: Scalars['String'];
+  };
 
 /** Represents order line of particular order. */
 export type OrderLineMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 /** Represents order line of particular order. */
 export type OrderLineMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
-
 
 /** Represents order line of particular order. */
 export type OrderLinePrivateMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 /** Represents order line of particular order. */
 export type OrderLinePrivateMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
-
 
 /** Represents order line of particular order. */
 export type OrderLineThumbnailArgs = {
@@ -13794,7 +13465,7 @@ export type OrderMetadataUpdated = Event & {
 export enum OrderOriginEnum {
   Checkout = 'CHECKOUT',
   Draft = 'DRAFT',
-  Reissue = 'REISSUE'
+  Reissue = 'REISSUE',
 }
 
 /**
@@ -13886,7 +13557,7 @@ export type OrderSettingsError = {
 
 /** An enumeration. */
 export enum OrderSettingsErrorCode {
-  Invalid = 'INVALID'
+  Invalid = 'INVALID',
 }
 
 /**
@@ -13934,7 +13605,7 @@ export enum OrderSortField {
   /** Sort orders by payment. */
   Payment = 'PAYMENT',
   /** Sort orders by rank. Note: This option is available only with the `search` filter. */
-  Rank = 'RANK'
+  Rank = 'RANK',
 }
 
 export type OrderSortingInput = {
@@ -13953,7 +13624,7 @@ export enum OrderStatus {
   PartiallyReturned = 'PARTIALLY_RETURNED',
   Returned = 'RETURNED',
   Unconfirmed = 'UNCONFIRMED',
-  Unfulfilled = 'UNFULFILLED'
+  Unfulfilled = 'UNFULFILLED',
 }
 
 export enum OrderStatusFilter {
@@ -13963,7 +13634,7 @@ export enum OrderStatusFilter {
   ReadyToCapture = 'READY_TO_CAPTURE',
   ReadyToFulfill = 'READY_TO_FULFILL',
   Unconfirmed = 'UNCONFIRMED',
-  Unfulfilled = 'UNFULFILLED'
+  Unfulfilled = 'UNFULFILLED',
 }
 
 /**
@@ -14049,107 +13720,103 @@ export type OrderVoid = {
 };
 
 /** A static page that can be manually added by a shop operator through the dashboard. */
-export type Page = Node & ObjectWithMetadata & {
-  __typename?: 'Page';
-  /** List of attributes assigned to this product. */
-  attributes: Array<SelectedAttribute>;
-  /**
-   * Content of the page.
-   *
-   * Rich text format. For reference see https://editorjs.io/
-   */
-  content?: Maybe<Scalars['JSONString']>;
-  /**
-   * Content of the page.
-   *
-   * Rich text format. For reference see https://editorjs.io/
-   * @deprecated This field will be removed in Saleor 4.0. Use the `content` field instead.
-   */
-  contentJson: Scalars['JSONString'];
-  created: Scalars['DateTime'];
-  id: Scalars['ID'];
-  isPublished: Scalars['Boolean'];
-  /** List of public metadata items. Can be accessed without permissions. */
-  metadata: Array<MetadataItem>;
-  /**
-   * A single key from public metadata.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafield?: Maybe<Scalars['String']>;
-  /**
-   * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafields?: Maybe<Scalars['Metadata']>;
-  pageType: PageType;
-  /** List of private metadata items. Requires staff permissions to access. */
-  privateMetadata: Array<MetadataItem>;
-  /**
-   * A single key from private metadata. Requires staff permissions to access.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafield?: Maybe<Scalars['String']>;
-  /**
-   * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafields?: Maybe<Scalars['Metadata']>;
-  /** @deprecated This field will be removed in Saleor 4.0. Use the `publishedAt` field to fetch the publication date. */
-  publicationDate?: Maybe<Scalars['Date']>;
-  /**
-   * The page publication date.
-   *
-   * Added in Saleor 3.3.
-   */
-  publishedAt?: Maybe<Scalars['DateTime']>;
-  seoDescription?: Maybe<Scalars['String']>;
-  seoTitle?: Maybe<Scalars['String']>;
-  slug: Scalars['String'];
-  title: Scalars['String'];
-  /** Returns translated page fields for the given language code. */
-  translation?: Maybe<PageTranslation>;
-};
-
+export type Page = Node &
+  ObjectWithMetadata & {
+    __typename?: 'Page';
+    /** List of attributes assigned to this product. */
+    attributes: Array<SelectedAttribute>;
+    /**
+     * Content of the page.
+     *
+     * Rich text format. For reference see https://editorjs.io/
+     */
+    content?: Maybe<Scalars['JSONString']>;
+    /**
+     * Content of the page.
+     *
+     * Rich text format. For reference see https://editorjs.io/
+     * @deprecated This field will be removed in Saleor 4.0. Use the `content` field instead.
+     */
+    contentJson: Scalars['JSONString'];
+    created: Scalars['DateTime'];
+    id: Scalars['ID'];
+    isPublished: Scalars['Boolean'];
+    /** List of public metadata items. Can be accessed without permissions. */
+    metadata: Array<MetadataItem>;
+    /**
+     * A single key from public metadata.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafield?: Maybe<Scalars['String']>;
+    /**
+     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafields?: Maybe<Scalars['Metadata']>;
+    pageType: PageType;
+    /** List of private metadata items. Requires staff permissions to access. */
+    privateMetadata: Array<MetadataItem>;
+    /**
+     * A single key from private metadata. Requires staff permissions to access.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafield?: Maybe<Scalars['String']>;
+    /**
+     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafields?: Maybe<Scalars['Metadata']>;
+    /** @deprecated This field will be removed in Saleor 4.0. Use the `publishedAt` field to fetch the publication date. */
+    publicationDate?: Maybe<Scalars['Date']>;
+    /**
+     * The page publication date.
+     *
+     * Added in Saleor 3.3.
+     */
+    publishedAt?: Maybe<Scalars['DateTime']>;
+    seoDescription?: Maybe<Scalars['String']>;
+    seoTitle?: Maybe<Scalars['String']>;
+    slug: Scalars['String'];
+    title: Scalars['String'];
+    /** Returns translated page fields for the given language code. */
+    translation?: Maybe<PageTranslation>;
+  };
 
 /** A static page that can be manually added by a shop operator through the dashboard. */
 export type PageMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 /** A static page that can be manually added by a shop operator through the dashboard. */
 export type PageMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
-
 
 /** A static page that can be manually added by a shop operator through the dashboard. */
 export type PagePrivateMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 /** A static page that can be manually added by a shop operator through the dashboard. */
 export type PagePrivateMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
-
 
 /** A static page that can be manually added by a shop operator through the dashboard. */
 export type PageTranslationArgs = {
@@ -14352,7 +14019,7 @@ export enum PageErrorCode {
   Invalid = 'INVALID',
   NotFound = 'NOT_FOUND',
   Required = 'REQUIRED',
-  Unique = 'UNIQUE'
+  Unique = 'UNIQUE',
 }
 
 export type PageFilterInput = {
@@ -14451,7 +14118,7 @@ export enum PageSortField {
   /** Sort pages by title. */
   Title = 'TITLE',
   /** Sort pages by visibility. */
-  Visibility = 'VISIBILITY'
+  Visibility = 'VISIBILITY',
 }
 
 export type PageSortingInput = {
@@ -14490,7 +14157,6 @@ export type PageTranslatableContent = Node & {
   /** Returns translated page fields for the given language code. */
   translation?: Maybe<PageTranslation>;
 };
-
 
 export type PageTranslatableContentTranslationArgs = {
   languageCode: LanguageCodeEnum;
@@ -14545,67 +14211,67 @@ export type PageTranslationInput = {
 };
 
 /** Represents a type of page. It defines what attributes are available to pages of this type. */
-export type PageType = Node & ObjectWithMetadata & {
-  __typename?: 'PageType';
-  /** Page attributes of that page type. */
-  attributes?: Maybe<Array<Attribute>>;
-  /**
-   * Attributes that can be assigned to the page type.
-   *
-   * Requires one of the following permissions: MANAGE_PAGES.
-   */
-  availableAttributes?: Maybe<AttributeCountableConnection>;
-  /**
-   * Whether page type has pages assigned.
-   *
-   * Requires one of the following permissions: MANAGE_PAGES.
-   */
-  hasPages?: Maybe<Scalars['Boolean']>;
-  id: Scalars['ID'];
-  /** List of public metadata items. Can be accessed without permissions. */
-  metadata: Array<MetadataItem>;
-  /**
-   * A single key from public metadata.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafield?: Maybe<Scalars['String']>;
-  /**
-   * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafields?: Maybe<Scalars['Metadata']>;
-  name: Scalars['String'];
-  /** List of private metadata items. Requires staff permissions to access. */
-  privateMetadata: Array<MetadataItem>;
-  /**
-   * A single key from private metadata. Requires staff permissions to access.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafield?: Maybe<Scalars['String']>;
-  /**
-   * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafields?: Maybe<Scalars['Metadata']>;
-  slug: Scalars['String'];
-};
-
+export type PageType = Node &
+  ObjectWithMetadata & {
+    __typename?: 'PageType';
+    /** Page attributes of that page type. */
+    attributes?: Maybe<Array<Attribute>>;
+    /**
+     * Attributes that can be assigned to the page type.
+     *
+     * Requires one of the following permissions: MANAGE_PAGES.
+     */
+    availableAttributes?: Maybe<AttributeCountableConnection>;
+    /**
+     * Whether page type has pages assigned.
+     *
+     * Requires one of the following permissions: MANAGE_PAGES.
+     */
+    hasPages?: Maybe<Scalars['Boolean']>;
+    id: Scalars['ID'];
+    /** List of public metadata items. Can be accessed without permissions. */
+    metadata: Array<MetadataItem>;
+    /**
+     * A single key from public metadata.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafield?: Maybe<Scalars['String']>;
+    /**
+     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafields?: Maybe<Scalars['Metadata']>;
+    name: Scalars['String'];
+    /** List of private metadata items. Requires staff permissions to access. */
+    privateMetadata: Array<MetadataItem>;
+    /**
+     * A single key from private metadata. Requires staff permissions to access.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafield?: Maybe<Scalars['String']>;
+    /**
+     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafields?: Maybe<Scalars['Metadata']>;
+    slug: Scalars['String'];
+  };
 
 /** Represents a type of page. It defines what attributes are available to pages of this type. */
 export type PageTypeAvailableAttributesArgs = {
@@ -14617,24 +14283,20 @@ export type PageTypeAvailableAttributesArgs = {
   where?: InputMaybe<AttributeWhereInput>;
 };
 
-
 /** Represents a type of page. It defines what attributes are available to pages of this type. */
 export type PageTypeMetafieldArgs = {
   key: Scalars['String'];
 };
-
 
 /** Represents a type of page. It defines what attributes are available to pages of this type. */
 export type PageTypeMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
 
-
 /** Represents a type of page. It defines what attributes are available to pages of this type. */
 export type PageTypePrivateMetafieldArgs = {
   key: Scalars['String'];
 };
-
 
 /** Represents a type of page. It defines what attributes are available to pages of this type. */
 export type PageTypePrivateMetafieldsArgs = {
@@ -14772,7 +14434,7 @@ export enum PageTypeSortField {
   /** Sort page types by name. */
   Name = 'NAME',
   /** Sort page types by slug. */
-  Slug = 'SLUG'
+  Slug = 'SLUG',
 }
 
 export type PageTypeSortingInput = {
@@ -14876,115 +14538,112 @@ export type PasswordChange = {
 };
 
 /** Represents a payment of a given type. */
-export type Payment = Node & ObjectWithMetadata & {
-  __typename?: 'Payment';
-  /**
-   * List of actions that can be performed in the current state of a payment.
-   *
-   * Requires one of the following permissions: MANAGE_ORDERS.
-   */
-  actions: Array<OrderAction>;
-  /**
-   * Maximum amount of money that can be captured.
-   *
-   * Requires one of the following permissions: MANAGE_ORDERS.
-   */
-  availableCaptureAmount?: Maybe<Money>;
-  /**
-   * Maximum amount of money that can be refunded.
-   *
-   * Requires one of the following permissions: MANAGE_ORDERS.
-   */
-  availableRefundAmount?: Maybe<Money>;
-  /** Total amount captured for this payment. */
-  capturedAmount?: Maybe<Money>;
-  /** Internal payment status. */
-  chargeStatus: PaymentChargeStatusEnum;
-  checkout?: Maybe<Checkout>;
-  created: Scalars['DateTime'];
-  /** The details of the card used for this payment. */
-  creditCard?: Maybe<CreditCard>;
-  /**
-   * IP address of the user who created the payment.
-   *
-   * Requires one of the following permissions: MANAGE_ORDERS.
-   */
-  customerIpAddress?: Maybe<Scalars['String']>;
-  gateway: Scalars['String'];
-  id: Scalars['ID'];
-  isActive: Scalars['Boolean'];
-  /** List of public metadata items. Can be accessed without permissions. */
-  metadata: Array<MetadataItem>;
-  /**
-   * A single key from public metadata.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafield?: Maybe<Scalars['String']>;
-  /**
-   * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafields?: Maybe<Scalars['Metadata']>;
-  modified: Scalars['DateTime'];
-  order?: Maybe<Order>;
-  paymentMethodType: Scalars['String'];
-  /** List of private metadata items. Requires staff permissions to access. */
-  privateMetadata: Array<MetadataItem>;
-  /**
-   * A single key from private metadata. Requires staff permissions to access.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafield?: Maybe<Scalars['String']>;
-  /**
-   * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafields?: Maybe<Scalars['Metadata']>;
-  token: Scalars['String'];
-  /** Total amount of the payment. */
-  total?: Maybe<Money>;
-  /**
-   * List of all transactions within this payment.
-   *
-   * Requires one of the following permissions: MANAGE_ORDERS.
-   */
-  transactions?: Maybe<Array<Transaction>>;
-};
-
+export type Payment = Node &
+  ObjectWithMetadata & {
+    __typename?: 'Payment';
+    /**
+     * List of actions that can be performed in the current state of a payment.
+     *
+     * Requires one of the following permissions: MANAGE_ORDERS.
+     */
+    actions: Array<OrderAction>;
+    /**
+     * Maximum amount of money that can be captured.
+     *
+     * Requires one of the following permissions: MANAGE_ORDERS.
+     */
+    availableCaptureAmount?: Maybe<Money>;
+    /**
+     * Maximum amount of money that can be refunded.
+     *
+     * Requires one of the following permissions: MANAGE_ORDERS.
+     */
+    availableRefundAmount?: Maybe<Money>;
+    /** Total amount captured for this payment. */
+    capturedAmount?: Maybe<Money>;
+    /** Internal payment status. */
+    chargeStatus: PaymentChargeStatusEnum;
+    checkout?: Maybe<Checkout>;
+    created: Scalars['DateTime'];
+    /** The details of the card used for this payment. */
+    creditCard?: Maybe<CreditCard>;
+    /**
+     * IP address of the user who created the payment.
+     *
+     * Requires one of the following permissions: MANAGE_ORDERS.
+     */
+    customerIpAddress?: Maybe<Scalars['String']>;
+    gateway: Scalars['String'];
+    id: Scalars['ID'];
+    isActive: Scalars['Boolean'];
+    /** List of public metadata items. Can be accessed without permissions. */
+    metadata: Array<MetadataItem>;
+    /**
+     * A single key from public metadata.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafield?: Maybe<Scalars['String']>;
+    /**
+     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafields?: Maybe<Scalars['Metadata']>;
+    modified: Scalars['DateTime'];
+    order?: Maybe<Order>;
+    paymentMethodType: Scalars['String'];
+    /** List of private metadata items. Requires staff permissions to access. */
+    privateMetadata: Array<MetadataItem>;
+    /**
+     * A single key from private metadata. Requires staff permissions to access.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafield?: Maybe<Scalars['String']>;
+    /**
+     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafields?: Maybe<Scalars['Metadata']>;
+    token: Scalars['String'];
+    /** Total amount of the payment. */
+    total?: Maybe<Money>;
+    /**
+     * List of all transactions within this payment.
+     *
+     * Requires one of the following permissions: MANAGE_ORDERS.
+     */
+    transactions?: Maybe<Array<Transaction>>;
+  };
 
 /** Represents a payment of a given type. */
 export type PaymentMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 /** Represents a payment of a given type. */
 export type PaymentMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
 
-
 /** Represents a payment of a given type. */
 export type PaymentPrivateMetafieldArgs = {
   key: Scalars['String'];
 };
-
 
 /** Represents a payment of a given type. */
 export type PaymentPrivateMetafieldsArgs = {
@@ -15056,7 +14715,7 @@ export enum PaymentChargeStatusEnum {
   PartiallyCharged = 'PARTIALLY_CHARGED',
   PartiallyRefunded = 'PARTIALLY_REFUNDED',
   Pending = 'PENDING',
-  Refused = 'REFUSED'
+  Refused = 'REFUSED',
 }
 
 /** Check payment balance. */
@@ -15148,7 +14807,7 @@ export enum PaymentErrorCode {
   ShippingAddressNotSet = 'SHIPPING_ADDRESS_NOT_SET',
   ShippingMethodNotSet = 'SHIPPING_METHOD_NOT_SET',
   UnavailableVariantInChannel = 'UNAVAILABLE_VARIANT_IN_CHANNEL',
-  Unique = 'UNIQUE'
+  Unique = 'UNIQUE',
 }
 
 export type PaymentFilterInput = {
@@ -15381,7 +15040,7 @@ export enum PermissionEnum {
   ManageStaff = 'MANAGE_STAFF',
   ManageTaxes = 'MANAGE_TAXES',
   ManageTranslations = 'MANAGE_TRANSLATIONS',
-  ManageUsers = 'MANAGE_USERS'
+  ManageUsers = 'MANAGE_USERS',
 }
 
 /**
@@ -15484,7 +15143,7 @@ export enum PermissionGroupErrorCode {
   OutOfScopePermission = 'OUT_OF_SCOPE_PERMISSION',
   OutOfScopeUser = 'OUT_OF_SCOPE_USER',
   Required = 'REQUIRED',
-  Unique = 'UNIQUE'
+  Unique = 'UNIQUE',
 }
 
 export type PermissionGroupFilterInput = {
@@ -15494,7 +15153,7 @@ export type PermissionGroupFilterInput = {
 
 export enum PermissionGroupSortField {
   /** Sort permission group accounts by name. */
-  Name = 'NAME'
+  Name = 'NAME',
 }
 
 export type PermissionGroupSortingInput = {
@@ -15579,7 +15238,7 @@ export type PluginConfiguration = {
 
 export enum PluginConfigurationType {
   Global = 'GLOBAL',
-  PerChannel = 'PER_CHANNEL'
+  PerChannel = 'PER_CHANNEL',
 }
 
 export type PluginCountableConnection = {
@@ -15616,7 +15275,7 @@ export enum PluginErrorCode {
   NotFound = 'NOT_FOUND',
   PluginMisconfigured = 'PLUGIN_MISCONFIGURED',
   Required = 'REQUIRED',
-  Unique = 'UNIQUE'
+  Unique = 'UNIQUE',
 }
 
 export type PluginFilterInput = {
@@ -15627,7 +15286,7 @@ export type PluginFilterInput = {
 
 export enum PluginSortField {
   IsActive = 'IS_ACTIVE',
-  Name = 'NAME'
+  Name = 'NAME',
 }
 
 export type PluginSortingInput = {
@@ -15665,7 +15324,7 @@ export type PluginUpdateInput = {
 /** An enumeration. */
 export enum PostalCodeRuleInclusionTypeEnum {
   Exclude = 'EXCLUDE',
-  Include = 'INCLUDE'
+  Include = 'INCLUDE',
 }
 
 /** Represents preorder settings for product variant. */
@@ -15718,211 +15377,201 @@ export type PriceRangeInput = {
 };
 
 /** Represents an individual item for sale in the storefront. */
-export type Product = Node & ObjectWithMetadata & {
-  __typename?: 'Product';
-  /**
-   * Get a single attribute attached to product by attribute slug.
-   *
-   * Added in Saleor 3.9.
-   */
-  attribute?: Maybe<SelectedAttribute>;
-  /** List of attributes assigned to this product. */
-  attributes: Array<SelectedAttribute>;
-  /**
-   * Date when product is available for purchase.
-   * @deprecated This field will be removed in Saleor 4.0. Use the `availableForPurchaseAt` field to fetch the available for purchase date.
-   */
-  availableForPurchase?: Maybe<Scalars['Date']>;
-  /** Date when product is available for purchase. */
-  availableForPurchaseAt?: Maybe<Scalars['DateTime']>;
-  category?: Maybe<Category>;
-  /** Channel given to retrieve this product. Also used by federation gateway to resolve this object in a federated query. */
-  channel?: Maybe<Scalars['String']>;
-  /**
-   * List of availability in channels for the product.
-   *
-   * Requires one of the following permissions: MANAGE_PRODUCTS.
-   */
-  channelListings?: Maybe<Array<ProductChannelListing>>;
-  /** @deprecated This field will be removed in Saleor 4.0. Use `Channel.taxConfiguration` field to determine whether tax collection is enabled. */
-  chargeTaxes: Scalars['Boolean'];
-  /** List of collections for the product. Requires the following permissions to include the unpublished items: MANAGE_ORDERS, MANAGE_DISCOUNTS, MANAGE_PRODUCTS. */
-  collections?: Maybe<Array<Collection>>;
-  created: Scalars['DateTime'];
-  defaultVariant?: Maybe<ProductVariant>;
-  /**
-   * Description of the product.
-   *
-   * Rich text format. For reference see https://editorjs.io/
-   */
-  description?: Maybe<Scalars['JSONString']>;
-  /**
-   * Description of the product.
-   *
-   * Rich text format. For reference see https://editorjs.io/
-   * @deprecated This field will be removed in Saleor 4.0. Use the `description` field instead.
-   */
-  descriptionJson?: Maybe<Scalars['JSONString']>;
-  /**
-   * External ID of this product.
-   *
-   * Added in Saleor 3.10.
-   */
-  externalReference?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  /**
-   * Get a single product image by ID.
-   * @deprecated This field will be removed in Saleor 4.0. Use the `mediaById` field instead.
-   */
-  imageById?: Maybe<ProductImage>;
-  /**
-   * List of images for the product.
-   * @deprecated This field will be removed in Saleor 4.0. Use the `media` field instead.
-   */
-  images?: Maybe<Array<ProductImage>>;
-  /** Whether the product is in stock and visible or not. */
-  isAvailable?: Maybe<Scalars['Boolean']>;
-  /** Whether the product is available for purchase. */
-  isAvailableForPurchase?: Maybe<Scalars['Boolean']>;
-  /** List of media for the product. */
-  media?: Maybe<Array<ProductMedia>>;
-  /** Get a single product media by ID. */
-  mediaById?: Maybe<ProductMedia>;
-  /** List of public metadata items. Can be accessed without permissions. */
-  metadata: Array<MetadataItem>;
-  /**
-   * A single key from public metadata.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafield?: Maybe<Scalars['String']>;
-  /**
-   * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafields?: Maybe<Scalars['Metadata']>;
-  name: Scalars['String'];
-  /** Lists the storefront product's pricing, the current price and discounts, only meant for displaying. */
-  pricing?: Maybe<ProductPricingInfo>;
-  /** List of private metadata items. Requires staff permissions to access. */
-  privateMetadata: Array<MetadataItem>;
-  /**
-   * A single key from private metadata. Requires staff permissions to access.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafield?: Maybe<Scalars['String']>;
-  /**
-   * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafields?: Maybe<Scalars['Metadata']>;
-  productType: ProductType;
-  rating?: Maybe<Scalars['Float']>;
-  seoDescription?: Maybe<Scalars['String']>;
-  seoTitle?: Maybe<Scalars['String']>;
-  slug: Scalars['String'];
-  /**
-   * Tax class assigned to this product type. All products of this product type use this tax class, unless it's overridden in the `Product` type.
-   *
-   * Requires one of the following permissions: AUTHENTICATED_STAFF_USER.
-   */
-  taxClass?: Maybe<TaxClass>;
-  /**
-   * A type of tax. Assigned by enabled tax gateway
-   * @deprecated This field will be removed in Saleor 4.0. Use `taxClass` field instead.
-   */
-  taxType?: Maybe<TaxType>;
-  thumbnail?: Maybe<Image>;
-  /** Returns translated product fields for the given language code. */
-  translation?: Maybe<ProductTranslation>;
-  updatedAt: Scalars['DateTime'];
-  /**
-   * Get a single variant by SKU or ID.
-   *
-   * Added in Saleor 3.9.
-   * @deprecated This field will be removed in Saleor 4.0. Use top-level `variant` query.
-   */
-  variant?: Maybe<ProductVariant>;
-  /** List of variants for the product. Requires the following permissions to include the unpublished items: MANAGE_ORDERS, MANAGE_DISCOUNTS, MANAGE_PRODUCTS. */
-  variants?: Maybe<Array<ProductVariant>>;
-  weight?: Maybe<Weight>;
-};
-
+export type Product = Node &
+  ObjectWithMetadata & {
+    __typename?: 'Product';
+    /**
+     * Get a single attribute attached to product by attribute slug.
+     *
+     * Added in Saleor 3.9.
+     */
+    attribute?: Maybe<SelectedAttribute>;
+    /** List of attributes assigned to this product. */
+    attributes: Array<SelectedAttribute>;
+    /**
+     * Date when product is available for purchase.
+     * @deprecated This field will be removed in Saleor 4.0. Use the `availableForPurchaseAt` field to fetch the available for purchase date.
+     */
+    availableForPurchase?: Maybe<Scalars['Date']>;
+    /** Date when product is available for purchase. */
+    availableForPurchaseAt?: Maybe<Scalars['DateTime']>;
+    category?: Maybe<Category>;
+    /** Channel given to retrieve this product. Also used by federation gateway to resolve this object in a federated query. */
+    channel?: Maybe<Scalars['String']>;
+    /**
+     * List of availability in channels for the product.
+     *
+     * Requires one of the following permissions: MANAGE_PRODUCTS.
+     */
+    channelListings?: Maybe<Array<ProductChannelListing>>;
+    /** @deprecated This field will be removed in Saleor 4.0. Use `Channel.taxConfiguration` field to determine whether tax collection is enabled. */
+    chargeTaxes: Scalars['Boolean'];
+    /** List of collections for the product. Requires the following permissions to include the unpublished items: MANAGE_ORDERS, MANAGE_DISCOUNTS, MANAGE_PRODUCTS. */
+    collections?: Maybe<Array<Collection>>;
+    created: Scalars['DateTime'];
+    defaultVariant?: Maybe<ProductVariant>;
+    /**
+     * Description of the product.
+     *
+     * Rich text format. For reference see https://editorjs.io/
+     */
+    description?: Maybe<Scalars['JSONString']>;
+    /**
+     * Description of the product.
+     *
+     * Rich text format. For reference see https://editorjs.io/
+     * @deprecated This field will be removed in Saleor 4.0. Use the `description` field instead.
+     */
+    descriptionJson?: Maybe<Scalars['JSONString']>;
+    /**
+     * External ID of this product.
+     *
+     * Added in Saleor 3.10.
+     */
+    externalReference?: Maybe<Scalars['String']>;
+    id: Scalars['ID'];
+    /**
+     * Get a single product image by ID.
+     * @deprecated This field will be removed in Saleor 4.0. Use the `mediaById` field instead.
+     */
+    imageById?: Maybe<ProductImage>;
+    /**
+     * List of images for the product.
+     * @deprecated This field will be removed in Saleor 4.0. Use the `media` field instead.
+     */
+    images?: Maybe<Array<ProductImage>>;
+    /** Whether the product is in stock and visible or not. */
+    isAvailable?: Maybe<Scalars['Boolean']>;
+    /** Whether the product is available for purchase. */
+    isAvailableForPurchase?: Maybe<Scalars['Boolean']>;
+    /** List of media for the product. */
+    media?: Maybe<Array<ProductMedia>>;
+    /** Get a single product media by ID. */
+    mediaById?: Maybe<ProductMedia>;
+    /** List of public metadata items. Can be accessed without permissions. */
+    metadata: Array<MetadataItem>;
+    /**
+     * A single key from public metadata.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafield?: Maybe<Scalars['String']>;
+    /**
+     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafields?: Maybe<Scalars['Metadata']>;
+    name: Scalars['String'];
+    /** Lists the storefront product's pricing, the current price and discounts, only meant for displaying. */
+    pricing?: Maybe<ProductPricingInfo>;
+    /** List of private metadata items. Requires staff permissions to access. */
+    privateMetadata: Array<MetadataItem>;
+    /**
+     * A single key from private metadata. Requires staff permissions to access.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafield?: Maybe<Scalars['String']>;
+    /**
+     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafields?: Maybe<Scalars['Metadata']>;
+    productType: ProductType;
+    rating?: Maybe<Scalars['Float']>;
+    seoDescription?: Maybe<Scalars['String']>;
+    seoTitle?: Maybe<Scalars['String']>;
+    slug: Scalars['String'];
+    /**
+     * Tax class assigned to this product type. All products of this product type use this tax class, unless it's overridden in the `Product` type.
+     *
+     * Requires one of the following permissions: AUTHENTICATED_STAFF_USER.
+     */
+    taxClass?: Maybe<TaxClass>;
+    /**
+     * A type of tax. Assigned by enabled tax gateway
+     * @deprecated This field will be removed in Saleor 4.0. Use `taxClass` field instead.
+     */
+    taxType?: Maybe<TaxType>;
+    thumbnail?: Maybe<Image>;
+    /** Returns translated product fields for the given language code. */
+    translation?: Maybe<ProductTranslation>;
+    updatedAt: Scalars['DateTime'];
+    /**
+     * Get a single variant by SKU or ID.
+     *
+     * Added in Saleor 3.9.
+     * @deprecated This field will be removed in Saleor 4.0. Use top-level `variant` query.
+     */
+    variant?: Maybe<ProductVariant>;
+    /** List of variants for the product. Requires the following permissions to include the unpublished items: MANAGE_ORDERS, MANAGE_DISCOUNTS, MANAGE_PRODUCTS. */
+    variants?: Maybe<Array<ProductVariant>>;
+    weight?: Maybe<Weight>;
+  };
 
 /** Represents an individual item for sale in the storefront. */
 export type ProductAttributeArgs = {
   slug: Scalars['String'];
 };
 
-
 /** Represents an individual item for sale in the storefront. */
 export type ProductImageByIdArgs = {
   id?: InputMaybe<Scalars['ID']>;
 };
-
 
 /** Represents an individual item for sale in the storefront. */
 export type ProductIsAvailableArgs = {
   address?: InputMaybe<AddressInput>;
 };
 
-
 /** Represents an individual item for sale in the storefront. */
 export type ProductMediaArgs = {
   sortBy?: InputMaybe<MediaSortingInput>;
 };
-
 
 /** Represents an individual item for sale in the storefront. */
 export type ProductMediaByIdArgs = {
   id?: InputMaybe<Scalars['ID']>;
 };
 
-
 /** Represents an individual item for sale in the storefront. */
 export type ProductMetafieldArgs = {
   key: Scalars['String'];
 };
-
 
 /** Represents an individual item for sale in the storefront. */
 export type ProductMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
 
-
 /** Represents an individual item for sale in the storefront. */
 export type ProductPricingArgs = {
   address?: InputMaybe<AddressInput>;
 };
-
 
 /** Represents an individual item for sale in the storefront. */
 export type ProductPrivateMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 /** Represents an individual item for sale in the storefront. */
 export type ProductPrivateMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
-
 
 /** Represents an individual item for sale in the storefront. */
 export type ProductThumbnailArgs = {
@@ -15930,12 +15579,10 @@ export type ProductThumbnailArgs = {
   size?: InputMaybe<Scalars['Int']>;
 };
 
-
 /** Represents an individual item for sale in the storefront. */
 export type ProductTranslationArgs = {
   languageCode: LanguageCodeEnum;
 };
-
 
 /** Represents an individual item for sale in the storefront. */
 export type ProductVariantArgs = {
@@ -15999,7 +15646,7 @@ export type ProductAttributeAssignmentUpdateInput = {
 
 export enum ProductAttributeType {
   Product = 'PRODUCT',
-  Variant = 'VARIANT'
+  Variant = 'VARIANT',
 }
 
 /**
@@ -16072,7 +15719,6 @@ export type ProductChannelListing = Node & {
   purchaseCost?: Maybe<MoneyRange>;
   visibleInListings: Scalars['Boolean'];
 };
-
 
 /** Represents product channel listing. */
 export type ProductChannelListingPricingArgs = {
@@ -16269,7 +15915,6 @@ export type ProductCreated = Event & {
   version?: Maybe<Scalars['String']>;
 };
 
-
 /**
  * Event sent when new product is created.
  *
@@ -16317,7 +15962,6 @@ export type ProductDeleted = Event & {
   version?: Maybe<Scalars['String']>;
 };
 
-
 /**
  * Event sent when product is deleted.
  *
@@ -16364,7 +16008,7 @@ export enum ProductErrorCode {
   Required = 'REQUIRED',
   Unique = 'UNIQUE',
   UnsupportedMediaProvider = 'UNSUPPORTED_MEDIA_PROVIDER',
-  VariantNoDigitalContent = 'VARIANT_NO_DIGITAL_CONTENT'
+  VariantNoDigitalContent = 'VARIANT_NO_DIGITAL_CONTENT',
 }
 
 export enum ProductFieldEnum {
@@ -16379,7 +16023,7 @@ export enum ProductFieldEnum {
   VariantId = 'VARIANT_ID',
   VariantMedia = 'VARIANT_MEDIA',
   VariantSku = 'VARIANT_SKU',
-  VariantWeight = 'VARIANT_WEIGHT'
+  VariantWeight = 'VARIANT_WEIGHT',
 }
 
 export type ProductFilterInput = {
@@ -16447,7 +16091,6 @@ export type ProductImage = {
   sortOrder?: Maybe<Scalars['Int']>;
   url: Scalars['String'];
 };
-
 
 /** Represents a product image. */
 export type ProductImageUrlArgs = {
@@ -16522,7 +16165,6 @@ export type ProductMedia = Node & {
   type: ProductMediaType;
   url: Scalars['String'];
 };
-
 
 /** Represents a product media. */
 export type ProductMediaUrlArgs = {
@@ -16600,7 +16242,7 @@ export type ProductMediaReorder = {
 /** An enumeration. */
 export enum ProductMediaType {
   Image = 'IMAGE',
-  Video = 'VIDEO'
+  Video = 'VIDEO',
 }
 
 /**
@@ -16644,7 +16286,6 @@ export type ProductMetadataUpdated = Event & {
   /** Saleor version that triggered the event. */
   version?: Maybe<Scalars['String']>;
 };
-
 
 /**
  * Event sent when product metadata is updated.
@@ -16731,7 +16372,7 @@ export enum ProductOrderField {
   /** Sort products by rating. */
   Rating = 'RATING',
   /** Sort products by type. */
-  Type = 'TYPE'
+  Type = 'TYPE',
 }
 
 /** Represents availability of a product in the storefront. */
@@ -16808,7 +16449,6 @@ export type ProductTranslatableContent = Node & {
   translation?: Maybe<ProductTranslation>;
 };
 
-
 export type ProductTranslatableContentTranslationArgs = {
   languageCode: LanguageCodeEnum;
 };
@@ -16850,100 +16490,99 @@ export type ProductTranslation = Node & {
 };
 
 /** Represents a type of product. It defines what attributes are available to products of this type. */
-export type ProductType = Node & ObjectWithMetadata & {
-  __typename?: 'ProductType';
-  /**
-   * Variant attributes of that product type with attached variant selection.
-   *
-   * Added in Saleor 3.1.
-   */
-  assignedVariantAttributes?: Maybe<Array<AssignedVariantAttribute>>;
-  /**
-   * List of attributes which can be assigned to this product type.
-   *
-   * Requires one of the following permissions: MANAGE_PRODUCTS.
-   */
-  availableAttributes?: Maybe<AttributeCountableConnection>;
-  hasVariants: Scalars['Boolean'];
-  id: Scalars['ID'];
-  isDigital: Scalars['Boolean'];
-  isShippingRequired: Scalars['Boolean'];
-  /** The product type kind. */
-  kind: ProductTypeKindEnum;
-  /** List of public metadata items. Can be accessed without permissions. */
-  metadata: Array<MetadataItem>;
-  /**
-   * A single key from public metadata.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafield?: Maybe<Scalars['String']>;
-  /**
-   * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafields?: Maybe<Scalars['Metadata']>;
-  name: Scalars['String'];
-  /** List of private metadata items. Requires staff permissions to access. */
-  privateMetadata: Array<MetadataItem>;
-  /**
-   * A single key from private metadata. Requires staff permissions to access.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafield?: Maybe<Scalars['String']>;
-  /**
-   * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafields?: Maybe<Scalars['Metadata']>;
-  /** Product attributes of that product type. */
-  productAttributes?: Maybe<Array<Attribute>>;
-  /**
-   * List of products of this type.
-   * @deprecated This field will be removed in Saleor 4.0. Use the top-level `products` query with the `productTypes` filter.
-   */
-  products?: Maybe<ProductCountableConnection>;
-  slug: Scalars['String'];
-  /**
-   * Tax class assigned to this product type. All products of this product type use this tax class, unless it's overridden in the `Product` type.
-   *
-   * Requires one of the following permissions: AUTHENTICATED_STAFF_USER.
-   */
-  taxClass?: Maybe<TaxClass>;
-  /**
-   * A type of tax. Assigned by enabled tax gateway
-   * @deprecated This field will be removed in Saleor 4.0. Use `taxClass` field instead.
-   */
-  taxType?: Maybe<TaxType>;
-  /**
-   * Variant attributes of that product type.
-   * @deprecated This field will be removed in Saleor 4.0. Use `assignedVariantAttributes` instead.
-   */
-  variantAttributes?: Maybe<Array<Attribute>>;
-  weight?: Maybe<Weight>;
-};
-
+export type ProductType = Node &
+  ObjectWithMetadata & {
+    __typename?: 'ProductType';
+    /**
+     * Variant attributes of that product type with attached variant selection.
+     *
+     * Added in Saleor 3.1.
+     */
+    assignedVariantAttributes?: Maybe<Array<AssignedVariantAttribute>>;
+    /**
+     * List of attributes which can be assigned to this product type.
+     *
+     * Requires one of the following permissions: MANAGE_PRODUCTS.
+     */
+    availableAttributes?: Maybe<AttributeCountableConnection>;
+    hasVariants: Scalars['Boolean'];
+    id: Scalars['ID'];
+    isDigital: Scalars['Boolean'];
+    isShippingRequired: Scalars['Boolean'];
+    /** The product type kind. */
+    kind: ProductTypeKindEnum;
+    /** List of public metadata items. Can be accessed without permissions. */
+    metadata: Array<MetadataItem>;
+    /**
+     * A single key from public metadata.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafield?: Maybe<Scalars['String']>;
+    /**
+     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafields?: Maybe<Scalars['Metadata']>;
+    name: Scalars['String'];
+    /** List of private metadata items. Requires staff permissions to access. */
+    privateMetadata: Array<MetadataItem>;
+    /**
+     * A single key from private metadata. Requires staff permissions to access.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafield?: Maybe<Scalars['String']>;
+    /**
+     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafields?: Maybe<Scalars['Metadata']>;
+    /** Product attributes of that product type. */
+    productAttributes?: Maybe<Array<Attribute>>;
+    /**
+     * List of products of this type.
+     * @deprecated This field will be removed in Saleor 4.0. Use the top-level `products` query with the `productTypes` filter.
+     */
+    products?: Maybe<ProductCountableConnection>;
+    slug: Scalars['String'];
+    /**
+     * Tax class assigned to this product type. All products of this product type use this tax class, unless it's overridden in the `Product` type.
+     *
+     * Requires one of the following permissions: AUTHENTICATED_STAFF_USER.
+     */
+    taxClass?: Maybe<TaxClass>;
+    /**
+     * A type of tax. Assigned by enabled tax gateway
+     * @deprecated This field will be removed in Saleor 4.0. Use `taxClass` field instead.
+     */
+    taxType?: Maybe<TaxType>;
+    /**
+     * Variant attributes of that product type.
+     * @deprecated This field will be removed in Saleor 4.0. Use `assignedVariantAttributes` instead.
+     */
+    variantAttributes?: Maybe<Array<Attribute>>;
+    weight?: Maybe<Weight>;
+  };
 
 /** Represents a type of product. It defines what attributes are available to products of this type. */
 export type ProductTypeAssignedVariantAttributesArgs = {
   variantSelection?: InputMaybe<VariantAttributeScope>;
 };
-
 
 /** Represents a type of product. It defines what attributes are available to products of this type. */
 export type ProductTypeAvailableAttributesArgs = {
@@ -16955,30 +16594,25 @@ export type ProductTypeAvailableAttributesArgs = {
   where?: InputMaybe<AttributeWhereInput>;
 };
 
-
 /** Represents a type of product. It defines what attributes are available to products of this type. */
 export type ProductTypeMetafieldArgs = {
   key: Scalars['String'];
 };
-
 
 /** Represents a type of product. It defines what attributes are available to products of this type. */
 export type ProductTypeMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
 
-
 /** Represents a type of product. It defines what attributes are available to products of this type. */
 export type ProductTypePrivateMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 /** Represents a type of product. It defines what attributes are available to products of this type. */
 export type ProductTypePrivateMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
-
 
 /** Represents a type of product. It defines what attributes are available to products of this type. */
 export type ProductTypeProductsArgs = {
@@ -16988,7 +16622,6 @@ export type ProductTypeProductsArgs = {
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
-
 
 /** Represents a type of product. It defines what attributes are available to products of this type. */
 export type ProductTypeVariantAttributesArgs = {
@@ -17011,7 +16644,7 @@ export type ProductTypeBulkDelete = {
 
 export enum ProductTypeConfigurable {
   Configurable = 'CONFIGURABLE',
-  Simple = 'SIMPLE'
+  Simple = 'SIMPLE',
 }
 
 export type ProductTypeCountableConnection = {
@@ -17059,7 +16692,7 @@ export type ProductTypeDelete = {
 
 export enum ProductTypeEnum {
   Digital = 'DIGITAL',
-  Shippable = 'SHIPPABLE'
+  Shippable = 'SHIPPABLE',
 }
 
 export type ProductTypeFilterInput = {
@@ -17104,7 +16737,7 @@ export type ProductTypeInput = {
 /** An enumeration. */
 export enum ProductTypeKindEnum {
   GiftCard = 'GIFT_CARD',
-  Normal = 'NORMAL'
+  Normal = 'NORMAL',
 }
 
 /**
@@ -17127,7 +16760,7 @@ export enum ProductTypeSortField {
   /** Sort products by name. */
   Name = 'NAME',
   /** Sort products by shipping. */
-  ShippingRequired = 'SHIPPING_REQUIRED'
+  ShippingRequired = 'SHIPPING_REQUIRED',
 }
 
 export type ProductTypeSortingInput = {
@@ -17186,7 +16819,6 @@ export type ProductUpdated = Event & {
   version?: Maybe<Scalars['String']>;
 };
 
-
 /**
  * Event sent when product is updated.
  *
@@ -17199,158 +16831,152 @@ export type ProductUpdatedProductArgs = {
 };
 
 /** Represents a version of a product such as different size or color. */
-export type ProductVariant = Node & ObjectWithMetadata & {
-  __typename?: 'ProductVariant';
-  /** List of attributes assigned to this variant. */
-  attributes: Array<SelectedAttribute>;
-  /** Channel given to retrieve this product variant. Also used by federation gateway to resolve this object in a federated query. */
-  channel?: Maybe<Scalars['String']>;
-  /**
-   * List of price information in channels for the product.
-   *
-   * Requires one of the following permissions: AUTHENTICATED_APP, AUTHENTICATED_STAFF_USER.
-   */
-  channelListings?: Maybe<Array<ProductVariantChannelListing>>;
-  created: Scalars['DateTime'];
-  /**
-   * Digital content for the product variant.
-   *
-   * Requires one of the following permissions: MANAGE_PRODUCTS.
-   */
-  digitalContent?: Maybe<DigitalContent>;
-  /**
-   * External ID of this product.
-   *
-   * Added in Saleor 3.10.
-   */
-  externalReference?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  /**
-   * List of images for the product variant.
-   * @deprecated This field will be removed in Saleor 4.0. Use the `media` field instead.
-   */
-  images?: Maybe<Array<ProductImage>>;
-  /** Gross margin percentage value. */
-  margin?: Maybe<Scalars['Int']>;
-  /** List of media for the product variant. */
-  media?: Maybe<Array<ProductMedia>>;
-  /** List of public metadata items. Can be accessed without permissions. */
-  metadata: Array<MetadataItem>;
-  /**
-   * A single key from public metadata.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafield?: Maybe<Scalars['String']>;
-  /**
-   * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafields?: Maybe<Scalars['Metadata']>;
-  name: Scalars['String'];
-  /**
-   * Preorder data for product variant.
-   *
-   * Added in Saleor 3.1.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  preorder?: Maybe<PreorderData>;
-  /** Lists the storefront variant's pricing, the current price and discounts, only meant for displaying. */
-  pricing?: Maybe<VariantPricingInfo>;
-  /** List of private metadata items. Requires staff permissions to access. */
-  privateMetadata: Array<MetadataItem>;
-  /**
-   * A single key from private metadata. Requires staff permissions to access.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafield?: Maybe<Scalars['String']>;
-  /**
-   * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafields?: Maybe<Scalars['Metadata']>;
-  product: Product;
-  /** Quantity of a product available for sale in one checkout. Field value will be `null` when no `limitQuantityPerCheckout` in global settings has been set, and `productVariant` stocks are not tracked. */
-  quantityAvailable?: Maybe<Scalars['Int']>;
-  quantityLimitPerCustomer?: Maybe<Scalars['Int']>;
-  /**
-   * Total quantity ordered.
-   *
-   * Requires one of the following permissions: MANAGE_PRODUCTS.
-   */
-  quantityOrdered?: Maybe<Scalars['Int']>;
-  /**
-   * Total revenue generated by a variant in given period of time. Note: this field should be queried using `reportProductSales` query as it uses optimizations suitable for such calculations.
-   *
-   * Requires one of the following permissions: MANAGE_PRODUCTS.
-   */
-  revenue?: Maybe<TaxedMoney>;
-  sku?: Maybe<Scalars['String']>;
-  /**
-   * Stocks for the product variant.
-   *
-   * Requires one of the following permissions: MANAGE_PRODUCTS, MANAGE_ORDERS.
-   */
-  stocks?: Maybe<Array<Stock>>;
-  trackInventory: Scalars['Boolean'];
-  /** Returns translated product variant fields for the given language code. */
-  translation?: Maybe<ProductVariantTranslation>;
-  updatedAt: Scalars['DateTime'];
-  weight?: Maybe<Weight>;
-};
-
+export type ProductVariant = Node &
+  ObjectWithMetadata & {
+    __typename?: 'ProductVariant';
+    /** List of attributes assigned to this variant. */
+    attributes: Array<SelectedAttribute>;
+    /** Channel given to retrieve this product variant. Also used by federation gateway to resolve this object in a federated query. */
+    channel?: Maybe<Scalars['String']>;
+    /**
+     * List of price information in channels for the product.
+     *
+     * Requires one of the following permissions: AUTHENTICATED_APP, AUTHENTICATED_STAFF_USER.
+     */
+    channelListings?: Maybe<Array<ProductVariantChannelListing>>;
+    created: Scalars['DateTime'];
+    /**
+     * Digital content for the product variant.
+     *
+     * Requires one of the following permissions: MANAGE_PRODUCTS.
+     */
+    digitalContent?: Maybe<DigitalContent>;
+    /**
+     * External ID of this product.
+     *
+     * Added in Saleor 3.10.
+     */
+    externalReference?: Maybe<Scalars['String']>;
+    id: Scalars['ID'];
+    /**
+     * List of images for the product variant.
+     * @deprecated This field will be removed in Saleor 4.0. Use the `media` field instead.
+     */
+    images?: Maybe<Array<ProductImage>>;
+    /** Gross margin percentage value. */
+    margin?: Maybe<Scalars['Int']>;
+    /** List of media for the product variant. */
+    media?: Maybe<Array<ProductMedia>>;
+    /** List of public metadata items. Can be accessed without permissions. */
+    metadata: Array<MetadataItem>;
+    /**
+     * A single key from public metadata.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafield?: Maybe<Scalars['String']>;
+    /**
+     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafields?: Maybe<Scalars['Metadata']>;
+    name: Scalars['String'];
+    /**
+     * Preorder data for product variant.
+     *
+     * Added in Saleor 3.1.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    preorder?: Maybe<PreorderData>;
+    /** Lists the storefront variant's pricing, the current price and discounts, only meant for displaying. */
+    pricing?: Maybe<VariantPricingInfo>;
+    /** List of private metadata items. Requires staff permissions to access. */
+    privateMetadata: Array<MetadataItem>;
+    /**
+     * A single key from private metadata. Requires staff permissions to access.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafield?: Maybe<Scalars['String']>;
+    /**
+     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafields?: Maybe<Scalars['Metadata']>;
+    product: Product;
+    /** Quantity of a product available for sale in one checkout. Field value will be `null` when no `limitQuantityPerCheckout` in global settings has been set, and `productVariant` stocks are not tracked. */
+    quantityAvailable?: Maybe<Scalars['Int']>;
+    quantityLimitPerCustomer?: Maybe<Scalars['Int']>;
+    /**
+     * Total quantity ordered.
+     *
+     * Requires one of the following permissions: MANAGE_PRODUCTS.
+     */
+    quantityOrdered?: Maybe<Scalars['Int']>;
+    /**
+     * Total revenue generated by a variant in given period of time. Note: this field should be queried using `reportProductSales` query as it uses optimizations suitable for such calculations.
+     *
+     * Requires one of the following permissions: MANAGE_PRODUCTS.
+     */
+    revenue?: Maybe<TaxedMoney>;
+    sku?: Maybe<Scalars['String']>;
+    /**
+     * Stocks for the product variant.
+     *
+     * Requires one of the following permissions: MANAGE_PRODUCTS, MANAGE_ORDERS.
+     */
+    stocks?: Maybe<Array<Stock>>;
+    trackInventory: Scalars['Boolean'];
+    /** Returns translated product variant fields for the given language code. */
+    translation?: Maybe<ProductVariantTranslation>;
+    updatedAt: Scalars['DateTime'];
+    weight?: Maybe<Weight>;
+  };
 
 /** Represents a version of a product such as different size or color. */
 export type ProductVariantAttributesArgs = {
   variantSelection?: InputMaybe<VariantAttributeScope>;
 };
 
-
 /** Represents a version of a product such as different size or color. */
 export type ProductVariantMetafieldArgs = {
   key: Scalars['String'];
 };
-
 
 /** Represents a version of a product such as different size or color. */
 export type ProductVariantMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
 
-
 /** Represents a version of a product such as different size or color. */
 export type ProductVariantPricingArgs = {
   address?: InputMaybe<AddressInput>;
 };
-
 
 /** Represents a version of a product such as different size or color. */
 export type ProductVariantPrivateMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 /** Represents a version of a product such as different size or color. */
 export type ProductVariantPrivateMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
-
 
 /** Represents a version of a product such as different size or color. */
 export type ProductVariantQuantityAvailableArgs = {
@@ -17358,19 +16984,16 @@ export type ProductVariantQuantityAvailableArgs = {
   countryCode?: InputMaybe<CountryCode>;
 };
 
-
 /** Represents a version of a product such as different size or color. */
 export type ProductVariantRevenueArgs = {
   period?: InputMaybe<ReportingPeriod>;
 };
-
 
 /** Represents a version of a product such as different size or color. */
 export type ProductVariantStocksArgs = {
   address?: InputMaybe<AddressInput>;
   countryCode?: InputMaybe<CountryCode>;
 };
-
 
 /** Represents a version of a product such as different size or color. */
 export type ProductVariantTranslationArgs = {
@@ -17399,7 +17022,6 @@ export type ProductVariantBackInStock = Event & {
   /** Look up a warehouse. */
   warehouse?: Maybe<Warehouse>;
 };
-
 
 /**
  * Event sent when product variant is back in stock.
@@ -17530,7 +17152,7 @@ export enum ProductVariantBulkErrorCode {
   NotProductsVariant = 'NOT_PRODUCTS_VARIANT',
   ProductNotAssignedToChannel = 'PRODUCT_NOT_ASSIGNED_TO_CHANNEL',
   Required = 'REQUIRED',
-  Unique = 'UNIQUE'
+  Unique = 'UNIQUE',
 }
 
 export type ProductVariantBulkResult = {
@@ -17774,7 +17396,6 @@ export type ProductVariantCreated = Event & {
   version?: Maybe<Scalars['String']>;
 };
 
-
 /**
  * Event sent when new product variant is created.
  *
@@ -17819,7 +17440,6 @@ export type ProductVariantDeleted = Event & {
   /** Saleor version that triggered the event. */
   version?: Maybe<Scalars['String']>;
 };
-
 
 /**
  * Event sent when product variant is deleted.
@@ -17908,7 +17528,6 @@ export type ProductVariantMetadataUpdated = Event & {
   version?: Maybe<Scalars['String']>;
 };
 
-
 /**
  * Event sent when product variant metadata is updated.
  *
@@ -17942,7 +17561,6 @@ export type ProductVariantOutOfStock = Event & {
   /** Look up a warehouse. */
   warehouse?: Maybe<Warehouse>;
 };
-
 
 /**
  * Event sent when product variant is out of stock.
@@ -18013,7 +17631,7 @@ export type ProductVariantSetDefault = {
 
 export enum ProductVariantSortField {
   /** Sort products variants by last modified at. */
-  LastModifiedAt = 'LAST_MODIFIED_AT'
+  LastModifiedAt = 'LAST_MODIFIED_AT',
 }
 
 export type ProductVariantSortingInput = {
@@ -18045,7 +17663,6 @@ export type ProductVariantStockUpdated = Event & {
   /** Look up a warehouse. */
   warehouse?: Maybe<Warehouse>;
 };
-
 
 /**
  * Event sent when product variant stock is updated.
@@ -18115,7 +17732,6 @@ export type ProductVariantTranslatableContent = Node & {
   translation?: Maybe<ProductVariantTranslation>;
 };
 
-
 export type ProductVariantTranslatableContentTranslationArgs = {
   languageCode: LanguageCodeEnum;
 };
@@ -18174,7 +17790,6 @@ export type ProductVariantUpdated = Event & {
   /** Saleor version that triggered the event. */
   version?: Maybe<Scalars['String']>;
 };
-
 
 /**
  * Event sent when product variant is updated.
@@ -18626,16 +18241,13 @@ export type Query = {
   webhookSamplePayload?: Maybe<Scalars['JSONString']>;
 };
 
-
 export type Query_EntitiesArgs = {
   representations?: InputMaybe<Array<InputMaybe<Scalars['_Any']>>>;
 };
 
-
 export type QueryAddressArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryAddressValidationRulesArgs = {
   city?: InputMaybe<Scalars['String']>;
@@ -18644,16 +18256,13 @@ export type QueryAddressValidationRulesArgs = {
   countryCode: CountryCode;
 };
 
-
 export type QueryAppArgs = {
   id?: InputMaybe<Scalars['ID']>;
 };
 
-
 export type QueryAppExtensionArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryAppExtensionsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -18662,7 +18271,6 @@ export type QueryAppExtensionsArgs = {
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
-
 
 export type QueryAppsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -18673,13 +18281,11 @@ export type QueryAppsArgs = {
   sortBy?: InputMaybe<AppSortingInput>;
 };
 
-
 export type QueryAttributeArgs = {
   externalReference?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
   slug?: InputMaybe<Scalars['String']>;
 };
-
 
 export type QueryAttributesArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -18693,7 +18299,6 @@ export type QueryAttributesArgs = {
   where?: InputMaybe<AttributeWhereInput>;
 };
 
-
 export type QueryCategoriesArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
@@ -18704,24 +18309,20 @@ export type QueryCategoriesArgs = {
   sortBy?: InputMaybe<CategorySortingInput>;
 };
 
-
 export type QueryCategoryArgs = {
   id?: InputMaybe<Scalars['ID']>;
   slug?: InputMaybe<Scalars['String']>;
 };
-
 
 export type QueryChannelArgs = {
   id?: InputMaybe<Scalars['ID']>;
   slug?: InputMaybe<Scalars['String']>;
 };
 
-
 export type QueryCheckoutArgs = {
   id?: InputMaybe<Scalars['ID']>;
   token?: InputMaybe<Scalars['UUID']>;
 };
-
 
 export type QueryCheckoutLinesArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -18729,7 +18330,6 @@ export type QueryCheckoutLinesArgs = {
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
-
 
 export type QueryCheckoutsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -18741,13 +18341,11 @@ export type QueryCheckoutsArgs = {
   sortBy?: InputMaybe<CheckoutSortingInput>;
 };
 
-
 export type QueryCollectionArgs = {
   channel?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
   slug?: InputMaybe<Scalars['String']>;
 };
-
 
 export type QueryCollectionsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -18759,7 +18357,6 @@ export type QueryCollectionsArgs = {
   sortBy?: InputMaybe<CollectionSortingInput>;
 };
 
-
 export type QueryCustomersArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
@@ -18769,11 +18366,9 @@ export type QueryCustomersArgs = {
   sortBy?: InputMaybe<UserSortingInput>;
 };
 
-
 export type QueryDigitalContentArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryDigitalContentsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -18781,7 +18376,6 @@ export type QueryDigitalContentsArgs = {
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
-
 
 export type QueryDraftOrdersArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -18792,11 +18386,9 @@ export type QueryDraftOrdersArgs = {
   sortBy?: InputMaybe<OrderSortingInput>;
 };
 
-
 export type QueryExportFileArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryExportFilesArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -18807,11 +18399,9 @@ export type QueryExportFilesArgs = {
   sortBy?: InputMaybe<ExportFileSortingInput>;
 };
 
-
 export type QueryGiftCardArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryGiftCardTagsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -18820,7 +18410,6 @@ export type QueryGiftCardTagsArgs = {
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
-
 
 export type QueryGiftCardsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -18831,14 +18420,12 @@ export type QueryGiftCardsArgs = {
   sortBy?: InputMaybe<GiftCardSortingInput>;
 };
 
-
 export type QueryHomepageEventsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
-
 
 export type QueryMenuArgs = {
   channel?: InputMaybe<Scalars['String']>;
@@ -18847,12 +18434,10 @@ export type QueryMenuArgs = {
   slug?: InputMaybe<Scalars['String']>;
 };
 
-
 export type QueryMenuItemArgs = {
   channel?: InputMaybe<Scalars['String']>;
   id: Scalars['ID'];
 };
-
 
 export type QueryMenuItemsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -18864,7 +18449,6 @@ export type QueryMenuItemsArgs = {
   sortBy?: InputMaybe<MenuItemSortingInput>;
 };
 
-
 export type QueryMenusArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
@@ -18875,17 +18459,14 @@ export type QueryMenusArgs = {
   sortBy?: InputMaybe<MenuSortingInput>;
 };
 
-
 export type QueryOrderArgs = {
   externalReference?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
 };
 
-
 export type QueryOrderByTokenArgs = {
   token: Scalars['UUID'];
 };
-
 
 export type QueryOrdersArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -18897,23 +18478,19 @@ export type QueryOrdersArgs = {
   sortBy?: InputMaybe<OrderSortingInput>;
 };
 
-
 export type QueryOrdersTotalArgs = {
   channel?: InputMaybe<Scalars['String']>;
   period?: InputMaybe<ReportingPeriod>;
 };
-
 
 export type QueryPageArgs = {
   id?: InputMaybe<Scalars['ID']>;
   slug?: InputMaybe<Scalars['String']>;
 };
 
-
 export type QueryPageTypeArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryPageTypesArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -18924,7 +18501,6 @@ export type QueryPageTypesArgs = {
   sortBy?: InputMaybe<PageTypeSortingInput>;
 };
 
-
 export type QueryPagesArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
@@ -18934,11 +18510,9 @@ export type QueryPagesArgs = {
   sortBy?: InputMaybe<PageSortingInput>;
 };
 
-
 export type QueryPaymentArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryPaymentsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -18948,11 +18522,9 @@ export type QueryPaymentsArgs = {
   last?: InputMaybe<Scalars['Int']>;
 };
 
-
 export type QueryPermissionGroupArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryPermissionGroupsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -18963,11 +18535,9 @@ export type QueryPermissionGroupsArgs = {
   sortBy?: InputMaybe<PermissionGroupSortingInput>;
 };
 
-
 export type QueryPluginArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryPluginsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -18978,7 +18548,6 @@ export type QueryPluginsArgs = {
   sortBy?: InputMaybe<PluginSortingInput>;
 };
 
-
 export type QueryProductArgs = {
   channel?: InputMaybe<Scalars['String']>;
   externalReference?: InputMaybe<Scalars['String']>;
@@ -18986,11 +18555,9 @@ export type QueryProductArgs = {
   slug?: InputMaybe<Scalars['String']>;
 };
 
-
 export type QueryProductTypeArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryProductTypesArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -19001,14 +18568,12 @@ export type QueryProductTypesArgs = {
   sortBy?: InputMaybe<ProductTypeSortingInput>;
 };
 
-
 export type QueryProductVariantArgs = {
   channel?: InputMaybe<Scalars['String']>;
   externalReference?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
   sku?: InputMaybe<Scalars['String']>;
 };
-
 
 export type QueryProductVariantsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -19021,7 +18586,6 @@ export type QueryProductVariantsArgs = {
   sortBy?: InputMaybe<ProductVariantSortingInput>;
 };
 
-
 export type QueryProductsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
@@ -19032,7 +18596,6 @@ export type QueryProductsArgs = {
   sortBy?: InputMaybe<ProductOrder>;
 };
 
-
 export type QueryReportProductSalesArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
@@ -19042,12 +18605,10 @@ export type QueryReportProductSalesArgs = {
   period: ReportingPeriod;
 };
 
-
 export type QuerySaleArgs = {
   channel?: InputMaybe<Scalars['String']>;
   id: Scalars['ID'];
 };
-
 
 export type QuerySalesArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -19060,12 +18621,10 @@ export type QuerySalesArgs = {
   sortBy?: InputMaybe<SaleSortingInput>;
 };
 
-
 export type QueryShippingZoneArgs = {
   channel?: InputMaybe<Scalars['String']>;
   id: Scalars['ID'];
 };
-
 
 export type QueryShippingZonesArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -19076,7 +18635,6 @@ export type QueryShippingZonesArgs = {
   last?: InputMaybe<Scalars['Int']>;
 };
 
-
 export type QueryStaffUsersArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
@@ -19086,11 +18644,9 @@ export type QueryStaffUsersArgs = {
   sortBy?: InputMaybe<UserSortingInput>;
 };
 
-
 export type QueryStockArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryStocksArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -19100,11 +18656,9 @@ export type QueryStocksArgs = {
   last?: InputMaybe<Scalars['Int']>;
 };
 
-
 export type QueryTaxClassArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryTaxClassesArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -19115,11 +18669,9 @@ export type QueryTaxClassesArgs = {
   sortBy?: InputMaybe<TaxClassSortingInput>;
 };
 
-
 export type QueryTaxConfigurationArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryTaxConfigurationsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -19129,22 +18681,18 @@ export type QueryTaxConfigurationsArgs = {
   last?: InputMaybe<Scalars['Int']>;
 };
 
-
 export type QueryTaxCountryConfigurationArgs = {
   countryCode: CountryCode;
 };
-
 
 export type QueryTransactionArgs = {
   id: Scalars['ID'];
 };
 
-
 export type QueryTranslationArgs = {
   id: Scalars['ID'];
   kind: TranslatableKinds;
 };
-
 
 export type QueryTranslationsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -19154,19 +18702,16 @@ export type QueryTranslationsArgs = {
   last?: InputMaybe<Scalars['Int']>;
 };
 
-
 export type QueryUserArgs = {
   email?: InputMaybe<Scalars['String']>;
   externalReference?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
 };
 
-
 export type QueryVoucherArgs = {
   channel?: InputMaybe<Scalars['String']>;
   id: Scalars['ID'];
 };
-
 
 export type QueryVouchersArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -19179,12 +18724,10 @@ export type QueryVouchersArgs = {
   sortBy?: InputMaybe<VoucherSortingInput>;
 };
 
-
 export type QueryWarehouseArgs = {
   externalReference?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
 };
-
 
 export type QueryWarehousesArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -19195,11 +18738,9 @@ export type QueryWarehousesArgs = {
   sortBy?: InputMaybe<WarehouseSortingInput>;
 };
 
-
 export type QueryWebhookArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryWebhookSamplePayloadArgs = {
   eventType: WebhookSampleEventTypeEnum;
@@ -19235,7 +18776,7 @@ export type ReorderInput = {
 
 export enum ReportingPeriod {
   ThisMonth = 'THIS_MONTH',
-  Today = 'TODAY'
+  Today = 'TODAY',
 }
 
 /**
@@ -19261,91 +18802,91 @@ export type RequestPasswordReset = {
 };
 
 /** Sales allow creating discounts for categories, collections or products and are visible to all the customers. */
-export type Sale = Node & ObjectWithMetadata & {
-  __typename?: 'Sale';
-  /** List of categories this sale applies to. */
-  categories?: Maybe<CategoryCountableConnection>;
-  /**
-   * List of channels available for the sale.
-   *
-   * Requires one of the following permissions: MANAGE_DISCOUNTS.
-   */
-  channelListings?: Maybe<Array<SaleChannelListing>>;
-  /**
-   * List of collections this sale applies to.
-   *
-   * Requires one of the following permissions: MANAGE_DISCOUNTS.
-   */
-  collections?: Maybe<CollectionCountableConnection>;
-  created: Scalars['DateTime'];
-  /** Currency code for sale. */
-  currency?: Maybe<Scalars['String']>;
-  /** Sale value. */
-  discountValue?: Maybe<Scalars['Float']>;
-  endDate?: Maybe<Scalars['DateTime']>;
-  id: Scalars['ID'];
-  /** List of public metadata items. Can be accessed without permissions. */
-  metadata: Array<MetadataItem>;
-  /**
-   * A single key from public metadata.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafield?: Maybe<Scalars['String']>;
-  /**
-   * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafields?: Maybe<Scalars['Metadata']>;
-  name: Scalars['String'];
-  /** List of private metadata items. Requires staff permissions to access. */
-  privateMetadata: Array<MetadataItem>;
-  /**
-   * A single key from private metadata. Requires staff permissions to access.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafield?: Maybe<Scalars['String']>;
-  /**
-   * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafields?: Maybe<Scalars['Metadata']>;
-  /**
-   * List of products this sale applies to.
-   *
-   * Requires one of the following permissions: MANAGE_DISCOUNTS.
-   */
-  products?: Maybe<ProductCountableConnection>;
-  startDate: Scalars['DateTime'];
-  /** Returns translated sale fields for the given language code. */
-  translation?: Maybe<SaleTranslation>;
-  type: SaleType;
-  updatedAt: Scalars['DateTime'];
-  /**
-   * List of product variants this sale applies to.
-   *
-   * Added in Saleor 3.1.
-   *
-   * Requires one of the following permissions: MANAGE_DISCOUNTS.
-   */
-  variants?: Maybe<ProductVariantCountableConnection>;
-};
-
+export type Sale = Node &
+  ObjectWithMetadata & {
+    __typename?: 'Sale';
+    /** List of categories this sale applies to. */
+    categories?: Maybe<CategoryCountableConnection>;
+    /**
+     * List of channels available for the sale.
+     *
+     * Requires one of the following permissions: MANAGE_DISCOUNTS.
+     */
+    channelListings?: Maybe<Array<SaleChannelListing>>;
+    /**
+     * List of collections this sale applies to.
+     *
+     * Requires one of the following permissions: MANAGE_DISCOUNTS.
+     */
+    collections?: Maybe<CollectionCountableConnection>;
+    created: Scalars['DateTime'];
+    /** Currency code for sale. */
+    currency?: Maybe<Scalars['String']>;
+    /** Sale value. */
+    discountValue?: Maybe<Scalars['Float']>;
+    endDate?: Maybe<Scalars['DateTime']>;
+    id: Scalars['ID'];
+    /** List of public metadata items. Can be accessed without permissions. */
+    metadata: Array<MetadataItem>;
+    /**
+     * A single key from public metadata.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafield?: Maybe<Scalars['String']>;
+    /**
+     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafields?: Maybe<Scalars['Metadata']>;
+    name: Scalars['String'];
+    /** List of private metadata items. Requires staff permissions to access. */
+    privateMetadata: Array<MetadataItem>;
+    /**
+     * A single key from private metadata. Requires staff permissions to access.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafield?: Maybe<Scalars['String']>;
+    /**
+     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafields?: Maybe<Scalars['Metadata']>;
+    /**
+     * List of products this sale applies to.
+     *
+     * Requires one of the following permissions: MANAGE_DISCOUNTS.
+     */
+    products?: Maybe<ProductCountableConnection>;
+    startDate: Scalars['DateTime'];
+    /** Returns translated sale fields for the given language code. */
+    translation?: Maybe<SaleTranslation>;
+    type: SaleType;
+    updatedAt: Scalars['DateTime'];
+    /**
+     * List of product variants this sale applies to.
+     *
+     * Added in Saleor 3.1.
+     *
+     * Requires one of the following permissions: MANAGE_DISCOUNTS.
+     */
+    variants?: Maybe<ProductVariantCountableConnection>;
+  };
 
 /** Sales allow creating discounts for categories, collections or products and are visible to all the customers. */
 export type SaleCategoriesArgs = {
@@ -19355,7 +18896,6 @@ export type SaleCategoriesArgs = {
   last?: InputMaybe<Scalars['Int']>;
 };
 
-
 /** Sales allow creating discounts for categories, collections or products and are visible to all the customers. */
 export type SaleCollectionsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -19364,30 +18904,25 @@ export type SaleCollectionsArgs = {
   last?: InputMaybe<Scalars['Int']>;
 };
 
-
 /** Sales allow creating discounts for categories, collections or products and are visible to all the customers. */
 export type SaleMetafieldArgs = {
   key: Scalars['String'];
 };
-
 
 /** Sales allow creating discounts for categories, collections or products and are visible to all the customers. */
 export type SaleMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
 
-
 /** Sales allow creating discounts for categories, collections or products and are visible to all the customers. */
 export type SalePrivateMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 /** Sales allow creating discounts for categories, collections or products and are visible to all the customers. */
 export type SalePrivateMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
-
 
 /** Sales allow creating discounts for categories, collections or products and are visible to all the customers. */
 export type SaleProductsArgs = {
@@ -19397,12 +18932,10 @@ export type SaleProductsArgs = {
   last?: InputMaybe<Scalars['Int']>;
 };
 
-
 /** Sales allow creating discounts for categories, collections or products and are visible to all the customers. */
 export type SaleTranslationArgs = {
   languageCode: LanguageCodeEnum;
 };
-
 
 /** Sales allow creating discounts for categories, collections or products and are visible to all the customers. */
 export type SaleVariantsArgs = {
@@ -19528,7 +19061,6 @@ export type SaleCreated = Event & {
   version?: Maybe<Scalars['String']>;
 };
 
-
 /**
  * Event sent when new sale is created.
  *
@@ -19573,7 +19105,6 @@ export type SaleDeleted = Event & {
   /** Saleor version that triggered the event. */
   version?: Maybe<Scalars['String']>;
 };
-
 
 /**
  * Event sent when sale is deleted.
@@ -19647,7 +19178,7 @@ export enum SaleSortField {
    *
    * This option requires a channel filter to work as the values can vary between channels.
    */
-  Value = 'VALUE'
+  Value = 'VALUE',
 }
 
 export type SaleSortingInput = {
@@ -19690,7 +19221,6 @@ export type SaleToggle = Event & {
   version?: Maybe<Scalars['String']>;
 };
 
-
 /**
  * The event informs about the start or end of the sale.
  *
@@ -19716,7 +19246,6 @@ export type SaleTranslatableContent = Node & {
   /** Returns translated sale fields for the given language code. */
   translation?: Maybe<SaleTranslation>;
 };
-
 
 export type SaleTranslatableContentTranslationArgs = {
   languageCode: LanguageCodeEnum;
@@ -19745,7 +19274,7 @@ export type SaleTranslation = Node & {
 
 export enum SaleType {
   Fixed = 'FIXED',
-  Percentage = 'PERCENTAGE'
+  Percentage = 'PERCENTAGE',
 }
 
 /**
@@ -19781,7 +19310,6 @@ export type SaleUpdated = Event & {
   /** Saleor version that triggered the event. */
   version?: Maybe<Scalars['String']>;
 };
-
 
 /**
  * Event sent when sale is updated.
@@ -19849,7 +19377,7 @@ export enum ShippingErrorCode {
   MaxLessThanMin = 'MAX_LESS_THAN_MIN',
   NotFound = 'NOT_FOUND',
   Required = 'REQUIRED',
-  Unique = 'UNIQUE'
+  Unique = 'UNIQUE',
 }
 
 /**
@@ -19882,95 +19410,91 @@ export type ShippingListMethodsForCheckout = Event & {
 };
 
 /** Shipping methods that can be used as means of shipping for orders and checkouts. */
-export type ShippingMethod = Node & ObjectWithMetadata & {
-  __typename?: 'ShippingMethod';
-  /** Describes if this shipping method is active and can be selected. */
-  active: Scalars['Boolean'];
-  /**
-   * Shipping method description.
-   *
-   * Rich text format. For reference see https://editorjs.io/
-   */
-  description?: Maybe<Scalars['JSONString']>;
-  /** Unique ID of ShippingMethod available for Order. */
-  id: Scalars['ID'];
-  /** Maximum delivery days for this shipping method. */
-  maximumDeliveryDays?: Maybe<Scalars['Int']>;
-  /** Maximum order price for this shipping method. */
-  maximumOrderPrice?: Maybe<Money>;
-  /**
-   * Maximum order weight for this shipping method.
-   * @deprecated This field will be removed in Saleor 4.0.
-   */
-  maximumOrderWeight?: Maybe<Weight>;
-  /** Message connected to this shipping method. */
-  message?: Maybe<Scalars['String']>;
-  /** List of public metadata items. Can be accessed without permissions. */
-  metadata: Array<MetadataItem>;
-  /**
-   * A single key from public metadata.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   */
-  metafield?: Maybe<Scalars['String']>;
-  /** Public metadata. Use `keys` to control which fields you want to include. The default is to include everything. */
-  metafields?: Maybe<Scalars['Metadata']>;
-  /** Minimum delivery days for this shipping method. */
-  minimumDeliveryDays?: Maybe<Scalars['Int']>;
-  /** Minimal order price for this shipping method. */
-  minimumOrderPrice?: Maybe<Money>;
-  /**
-   * Minimum order weight for this shipping method.
-   * @deprecated This field will be removed in Saleor 4.0.
-   */
-  minimumOrderWeight?: Maybe<Weight>;
-  /** Shipping method name. */
-  name: Scalars['String'];
-  /** The price of selected shipping method. */
-  price: Money;
-  /** List of private metadata items. Requires staff permissions to access. */
-  privateMetadata: Array<MetadataItem>;
-  /**
-   * A single key from private metadata. Requires staff permissions to access.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   */
-  privateMetafield?: Maybe<Scalars['String']>;
-  /** Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything. */
-  privateMetafields?: Maybe<Scalars['Metadata']>;
-  /** Returns translated shipping method fields for the given language code. */
-  translation?: Maybe<ShippingMethodTranslation>;
-  /**
-   * Type of the shipping method.
-   * @deprecated This field will be removed in Saleor 4.0.
-   */
-  type?: Maybe<ShippingMethodTypeEnum>;
-};
-
+export type ShippingMethod = Node &
+  ObjectWithMetadata & {
+    __typename?: 'ShippingMethod';
+    /** Describes if this shipping method is active and can be selected. */
+    active: Scalars['Boolean'];
+    /**
+     * Shipping method description.
+     *
+     * Rich text format. For reference see https://editorjs.io/
+     */
+    description?: Maybe<Scalars['JSONString']>;
+    /** Unique ID of ShippingMethod available for Order. */
+    id: Scalars['ID'];
+    /** Maximum delivery days for this shipping method. */
+    maximumDeliveryDays?: Maybe<Scalars['Int']>;
+    /** Maximum order price for this shipping method. */
+    maximumOrderPrice?: Maybe<Money>;
+    /**
+     * Maximum order weight for this shipping method.
+     * @deprecated This field will be removed in Saleor 4.0.
+     */
+    maximumOrderWeight?: Maybe<Weight>;
+    /** Message connected to this shipping method. */
+    message?: Maybe<Scalars['String']>;
+    /** List of public metadata items. Can be accessed without permissions. */
+    metadata: Array<MetadataItem>;
+    /**
+     * A single key from public metadata.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     */
+    metafield?: Maybe<Scalars['String']>;
+    /** Public metadata. Use `keys` to control which fields you want to include. The default is to include everything. */
+    metafields?: Maybe<Scalars['Metadata']>;
+    /** Minimum delivery days for this shipping method. */
+    minimumDeliveryDays?: Maybe<Scalars['Int']>;
+    /** Minimal order price for this shipping method. */
+    minimumOrderPrice?: Maybe<Money>;
+    /**
+     * Minimum order weight for this shipping method.
+     * @deprecated This field will be removed in Saleor 4.0.
+     */
+    minimumOrderWeight?: Maybe<Weight>;
+    /** Shipping method name. */
+    name: Scalars['String'];
+    /** The price of selected shipping method. */
+    price: Money;
+    /** List of private metadata items. Requires staff permissions to access. */
+    privateMetadata: Array<MetadataItem>;
+    /**
+     * A single key from private metadata. Requires staff permissions to access.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     */
+    privateMetafield?: Maybe<Scalars['String']>;
+    /** Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything. */
+    privateMetafields?: Maybe<Scalars['Metadata']>;
+    /** Returns translated shipping method fields for the given language code. */
+    translation?: Maybe<ShippingMethodTranslation>;
+    /**
+     * Type of the shipping method.
+     * @deprecated This field will be removed in Saleor 4.0.
+     */
+    type?: Maybe<ShippingMethodTypeEnum>;
+  };
 
 /** Shipping methods that can be used as means of shipping for orders and checkouts. */
 export type ShippingMethodMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 /** Shipping methods that can be used as means of shipping for orders and checkouts. */
 export type ShippingMethodMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
-
 
 /** Shipping methods that can be used as means of shipping for orders and checkouts. */
 export type ShippingMethodPrivateMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 /** Shipping methods that can be used as means of shipping for orders and checkouts. */
 export type ShippingMethodPrivateMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
-
 
 /** Shipping methods that can be used as means of shipping for orders and checkouts. */
 export type ShippingMethodTranslationArgs = {
@@ -20053,7 +19577,6 @@ export type ShippingMethodTranslatableContent = Node & {
   translation?: Maybe<ShippingMethodTranslation>;
 };
 
-
 export type ShippingMethodTranslatableContentTranslationArgs = {
   languageCode: LanguageCodeEnum;
 };
@@ -20073,96 +19596,96 @@ export type ShippingMethodTranslation = Node & {
 };
 
 /** Shipping method are the methods you'll use to get customer's orders to them. They are directly exposed to the customers. */
-export type ShippingMethodType = Node & ObjectWithMetadata & {
-  __typename?: 'ShippingMethodType';
-  /**
-   * List of channels available for the method.
-   *
-   * Requires one of the following permissions: MANAGE_SHIPPING.
-   */
-  channelListings?: Maybe<Array<ShippingMethodChannelListing>>;
-  /**
-   * Shipping method description.
-   *
-   * Rich text format. For reference see https://editorjs.io/
-   */
-  description?: Maybe<Scalars['JSONString']>;
-  /**
-   * List of excluded products for the shipping method.
-   *
-   * Requires one of the following permissions: MANAGE_SHIPPING.
-   */
-  excludedProducts?: Maybe<ProductCountableConnection>;
-  /** Shipping method ID. */
-  id: Scalars['ID'];
-  /** Maximum number of days for delivery. */
-  maximumDeliveryDays?: Maybe<Scalars['Int']>;
-  /** The price of the cheapest variant (including discounts). */
-  maximumOrderPrice?: Maybe<Money>;
-  /** Maximum order weight to use this shipping method. */
-  maximumOrderWeight?: Maybe<Weight>;
-  /** List of public metadata items. Can be accessed without permissions. */
-  metadata: Array<MetadataItem>;
-  /**
-   * A single key from public metadata.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafield?: Maybe<Scalars['String']>;
-  /**
-   * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafields?: Maybe<Scalars['Metadata']>;
-  /** Minimal number of days for delivery. */
-  minimumDeliveryDays?: Maybe<Scalars['Int']>;
-  /** The price of the cheapest variant (including discounts). */
-  minimumOrderPrice?: Maybe<Money>;
-  /** Minimum order weight to use this shipping method. */
-  minimumOrderWeight?: Maybe<Weight>;
-  /** Shipping method name. */
-  name: Scalars['String'];
-  /** Postal code ranges rule of exclusion or inclusion of the shipping method. */
-  postalCodeRules?: Maybe<Array<ShippingMethodPostalCodeRule>>;
-  /** List of private metadata items. Requires staff permissions to access. */
-  privateMetadata: Array<MetadataItem>;
-  /**
-   * A single key from private metadata. Requires staff permissions to access.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafield?: Maybe<Scalars['String']>;
-  /**
-   * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafields?: Maybe<Scalars['Metadata']>;
-  /**
-   * Tax class assigned to this shipping method.
-   *
-   * Requires one of the following permissions: MANAGE_TAXES, MANAGE_SHIPPING.
-   */
-  taxClass?: Maybe<TaxClass>;
-  /** Returns translated shipping method fields for the given language code. */
-  translation?: Maybe<ShippingMethodTranslation>;
-  /** Type of the shipping method. */
-  type?: Maybe<ShippingMethodTypeEnum>;
-};
-
+export type ShippingMethodType = Node &
+  ObjectWithMetadata & {
+    __typename?: 'ShippingMethodType';
+    /**
+     * List of channels available for the method.
+     *
+     * Requires one of the following permissions: MANAGE_SHIPPING.
+     */
+    channelListings?: Maybe<Array<ShippingMethodChannelListing>>;
+    /**
+     * Shipping method description.
+     *
+     * Rich text format. For reference see https://editorjs.io/
+     */
+    description?: Maybe<Scalars['JSONString']>;
+    /**
+     * List of excluded products for the shipping method.
+     *
+     * Requires one of the following permissions: MANAGE_SHIPPING.
+     */
+    excludedProducts?: Maybe<ProductCountableConnection>;
+    /** Shipping method ID. */
+    id: Scalars['ID'];
+    /** Maximum number of days for delivery. */
+    maximumDeliveryDays?: Maybe<Scalars['Int']>;
+    /** The price of the cheapest variant (including discounts). */
+    maximumOrderPrice?: Maybe<Money>;
+    /** Maximum order weight to use this shipping method. */
+    maximumOrderWeight?: Maybe<Weight>;
+    /** List of public metadata items. Can be accessed without permissions. */
+    metadata: Array<MetadataItem>;
+    /**
+     * A single key from public metadata.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafield?: Maybe<Scalars['String']>;
+    /**
+     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafields?: Maybe<Scalars['Metadata']>;
+    /** Minimal number of days for delivery. */
+    minimumDeliveryDays?: Maybe<Scalars['Int']>;
+    /** The price of the cheapest variant (including discounts). */
+    minimumOrderPrice?: Maybe<Money>;
+    /** Minimum order weight to use this shipping method. */
+    minimumOrderWeight?: Maybe<Weight>;
+    /** Shipping method name. */
+    name: Scalars['String'];
+    /** Postal code ranges rule of exclusion or inclusion of the shipping method. */
+    postalCodeRules?: Maybe<Array<ShippingMethodPostalCodeRule>>;
+    /** List of private metadata items. Requires staff permissions to access. */
+    privateMetadata: Array<MetadataItem>;
+    /**
+     * A single key from private metadata. Requires staff permissions to access.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafield?: Maybe<Scalars['String']>;
+    /**
+     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafields?: Maybe<Scalars['Metadata']>;
+    /**
+     * Tax class assigned to this shipping method.
+     *
+     * Requires one of the following permissions: MANAGE_TAXES, MANAGE_SHIPPING.
+     */
+    taxClass?: Maybe<TaxClass>;
+    /** Returns translated shipping method fields for the given language code. */
+    translation?: Maybe<ShippingMethodTranslation>;
+    /** Type of the shipping method. */
+    type?: Maybe<ShippingMethodTypeEnum>;
+  };
 
 /** Shipping method are the methods you'll use to get customer's orders to them. They are directly exposed to the customers. */
 export type ShippingMethodTypeExcludedProductsArgs = {
@@ -20172,30 +19695,25 @@ export type ShippingMethodTypeExcludedProductsArgs = {
   last?: InputMaybe<Scalars['Int']>;
 };
 
-
 /** Shipping method are the methods you'll use to get customer's orders to them. They are directly exposed to the customers. */
 export type ShippingMethodTypeMetafieldArgs = {
   key: Scalars['String'];
 };
-
 
 /** Shipping method are the methods you'll use to get customer's orders to them. They are directly exposed to the customers. */
 export type ShippingMethodTypeMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
 
-
 /** Shipping method are the methods you'll use to get customer's orders to them. They are directly exposed to the customers. */
 export type ShippingMethodTypePrivateMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 /** Shipping method are the methods you'll use to get customer's orders to them. They are directly exposed to the customers. */
 export type ShippingMethodTypePrivateMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
-
 
 /** Shipping method are the methods you'll use to get customer's orders to them. They are directly exposed to the customers. */
 export type ShippingMethodTypeTranslationArgs = {
@@ -20205,7 +19723,7 @@ export type ShippingMethodTypeTranslationArgs = {
 /** An enumeration. */
 export enum ShippingMethodTypeEnum {
   Price = 'PRICE',
-  Weight = 'WEIGHT'
+  Weight = 'WEIGHT',
 }
 
 /**
@@ -20282,7 +19800,6 @@ export type ShippingPriceCreated = Event & {
   version?: Maybe<Scalars['String']>;
 };
 
-
 /**
  * Event sent when new shipping price is created.
  *
@@ -20293,7 +19810,6 @@ export type ShippingPriceCreated = Event & {
 export type ShippingPriceCreatedShippingMethodArgs = {
   channel?: InputMaybe<Scalars['String']>;
 };
-
 
 /**
  * Event sent when new shipping price is created.
@@ -20345,7 +19861,6 @@ export type ShippingPriceDeleted = Event & {
   version?: Maybe<Scalars['String']>;
 };
 
-
 /**
  * Event sent when shipping price is deleted.
  *
@@ -20356,7 +19871,6 @@ export type ShippingPriceDeleted = Event & {
 export type ShippingPriceDeletedShippingMethodArgs = {
   channel?: InputMaybe<Scalars['String']>;
 };
-
 
 /**
  * Event sent when shipping price is deleted.
@@ -20390,7 +19904,9 @@ export type ShippingPriceExcludeProductsInput = {
 
 export type ShippingPriceInput = {
   /** Postal code rules to add. */
-  addPostalCodeRules?: InputMaybe<Array<ShippingPostalCodeRulesCreateInputRange>>;
+  addPostalCodeRules?: InputMaybe<
+    Array<ShippingPostalCodeRulesCreateInputRange>
+  >;
   /** Postal code rules to delete. */
   deletePostalCodeRules?: InputMaybe<Array<Scalars['ID']>>;
   /** Shipping method description. */
@@ -20490,7 +20006,6 @@ export type ShippingPriceUpdated = Event & {
   version?: Maybe<Scalars['String']>;
 };
 
-
 /**
  * Event sent when shipping price is updated.
  *
@@ -20501,7 +20016,6 @@ export type ShippingPriceUpdated = Event & {
 export type ShippingPriceUpdatedShippingMethodArgs = {
   channel?: InputMaybe<Scalars['String']>;
 };
-
 
 /**
  * Event sent when shipping price is updated.
@@ -20515,83 +20029,80 @@ export type ShippingPriceUpdatedShippingZoneArgs = {
 };
 
 /** Represents a shipping zone in the shop. Zones are the concept used only for grouping shipping methods in the dashboard, and are never exposed to the customers directly. */
-export type ShippingZone = Node & ObjectWithMetadata & {
-  __typename?: 'ShippingZone';
-  /** List of channels for shipping zone. */
-  channels: Array<Channel>;
-  /** List of countries available for the method. */
-  countries: Array<CountryDisplay>;
-  default: Scalars['Boolean'];
-  /** Description of a shipping zone. */
-  description?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  /** List of public metadata items. Can be accessed without permissions. */
-  metadata: Array<MetadataItem>;
-  /**
-   * A single key from public metadata.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafield?: Maybe<Scalars['String']>;
-  /**
-   * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafields?: Maybe<Scalars['Metadata']>;
-  name: Scalars['String'];
-  /** Lowest and highest prices for the shipping. */
-  priceRange?: Maybe<MoneyRange>;
-  /** List of private metadata items. Requires staff permissions to access. */
-  privateMetadata: Array<MetadataItem>;
-  /**
-   * A single key from private metadata. Requires staff permissions to access.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafield?: Maybe<Scalars['String']>;
-  /**
-   * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafields?: Maybe<Scalars['Metadata']>;
-  /** List of shipping methods available for orders shipped to countries within this shipping zone. */
-  shippingMethods?: Maybe<Array<ShippingMethodType>>;
-  /** List of warehouses for shipping zone. */
-  warehouses: Array<Warehouse>;
-};
-
+export type ShippingZone = Node &
+  ObjectWithMetadata & {
+    __typename?: 'ShippingZone';
+    /** List of channels for shipping zone. */
+    channels: Array<Channel>;
+    /** List of countries available for the method. */
+    countries: Array<CountryDisplay>;
+    default: Scalars['Boolean'];
+    /** Description of a shipping zone. */
+    description?: Maybe<Scalars['String']>;
+    id: Scalars['ID'];
+    /** List of public metadata items. Can be accessed without permissions. */
+    metadata: Array<MetadataItem>;
+    /**
+     * A single key from public metadata.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafield?: Maybe<Scalars['String']>;
+    /**
+     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafields?: Maybe<Scalars['Metadata']>;
+    name: Scalars['String'];
+    /** Lowest and highest prices for the shipping. */
+    priceRange?: Maybe<MoneyRange>;
+    /** List of private metadata items. Requires staff permissions to access. */
+    privateMetadata: Array<MetadataItem>;
+    /**
+     * A single key from private metadata. Requires staff permissions to access.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafield?: Maybe<Scalars['String']>;
+    /**
+     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafields?: Maybe<Scalars['Metadata']>;
+    /** List of shipping methods available for orders shipped to countries within this shipping zone. */
+    shippingMethods?: Maybe<Array<ShippingMethodType>>;
+    /** List of warehouses for shipping zone. */
+    warehouses: Array<Warehouse>;
+  };
 
 /** Represents a shipping zone in the shop. Zones are the concept used only for grouping shipping methods in the dashboard, and are never exposed to the customers directly. */
 export type ShippingZoneMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 /** Represents a shipping zone in the shop. Zones are the concept used only for grouping shipping methods in the dashboard, and are never exposed to the customers directly. */
 export type ShippingZoneMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
 
-
 /** Represents a shipping zone in the shop. Zones are the concept used only for grouping shipping methods in the dashboard, and are never exposed to the customers directly. */
 export type ShippingZonePrivateMetafieldArgs = {
   key: Scalars['String'];
 };
-
 
 /** Represents a shipping zone in the shop. Zones are the concept used only for grouping shipping methods in the dashboard, and are never exposed to the customers directly. */
 export type ShippingZonePrivateMetafieldsArgs = {
@@ -20678,7 +20189,6 @@ export type ShippingZoneCreated = Event & {
   version?: Maybe<Scalars['String']>;
 };
 
-
 /**
  * Event sent when new shipping zone is created.
  *
@@ -20724,7 +20234,6 @@ export type ShippingZoneDeleted = Event & {
   version?: Maybe<Scalars['String']>;
 };
 
-
 /**
  * Event sent when shipping zone is deleted.
  *
@@ -20761,7 +20270,6 @@ export type ShippingZoneMetadataUpdated = Event & {
   /** Saleor version that triggered the event. */
   version?: Maybe<Scalars['String']>;
 };
-
 
 /**
  * Event sent when shipping zone metadata is updated.
@@ -20826,7 +20334,6 @@ export type ShippingZoneUpdated = Event & {
   /** Saleor version that triggered the event. */
   version?: Maybe<Scalars['String']>;
 };
-
 
 /**
  * Event sent when shipping zone is updated.
@@ -20993,13 +20500,11 @@ export type Shop = {
   version: Scalars['String'];
 };
 
-
 /** Represents a shop resource containing general shop data and configuration. */
 export type ShopAvailablePaymentGatewaysArgs = {
   channel?: InputMaybe<Scalars['String']>;
   currency?: InputMaybe<Scalars['String']>;
 };
-
 
 /** Represents a shop resource containing general shop data and configuration. */
 export type ShopAvailableShippingMethodsArgs = {
@@ -21007,13 +20512,11 @@ export type ShopAvailableShippingMethodsArgs = {
   channel: Scalars['String'];
 };
 
-
 /** Represents a shop resource containing general shop data and configuration. */
 export type ShopCountriesArgs = {
   filter?: InputMaybe<CountryFilterInput>;
   languageCode?: InputMaybe<LanguageCodeEnum>;
 };
-
 
 /** Represents a shop resource containing general shop data and configuration. */
 export type ShopTranslationArgs = {
@@ -21066,7 +20569,7 @@ export enum ShopErrorCode {
   Invalid = 'INVALID',
   NotFound = 'NOT_FOUND',
   Required = 'REQUIRED',
-  Unique = 'UNIQUE'
+  Unique = 'UNIQUE',
 }
 
 /**
@@ -21326,7 +20829,7 @@ export enum StaffMemberStatus {
   /** User account has been activated. */
   Active = 'ACTIVE',
   /** User account has not been activated yet. */
-  Deactivated = 'DEACTIVATED'
+  Deactivated = 'DEACTIVATED',
 }
 
 /** Represents a recipient of email notifications send by Saleor, such as notifications about new orders. Notifications can be assigned to staff users or arbitrary email addresses. */
@@ -21474,7 +20977,7 @@ export type Stock = Node & {
 
 export enum StockAvailability {
   InStock = 'IN_STOCK',
-  OutOfStock = 'OUT_OF_STOCK'
+  OutOfStock = 'OUT_OF_STOCK',
 }
 
 export type StockCountableConnection = {
@@ -21511,7 +21014,7 @@ export enum StockErrorCode {
   Invalid = 'INVALID',
   NotFound = 'NOT_FOUND',
   Required = 'REQUIRED',
-  Unique = 'UNIQUE'
+  Unique = 'UNIQUE',
 }
 
 export type StockFilterInput = {
@@ -21551,7 +21054,7 @@ export enum StorePaymentMethodEnum {
   /** Off session storage type. The payment is stored to be reused even if the customer is absent. */
   OffSession = 'OFF_SESSION',
   /** On session storage type. The payment is stored only to be reused when the customer is present in the checkout flow. */
-  OnSession = 'ON_SESSION'
+  OnSession = 'ON_SESSION',
 }
 
 /**
@@ -21582,7 +21085,7 @@ export type Subscription = {
 
 export enum TaxCalculationStrategy {
   FlatRates = 'FLAT_RATES',
-  TaxApp = 'TAX_APP'
+  TaxApp = 'TAX_APP',
 }
 
 /**
@@ -21592,56 +21095,56 @@ export enum TaxCalculationStrategy {
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
-export type TaxClass = Node & ObjectWithMetadata & {
-  __typename?: 'TaxClass';
-  /** Country-specific tax rates for this tax class. */
-  countries: Array<TaxClassCountryRate>;
-  /** The ID of the object. */
-  id: Scalars['ID'];
-  /** List of public metadata items. Can be accessed without permissions. */
-  metadata: Array<MetadataItem>;
-  /**
-   * A single key from public metadata.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafield?: Maybe<Scalars['String']>;
-  /**
-   * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafields?: Maybe<Scalars['Metadata']>;
-  /** Name of the tax class. */
-  name: Scalars['String'];
-  /** List of private metadata items. Requires staff permissions to access. */
-  privateMetadata: Array<MetadataItem>;
-  /**
-   * A single key from private metadata. Requires staff permissions to access.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafield?: Maybe<Scalars['String']>;
-  /**
-   * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafields?: Maybe<Scalars['Metadata']>;
-};
-
+export type TaxClass = Node &
+  ObjectWithMetadata & {
+    __typename?: 'TaxClass';
+    /** Country-specific tax rates for this tax class. */
+    countries: Array<TaxClassCountryRate>;
+    /** The ID of the object. */
+    id: Scalars['ID'];
+    /** List of public metadata items. Can be accessed without permissions. */
+    metadata: Array<MetadataItem>;
+    /**
+     * A single key from public metadata.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafield?: Maybe<Scalars['String']>;
+    /**
+     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafields?: Maybe<Scalars['Metadata']>;
+    /** Name of the tax class. */
+    name: Scalars['String'];
+    /** List of private metadata items. Requires staff permissions to access. */
+    privateMetadata: Array<MetadataItem>;
+    /**
+     * A single key from private metadata. Requires staff permissions to access.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafield?: Maybe<Scalars['String']>;
+    /**
+     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafields?: Maybe<Scalars['Metadata']>;
+  };
 
 /**
  * Tax class is a named object used to define tax rates per country. Tax class can be assigned to product types, products and shipping methods to define their tax rates.
@@ -21654,7 +21157,6 @@ export type TaxClassMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 /**
  * Tax class is a named object used to define tax rates per country. Tax class can be assigned to product types, products and shipping methods to define their tax rates.
  *
@@ -21666,7 +21168,6 @@ export type TaxClassMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
 
-
 /**
  * Tax class is a named object used to define tax rates per country. Tax class can be assigned to product types, products and shipping methods to define their tax rates.
  *
@@ -21677,7 +21178,6 @@ export type TaxClassMetafieldsArgs = {
 export type TaxClassPrivateMetafieldArgs = {
   key: Scalars['String'];
 };
-
 
 /**
  * Tax class is a named object used to define tax rates per country. Tax class can be assigned to product types, products and shipping methods to define their tax rates.
@@ -21755,7 +21255,7 @@ export type TaxClassCreateError = {
 export enum TaxClassCreateErrorCode {
   GraphqlError = 'GRAPHQL_ERROR',
   Invalid = 'INVALID',
-  NotFound = 'NOT_FOUND'
+  NotFound = 'NOT_FOUND',
 }
 
 export type TaxClassCreateInput = {
@@ -21794,7 +21294,7 @@ export type TaxClassDeleteError = {
 export enum TaxClassDeleteErrorCode {
   GraphqlError = 'GRAPHQL_ERROR',
   Invalid = 'INVALID',
-  NotFound = 'NOT_FOUND'
+  NotFound = 'NOT_FOUND',
 }
 
 export type TaxClassFilterInput = {
@@ -21812,7 +21312,7 @@ export type TaxClassRateInput = {
 
 export enum TaxClassSortField {
   /** Sort tax classes by name. */
-  Name = 'NAME'
+  Name = 'NAME',
 }
 
 export type TaxClassSortingInput = {
@@ -21854,7 +21354,7 @@ export enum TaxClassUpdateErrorCode {
   DuplicatedInputItem = 'DUPLICATED_INPUT_ITEM',
   GraphqlError = 'GRAPHQL_ERROR',
   Invalid = 'INVALID',
-  NotFound = 'NOT_FOUND'
+  NotFound = 'NOT_FOUND',
 }
 
 export type TaxClassUpdateInput = {
@@ -21873,64 +21373,64 @@ export type TaxClassUpdateInput = {
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
-export type TaxConfiguration = Node & ObjectWithMetadata & {
-  __typename?: 'TaxConfiguration';
-  /** A channel to which the tax configuration applies to. */
-  channel: Channel;
-  /** Determines whether taxes are charged in the given channel. */
-  chargeTaxes: Scalars['Boolean'];
-  /** List of country-specific exceptions in tax configuration. */
-  countries: Array<TaxConfigurationPerCountry>;
-  /** Determines whether prices displayed in a storefront should include taxes. */
-  displayGrossPrices: Scalars['Boolean'];
-  /** The ID of the object. */
-  id: Scalars['ID'];
-  /** List of public metadata items. Can be accessed without permissions. */
-  metadata: Array<MetadataItem>;
-  /**
-   * A single key from public metadata.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafield?: Maybe<Scalars['String']>;
-  /**
-   * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafields?: Maybe<Scalars['Metadata']>;
-  /** Determines whether prices are entered with the tax included. */
-  pricesEnteredWithTax: Scalars['Boolean'];
-  /** List of private metadata items. Requires staff permissions to access. */
-  privateMetadata: Array<MetadataItem>;
-  /**
-   * A single key from private metadata. Requires staff permissions to access.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafield?: Maybe<Scalars['String']>;
-  /**
-   * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafields?: Maybe<Scalars['Metadata']>;
-  /** The default strategy to use for tax calculation in the given channel. Taxes can be calculated either using user-defined flat rates or with a tax app. Empty value means that no method is selected and taxes are not calculated. */
-  taxCalculationStrategy?: Maybe<TaxCalculationStrategy>;
-};
-
+export type TaxConfiguration = Node &
+  ObjectWithMetadata & {
+    __typename?: 'TaxConfiguration';
+    /** A channel to which the tax configuration applies to. */
+    channel: Channel;
+    /** Determines whether taxes are charged in the given channel. */
+    chargeTaxes: Scalars['Boolean'];
+    /** List of country-specific exceptions in tax configuration. */
+    countries: Array<TaxConfigurationPerCountry>;
+    /** Determines whether prices displayed in a storefront should include taxes. */
+    displayGrossPrices: Scalars['Boolean'];
+    /** The ID of the object. */
+    id: Scalars['ID'];
+    /** List of public metadata items. Can be accessed without permissions. */
+    metadata: Array<MetadataItem>;
+    /**
+     * A single key from public metadata.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafield?: Maybe<Scalars['String']>;
+    /**
+     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafields?: Maybe<Scalars['Metadata']>;
+    /** Determines whether prices are entered with the tax included. */
+    pricesEnteredWithTax: Scalars['Boolean'];
+    /** List of private metadata items. Requires staff permissions to access. */
+    privateMetadata: Array<MetadataItem>;
+    /**
+     * A single key from private metadata. Requires staff permissions to access.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafield?: Maybe<Scalars['String']>;
+    /**
+     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafields?: Maybe<Scalars['Metadata']>;
+    /** The default strategy to use for tax calculation in the given channel. Taxes can be calculated either using user-defined flat rates or with a tax app. Empty value means that no method is selected and taxes are not calculated. */
+    taxCalculationStrategy?: Maybe<TaxCalculationStrategy>;
+  };
 
 /**
  * Channel-specific tax configuration.
@@ -21943,7 +21443,6 @@ export type TaxConfigurationMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 /**
  * Channel-specific tax configuration.
  *
@@ -21955,7 +21454,6 @@ export type TaxConfigurationMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
 
-
 /**
  * Channel-specific tax configuration.
  *
@@ -21966,7 +21464,6 @@ export type TaxConfigurationMetafieldsArgs = {
 export type TaxConfigurationPrivateMetafieldArgs = {
   key: Scalars['String'];
 };
-
 
 /**
  * Channel-specific tax configuration.
@@ -22063,7 +21560,7 @@ export enum TaxConfigurationUpdateErrorCode {
   DuplicatedInputItem = 'DUPLICATED_INPUT_ITEM',
   GraphqlError = 'GRAPHQL_ERROR',
   Invalid = 'INVALID',
-  NotFound = 'NOT_FOUND'
+  NotFound = 'NOT_FOUND',
 }
 
 export type TaxConfigurationUpdateInput = {
@@ -22078,7 +21575,9 @@ export type TaxConfigurationUpdateInput = {
   /** The default strategy to use for tax calculation in the given channel. Taxes can be calculated either using user-defined flat rates or with a tax app. Empty value means that no method is selected and taxes are not calculated. */
   taxCalculationStrategy?: InputMaybe<TaxCalculationStrategy>;
   /** List of tax country configurations to create or update (identified by a country code). */
-  updateCountriesConfiguration?: InputMaybe<Array<TaxConfigurationPerCountryInput>>;
+  updateCountriesConfiguration?: InputMaybe<
+    Array<TaxConfigurationPerCountryInput>
+  >;
 };
 
 /**
@@ -22126,7 +21625,7 @@ export type TaxCountryConfigurationDeleteError = {
 export enum TaxCountryConfigurationDeleteErrorCode {
   GraphqlError = 'GRAPHQL_ERROR',
   Invalid = 'INVALID',
-  NotFound = 'NOT_FOUND'
+  NotFound = 'NOT_FOUND',
 }
 
 /**
@@ -22163,7 +21662,7 @@ export enum TaxCountryConfigurationUpdateErrorCode {
   GraphqlError = 'GRAPHQL_ERROR',
   Invalid = 'INVALID',
   NotFound = 'NOT_FOUND',
-  OnlyOneDefaultCountryRateAllowed = 'ONLY_ONE_DEFAULT_COUNTRY_RATE_ALLOWED'
+  OnlyOneDefaultCountryRateAllowed = 'ONLY_ONE_DEFAULT_COUNTRY_RATE_ALLOWED',
 }
 
 /**
@@ -22196,7 +21695,7 @@ export enum TaxExemptionManageErrorCode {
   GraphqlError = 'GRAPHQL_ERROR',
   Invalid = 'INVALID',
   NotEditableOrder = 'NOT_EDITABLE_ORDER',
-  NotFound = 'NOT_FOUND'
+  NotFound = 'NOT_FOUND',
 }
 
 export type TaxSourceLine = CheckoutLine | OrderLine;
@@ -22285,7 +21784,7 @@ export type TaxedMoneyRange = {
 
 /** An enumeration. */
 export enum ThumbnailFormatEnum {
-  Webp = 'WEBP'
+  Webp = 'WEBP',
 }
 
 export type TimePeriod = {
@@ -22308,7 +21807,7 @@ export enum TimePeriodTypeEnum {
   Day = 'DAY',
   Month = 'MONTH',
   Week = 'WEEK',
-  Year = 'YEAR'
+  Year = 'YEAR',
 }
 
 /** An object representing a single payment. */
@@ -22346,7 +21845,7 @@ export type TransactionAction = {
 export enum TransactionActionEnum {
   Charge = 'CHARGE',
   Refund = 'REFUND',
-  Void = 'VOID'
+  Void = 'VOID',
 }
 
 /**
@@ -22413,7 +21912,7 @@ export enum TransactionCreateErrorCode {
   IncorrectCurrency = 'INCORRECT_CURRENCY',
   Invalid = 'INVALID',
   MetadataKeyRequired = 'METADATA_KEY_REQUIRED',
-  NotFound = 'NOT_FOUND'
+  NotFound = 'NOT_FOUND',
 }
 
 export type TransactionCreateInput = {
@@ -22469,78 +21968,78 @@ export type TransactionEventInput = {
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
-export type TransactionItem = Node & ObjectWithMetadata & {
-  __typename?: 'TransactionItem';
-  /** List of actions that can be performed in the current state of a payment. */
-  actions: Array<TransactionActionEnum>;
-  /** Total amount authorized for this payment. */
-  authorizedAmount: Money;
-  /** Total amount charged for this payment. */
-  chargedAmount: Money;
-  createdAt: Scalars['DateTime'];
-  /** List of all transaction's events. */
-  events: Array<TransactionEvent>;
-  /** The ID of the object. */
-  id: Scalars['ID'];
-  /** List of public metadata items. Can be accessed without permissions. */
-  metadata: Array<MetadataItem>;
-  /**
-   * A single key from public metadata.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafield?: Maybe<Scalars['String']>;
-  /**
-   * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafields?: Maybe<Scalars['Metadata']>;
-  modifiedAt: Scalars['DateTime'];
-  /**
-   * The related order.
-   *
-   * Added in Saleor 3.6.
-   */
-  order?: Maybe<Order>;
-  /** List of private metadata items. Requires staff permissions to access. */
-  privateMetadata: Array<MetadataItem>;
-  /**
-   * A single key from private metadata. Requires staff permissions to access.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafield?: Maybe<Scalars['String']>;
-  /**
-   * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafields?: Maybe<Scalars['Metadata']>;
-  /** Reference of transaction. */
-  reference: Scalars['String'];
-  /** Total amount refunded for this payment. */
-  refundedAmount: Money;
-  /** Status of transaction. */
-  status: Scalars['String'];
-  /** Type of transaction. */
-  type: Scalars['String'];
-  /** Total amount voided for this payment. */
-  voidedAmount: Money;
-};
-
+export type TransactionItem = Node &
+  ObjectWithMetadata & {
+    __typename?: 'TransactionItem';
+    /** List of actions that can be performed in the current state of a payment. */
+    actions: Array<TransactionActionEnum>;
+    /** Total amount authorized for this payment. */
+    authorizedAmount: Money;
+    /** Total amount charged for this payment. */
+    chargedAmount: Money;
+    createdAt: Scalars['DateTime'];
+    /** List of all transaction's events. */
+    events: Array<TransactionEvent>;
+    /** The ID of the object. */
+    id: Scalars['ID'];
+    /** List of public metadata items. Can be accessed without permissions. */
+    metadata: Array<MetadataItem>;
+    /**
+     * A single key from public metadata.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafield?: Maybe<Scalars['String']>;
+    /**
+     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafields?: Maybe<Scalars['Metadata']>;
+    modifiedAt: Scalars['DateTime'];
+    /**
+     * The related order.
+     *
+     * Added in Saleor 3.6.
+     */
+    order?: Maybe<Order>;
+    /** List of private metadata items. Requires staff permissions to access. */
+    privateMetadata: Array<MetadataItem>;
+    /**
+     * A single key from private metadata. Requires staff permissions to access.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafield?: Maybe<Scalars['String']>;
+    /**
+     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafields?: Maybe<Scalars['Metadata']>;
+    /** Reference of transaction. */
+    reference: Scalars['String'];
+    /** Total amount refunded for this payment. */
+    refundedAmount: Money;
+    /** Status of transaction. */
+    status: Scalars['String'];
+    /** Type of transaction. */
+    type: Scalars['String'];
+    /** Total amount voided for this payment. */
+    voidedAmount: Money;
+  };
 
 /**
  * Represents a payment transaction.
@@ -22553,7 +22052,6 @@ export type TransactionItemMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 /**
  * Represents a payment transaction.
  *
@@ -22565,7 +22063,6 @@ export type TransactionItemMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
 
-
 /**
  * Represents a payment transaction.
  *
@@ -22576,7 +22073,6 @@ export type TransactionItemMetafieldsArgs = {
 export type TransactionItemPrivateMetafieldArgs = {
   key: Scalars['String'];
 };
-
 
 /**
  * Represents a payment transaction.
@@ -22625,7 +22121,7 @@ export enum TransactionKind {
   Pending = 'PENDING',
   Refund = 'REFUND',
   RefundOngoing = 'REFUND_ONGOING',
-  Void = 'VOID'
+  Void = 'VOID',
 }
 
 /**
@@ -22658,14 +22154,14 @@ export enum TransactionRequestActionErrorCode {
   GraphqlError = 'GRAPHQL_ERROR',
   Invalid = 'INVALID',
   MissingTransactionActionRequestWebhook = 'MISSING_TRANSACTION_ACTION_REQUEST_WEBHOOK',
-  NotFound = 'NOT_FOUND'
+  NotFound = 'NOT_FOUND',
 }
 
 /** An enumeration. */
 export enum TransactionStatus {
   Failure = 'FAILURE',
   Pending = 'PENDING',
-  Success = 'SUCCESS'
+  Success = 'SUCCESS',
 }
 
 /**
@@ -22697,7 +22193,7 @@ export enum TransactionUpdateErrorCode {
   IncorrectCurrency = 'INCORRECT_CURRENCY',
   Invalid = 'INVALID',
   MetadataKeyRequired = 'METADATA_KEY_REQUIRED',
-  NotFound = 'NOT_FOUND'
+  NotFound = 'NOT_FOUND',
 }
 
 export type TransactionUpdateInput = {
@@ -22723,7 +22219,18 @@ export type TransactionUpdateInput = {
   type?: InputMaybe<Scalars['String']>;
 };
 
-export type TranslatableItem = AttributeTranslatableContent | AttributeValueTranslatableContent | CategoryTranslatableContent | CollectionTranslatableContent | MenuItemTranslatableContent | PageTranslatableContent | ProductTranslatableContent | ProductVariantTranslatableContent | SaleTranslatableContent | ShippingMethodTranslatableContent | VoucherTranslatableContent;
+export type TranslatableItem =
+  | AttributeTranslatableContent
+  | AttributeValueTranslatableContent
+  | CategoryTranslatableContent
+  | CollectionTranslatableContent
+  | MenuItemTranslatableContent
+  | PageTranslatableContent
+  | ProductTranslatableContent
+  | ProductVariantTranslatableContent
+  | SaleTranslatableContent
+  | ShippingMethodTranslatableContent
+  | VoucherTranslatableContent;
 
 export type TranslatableItemConnection = {
   __typename?: 'TranslatableItemConnection';
@@ -22753,7 +22260,7 @@ export enum TranslatableKinds {
   Sale = 'SALE',
   ShippingMethod = 'SHIPPING_METHOD',
   Variant = 'VARIANT',
-  Voucher = 'VOUCHER'
+  Voucher = 'VOUCHER',
 }
 
 /**
@@ -22792,7 +22299,7 @@ export enum TranslationErrorCode {
   GraphqlError = 'GRAPHQL_ERROR',
   Invalid = 'INVALID',
   NotFound = 'NOT_FOUND',
-  Required = 'REQUIRED'
+  Required = 'REQUIRED',
 }
 
 export type TranslationInput = {
@@ -22807,7 +22314,18 @@ export type TranslationInput = {
   seoTitle?: InputMaybe<Scalars['String']>;
 };
 
-export type TranslationTypes = AttributeTranslation | AttributeValueTranslation | CategoryTranslation | CollectionTranslation | MenuItemTranslation | PageTranslation | ProductTranslation | ProductVariantTranslation | SaleTranslation | ShippingMethodTranslation | VoucherTranslation;
+export type TranslationTypes =
+  | AttributeTranslation
+  | AttributeValueTranslation
+  | CategoryTranslation
+  | CollectionTranslation
+  | MenuItemTranslation
+  | PageTranslation
+  | ProductTranslation
+  | ProductVariantTranslation
+  | SaleTranslation
+  | ShippingMethodTranslation
+  | VoucherTranslation;
 
 /**
  * Event sent when translation is updated.
@@ -22867,118 +22385,118 @@ export type UploadError = {
 
 /** An enumeration. */
 export enum UploadErrorCode {
-  GraphqlError = 'GRAPHQL_ERROR'
+  GraphqlError = 'GRAPHQL_ERROR',
 }
 
 /** Represents user data. */
-export type User = Node & ObjectWithMetadata & {
-  __typename?: 'User';
-  /** List of all user's addresses. */
-  addresses: Array<Address>;
-  avatar?: Maybe<Image>;
-  /**
-   * Returns the last open checkout of this user.
-   * @deprecated This field will be removed in Saleor 4.0. Use the `checkoutTokens` field to fetch the user checkouts.
-   */
-  checkout?: Maybe<Checkout>;
-  /** Returns the checkout ID's assigned to this user. */
-  checkoutIds?: Maybe<Array<Scalars['ID']>>;
-  /**
-   * Returns the checkout UUID's assigned to this user.
-   * @deprecated This field will be removed in Saleor 4.0. Use `checkoutIds` instead.
-   */
-  checkoutTokens?: Maybe<Array<Scalars['UUID']>>;
-  /**
-   * Returns checkouts assigned to this user.
-   *
-   * Added in Saleor 3.8.
-   */
-  checkouts?: Maybe<CheckoutCountableConnection>;
-  dateJoined: Scalars['DateTime'];
-  defaultBillingAddress?: Maybe<Address>;
-  defaultShippingAddress?: Maybe<Address>;
-  /** List of user's permission groups which user can manage. */
-  editableGroups?: Maybe<Array<Group>>;
-  email: Scalars['String'];
-  /**
-   * List of events associated with the user.
-   *
-   * Requires one of the following permissions: MANAGE_USERS, MANAGE_STAFF.
-   */
-  events?: Maybe<Array<CustomerEvent>>;
-  /**
-   * External ID of this user.
-   *
-   * Added in Saleor 3.10.
-   */
-  externalReference?: Maybe<Scalars['String']>;
-  firstName: Scalars['String'];
-  /** List of the user gift cards. */
-  giftCards?: Maybe<GiftCardCountableConnection>;
-  id: Scalars['ID'];
-  isActive: Scalars['Boolean'];
-  isStaff: Scalars['Boolean'];
-  /** User language code. */
-  languageCode: LanguageCodeEnum;
-  lastLogin?: Maybe<Scalars['DateTime']>;
-  lastName: Scalars['String'];
-  /** List of public metadata items. Can be accessed without permissions. */
-  metadata: Array<MetadataItem>;
-  /**
-   * A single key from public metadata.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafield?: Maybe<Scalars['String']>;
-  /**
-   * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafields?: Maybe<Scalars['Metadata']>;
-  /**
-   * A note about the customer.
-   *
-   * Requires one of the following permissions: MANAGE_USERS, MANAGE_STAFF.
-   */
-  note?: Maybe<Scalars['String']>;
-  /** List of user's orders. Requires one of the following permissions: MANAGE_STAFF, OWNER. */
-  orders?: Maybe<OrderCountableConnection>;
-  /** List of user's permission groups. */
-  permissionGroups?: Maybe<Array<Group>>;
-  /** List of private metadata items. Requires staff permissions to access. */
-  privateMetadata: Array<MetadataItem>;
-  /**
-   * A single key from private metadata. Requires staff permissions to access.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafield?: Maybe<Scalars['String']>;
-  /**
-   * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafields?: Maybe<Scalars['Metadata']>;
-  /** List of stored payment sources. */
-  storedPaymentSources?: Maybe<Array<PaymentSource>>;
-  updatedAt: Scalars['DateTime'];
-  /** List of user's permissions. */
-  userPermissions?: Maybe<Array<UserPermission>>;
-};
-
+export type User = Node &
+  ObjectWithMetadata & {
+    __typename?: 'User';
+    /** List of all user's addresses. */
+    addresses: Array<Address>;
+    avatar?: Maybe<Image>;
+    /**
+     * Returns the last open checkout of this user.
+     * @deprecated This field will be removed in Saleor 4.0. Use the `checkoutTokens` field to fetch the user checkouts.
+     */
+    checkout?: Maybe<Checkout>;
+    /** Returns the checkout ID's assigned to this user. */
+    checkoutIds?: Maybe<Array<Scalars['ID']>>;
+    /**
+     * Returns the checkout UUID's assigned to this user.
+     * @deprecated This field will be removed in Saleor 4.0. Use `checkoutIds` instead.
+     */
+    checkoutTokens?: Maybe<Array<Scalars['UUID']>>;
+    /**
+     * Returns checkouts assigned to this user.
+     *
+     * Added in Saleor 3.8.
+     */
+    checkouts?: Maybe<CheckoutCountableConnection>;
+    dateJoined: Scalars['DateTime'];
+    defaultBillingAddress?: Maybe<Address>;
+    defaultShippingAddress?: Maybe<Address>;
+    /** List of user's permission groups which user can manage. */
+    editableGroups?: Maybe<Array<Group>>;
+    email: Scalars['String'];
+    /**
+     * List of events associated with the user.
+     *
+     * Requires one of the following permissions: MANAGE_USERS, MANAGE_STAFF.
+     */
+    events?: Maybe<Array<CustomerEvent>>;
+    /**
+     * External ID of this user.
+     *
+     * Added in Saleor 3.10.
+     */
+    externalReference?: Maybe<Scalars['String']>;
+    firstName: Scalars['String'];
+    /** List of the user gift cards. */
+    giftCards?: Maybe<GiftCardCountableConnection>;
+    id: Scalars['ID'];
+    isActive: Scalars['Boolean'];
+    isStaff: Scalars['Boolean'];
+    /** User language code. */
+    languageCode: LanguageCodeEnum;
+    lastLogin?: Maybe<Scalars['DateTime']>;
+    lastName: Scalars['String'];
+    /** List of public metadata items. Can be accessed without permissions. */
+    metadata: Array<MetadataItem>;
+    /**
+     * A single key from public metadata.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafield?: Maybe<Scalars['String']>;
+    /**
+     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafields?: Maybe<Scalars['Metadata']>;
+    /**
+     * A note about the customer.
+     *
+     * Requires one of the following permissions: MANAGE_USERS, MANAGE_STAFF.
+     */
+    note?: Maybe<Scalars['String']>;
+    /** List of user's orders. Requires one of the following permissions: MANAGE_STAFF, OWNER. */
+    orders?: Maybe<OrderCountableConnection>;
+    /** List of user's permission groups. */
+    permissionGroups?: Maybe<Array<Group>>;
+    /** List of private metadata items. Requires staff permissions to access. */
+    privateMetadata: Array<MetadataItem>;
+    /**
+     * A single key from private metadata. Requires staff permissions to access.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafield?: Maybe<Scalars['String']>;
+    /**
+     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafields?: Maybe<Scalars['Metadata']>;
+    /** List of stored payment sources. */
+    storedPaymentSources?: Maybe<Array<PaymentSource>>;
+    updatedAt: Scalars['DateTime'];
+    /** List of user's permissions. */
+    userPermissions?: Maybe<Array<UserPermission>>;
+  };
 
 /** Represents user data. */
 export type UserAvatarArgs = {
@@ -22986,18 +22504,15 @@ export type UserAvatarArgs = {
   size?: InputMaybe<Scalars['Int']>;
 };
 
-
 /** Represents user data. */
 export type UserCheckoutIdsArgs = {
   channel?: InputMaybe<Scalars['String']>;
 };
 
-
 /** Represents user data. */
 export type UserCheckoutTokensArgs = {
   channel?: InputMaybe<Scalars['String']>;
 };
-
 
 /** Represents user data. */
 export type UserCheckoutsArgs = {
@@ -23008,7 +22523,6 @@ export type UserCheckoutsArgs = {
   last?: InputMaybe<Scalars['Int']>;
 };
 
-
 /** Represents user data. */
 export type UserGiftCardsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -23017,18 +22531,15 @@ export type UserGiftCardsArgs = {
   last?: InputMaybe<Scalars['Int']>;
 };
 
-
 /** Represents user data. */
 export type UserMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 /** Represents user data. */
 export type UserMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
-
 
 /** Represents user data. */
 export type UserOrdersArgs = {
@@ -23038,18 +22549,15 @@ export type UserOrdersArgs = {
   last?: InputMaybe<Scalars['Int']>;
 };
 
-
 /** Represents user data. */
 export type UserPrivateMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 /** Represents user data. */
 export type UserPrivateMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
-
 
 /** Represents user data. */
 export type UserStoredPaymentSourcesArgs = {
@@ -23154,7 +22662,6 @@ export type UserPermission = {
   sourcePermissionGroups?: Maybe<Array<Group>>;
 };
 
-
 export type UserPermissionSourcePermissionGroupsArgs = {
   userId: Scalars['ID'];
 };
@@ -23171,7 +22678,7 @@ export enum UserSortField {
   /** Sort users by last name. */
   LastName = 'LAST_NAME',
   /** Sort users by order count. */
-  OrderCount = 'ORDER_COUNT'
+  OrderCount = 'ORDER_COUNT',
 }
 
 export type UserSortingInput = {
@@ -23195,7 +22702,7 @@ export type Vat = {
 export enum VariantAttributeScope {
   All = 'ALL',
   NotVariantSelection = 'NOT_VARIANT_SELECTION',
-  VariantSelection = 'VARIANT_SELECTION'
+  VariantSelection = 'VARIANT_SELECTION',
 }
 
 /**
@@ -23271,107 +22778,107 @@ export enum VolumeUnitsEnum {
   FlOz = 'FL_OZ',
   Liter = 'LITER',
   Pint = 'PINT',
-  Qt = 'QT'
+  Qt = 'QT',
 }
 
 /** Vouchers allow giving discounts to particular customers on categories, collections or specific products. They can be used during checkout by providing valid voucher codes. */
-export type Voucher = Node & ObjectWithMetadata & {
-  __typename?: 'Voucher';
-  applyOncePerCustomer: Scalars['Boolean'];
-  applyOncePerOrder: Scalars['Boolean'];
-  /** List of categories this voucher applies to. */
-  categories?: Maybe<CategoryCountableConnection>;
-  /**
-   * List of availability in channels for the voucher.
-   *
-   * Requires one of the following permissions: MANAGE_DISCOUNTS.
-   */
-  channelListings?: Maybe<Array<VoucherChannelListing>>;
-  code: Scalars['String'];
-  /**
-   * List of collections this voucher applies to.
-   *
-   * Requires one of the following permissions: MANAGE_DISCOUNTS.
-   */
-  collections?: Maybe<CollectionCountableConnection>;
-  /** List of countries available for the shipping voucher. */
-  countries?: Maybe<Array<CountryDisplay>>;
-  /** Currency code for voucher. */
-  currency?: Maybe<Scalars['String']>;
-  /** Voucher value. */
-  discountValue?: Maybe<Scalars['Float']>;
-  /** Determines a type of discount for voucher - value or percentage */
-  discountValueType: DiscountValueTypeEnum;
-  endDate?: Maybe<Scalars['DateTime']>;
-  id: Scalars['ID'];
-  /** List of public metadata items. Can be accessed without permissions. */
-  metadata: Array<MetadataItem>;
-  /**
-   * A single key from public metadata.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafield?: Maybe<Scalars['String']>;
-  /**
-   * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafields?: Maybe<Scalars['Metadata']>;
-  minCheckoutItemsQuantity?: Maybe<Scalars['Int']>;
-  /** Minimum order value to apply voucher. */
-  minSpent?: Maybe<Money>;
-  name?: Maybe<Scalars['String']>;
-  onlyForStaff: Scalars['Boolean'];
-  /** List of private metadata items. Requires staff permissions to access. */
-  privateMetadata: Array<MetadataItem>;
-  /**
-   * A single key from private metadata. Requires staff permissions to access.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafield?: Maybe<Scalars['String']>;
-  /**
-   * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafields?: Maybe<Scalars['Metadata']>;
-  /**
-   * List of products this voucher applies to.
-   *
-   * Requires one of the following permissions: MANAGE_DISCOUNTS.
-   */
-  products?: Maybe<ProductCountableConnection>;
-  startDate: Scalars['DateTime'];
-  /** Returns translated voucher fields for the given language code. */
-  translation?: Maybe<VoucherTranslation>;
-  /** Determines a type of voucher. */
-  type: VoucherTypeEnum;
-  usageLimit?: Maybe<Scalars['Int']>;
-  used: Scalars['Int'];
-  /**
-   * List of product variants this voucher applies to.
-   *
-   * Added in Saleor 3.1.
-   *
-   * Requires one of the following permissions: MANAGE_DISCOUNTS.
-   */
-  variants?: Maybe<ProductVariantCountableConnection>;
-};
-
+export type Voucher = Node &
+  ObjectWithMetadata & {
+    __typename?: 'Voucher';
+    applyOncePerCustomer: Scalars['Boolean'];
+    applyOncePerOrder: Scalars['Boolean'];
+    /** List of categories this voucher applies to. */
+    categories?: Maybe<CategoryCountableConnection>;
+    /**
+     * List of availability in channels for the voucher.
+     *
+     * Requires one of the following permissions: MANAGE_DISCOUNTS.
+     */
+    channelListings?: Maybe<Array<VoucherChannelListing>>;
+    code: Scalars['String'];
+    /**
+     * List of collections this voucher applies to.
+     *
+     * Requires one of the following permissions: MANAGE_DISCOUNTS.
+     */
+    collections?: Maybe<CollectionCountableConnection>;
+    /** List of countries available for the shipping voucher. */
+    countries?: Maybe<Array<CountryDisplay>>;
+    /** Currency code for voucher. */
+    currency?: Maybe<Scalars['String']>;
+    /** Voucher value. */
+    discountValue?: Maybe<Scalars['Float']>;
+    /** Determines a type of discount for voucher - value or percentage */
+    discountValueType: DiscountValueTypeEnum;
+    endDate?: Maybe<Scalars['DateTime']>;
+    id: Scalars['ID'];
+    /** List of public metadata items. Can be accessed without permissions. */
+    metadata: Array<MetadataItem>;
+    /**
+     * A single key from public metadata.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafield?: Maybe<Scalars['String']>;
+    /**
+     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafields?: Maybe<Scalars['Metadata']>;
+    minCheckoutItemsQuantity?: Maybe<Scalars['Int']>;
+    /** Minimum order value to apply voucher. */
+    minSpent?: Maybe<Money>;
+    name?: Maybe<Scalars['String']>;
+    onlyForStaff: Scalars['Boolean'];
+    /** List of private metadata items. Requires staff permissions to access. */
+    privateMetadata: Array<MetadataItem>;
+    /**
+     * A single key from private metadata. Requires staff permissions to access.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafield?: Maybe<Scalars['String']>;
+    /**
+     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafields?: Maybe<Scalars['Metadata']>;
+    /**
+     * List of products this voucher applies to.
+     *
+     * Requires one of the following permissions: MANAGE_DISCOUNTS.
+     */
+    products?: Maybe<ProductCountableConnection>;
+    startDate: Scalars['DateTime'];
+    /** Returns translated voucher fields for the given language code. */
+    translation?: Maybe<VoucherTranslation>;
+    /** Determines a type of voucher. */
+    type: VoucherTypeEnum;
+    usageLimit?: Maybe<Scalars['Int']>;
+    used: Scalars['Int'];
+    /**
+     * List of product variants this voucher applies to.
+     *
+     * Added in Saleor 3.1.
+     *
+     * Requires one of the following permissions: MANAGE_DISCOUNTS.
+     */
+    variants?: Maybe<ProductVariantCountableConnection>;
+  };
 
 /** Vouchers allow giving discounts to particular customers on categories, collections or specific products. They can be used during checkout by providing valid voucher codes. */
 export type VoucherCategoriesArgs = {
@@ -23381,7 +22888,6 @@ export type VoucherCategoriesArgs = {
   last?: InputMaybe<Scalars['Int']>;
 };
 
-
 /** Vouchers allow giving discounts to particular customers on categories, collections or specific products. They can be used during checkout by providing valid voucher codes. */
 export type VoucherCollectionsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -23390,30 +22896,25 @@ export type VoucherCollectionsArgs = {
   last?: InputMaybe<Scalars['Int']>;
 };
 
-
 /** Vouchers allow giving discounts to particular customers on categories, collections or specific products. They can be used during checkout by providing valid voucher codes. */
 export type VoucherMetafieldArgs = {
   key: Scalars['String'];
 };
-
 
 /** Vouchers allow giving discounts to particular customers on categories, collections or specific products. They can be used during checkout by providing valid voucher codes. */
 export type VoucherMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
 
-
 /** Vouchers allow giving discounts to particular customers on categories, collections or specific products. They can be used during checkout by providing valid voucher codes. */
 export type VoucherPrivateMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 /** Vouchers allow giving discounts to particular customers on categories, collections or specific products. They can be used during checkout by providing valid voucher codes. */
 export type VoucherPrivateMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
-
 
 /** Vouchers allow giving discounts to particular customers on categories, collections or specific products. They can be used during checkout by providing valid voucher codes. */
 export type VoucherProductsArgs = {
@@ -23423,12 +22924,10 @@ export type VoucherProductsArgs = {
   last?: InputMaybe<Scalars['Int']>;
 };
 
-
 /** Vouchers allow giving discounts to particular customers on categories, collections or specific products. They can be used during checkout by providing valid voucher codes. */
 export type VoucherTranslationArgs = {
   languageCode: LanguageCodeEnum;
 };
-
 
 /** Vouchers allow giving discounts to particular customers on categories, collections or specific products. They can be used during checkout by providing valid voucher codes. */
 export type VoucherVariantsArgs = {
@@ -23557,7 +23056,6 @@ export type VoucherCreated = Event & {
   voucher?: Maybe<Voucher>;
 };
 
-
 /**
  * Event sent when new voucher is created.
  *
@@ -23603,7 +23101,6 @@ export type VoucherDeleted = Event & {
   voucher?: Maybe<Voucher>;
 };
 
-
 /**
  * Event sent when voucher is deleted.
  *
@@ -23618,7 +23115,7 @@ export type VoucherDeletedVoucherArgs = {
 export enum VoucherDiscountType {
   Fixed = 'FIXED',
   Percentage = 'PERCENTAGE',
-  Shipping = 'SHIPPING'
+  Shipping = 'SHIPPING',
 }
 
 export type VoucherFilterInput = {
@@ -23691,7 +23188,6 @@ export type VoucherMetadataUpdated = Event & {
   voucher?: Maybe<Voucher>;
 };
 
-
 /**
  * Event sent when voucher metadata is updated.
  *
@@ -23739,7 +23235,7 @@ export enum VoucherSortField {
    *
    * This option requires a channel filter to work as the values can vary between channels.
    */
-  Value = 'VALUE'
+  Value = 'VALUE',
 }
 
 export type VoucherSortingInput = {
@@ -23770,7 +23266,6 @@ export type VoucherTranslatableContent = Node & {
   voucher?: Maybe<Voucher>;
 };
 
-
 export type VoucherTranslatableContentTranslationArgs = {
   languageCode: LanguageCodeEnum;
 };
@@ -23799,7 +23294,7 @@ export type VoucherTranslation = Node & {
 export enum VoucherTypeEnum {
   EntireOrder = 'ENTIRE_ORDER',
   Shipping = 'SHIPPING',
-  SpecificProduct = 'SPECIFIC_PRODUCT'
+  SpecificProduct = 'SPECIFIC_PRODUCT',
 }
 
 /**
@@ -23836,7 +23331,6 @@ export type VoucherUpdated = Event & {
   voucher?: Maybe<Voucher>;
 };
 
-
 /**
  * Event sent when voucher is updated.
  *
@@ -23849,100 +23343,96 @@ export type VoucherUpdatedVoucherArgs = {
 };
 
 /** Represents warehouse. */
-export type Warehouse = Node & ObjectWithMetadata & {
-  __typename?: 'Warehouse';
-  address: Address;
-  /**
-   * Click and collect options: local, all or disabled.
-   *
-   * Added in Saleor 3.1.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  clickAndCollectOption: WarehouseClickAndCollectOptionEnum;
-  /**
-   * Warehouse company name.
-   * @deprecated This field will be removed in Saleor 4.0. Use `Address.companyName` instead.
-   */
-  companyName: Scalars['String'];
-  email: Scalars['String'];
-  /**
-   * External ID of this warehouse.
-   *
-   * Added in Saleor 3.10.
-   */
-  externalReference?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  isPrivate: Scalars['Boolean'];
-  /** List of public metadata items. Can be accessed without permissions. */
-  metadata: Array<MetadataItem>;
-  /**
-   * A single key from public metadata.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafield?: Maybe<Scalars['String']>;
-  /**
-   * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  metafields?: Maybe<Scalars['Metadata']>;
-  name: Scalars['String'];
-  /** List of private metadata items. Requires staff permissions to access. */
-  privateMetadata: Array<MetadataItem>;
-  /**
-   * A single key from private metadata. Requires staff permissions to access.
-   *
-   * Tip: Use GraphQL aliases to fetch multiple keys.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafield?: Maybe<Scalars['String']>;
-  /**
-   * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-   *
-   * Added in Saleor 3.3.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  privateMetafields?: Maybe<Scalars['Metadata']>;
-  shippingZones: ShippingZoneCountableConnection;
-  slug: Scalars['String'];
-};
-
+export type Warehouse = Node &
+  ObjectWithMetadata & {
+    __typename?: 'Warehouse';
+    address: Address;
+    /**
+     * Click and collect options: local, all or disabled.
+     *
+     * Added in Saleor 3.1.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    clickAndCollectOption: WarehouseClickAndCollectOptionEnum;
+    /**
+     * Warehouse company name.
+     * @deprecated This field will be removed in Saleor 4.0. Use `Address.companyName` instead.
+     */
+    companyName: Scalars['String'];
+    email: Scalars['String'];
+    /**
+     * External ID of this warehouse.
+     *
+     * Added in Saleor 3.10.
+     */
+    externalReference?: Maybe<Scalars['String']>;
+    id: Scalars['ID'];
+    isPrivate: Scalars['Boolean'];
+    /** List of public metadata items. Can be accessed without permissions. */
+    metadata: Array<MetadataItem>;
+    /**
+     * A single key from public metadata.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafield?: Maybe<Scalars['String']>;
+    /**
+     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    metafields?: Maybe<Scalars['Metadata']>;
+    name: Scalars['String'];
+    /** List of private metadata items. Requires staff permissions to access. */
+    privateMetadata: Array<MetadataItem>;
+    /**
+     * A single key from private metadata. Requires staff permissions to access.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafield?: Maybe<Scalars['String']>;
+    /**
+     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    privateMetafields?: Maybe<Scalars['Metadata']>;
+    shippingZones: ShippingZoneCountableConnection;
+    slug: Scalars['String'];
+  };
 
 /** Represents warehouse. */
 export type WarehouseMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 /** Represents warehouse. */
 export type WarehouseMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
-
 
 /** Represents warehouse. */
 export type WarehousePrivateMetafieldArgs = {
   key: Scalars['String'];
 };
 
-
 /** Represents warehouse. */
 export type WarehousePrivateMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars['String']>>;
 };
-
 
 /** Represents warehouse. */
 export type WarehouseShippingZonesArgs = {
@@ -23956,7 +23446,7 @@ export type WarehouseShippingZonesArgs = {
 export enum WarehouseClickAndCollectOptionEnum {
   All = 'ALL',
   Disabled = 'DISABLED',
-  Local = 'LOCAL'
+  Local = 'LOCAL',
 }
 
 export type WarehouseCountableConnection = {
@@ -24086,7 +23576,7 @@ export enum WarehouseErrorCode {
   Invalid = 'INVALID',
   NotFound = 'NOT_FOUND',
   Required = 'REQUIRED',
-  Unique = 'UNIQUE'
+  Unique = 'UNIQUE',
 }
 
 export type WarehouseFilterInput = {
@@ -24147,7 +23637,7 @@ export type WarehouseShippingZoneUnassign = {
 
 export enum WarehouseSortField {
   /** Sort warehouses by name. */
-  Name = 'NAME'
+  Name = 'NAME',
 }
 
 export type WarehouseSortingInput = {
@@ -24254,7 +23744,6 @@ export type Webhook = Node & {
   targetUrl: Scalars['String'];
 };
 
-
 /** Webhook. */
 export type WebhookEventDeliveriesArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -24359,7 +23848,7 @@ export enum WebhookDryRunErrorCode {
   MissingPermission = 'MISSING_PERMISSION',
   NotFound = 'NOT_FOUND',
   TypeNotSupported = 'TYPE_NOT_SUPPORTED',
-  UnableToParse = 'UNABLE_TO_PARSE'
+  UnableToParse = 'UNABLE_TO_PARSE',
 }
 
 export type WebhookError = {
@@ -24379,7 +23868,7 @@ export enum WebhookErrorCode {
   Invalid = 'INVALID',
   NotFound = 'NOT_FOUND',
   Required = 'REQUIRED',
-  Unique = 'UNIQUE'
+  Unique = 'UNIQUE',
 }
 
 /** Webhook event. */
@@ -24698,7 +24187,7 @@ export enum WebhookEventTypeAsyncEnum {
    */
   WarehouseMetadataUpdated = 'WAREHOUSE_METADATA_UPDATED',
   /** A warehouse is updated. */
-  WarehouseUpdated = 'WAREHOUSE_UPDATED'
+  WarehouseUpdated = 'WAREHOUSE_UPDATED',
 }
 
 /** Enum determining type of webhook. */
@@ -25026,7 +24515,7 @@ export enum WebhookEventTypeEnum {
    */
   WarehouseMetadataUpdated = 'WAREHOUSE_METADATA_UPDATED',
   /** A warehouse is updated. */
-  WarehouseUpdated = 'WAREHOUSE_UPDATED'
+  WarehouseUpdated = 'WAREHOUSE_UPDATED',
 }
 
 /** Enum determining type of webhook. */
@@ -25066,7 +24555,7 @@ export enum WebhookEventTypeSyncEnum {
   /** Void payment. */
   PaymentVoid = 'PAYMENT_VOID',
   /** Fetch external shipping methods for checkout. */
-  ShippingListMethodsForCheckout = 'SHIPPING_LIST_METHODS_FOR_CHECKOUT'
+  ShippingListMethodsForCheckout = 'SHIPPING_LIST_METHODS_FOR_CHECKOUT',
 }
 
 /** An enumeration. */
@@ -25177,7 +24666,7 @@ export enum WebhookSampleEventTypeEnum {
   WarehouseCreated = 'WAREHOUSE_CREATED',
   WarehouseDeleted = 'WAREHOUSE_DELETED',
   WarehouseMetadataUpdated = 'WAREHOUSE_METADATA_UPDATED',
-  WarehouseUpdated = 'WAREHOUSE_UPDATED'
+  WarehouseUpdated = 'WAREHOUSE_UPDATED',
 }
 
 /**
@@ -25213,7 +24702,7 @@ export enum WebhookTriggerErrorCode {
   MissingQuery = 'MISSING_QUERY',
   NotFound = 'NOT_FOUND',
   TypeNotSupported = 'TYPE_NOT_SUPPORTED',
-  UnableToParse = 'UNABLE_TO_PARSE'
+  UnableToParse = 'UNABLE_TO_PARSE',
 }
 
 /**
@@ -25279,11 +24768,22 @@ export enum WeightUnitsEnum {
   Kg = 'KG',
   Lb = 'LB',
   Oz = 'OZ',
-  Tonne = 'TONNE'
+  Tonne = 'TONNE',
 }
 
 /** _Entity union as defined by Federation spec. */
-export type _Entity = Address | App | Category | Collection | Group | PageType | Product | ProductMedia | ProductType | ProductVariant | User;
+export type _Entity =
+  | Address
+  | App
+  | Category
+  | Collection
+  | Group
+  | PageType
+  | Product
+  | ProductMedia
+  | ProductType
+  | ProductVariant
+  | User;
 
 /** _Service manifest as defined by Federation spec. */
 export type _Service = {
@@ -25291,23 +24791,101 @@ export type _Service = {
   sdl?: Maybe<Scalars['String']>;
 };
 
-export type AccountErrorFragmentFragment = { __typename?: 'AccountError', code: AccountErrorCode, field?: string | null, message?: string | null };
+export type AccountErrorFragmentFragment = {
+  __typename?: 'AccountError';
+  code: AccountErrorCode;
+  field?: string | null;
+  message?: string | null;
+};
 
-export type CartFragmentFragment = { __typename?: 'Checkout', id: string, token: any };
+export type CartFragmentFragment = {
+  __typename?: 'Checkout';
+  id: string;
+  token: any;
+};
 
-export type CheckoutErrorFragmentFragment = { __typename?: 'CheckoutError', field?: string | null, message?: string | null, code: CheckoutErrorCode };
+export type CheckoutErrorFragmentFragment = {
+  __typename?: 'CheckoutError';
+  field?: string | null;
+  message?: string | null;
+  code: CheckoutErrorCode;
+};
 
-export type MenuItemFragmentFragment = { __typename?: 'MenuItem', id: string, name: string, url?: string | null, translation?: { __typename?: 'MenuItemTranslation', id: string, name: string } | null, category?: { __typename?: 'Category', id: string, slug: string } | null, collection?: { __typename?: 'Collection', id: string, slug: string } | null, page?: { __typename?: 'Page', id: string, slug: string } | null };
+export type MenuItemFragmentFragment = {
+  __typename?: 'MenuItem';
+  id: string;
+  name: string;
+  url?: string | null;
+  translation?: {
+    __typename?: 'MenuItemTranslation';
+    id: string;
+    name: string;
+  } | null;
+  category?: {__typename?: 'Category'; id: string; slug: string} | null;
+  collection?: {__typename?: 'Collection'; id: string; slug: string} | null;
+  page?: {__typename?: 'Page'; id: string; slug: string} | null;
+};
 
-export type MenuItemWithChildrenFragmentFragment = { __typename?: 'MenuItem', id: string, name: string, url?: string | null, translation?: { __typename?: 'MenuItemTranslation', id: string, name: string } | null, category?: { __typename?: 'Category', id: string, slug: string } | null, collection?: { __typename?: 'Collection', id: string, slug: string } | null, page?: { __typename?: 'Page', id: string, slug: string } | null, children?: Array<{ __typename?: 'MenuItem', id: string, name: string, url?: string | null, children?: Array<{ __typename?: 'MenuItem', id: string, name: string, url?: string | null, translation?: { __typename?: 'MenuItemTranslation', id: string, name: string } | null, category?: { __typename?: 'Category', id: string, slug: string } | null, collection?: { __typename?: 'Collection', id: string, slug: string } | null, page?: { __typename?: 'Page', id: string, slug: string } | null }> | null, translation?: { __typename?: 'MenuItemTranslation', id: string, name: string } | null, category?: { __typename?: 'Category', id: string, slug: string } | null, collection?: { __typename?: 'Collection', id: string, slug: string } | null, page?: { __typename?: 'Page', id: string, slug: string } | null }> | null };
+export type MenuItemWithChildrenFragmentFragment = {
+  __typename?: 'MenuItem';
+  id: string;
+  name: string;
+  url?: string | null;
+  translation?: {
+    __typename?: 'MenuItemTranslation';
+    id: string;
+    name: string;
+  } | null;
+  category?: {__typename?: 'Category'; id: string; slug: string} | null;
+  collection?: {__typename?: 'Collection'; id: string; slug: string} | null;
+  page?: {__typename?: 'Page'; id: string; slug: string} | null;
+  children?: Array<{
+    __typename?: 'MenuItem';
+    id: string;
+    name: string;
+    url?: string | null;
+    children?: Array<{
+      __typename?: 'MenuItem';
+      id: string;
+      name: string;
+      url?: string | null;
+      translation?: {
+        __typename?: 'MenuItemTranslation';
+        id: string;
+        name: string;
+      } | null;
+      category?: {__typename?: 'Category'; id: string; slug: string} | null;
+      collection?: {__typename?: 'Collection'; id: string; slug: string} | null;
+      page?: {__typename?: 'Page'; id: string; slug: string} | null;
+    }> | null;
+    translation?: {
+      __typename?: 'MenuItemTranslation';
+      id: string;
+      name: string;
+    } | null;
+    category?: {__typename?: 'Category'; id: string; slug: string} | null;
+    collection?: {__typename?: 'Collection'; id: string; slug: string} | null;
+    page?: {__typename?: 'Page'; id: string; slug: string} | null;
+  }> | null;
+};
 
 export type CartAddProductLineMutationVariables = Exact<{
   cartToken: Scalars['UUID'];
   lines: Array<CheckoutLineInput> | CheckoutLineInput;
 }>;
 
-
-export type CartAddProductLineMutation = { __typename?: 'Mutation', cartLinesAdd?: { __typename?: 'CheckoutLinesAdd', errors: Array<{ __typename?: 'CheckoutError', field?: string | null, message?: string | null, code: CheckoutErrorCode }> } | null };
+export type CartAddProductLineMutation = {
+  __typename?: 'Mutation';
+  cartLinesAdd?: {
+    __typename?: 'CheckoutLinesAdd';
+    errors: Array<{
+      __typename?: 'CheckoutError';
+      field?: string | null;
+      message?: string | null;
+      code: CheckoutErrorCode;
+    }>;
+  } | null;
+};
 
 export type ChangePasswordMutationVariables = Exact<{
   token: Scalars['String'];
@@ -25315,16 +24893,39 @@ export type ChangePasswordMutationVariables = Exact<{
   password: Scalars['String'];
 }>;
 
-
-export type ChangePasswordMutation = { __typename?: 'Mutation', setPassword?: { __typename?: 'SetPassword', token?: string | null, csrfToken?: string | null, errors: Array<{ __typename?: 'AccountError', code: AccountErrorCode, field?: string | null, message?: string | null }> } | null };
+export type ChangePasswordMutation = {
+  __typename?: 'Mutation';
+  setPassword?: {
+    __typename?: 'SetPassword';
+    token?: string | null;
+    csrfToken?: string | null;
+    errors: Array<{
+      __typename?: 'AccountError';
+      code: AccountErrorCode;
+      field?: string | null;
+      message?: string | null;
+    }>;
+  } | null;
+};
 
 export type ConfirmAccountMutationVariables = Exact<{
   email: Scalars['String'];
   token: Scalars['String'];
 }>;
 
-
-export type ConfirmAccountMutation = { __typename?: 'Mutation', confirmAccount?: { __typename?: 'ConfirmAccount', errors: Array<{ __typename?: 'AccountError', code: AccountErrorCode, field?: string | null, message?: string | null }>, user?: { __typename?: 'User', email: string, isActive: boolean } | null } | null };
+export type ConfirmAccountMutation = {
+  __typename?: 'Mutation';
+  confirmAccount?: {
+    __typename?: 'ConfirmAccount';
+    errors: Array<{
+      __typename?: 'AccountError';
+      code: AccountErrorCode;
+      field?: string | null;
+      message?: string | null;
+    }>;
+    user?: {__typename?: 'User'; email: string; isActive: boolean} | null;
+  } | null;
+};
 
 export type CreateCartMutationVariables = Exact<{
   email?: InputMaybe<Scalars['String']>;
@@ -25332,87 +24933,1818 @@ export type CreateCartMutationVariables = Exact<{
   channel: Scalars['String'];
 }>;
 
+export type CreateCartMutation = {
+  __typename?: 'Mutation';
+  cartCreate?: {
+    __typename?: 'CheckoutCreate';
+    cart?: {__typename?: 'Checkout'; id: string; token: any} | null;
+    errors: Array<{
+      __typename?: 'CheckoutError';
+      field?: string | null;
+      message?: string | null;
+      code: CheckoutErrorCode;
+    }>;
+  } | null;
+};
 
-export type CreateCartMutation = { __typename?: 'Mutation', cartCreate?: { __typename?: 'CheckoutCreate', cart?: { __typename?: 'Checkout', id: string, token: any } | null, errors: Array<{ __typename?: 'CheckoutError', field?: string | null, message?: string | null, code: CheckoutErrorCode }> } | null };
+export type ForgotPasswordMutationVariables = Exact<{
+  email: Scalars['String'];
+  redirectUrl: Scalars['String'];
+  channel: Scalars['String'];
+}>;
+
+export type ForgotPasswordMutation = {
+  __typename?: 'Mutation';
+  forgotPassword?: {
+    __typename?: 'RequestPasswordReset';
+    errors: Array<{
+      __typename?: 'AccountError';
+      code: AccountErrorCode;
+      field?: string | null;
+      message?: string | null;
+    }>;
+  } | null;
+};
 
 export type LoginMutationVariables = Exact<{
   email: Scalars['String'];
   password: Scalars['String'];
 }>;
 
-
-export type LoginMutation = { __typename?: 'Mutation', tokenCreate?: { __typename?: 'CreateToken', csrfToken?: string | null, token?: string | null, errors: Array<{ __typename?: 'AccountError', code: AccountErrorCode, field?: string | null, message?: string | null }> } | null };
+export type LoginMutation = {
+  __typename?: 'Mutation';
+  tokenCreate?: {
+    __typename?: 'CreateToken';
+    csrfToken?: string | null;
+    token?: string | null;
+    errors: Array<{
+      __typename?: 'AccountError';
+      code: AccountErrorCode;
+      field?: string | null;
+      message?: string | null;
+    }>;
+  } | null;
+};
 
 export type RefreshTokenMutationVariables = Exact<{
   csrfToken: Scalars['String'];
 }>;
 
-
-export type RefreshTokenMutation = { __typename?: 'Mutation', tokenRefresh?: { __typename?: 'RefreshToken', token?: string | null, errors: Array<{ __typename?: 'AccountError', code: AccountErrorCode, field?: string | null, message?: string | null }> } | null };
+export type RefreshTokenMutation = {
+  __typename?: 'Mutation';
+  tokenRefresh?: {
+    __typename?: 'RefreshToken';
+    token?: string | null;
+    errors: Array<{
+      __typename?: 'AccountError';
+      code: AccountErrorCode;
+      field?: string | null;
+      message?: string | null;
+    }>;
+  } | null;
+};
 
 export type RegisterMutationVariables = Exact<{
   input: AccountRegisterInput;
 }>;
 
-
-export type RegisterMutation = { __typename?: 'Mutation', accountRegister?: { __typename?: 'AccountRegister', requiresConfirmation?: boolean | null, errors: Array<{ __typename?: 'AccountError', code: AccountErrorCode, field?: string | null, message?: string | null }> } | null };
-
-export type RequestPasswordResetMutationVariables = Exact<{
-  email: Scalars['String'];
-  redirectUrl: Scalars['String'];
-  channel: Scalars['String'];
-}>;
-
-
-export type RequestPasswordResetMutation = { __typename?: 'Mutation', requestPasswordReset?: { __typename?: 'RequestPasswordReset', errors: Array<{ __typename?: 'AccountError', code: AccountErrorCode, field?: string | null, message?: string | null }> } | null };
+export type RegisterMutation = {
+  __typename?: 'Mutation';
+  accountRegister?: {
+    __typename?: 'AccountRegister';
+    requiresConfirmation?: boolean | null;
+    errors: Array<{
+      __typename?: 'AccountError';
+      code: AccountErrorCode;
+      field?: string | null;
+      message?: string | null;
+    }>;
+  } | null;
+};
 
 export type VerifyTokenMutationVariables = Exact<{
   token: Scalars['String'];
 }>;
 
-
-export type VerifyTokenMutation = { __typename?: 'Mutation', tokenVerify?: { __typename?: 'VerifyToken', isValid: boolean } | null };
+export type VerifyTokenMutation = {
+  __typename?: 'Mutation';
+  tokenVerify?: {__typename?: 'VerifyToken'; isValid: boolean} | null;
+};
 
 export type CartByTokenQueryVariables = Exact<{
   cartToken: Scalars['UUID'];
 }>;
 
+export type CartByTokenQuery = {
+  __typename?: 'Query';
+  cart?: {__typename?: 'Checkout'; id: string; token: any} | null;
+};
 
-export type CartByTokenQuery = { __typename?: 'Query', cart?: { __typename?: 'Checkout', id: string, token: any } | null };
+export type ChannelsQueryVariables = Exact<{[key: string]: never}>;
 
-export type ChannelsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type ChannelsQuery = { __typename?: 'Query', channels?: Array<{ __typename?: 'Channel', id: string, slug: string, name: string, isActive: boolean }> | null };
+export type ChannelsQuery = {
+  __typename?: 'Query';
+  channels?: Array<{
+    __typename?: 'Channel';
+    id: string;
+    slug: string;
+    name: string;
+    isActive: boolean;
+  }> | null;
+};
 
 export type MainMenuQueryVariables = Exact<{
   languageCode: LanguageCodeEnum;
   channel: Scalars['String'];
 }>;
 
+export type MainMenuQuery = {
+  __typename?: 'Query';
+  menu?: {
+    __typename?: 'Menu';
+    id: string;
+    items?: Array<{
+      __typename?: 'MenuItem';
+      id: string;
+      name: string;
+      url?: string | null;
+      translation?: {
+        __typename?: 'MenuItemTranslation';
+        id: string;
+        name: string;
+      } | null;
+      category?: {__typename?: 'Category'; id: string; slug: string} | null;
+      collection?: {__typename?: 'Collection'; id: string; slug: string} | null;
+      page?: {__typename?: 'Page'; id: string; slug: string} | null;
+      children?: Array<{
+        __typename?: 'MenuItem';
+        id: string;
+        name: string;
+        url?: string | null;
+        children?: Array<{
+          __typename?: 'MenuItem';
+          id: string;
+          name: string;
+          url?: string | null;
+          translation?: {
+            __typename?: 'MenuItemTranslation';
+            id: string;
+            name: string;
+          } | null;
+          category?: {__typename?: 'Category'; id: string; slug: string} | null;
+          collection?: {
+            __typename?: 'Collection';
+            id: string;
+            slug: string;
+          } | null;
+          page?: {__typename?: 'Page'; id: string; slug: string} | null;
+        }> | null;
+        translation?: {
+          __typename?: 'MenuItemTranslation';
+          id: string;
+          name: string;
+        } | null;
+        category?: {__typename?: 'Category'; id: string; slug: string} | null;
+        collection?: {
+          __typename?: 'Collection';
+          id: string;
+          slug: string;
+        } | null;
+        page?: {__typename?: 'Page'; id: string; slug: string} | null;
+      }> | null;
+    }> | null;
+  } | null;
+};
 
-export type MainMenuQuery = { __typename?: 'Query', menu?: { __typename?: 'Menu', id: string, items?: Array<{ __typename?: 'MenuItem', id: string, name: string, url?: string | null, translation?: { __typename?: 'MenuItemTranslation', id: string, name: string } | null, category?: { __typename?: 'Category', id: string, slug: string } | null, collection?: { __typename?: 'Collection', id: string, slug: string } | null, page?: { __typename?: 'Page', id: string, slug: string } | null, children?: Array<{ __typename?: 'MenuItem', id: string, name: string, url?: string | null, children?: Array<{ __typename?: 'MenuItem', id: string, name: string, url?: string | null, translation?: { __typename?: 'MenuItemTranslation', id: string, name: string } | null, category?: { __typename?: 'Category', id: string, slug: string } | null, collection?: { __typename?: 'Collection', id: string, slug: string } | null, page?: { __typename?: 'Page', id: string, slug: string } | null }> | null, translation?: { __typename?: 'MenuItemTranslation', id: string, name: string } | null, category?: { __typename?: 'Category', id: string, slug: string } | null, collection?: { __typename?: 'Collection', id: string, slug: string } | null, page?: { __typename?: 'Page', id: string, slug: string } | null }> | null }> | null } | null };
+export type MeQueryVariables = Exact<{[key: string]: never}>;
 
-export type MeQueryVariables = Exact<{ [key: string]: never; }>;
+export type MeQuery = {
+  __typename?: 'Query';
+  me?: {__typename?: 'User'; email: string} | null;
+};
 
-
-export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', email: string } | null };
-
-export const AccountErrorFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccountErrorFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AccountError"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"field"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]} as unknown as DocumentNode<AccountErrorFragmentFragment, unknown>;
-export const CartFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CartFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Checkout"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"token"}}]}}]} as unknown as DocumentNode<CartFragmentFragment, unknown>;
-export const CheckoutErrorFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CheckoutErrorFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CheckoutError"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"field"}},{"kind":"Field","name":{"kind":"Name","value":"message"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}}]} as unknown as DocumentNode<CheckoutErrorFragmentFragment, unknown>;
-export const MenuItemFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MenuItemFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MenuItem"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"translation"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"languageCode"},"value":{"kind":"Variable","name":{"kind":"Name","value":"languageCode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"category"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"Field","name":{"kind":"Name","value":"collection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"Field","name":{"kind":"Name","value":"page"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]} as unknown as DocumentNode<MenuItemFragmentFragment, unknown>;
-export const MenuItemWithChildrenFragmentFragmentDoc = {"kind":"Document", "definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MenuItemWithChildrenFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MenuItem"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"translation"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"languageCode"},"value":{"kind":"Variable","name":{"kind":"Name","value":"languageCode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"category"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"Field","name":{"kind":"Name","value":"collection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"Field","name":{"kind":"Name","value":"page"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MenuItemFragment"}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MenuItemFragment"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},...MenuItemFragmentFragmentDoc.definitions]} as unknown as DocumentNode<MenuItemWithChildrenFragmentFragment, unknown>;
-export const CartAddProductLineDocument = {"kind":"Document", "definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"cartAddProductLine"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"cartToken"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UUID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"lines"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CheckoutLineInput"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"cartLinesAdd"},"name":{"kind":"Name","value":"checkoutLinesAdd"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"token"},"value":{"kind":"Variable","name":{"kind":"Name","value":"cartToken"}}},{"kind":"Argument","name":{"kind":"Name","value":"lines"},"value":{"kind":"Variable","name":{"kind":"Name","value":"lines"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"errors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"CheckoutErrorFragment"}}]}}]}}]}},...CheckoutErrorFragmentFragmentDoc.definitions]} as unknown as DocumentNode<CartAddProductLineMutation, CartAddProductLineMutationVariables>;
-export const ChangePasswordDocument = {"kind":"Document", "definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"changePassword"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"token"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"password"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"setPassword"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"token"},"value":{"kind":"Variable","name":{"kind":"Name","value":"token"}}},{"kind":"Argument","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}},{"kind":"Argument","name":{"kind":"Name","value":"password"},"value":{"kind":"Variable","name":{"kind":"Name","value":"password"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"errors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccountErrorFragment"}}]}},{"kind":"Field","name":{"kind":"Name","value":"token"}},{"kind":"Field","name":{"kind":"Name","value":"csrfToken"}}]}}]}},...AccountErrorFragmentFragmentDoc.definitions]} as unknown as DocumentNode<ChangePasswordMutation, ChangePasswordMutationVariables>;
-export const ConfirmAccountDocument = {"kind":"Document", "definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ConfirmAccount"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"token"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"confirmAccount"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}},{"kind":"Argument","name":{"kind":"Name","value":"token"},"value":{"kind":"Variable","name":{"kind":"Name","value":"token"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"errors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccountErrorFragment"}}]}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}}]}}]}}]}},...AccountErrorFragmentFragmentDoc.definitions]} as unknown as DocumentNode<ConfirmAccountMutation, ConfirmAccountMutationVariables>;
-export const CreateCartDocument = {"kind":"Document", "definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateCart"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"lines"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CheckoutLineInput"}}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"channel"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"cartCreate"},"name":{"kind":"Name","value":"checkoutCreate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"channel"},"value":{"kind":"Variable","name":{"kind":"Name","value":"channel"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"lines"},"value":{"kind":"Variable","name":{"kind":"Name","value":"lines"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"cart"},"name":{"kind":"Name","value":"checkout"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"CartFragment"}}]}},{"kind":"Field","name":{"kind":"Name","value":"errors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"CheckoutErrorFragment"}}]}}]}}]}},...CartFragmentFragmentDoc.definitions,...CheckoutErrorFragmentFragmentDoc.definitions]} as unknown as DocumentNode<CreateCartMutation, CreateCartMutationVariables>;
-export const LoginDocument = {"kind":"Document", "definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"login"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"password"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tokenCreate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}},{"kind":"Argument","name":{"kind":"Name","value":"password"},"value":{"kind":"Variable","name":{"kind":"Name","value":"password"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"csrfToken"}},{"kind":"Field","name":{"kind":"Name","value":"token"}},{"kind":"Field","name":{"kind":"Name","value":"errors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccountErrorFragment"}}]}}]}}]}},...AccountErrorFragmentFragmentDoc.definitions]} as unknown as DocumentNode<LoginMutation, LoginMutationVariables>;
-export const RefreshTokenDocument = {"kind":"Document", "definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"refreshToken"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"csrfToken"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tokenRefresh"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"csrfToken"},"value":{"kind":"Variable","name":{"kind":"Name","value":"csrfToken"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"token"}},{"kind":"Field","name":{"kind":"Name","value":"errors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccountErrorFragment"}}]}}]}}]}},...AccountErrorFragmentFragmentDoc.definitions]} as unknown as DocumentNode<RefreshTokenMutation, RefreshTokenMutationVariables>;
-export const RegisterDocument = {"kind":"Document", "definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"Register"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AccountRegisterInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accountRegister"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"errors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccountErrorFragment"}}]}},{"kind":"Field","name":{"kind":"Name","value":"requiresConfirmation"}}]}}]}},...AccountErrorFragmentFragmentDoc.definitions]} as unknown as DocumentNode<RegisterMutation, RegisterMutationVariables>;
-export const RequestPasswordResetDocument = {"kind":"Document", "definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"requestPasswordReset"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"redirectUrl"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"channel"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"requestPasswordReset"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}},{"kind":"Argument","name":{"kind":"Name","value":"redirectUrl"},"value":{"kind":"Variable","name":{"kind":"Name","value":"redirectUrl"}}},{"kind":"Argument","name":{"kind":"Name","value":"channel"},"value":{"kind":"Variable","name":{"kind":"Name","value":"channel"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"errors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccountErrorFragment"}}]}}]}}]}},...AccountErrorFragmentFragmentDoc.definitions]} as unknown as DocumentNode<RequestPasswordResetMutation, RequestPasswordResetMutationVariables>;
-export const VerifyTokenDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"verifyToken"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"token"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tokenVerify"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"token"},"value":{"kind":"Variable","name":{"kind":"Name","value":"token"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"isValid"}}]}}]}}]} as unknown as DocumentNode<VerifyTokenMutation, VerifyTokenMutationVariables>;
-export const CartByTokenDocument = {"kind":"Document", "definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"CartByToken"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"cartToken"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UUID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"cart"},"name":{"kind":"Name","value":"checkout"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"token"},"value":{"kind":"Variable","name":{"kind":"Name","value":"cartToken"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"CartFragment"}}]}}]}},...CartFragmentFragmentDoc.definitions]} as unknown as DocumentNode<CartByTokenQuery, CartByTokenQueryVariables>;
-export const ChannelsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Channels"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"channels"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}}]}}]}}]} as unknown as DocumentNode<ChannelsQuery, ChannelsQueryVariables>;
-export const MainMenuDocument = {"kind":"Document", "definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"MainMenu"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"languageCode"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"LanguageCodeEnum"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"channel"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"menu"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"slug"},"value":{"kind":"StringValue","value":"navbar","block":false}},{"kind":"Argument","name":{"kind":"Name","value":"channel"},"value":{"kind":"Variable","name":{"kind":"Name","value":"channel"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MenuItemWithChildrenFragment"}}]}}]}}]}},...MenuItemWithChildrenFragmentFragmentDoc.definitions]} as unknown as DocumentNode<MainMenuQuery, MainMenuQueryVariables>;
-export const MeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}}]}}]}}]} as unknown as DocumentNode<MeQuery, MeQueryVariables>;
+export const AccountErrorFragmentFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: {kind: 'Name', value: 'AccountErrorFragment'},
+      typeCondition: {
+        kind: 'NamedType',
+        name: {kind: 'Name', value: 'AccountError'},
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {kind: 'Field', name: {kind: 'Name', value: 'code'}},
+          {kind: 'Field', name: {kind: 'Name', value: 'field'}},
+          {kind: 'Field', name: {kind: 'Name', value: 'message'}},
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<AccountErrorFragmentFragment, unknown>;
+export const CartFragmentFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: {kind: 'Name', value: 'CartFragment'},
+      typeCondition: {
+        kind: 'NamedType',
+        name: {kind: 'Name', value: 'Checkout'},
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {kind: 'Field', name: {kind: 'Name', value: 'id'}},
+          {kind: 'Field', name: {kind: 'Name', value: 'token'}},
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CartFragmentFragment, unknown>;
+export const CheckoutErrorFragmentFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: {kind: 'Name', value: 'CheckoutErrorFragment'},
+      typeCondition: {
+        kind: 'NamedType',
+        name: {kind: 'Name', value: 'CheckoutError'},
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {kind: 'Field', name: {kind: 'Name', value: 'field'}},
+          {kind: 'Field', name: {kind: 'Name', value: 'message'}},
+          {kind: 'Field', name: {kind: 'Name', value: 'code'}},
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CheckoutErrorFragmentFragment, unknown>;
+export const MenuItemFragmentFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: {kind: 'Name', value: 'MenuItemFragment'},
+      typeCondition: {
+        kind: 'NamedType',
+        name: {kind: 'Name', value: 'MenuItem'},
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {kind: 'Field', name: {kind: 'Name', value: 'id'}},
+          {kind: 'Field', name: {kind: 'Name', value: 'name'}},
+          {
+            kind: 'Field',
+            name: {kind: 'Name', value: 'translation'},
+            arguments: [
+              {
+                kind: 'Argument',
+                name: {kind: 'Name', value: 'languageCode'},
+                value: {
+                  kind: 'Variable',
+                  name: {kind: 'Name', value: 'languageCode'},
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {kind: 'Field', name: {kind: 'Name', value: 'id'}},
+                {kind: 'Field', name: {kind: 'Name', value: 'name'}},
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: {kind: 'Name', value: 'category'},
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {kind: 'Field', name: {kind: 'Name', value: 'id'}},
+                {kind: 'Field', name: {kind: 'Name', value: 'slug'}},
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: {kind: 'Name', value: 'collection'},
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {kind: 'Field', name: {kind: 'Name', value: 'id'}},
+                {kind: 'Field', name: {kind: 'Name', value: 'slug'}},
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: {kind: 'Name', value: 'page'},
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {kind: 'Field', name: {kind: 'Name', value: 'id'}},
+                {kind: 'Field', name: {kind: 'Name', value: 'slug'}},
+              ],
+            },
+          },
+          {kind: 'Field', name: {kind: 'Name', value: 'url'}},
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<MenuItemFragmentFragment, unknown>;
+export const MenuItemWithChildrenFragmentFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: {kind: 'Name', value: 'MenuItemWithChildrenFragment'},
+      typeCondition: {
+        kind: 'NamedType',
+        name: {kind: 'Name', value: 'MenuItem'},
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {kind: 'Field', name: {kind: 'Name', value: 'id'}},
+          {kind: 'Field', name: {kind: 'Name', value: 'name'}},
+          {
+            kind: 'Field',
+            name: {kind: 'Name', value: 'translation'},
+            arguments: [
+              {
+                kind: 'Argument',
+                name: {kind: 'Name', value: 'languageCode'},
+                value: {
+                  kind: 'Variable',
+                  name: {kind: 'Name', value: 'languageCode'},
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {kind: 'Field', name: {kind: 'Name', value: 'id'}},
+                {kind: 'Field', name: {kind: 'Name', value: 'name'}},
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: {kind: 'Name', value: 'category'},
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {kind: 'Field', name: {kind: 'Name', value: 'id'}},
+                {kind: 'Field', name: {kind: 'Name', value: 'slug'}},
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: {kind: 'Name', value: 'collection'},
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {kind: 'Field', name: {kind: 'Name', value: 'id'}},
+                {kind: 'Field', name: {kind: 'Name', value: 'slug'}},
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: {kind: 'Name', value: 'page'},
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {kind: 'Field', name: {kind: 'Name', value: 'id'}},
+                {kind: 'Field', name: {kind: 'Name', value: 'slug'}},
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: {kind: 'Name', value: 'children'},
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: {kind: 'Name', value: 'MenuItemFragment'},
+                },
+                {
+                  kind: 'Field',
+                  name: {kind: 'Name', value: 'children'},
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: {kind: 'Name', value: 'MenuItemFragment'},
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          {kind: 'Field', name: {kind: 'Name', value: 'url'}},
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<MenuItemWithChildrenFragmentFragment, unknown>;
+export const CartAddProductLineDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: {kind: 'Name', value: 'cartAddProductLine'},
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: {kind: 'Name', value: 'cartToken'},
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {kind: 'NamedType', name: {kind: 'Name', value: 'UUID'}},
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {kind: 'Variable', name: {kind: 'Name', value: 'lines'}},
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'ListType',
+              type: {
+                kind: 'NonNullType',
+                type: {
+                  kind: 'NamedType',
+                  name: {kind: 'Name', value: 'CheckoutLineInput'},
+                },
+              },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            alias: {kind: 'Name', value: 'cartLinesAdd'},
+            name: {kind: 'Name', value: 'checkoutLinesAdd'},
+            arguments: [
+              {
+                kind: 'Argument',
+                name: {kind: 'Name', value: 'token'},
+                value: {
+                  kind: 'Variable',
+                  name: {kind: 'Name', value: 'cartToken'},
+                },
+              },
+              {
+                kind: 'Argument',
+                name: {kind: 'Name', value: 'lines'},
+                value: {kind: 'Variable', name: {kind: 'Name', value: 'lines'}},
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: {kind: 'Name', value: 'errors'},
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: {kind: 'Name', value: 'CheckoutErrorFragment'},
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    ...CheckoutErrorFragmentFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<
+  CartAddProductLineMutation,
+  CartAddProductLineMutationVariables
+>;
+export const ChangePasswordDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: {kind: 'Name', value: 'changePassword'},
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {kind: 'Variable', name: {kind: 'Name', value: 'token'}},
+          type: {
+            kind: 'NonNullType',
+            type: {kind: 'NamedType', name: {kind: 'Name', value: 'String'}},
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {kind: 'Variable', name: {kind: 'Name', value: 'email'}},
+          type: {
+            kind: 'NonNullType',
+            type: {kind: 'NamedType', name: {kind: 'Name', value: 'String'}},
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {kind: 'Variable', name: {kind: 'Name', value: 'password'}},
+          type: {
+            kind: 'NonNullType',
+            type: {kind: 'NamedType', name: {kind: 'Name', value: 'String'}},
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: {kind: 'Name', value: 'setPassword'},
+            arguments: [
+              {
+                kind: 'Argument',
+                name: {kind: 'Name', value: 'token'},
+                value: {kind: 'Variable', name: {kind: 'Name', value: 'token'}},
+              },
+              {
+                kind: 'Argument',
+                name: {kind: 'Name', value: 'email'},
+                value: {kind: 'Variable', name: {kind: 'Name', value: 'email'}},
+              },
+              {
+                kind: 'Argument',
+                name: {kind: 'Name', value: 'password'},
+                value: {
+                  kind: 'Variable',
+                  name: {kind: 'Name', value: 'password'},
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: {kind: 'Name', value: 'errors'},
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: {kind: 'Name', value: 'AccountErrorFragment'},
+                      },
+                    ],
+                  },
+                },
+                {kind: 'Field', name: {kind: 'Name', value: 'token'}},
+                {kind: 'Field', name: {kind: 'Name', value: 'csrfToken'}},
+              ],
+            },
+          },
+        ],
+      },
+    },
+    ...AccountErrorFragmentFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<
+  ChangePasswordMutation,
+  ChangePasswordMutationVariables
+>;
+export const ConfirmAccountDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: {kind: 'Name', value: 'ConfirmAccount'},
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {kind: 'Variable', name: {kind: 'Name', value: 'email'}},
+          type: {
+            kind: 'NonNullType',
+            type: {kind: 'NamedType', name: {kind: 'Name', value: 'String'}},
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {kind: 'Variable', name: {kind: 'Name', value: 'token'}},
+          type: {
+            kind: 'NonNullType',
+            type: {kind: 'NamedType', name: {kind: 'Name', value: 'String'}},
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: {kind: 'Name', value: 'confirmAccount'},
+            arguments: [
+              {
+                kind: 'Argument',
+                name: {kind: 'Name', value: 'email'},
+                value: {kind: 'Variable', name: {kind: 'Name', value: 'email'}},
+              },
+              {
+                kind: 'Argument',
+                name: {kind: 'Name', value: 'token'},
+                value: {kind: 'Variable', name: {kind: 'Name', value: 'token'}},
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: {kind: 'Name', value: 'errors'},
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: {kind: 'Name', value: 'AccountErrorFragment'},
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: {kind: 'Name', value: 'user'},
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {kind: 'Field', name: {kind: 'Name', value: 'email'}},
+                      {kind: 'Field', name: {kind: 'Name', value: 'isActive'}},
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    ...AccountErrorFragmentFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<
+  ConfirmAccountMutation,
+  ConfirmAccountMutationVariables
+>;
+export const CreateCartDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: {kind: 'Name', value: 'CreateCart'},
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {kind: 'Variable', name: {kind: 'Name', value: 'email'}},
+          type: {kind: 'NamedType', name: {kind: 'Name', value: 'String'}},
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {kind: 'Variable', name: {kind: 'Name', value: 'lines'}},
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'ListType',
+              type: {
+                kind: 'NonNullType',
+                type: {
+                  kind: 'NamedType',
+                  name: {kind: 'Name', value: 'CheckoutLineInput'},
+                },
+              },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {kind: 'Variable', name: {kind: 'Name', value: 'channel'}},
+          type: {
+            kind: 'NonNullType',
+            type: {kind: 'NamedType', name: {kind: 'Name', value: 'String'}},
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            alias: {kind: 'Name', value: 'cartCreate'},
+            name: {kind: 'Name', value: 'checkoutCreate'},
+            arguments: [
+              {
+                kind: 'Argument',
+                name: {kind: 'Name', value: 'input'},
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: {kind: 'Name', value: 'channel'},
+                      value: {
+                        kind: 'Variable',
+                        name: {kind: 'Name', value: 'channel'},
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: {kind: 'Name', value: 'email'},
+                      value: {
+                        kind: 'Variable',
+                        name: {kind: 'Name', value: 'email'},
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: {kind: 'Name', value: 'lines'},
+                      value: {
+                        kind: 'Variable',
+                        name: {kind: 'Name', value: 'lines'},
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  alias: {kind: 'Name', value: 'cart'},
+                  name: {kind: 'Name', value: 'checkout'},
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: {kind: 'Name', value: 'CartFragment'},
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: {kind: 'Name', value: 'errors'},
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: {kind: 'Name', value: 'CheckoutErrorFragment'},
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    ...CartFragmentFragmentDoc.definitions,
+    ...CheckoutErrorFragmentFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<CreateCartMutation, CreateCartMutationVariables>;
+export const ForgotPasswordDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: {kind: 'Name', value: 'forgotPassword'},
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {kind: 'Variable', name: {kind: 'Name', value: 'email'}},
+          type: {
+            kind: 'NonNullType',
+            type: {kind: 'NamedType', name: {kind: 'Name', value: 'String'}},
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: {kind: 'Name', value: 'redirectUrl'},
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {kind: 'NamedType', name: {kind: 'Name', value: 'String'}},
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {kind: 'Variable', name: {kind: 'Name', value: 'channel'}},
+          type: {
+            kind: 'NonNullType',
+            type: {kind: 'NamedType', name: {kind: 'Name', value: 'String'}},
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            alias: {kind: 'Name', value: 'forgotPassword'},
+            name: {kind: 'Name', value: 'requestPasswordReset'},
+            arguments: [
+              {
+                kind: 'Argument',
+                name: {kind: 'Name', value: 'email'},
+                value: {kind: 'Variable', name: {kind: 'Name', value: 'email'}},
+              },
+              {
+                kind: 'Argument',
+                name: {kind: 'Name', value: 'redirectUrl'},
+                value: {
+                  kind: 'Variable',
+                  name: {kind: 'Name', value: 'redirectUrl'},
+                },
+              },
+              {
+                kind: 'Argument',
+                name: {kind: 'Name', value: 'channel'},
+                value: {
+                  kind: 'Variable',
+                  name: {kind: 'Name', value: 'channel'},
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: {kind: 'Name', value: 'errors'},
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: {kind: 'Name', value: 'AccountErrorFragment'},
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    ...AccountErrorFragmentFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<
+  ForgotPasswordMutation,
+  ForgotPasswordMutationVariables
+>;
+export const LoginDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: {kind: 'Name', value: 'login'},
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {kind: 'Variable', name: {kind: 'Name', value: 'email'}},
+          type: {
+            kind: 'NonNullType',
+            type: {kind: 'NamedType', name: {kind: 'Name', value: 'String'}},
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {kind: 'Variable', name: {kind: 'Name', value: 'password'}},
+          type: {
+            kind: 'NonNullType',
+            type: {kind: 'NamedType', name: {kind: 'Name', value: 'String'}},
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: {kind: 'Name', value: 'tokenCreate'},
+            arguments: [
+              {
+                kind: 'Argument',
+                name: {kind: 'Name', value: 'email'},
+                value: {kind: 'Variable', name: {kind: 'Name', value: 'email'}},
+              },
+              {
+                kind: 'Argument',
+                name: {kind: 'Name', value: 'password'},
+                value: {
+                  kind: 'Variable',
+                  name: {kind: 'Name', value: 'password'},
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {kind: 'Field', name: {kind: 'Name', value: 'csrfToken'}},
+                {kind: 'Field', name: {kind: 'Name', value: 'token'}},
+                {
+                  kind: 'Field',
+                  name: {kind: 'Name', value: 'errors'},
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: {kind: 'Name', value: 'AccountErrorFragment'},
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    ...AccountErrorFragmentFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<LoginMutation, LoginMutationVariables>;
+export const RefreshTokenDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: {kind: 'Name', value: 'refreshToken'},
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: {kind: 'Name', value: 'csrfToken'},
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {kind: 'NamedType', name: {kind: 'Name', value: 'String'}},
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: {kind: 'Name', value: 'tokenRefresh'},
+            arguments: [
+              {
+                kind: 'Argument',
+                name: {kind: 'Name', value: 'csrfToken'},
+                value: {
+                  kind: 'Variable',
+                  name: {kind: 'Name', value: 'csrfToken'},
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {kind: 'Field', name: {kind: 'Name', value: 'token'}},
+                {
+                  kind: 'Field',
+                  name: {kind: 'Name', value: 'errors'},
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: {kind: 'Name', value: 'AccountErrorFragment'},
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    ...AccountErrorFragmentFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<
+  RefreshTokenMutation,
+  RefreshTokenMutationVariables
+>;
+export const RegisterDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: {kind: 'Name', value: 'Register'},
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {kind: 'Variable', name: {kind: 'Name', value: 'input'}},
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: {kind: 'Name', value: 'AccountRegisterInput'},
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: {kind: 'Name', value: 'accountRegister'},
+            arguments: [
+              {
+                kind: 'Argument',
+                name: {kind: 'Name', value: 'input'},
+                value: {kind: 'Variable', name: {kind: 'Name', value: 'input'}},
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: {kind: 'Name', value: 'errors'},
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: {kind: 'Name', value: 'AccountErrorFragment'},
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: {kind: 'Name', value: 'requiresConfirmation'},
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    ...AccountErrorFragmentFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<RegisterMutation, RegisterMutationVariables>;
+export const VerifyTokenDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: {kind: 'Name', value: 'verifyToken'},
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {kind: 'Variable', name: {kind: 'Name', value: 'token'}},
+          type: {
+            kind: 'NonNullType',
+            type: {kind: 'NamedType', name: {kind: 'Name', value: 'String'}},
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: {kind: 'Name', value: 'tokenVerify'},
+            arguments: [
+              {
+                kind: 'Argument',
+                name: {kind: 'Name', value: 'token'},
+                value: {kind: 'Variable', name: {kind: 'Name', value: 'token'}},
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {kind: 'Field', name: {kind: 'Name', value: 'isValid'}},
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<VerifyTokenMutation, VerifyTokenMutationVariables>;
+export const CartByTokenDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: {kind: 'Name', value: 'CartByToken'},
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: {kind: 'Name', value: 'cartToken'},
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {kind: 'NamedType', name: {kind: 'Name', value: 'UUID'}},
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            alias: {kind: 'Name', value: 'cart'},
+            name: {kind: 'Name', value: 'checkout'},
+            arguments: [
+              {
+                kind: 'Argument',
+                name: {kind: 'Name', value: 'token'},
+                value: {
+                  kind: 'Variable',
+                  name: {kind: 'Name', value: 'cartToken'},
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: {kind: 'Name', value: 'CartFragment'},
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    ...CartFragmentFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<CartByTokenQuery, CartByTokenQueryVariables>;
+export const ChannelsDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: {kind: 'Name', value: 'Channels'},
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: {kind: 'Name', value: 'channels'},
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {kind: 'Field', name: {kind: 'Name', value: 'id'}},
+                {kind: 'Field', name: {kind: 'Name', value: 'slug'}},
+                {kind: 'Field', name: {kind: 'Name', value: 'name'}},
+                {kind: 'Field', name: {kind: 'Name', value: 'isActive'}},
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ChannelsQuery, ChannelsQueryVariables>;
+export const MainMenuDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: {kind: 'Name', value: 'MainMenu'},
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: {kind: 'Name', value: 'languageCode'},
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: {kind: 'Name', value: 'LanguageCodeEnum'},
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {kind: 'Variable', name: {kind: 'Name', value: 'channel'}},
+          type: {
+            kind: 'NonNullType',
+            type: {kind: 'NamedType', name: {kind: 'Name', value: 'String'}},
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: {kind: 'Name', value: 'menu'},
+            arguments: [
+              {
+                kind: 'Argument',
+                name: {kind: 'Name', value: 'slug'},
+                value: {kind: 'StringValue', value: 'navbar', block: false},
+              },
+              {
+                kind: 'Argument',
+                name: {kind: 'Name', value: 'channel'},
+                value: {
+                  kind: 'Variable',
+                  name: {kind: 'Name', value: 'channel'},
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {kind: 'Field', name: {kind: 'Name', value: 'id'}},
+                {
+                  kind: 'Field',
+                  name: {kind: 'Name', value: 'items'},
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: {
+                          kind: 'Name',
+                          value: 'MenuItemWithChildrenFragment',
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    ...MenuItemWithChildrenFragmentFragmentDoc.definitions,
+    ...MenuItemFragmentFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<MainMenuQuery, MainMenuQueryVariables>;
+export const MeDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: {kind: 'Name', value: 'Me'},
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: {kind: 'Name', value: 'me'},
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {kind: 'Field', name: {kind: 'Name', value: 'email'}},
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<MeQuery, MeQueryVariables>;
+export const AccountErrorFragmentFragmentDoc = `
+    fragment AccountErrorFragment on AccountError {
+  code
+  field
+  message
+}
+    `;
+export const CartFragmentFragmentDoc = `
+    fragment CartFragment on Checkout {
+  id
+  token
+}
+    `;
+export const CheckoutErrorFragmentFragmentDoc = `
+    fragment CheckoutErrorFragment on CheckoutError {
+  field
+  message
+  code
+}
+    `;
+export const MenuItemFragmentFragmentDoc = `
+    fragment MenuItemFragment on MenuItem {
+  id
+  name
+  translation(languageCode: $languageCode) {
+    id
+    name
+  }
+  category {
+    id
+    slug
+  }
+  collection {
+    id
+    slug
+  }
+  page {
+    id
+    slug
+  }
+  url
+}
+    `;
+export const MenuItemWithChildrenFragmentFragmentDoc = `
+    fragment MenuItemWithChildrenFragment on MenuItem {
+  id
+  name
+  translation(languageCode: $languageCode) {
+    id
+    name
+  }
+  category {
+    id
+    slug
+  }
+  collection {
+    id
+    slug
+  }
+  page {
+    id
+    slug
+  }
+  children {
+    ...MenuItemFragment
+    children {
+      ...MenuItemFragment
+    }
+  }
+  url
+}
+    `;
+export const CartAddProductLineDocument = `
+    mutation cartAddProductLine($cartToken: UUID!, $lines: [CheckoutLineInput!]!) {
+  cartLinesAdd: checkoutLinesAdd(token: $cartToken, lines: $lines) {
+    errors {
+      ...CheckoutErrorFragment
+    }
+  }
+}
+    ${CheckoutErrorFragmentFragmentDoc}`;
+export const useCartAddProductLineMutation = <
+  TError = unknown,
+  TContext = unknown,
+>(
+  dataSource: {endpoint: string; fetchParams?: RequestInit},
+  options?: UseMutationOptions<
+    CartAddProductLineMutation,
+    TError,
+    CartAddProductLineMutationVariables,
+    TContext
+  >,
+) =>
+  useMutation<
+    CartAddProductLineMutation,
+    TError,
+    CartAddProductLineMutationVariables,
+    TContext
+  >(
+    ['cartAddProductLine'],
+    (variables?: CartAddProductLineMutationVariables) =>
+      fetcher<CartAddProductLineMutation, CartAddProductLineMutationVariables>(
+        dataSource.endpoint,
+        dataSource.fetchParams || {},
+        CartAddProductLineDocument,
+        variables,
+      )(),
+    options,
+  );
+export const ChangePasswordDocument = `
+    mutation changePassword($token: String!, $email: String!, $password: String!) {
+  setPassword(token: $token, email: $email, password: $password) {
+    errors {
+      ...AccountErrorFragment
+    }
+    token
+    csrfToken
+  }
+}
+    ${AccountErrorFragmentFragmentDoc}`;
+export const useChangePasswordMutation = <TError = unknown, TContext = unknown>(
+  dataSource: {endpoint: string; fetchParams?: RequestInit},
+  options?: UseMutationOptions<
+    ChangePasswordMutation,
+    TError,
+    ChangePasswordMutationVariables,
+    TContext
+  >,
+) =>
+  useMutation<
+    ChangePasswordMutation,
+    TError,
+    ChangePasswordMutationVariables,
+    TContext
+  >(
+    ['changePassword'],
+    (variables?: ChangePasswordMutationVariables) =>
+      fetcher<ChangePasswordMutation, ChangePasswordMutationVariables>(
+        dataSource.endpoint,
+        dataSource.fetchParams || {},
+        ChangePasswordDocument,
+        variables,
+      )(),
+    options,
+  );
+export const ConfirmAccountDocument = `
+    mutation ConfirmAccount($email: String!, $token: String!) {
+  confirmAccount(email: $email, token: $token) {
+    errors {
+      ...AccountErrorFragment
+    }
+    user {
+      email
+      isActive
+    }
+  }
+}
+    ${AccountErrorFragmentFragmentDoc}`;
+export const useConfirmAccountMutation = <TError = unknown, TContext = unknown>(
+  dataSource: {endpoint: string; fetchParams?: RequestInit},
+  options?: UseMutationOptions<
+    ConfirmAccountMutation,
+    TError,
+    ConfirmAccountMutationVariables,
+    TContext
+  >,
+) =>
+  useMutation<
+    ConfirmAccountMutation,
+    TError,
+    ConfirmAccountMutationVariables,
+    TContext
+  >(
+    ['ConfirmAccount'],
+    (variables?: ConfirmAccountMutationVariables) =>
+      fetcher<ConfirmAccountMutation, ConfirmAccountMutationVariables>(
+        dataSource.endpoint,
+        dataSource.fetchParams || {},
+        ConfirmAccountDocument,
+        variables,
+      )(),
+    options,
+  );
+export const CreateCartDocument = `
+    mutation CreateCart($email: String, $lines: [CheckoutLineInput!]!, $channel: String!) {
+  cartCreate: checkoutCreate(
+    input: {channel: $channel, email: $email, lines: $lines}
+  ) {
+    cart: checkout {
+      ...CartFragment
+    }
+    errors {
+      ...CheckoutErrorFragment
+    }
+  }
+}
+    ${CartFragmentFragmentDoc}
+${CheckoutErrorFragmentFragmentDoc}`;
+export const useCreateCartMutation = <TError = unknown, TContext = unknown>(
+  dataSource: {endpoint: string; fetchParams?: RequestInit},
+  options?: UseMutationOptions<
+    CreateCartMutation,
+    TError,
+    CreateCartMutationVariables,
+    TContext
+  >,
+) =>
+  useMutation<
+    CreateCartMutation,
+    TError,
+    CreateCartMutationVariables,
+    TContext
+  >(
+    ['CreateCart'],
+    (variables?: CreateCartMutationVariables) =>
+      fetcher<CreateCartMutation, CreateCartMutationVariables>(
+        dataSource.endpoint,
+        dataSource.fetchParams || {},
+        CreateCartDocument,
+        variables,
+      )(),
+    options,
+  );
+export const ForgotPasswordDocument = `
+    mutation forgotPassword($email: String!, $redirectUrl: String!, $channel: String!) {
+  forgotPassword: requestPasswordReset(
+    email: $email
+    redirectUrl: $redirectUrl
+    channel: $channel
+  ) {
+    errors {
+      ...AccountErrorFragment
+    }
+  }
+}
+    ${AccountErrorFragmentFragmentDoc}`;
+export const useForgotPasswordMutation = <TError = unknown, TContext = unknown>(
+  dataSource: {endpoint: string; fetchParams?: RequestInit},
+  options?: UseMutationOptions<
+    ForgotPasswordMutation,
+    TError,
+    ForgotPasswordMutationVariables,
+    TContext
+  >,
+) =>
+  useMutation<
+    ForgotPasswordMutation,
+    TError,
+    ForgotPasswordMutationVariables,
+    TContext
+  >(
+    ['forgotPassword'],
+    (variables?: ForgotPasswordMutationVariables) =>
+      fetcher<ForgotPasswordMutation, ForgotPasswordMutationVariables>(
+        dataSource.endpoint,
+        dataSource.fetchParams || {},
+        ForgotPasswordDocument,
+        variables,
+      )(),
+    options,
+  );
+export const LoginDocument = `
+    mutation login($email: String!, $password: String!) {
+  tokenCreate(email: $email, password: $password) {
+    csrfToken
+    token
+    errors {
+      ...AccountErrorFragment
+    }
+  }
+}
+    ${AccountErrorFragmentFragmentDoc}`;
+export const useLoginMutation = <TError = unknown, TContext = unknown>(
+  dataSource: {endpoint: string; fetchParams?: RequestInit},
+  options?: UseMutationOptions<
+    LoginMutation,
+    TError,
+    LoginMutationVariables,
+    TContext
+  >,
+) =>
+  useMutation<LoginMutation, TError, LoginMutationVariables, TContext>(
+    ['login'],
+    (variables?: LoginMutationVariables) =>
+      fetcher<LoginMutation, LoginMutationVariables>(
+        dataSource.endpoint,
+        dataSource.fetchParams || {},
+        LoginDocument,
+        variables,
+      )(),
+    options,
+  );
+export const RefreshTokenDocument = `
+    mutation refreshToken($csrfToken: String!) {
+  tokenRefresh(csrfToken: $csrfToken) {
+    token
+    errors {
+      ...AccountErrorFragment
+    }
+  }
+}
+    ${AccountErrorFragmentFragmentDoc}`;
+export const useRefreshTokenMutation = <TError = unknown, TContext = unknown>(
+  dataSource: {endpoint: string; fetchParams?: RequestInit},
+  options?: UseMutationOptions<
+    RefreshTokenMutation,
+    TError,
+    RefreshTokenMutationVariables,
+    TContext
+  >,
+) =>
+  useMutation<
+    RefreshTokenMutation,
+    TError,
+    RefreshTokenMutationVariables,
+    TContext
+  >(
+    ['refreshToken'],
+    (variables?: RefreshTokenMutationVariables) =>
+      fetcher<RefreshTokenMutation, RefreshTokenMutationVariables>(
+        dataSource.endpoint,
+        dataSource.fetchParams || {},
+        RefreshTokenDocument,
+        variables,
+      )(),
+    options,
+  );
+export const RegisterDocument = `
+    mutation Register($input: AccountRegisterInput!) {
+  accountRegister(input: $input) {
+    errors {
+      ...AccountErrorFragment
+    }
+    requiresConfirmation
+  }
+}
+    ${AccountErrorFragmentFragmentDoc}`;
+export const useRegisterMutation = <TError = unknown, TContext = unknown>(
+  dataSource: {endpoint: string; fetchParams?: RequestInit},
+  options?: UseMutationOptions<
+    RegisterMutation,
+    TError,
+    RegisterMutationVariables,
+    TContext
+  >,
+) =>
+  useMutation<RegisterMutation, TError, RegisterMutationVariables, TContext>(
+    ['Register'],
+    (variables?: RegisterMutationVariables) =>
+      fetcher<RegisterMutation, RegisterMutationVariables>(
+        dataSource.endpoint,
+        dataSource.fetchParams || {},
+        RegisterDocument,
+        variables,
+      )(),
+    options,
+  );
+export const VerifyTokenDocument = `
+    mutation verifyToken($token: String!) {
+  tokenVerify(token: $token) {
+    isValid
+  }
+}
+    `;
+export const useVerifyTokenMutation = <TError = unknown, TContext = unknown>(
+  dataSource: {endpoint: string; fetchParams?: RequestInit},
+  options?: UseMutationOptions<
+    VerifyTokenMutation,
+    TError,
+    VerifyTokenMutationVariables,
+    TContext
+  >,
+) =>
+  useMutation<
+    VerifyTokenMutation,
+    TError,
+    VerifyTokenMutationVariables,
+    TContext
+  >(
+    ['verifyToken'],
+    (variables?: VerifyTokenMutationVariables) =>
+      fetcher<VerifyTokenMutation, VerifyTokenMutationVariables>(
+        dataSource.endpoint,
+        dataSource.fetchParams || {},
+        VerifyTokenDocument,
+        variables,
+      )(),
+    options,
+  );
+export const CartByTokenDocument = `
+    query CartByToken($cartToken: UUID!) {
+  cart: checkout(token: $cartToken) {
+    ...CartFragment
+  }
+}
+    ${CartFragmentFragmentDoc}`;
+export const useCartByTokenQuery = <TData = CartByTokenQuery, TError = unknown>(
+  dataSource: {endpoint: string; fetchParams?: RequestInit},
+  variables: CartByTokenQueryVariables,
+  options?: UseQueryOptions<CartByTokenQuery, TError, TData>,
+) =>
+  useQuery<CartByTokenQuery, TError, TData>(
+    ['CartByToken', variables],
+    fetcher<CartByTokenQuery, CartByTokenQueryVariables>(
+      dataSource.endpoint,
+      dataSource.fetchParams || {},
+      CartByTokenDocument,
+      variables,
+    ),
+    options,
+  );
+export const ChannelsDocument = `
+    query Channels {
+  channels {
+    id
+    slug
+    name
+    isActive
+  }
+}
+    `;
+export const useChannelsQuery = <TData = ChannelsQuery, TError = unknown>(
+  dataSource: {endpoint: string; fetchParams?: RequestInit},
+  variables?: ChannelsQueryVariables,
+  options?: UseQueryOptions<ChannelsQuery, TError, TData>,
+) =>
+  useQuery<ChannelsQuery, TError, TData>(
+    variables === undefined ? ['Channels'] : ['Channels', variables],
+    fetcher<ChannelsQuery, ChannelsQueryVariables>(
+      dataSource.endpoint,
+      dataSource.fetchParams || {},
+      ChannelsDocument,
+      variables,
+    ),
+    options,
+  );
+export const MainMenuDocument = `
+    query MainMenu($languageCode: LanguageCodeEnum!, $channel: String!) {
+  menu(slug: "navbar", channel: $channel) {
+    id
+    items {
+      ...MenuItemWithChildrenFragment
+    }
+  }
+}
+    ${MenuItemWithChildrenFragmentFragmentDoc}
+${MenuItemFragmentFragmentDoc}`;
+export const useMainMenuQuery = <TData = MainMenuQuery, TError = unknown>(
+  dataSource: {endpoint: string; fetchParams?: RequestInit},
+  variables: MainMenuQueryVariables,
+  options?: UseQueryOptions<MainMenuQuery, TError, TData>,
+) =>
+  useQuery<MainMenuQuery, TError, TData>(
+    ['MainMenu', variables],
+    fetcher<MainMenuQuery, MainMenuQueryVariables>(
+      dataSource.endpoint,
+      dataSource.fetchParams || {},
+      MainMenuDocument,
+      variables,
+    ),
+    options,
+  );
+export const MeDocument = `
+    query Me {
+  me {
+    email
+  }
+}
+    `;
+export const useMeQuery = <TData = MeQuery, TError = unknown>(
+  dataSource: {endpoint: string; fetchParams?: RequestInit},
+  variables?: MeQueryVariables,
+  options?: UseQueryOptions<MeQuery, TError, TData>,
+) =>
+  useQuery<MeQuery, TError, TData>(
+    variables === undefined ? ['Me'] : ['Me', variables],
+    fetcher<MeQuery, MeQueryVariables>(
+      dataSource.endpoint,
+      dataSource.fetchParams || {},
+      MeDocument,
+      variables,
+    ),
+    options,
+  );

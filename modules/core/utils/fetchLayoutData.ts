@@ -6,7 +6,7 @@ import type {QueryClient} from '@tanstack/react-query';
 import type {
   LanguageCodeEnum,
   MainMenuQueryVariables,
-} from 'types/generated/graphql';
+} from 'graphql/generated/graphql';
 
 type FetchLayoutDataConfig = {
   readonly region: {

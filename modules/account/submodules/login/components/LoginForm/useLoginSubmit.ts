@@ -1,33 +1,23 @@
-import {useMutation} from '@tanstack/react-query';
 import {useCallback} from 'react';
 import {useFormContext} from 'react-hook-form';
 
-import {request} from 'app/queryClient/queryClient';
-import {loginMutation} from 'graphql/mutations/mutations';
+import {useLoginMutation} from 'graphql/generated/graphql';
 import {session} from 'lib/session';
 import {isKeyof} from 'utils/utils';
 
 import {fieldNames} from './consts';
 
 import type {FieldsValues} from './consts';
-import type {
-  LoginMutation,
-  LoginMutationVariables,
-} from 'types/generated/graphql';
 
 export const useLoginSubmit = () => {
   const {setError} = useFormContext<FieldsValues>();
 
-  const {isLoading, mutateAsync: loginMutate} = useMutation<
-    LoginMutation,
-    unknown,
-    LoginMutationVariables
-  >((variables) => request(loginMutation, variables));
+  const loginMutation = useLoginMutation();
 
   const loginSubmit = useCallback(
     async ({email, password}: FieldsValues) => {
       const {token, csrfToken, errors} =
-        (await loginMutate({email, password})).tokenCreate ?? {};
+        (await loginMutation.mutateAsync({email, password})).tokenCreate ?? {};
 
       if (token && csrfToken) {
         session.login(token, csrfToken);
@@ -43,11 +33,11 @@ export const useLoginSubmit = () => {
         }
       });
     },
-    [loginMutate, setError],
+    [loginMutation, setError],
   );
 
   return {
-    isLoading,
     loginSubmit,
+    isLoading: loginMutation.isLoading,
   };
 };

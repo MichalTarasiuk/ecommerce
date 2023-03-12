@@ -1,25 +1,15 @@
-import {useMutation} from '@tanstack/react-query';
 import {useCallback} from 'react';
 import {toast} from 'sonner';
 
-import {request} from 'app/queryClient/queryClient';
-import {cartAddProductLineMutation} from 'graphql/mutations/mutations';
+import {useCartAddProductLineMutation} from 'graphql/generated/graphql';
 import {useCartState} from 'lib/cartState/cartState';
 
-import type {
-  CartAddProductLineMutation,
-  CartAddProductLineMutationVariables,
-  CheckoutLineInput,
-} from 'types/generated/graphql';
+import type {CheckoutLineInput} from 'graphql/generated/graphql';
 
 export const useAddToCart = () => {
   const {cartState, createCartState} = useCartState();
 
-  const {mutateAsync: cartAddProductLineMutate} = useMutation<
-    CartAddProductLineMutation,
-    unknown,
-    CartAddProductLineMutationVariables
-  >((variables) => request(cartAddProductLineMutation, variables));
+  const cartAddProductLineMutation = useCartAddProductLineMutation();
 
   const addToCart = useCallback(
     async (variantId: string) => {
@@ -28,7 +18,7 @@ export const useAddToCart = () => {
       if (cartState) {
         const {cartToken} = cartState;
 
-        const {cartLinesAdd} = await cartAddProductLineMutate({
+        const {cartLinesAdd} = await cartAddProductLineMutation.mutateAsync({
           cartToken,
           lines: [cartLine],
         });
@@ -44,7 +34,7 @@ export const useAddToCart = () => {
 
       await createCartState(cartLine);
     },
-    [cartAddProductLineMutate, cartState, createCartState],
+    [cartAddProductLineMutation, cartState, createCartState],
   );
 
   return addToCart;

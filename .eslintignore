@@ -36,7 +36,7 @@ next-env.d.ts
 .gitkeep
 
 # graphql codegen
-types/generated/**
+graphql/generated/**
 
 # images
 *.svg

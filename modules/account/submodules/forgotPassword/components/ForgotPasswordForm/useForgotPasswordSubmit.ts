@@ -1,11 +1,9 @@
-import {useMutation} from '@tanstack/react-query';
 import {useCallback} from 'react';
 import {useFormContext} from 'react-hook-form';
 import {toast} from 'sonner';
 
-import {request} from 'app/queryClient/queryClient';
 import {routes} from 'constants/constants';
-import {requestPasswordResetMutation} from 'graphql/mutations/mutations';
+import {useForgotPasswordMutation} from 'graphql/generated/graphql';
 import {useRegion} from 'lib/region/region';
 import {useTranslate} from 'lib/translate/translate';
 import {isKeyof} from 'utils/utils';
@@ -13,35 +11,27 @@ import {isKeyof} from 'utils/utils';
 import {fieldNames} from './consts';
 
 import type {FieldsValues} from './consts';
-import type {
-  RequestPasswordResetMutation,
-  RequestPasswordResetMutationVariables,
-} from 'types/generated/graphql';
 
 export const useForgotPasswordSubmit = () => {
   const {reset, setError} = useFormContext<FieldsValues>();
 
+  const forgotPasswordMutation = useForgotPasswordMutation();
+
   const region = useRegion();
   const {translate} = useTranslate('account.forgot-password');
-
-  const {isLoading, mutateAsync: requestPasswordResetMutate} = useMutation<
-    RequestPasswordResetMutation,
-    unknown,
-    RequestPasswordResetMutationVariables
-  >((variables) => request(requestPasswordResetMutation, variables));
 
   const forgotPasswordSubmit = useCallback(
     async ({email}: FieldsValues) => {
       const {channel} = region.variables;
       const redirectUrl = `${window.location.origin}${region.pathname}${routes.account.changePassword}`;
 
-      const {requestPasswordReset} = await requestPasswordResetMutate({
+      const {forgotPassword} = await forgotPasswordMutation?.mutateAsync({
         email,
         channel,
         redirectUrl,
       });
 
-      if (requestPasswordReset?.errors.length === 0) {
+      if (!forgotPassword?.errors?.length) {
         reset();
 
         toast.success(translate('toast_success_message'));
@@ -49,7 +39,7 @@ export const useForgotPasswordSubmit = () => {
         return;
       }
 
-      requestPasswordReset?.errors.forEach((error) => {
+      forgotPassword?.errors?.forEach((error) => {
         const fieldName = error.field;
 
         if (error.message && fieldName && isKeyof(fieldNames, fieldName)) {
@@ -58,9 +48,9 @@ export const useForgotPasswordSubmit = () => {
       });
     },
     [
+      forgotPasswordMutation,
       region.pathname,
       region.variables,
-      requestPasswordResetMutate,
       reset,
       setError,
       translate,
@@ -68,7 +58,7 @@ export const useForgotPasswordSubmit = () => {
   );
 
   return {
-    isLoading,
     forgotPasswordSubmit,
+    isLoading: forgotPasswordMutation.isLoading,
   };
 };
