@@ -4,7 +4,7 @@ import {FormProvider, useForm, useFormContext} from 'react-hook-form';
 import {toast} from 'sonner';
 
 import {Heading, TextInput, Text, Link, Button} from 'components/components';
-import {routes} from 'constants/constants';
+import {routes, truthy} from 'constants/constants';
 import {useEffectOnce} from 'lib/lifecycle';
 import {mergeRefs} from 'lib/mergeRefs';
 import {useRouteIsChanging} from 'lib/nextRouter/nextRouter';
@@ -45,7 +45,7 @@ function LoginFormInner() {
     if (
       isObject(router.query) &&
       hasOwn(router.query, 'confirm') &&
-      true.toString() === router.query.confirm
+      truthy.toString() === router.query.confirm
     ) {
       toast.success(translate('toast_confirm_account_message'));
     }
