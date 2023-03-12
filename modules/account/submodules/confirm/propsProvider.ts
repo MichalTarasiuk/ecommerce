@@ -7,11 +7,11 @@ import {getRegion, regionToPathname} from 'lib/region/region';
 import {isObject, isString, hasOwn, isError} from 'utils/utils';
 
 import type {MutationObserverOptions} from '@tanstack/react-query';
+import type {GetServerSidePropsContext, GetServerSidePropsResult} from 'next';
 import type {
   ConfirmAccountMutation,
   ConfirmAccountMutationVariables,
-} from 'graphql/generated/graphql';
-import type {GetServerSidePropsContext, GetServerSidePropsResult} from 'next';
+} from 'types/generated/graphql';
 
 export const getServerSideProps = async ({
   query,

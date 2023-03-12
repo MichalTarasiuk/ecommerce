@@ -1,8 +1,10 @@
+import {useMutation} from '@tanstack/react-query';
 import {useRouter} from 'next/router';
 import {useCallback} from 'react';
 import {useFormContext} from 'react-hook-form';
 
-import {useChangePasswordMutation} from 'graphql/generated/graphql';
+import {request} from 'app/queryClient/queryClient';
+import {changePasswordMutation} from 'graphql/mutations/mutations';
 import {session} from 'lib/session';
 import {isKeyof} from 'utils/utils';
 
@@ -10,13 +12,20 @@ import {fieldNames} from './consts';
 import {getToken} from './helpers';
 
 import type {FieldsValues} from './consts';
+import type {
+  ChangePasswordMutation,
+  ChangePasswordMutationVariables,
+} from 'types/generated/graphql';
 
 export const useChangePasswordSubmit = () => {
   const {setError} = useFormContext();
-
-  const changePasswordMutation = useChangePasswordMutation();
-
   const {query} = useRouter();
+
+  const {isLoading, mutateAsync: changePasswordMutate} = useMutation<
+    ChangePasswordMutation,
+    unknown,
+    ChangePasswordMutationVariables
+  >((variables) => request(changePasswordMutation, variables));
 
   const changePasswordSubmit = useCallback(
     async ({email, password}: FieldsValues) => {
@@ -25,7 +34,7 @@ export const useChangePasswordSubmit = () => {
       if (queryToken) {
         const {errors, token, csrfToken} =
           (
-            await changePasswordMutation.mutateAsync({
+            await changePasswordMutate({
               email,
               password,
               token: queryToken,
@@ -47,11 +56,11 @@ export const useChangePasswordSubmit = () => {
         });
       }
     },
-    [changePasswordMutation, query, setError],
+    [changePasswordMutate, query, setError],
   );
 
   return {
+    isLoading,
     changePasswordSubmit,
-    isLoading: changePasswordMutation.isLoading,
   };
 };

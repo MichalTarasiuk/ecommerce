@@ -4,8 +4,8 @@ import {request} from 'app/queryClient/queryClient';
 import {i18nConfig} from 'config/i18n';
 import {channelsQuery} from 'graphql/queries/queries';
 
-import type {ChannelsQuery} from 'graphql/generated/graphql';
 import type {GetStaticPathsResult} from 'next';
+import type {ChannelsQuery} from 'types/generated/graphql';
 
 export const getStaticPaths = async () => {
   const queryClient = new QueryClient();

@@ -4,7 +4,7 @@ import type {Cart} from './types';
 import type {
   CheckoutLineInput,
   CreateCartMutation,
-} from 'graphql/generated/graphql';
+} from 'types/generated/graphql';
 
 const isCartLine = (value: unknown): value is CheckoutLineInput => {
   if (!isObject(value)) {
