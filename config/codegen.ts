@@ -14,7 +14,7 @@ const warningPlugin = {
   },
 };
 
-const config: CodegenConfig = {
+const codegenConfig: CodegenConfig = {
   schema,
   debug: true,
   documents: 'graphql/**/*.ts',
@@ -22,14 +22,25 @@ const config: CodegenConfig = {
     afterAllFileWrite: 'pnpm run format',
   },
   generates: {
-    'types/generated/': {
+    'graphql/generated/': {
       preset: 'client',
       presetConfig: {
         fragmentMasking: false,
       },
-      plugins: [warningPlugin],
+      plugins: [warningPlugin, '@graphql-codegen/typescript-react-query'],
+      config: {
+        fetcher: {
+          func: '../app/queryClient/request/request#request',
+          isReactHook: true,
+        },
+        exposeDocument: true,
+        exposeQueryKeys: true,
+        exposeMutationKeys: true,
+        legacyMode: false,
+        dedupeFragments: true,
+      },
     },
   },
 };
 
-export default config;
+export default codegenConfig;

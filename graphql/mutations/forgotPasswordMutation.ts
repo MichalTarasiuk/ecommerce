@@ -2,13 +2,13 @@ import gql from 'graphql-tag';
 
 import {accountErrorFragment} from '../fragments/fragments';
 
-export const requestPasswordResetMutation = gql`
-  mutation requestPasswordReset(
+export const forgotPasswordMutation = gql`
+  mutation forgotPassword(
     $email: String!
     $redirectUrl: String!
     $channel: String!
   ) {
-    requestPasswordReset(
+    forgotPassword: requestPasswordReset(
       email: $email
       redirectUrl: $redirectUrl
       channel: $channel
