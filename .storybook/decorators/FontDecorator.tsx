@@ -2,6 +2,7 @@ import {Inconsolata} from '@next/font/google';
 
 import type {StoryFn} from '@storybook/react';
 
+// TODO: import styles/Fonts
 export const inconsolata = Inconsolata({
   subsets: ['latin'],
   variable: '--font-inconsolata',

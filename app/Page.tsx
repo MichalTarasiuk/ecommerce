@@ -9,24 +9,25 @@ import {Fonts} from 'styles/Fonts';
 
 import {AppProviders} from './Providers';
 
-import type {ExtendedI18nConfig} from 'config/i18n';
-import type {NextPage, NextComponentType, NextPageContext} from 'next';
 import type {AppProps} from 'next/app';
-import type {ReactElement, ReactNode} from 'react';
+import type {NextPageWithLayout} from 'types/next';
 
-export type NextPageWithLayout<Props = {}> = NextPage<Props> & {
-  readonly getLayout?: (page: ReactElement) => ReactNode;
-};
-
-type AppPropsWithLayout = AppProps & {
-  readonly Component: NextPageWithLayout;
-};
+type AppPropsWithLayout = Partial<
+  AppProps & {
+    readonly Component: Partial<NextPageWithLayout>;
+  }
+>;
 
 function AppRoot({Component, pageProps}: AppPropsWithLayout) {
   useSession();
   useRouteProgress();
 
-  const getLayout = Component.getLayout ?? ((page) => page);
+  if (!Component) {
+    return null;
+  }
+
+  const getLayout: NextPageWithLayout['getLayout'] =
+    Component?.getLayout ?? ((page) => page);
 
   return (
     <AppProviders pageProps={pageProps}>
@@ -41,10 +42,4 @@ function AppRoot({Component, pageProps}: AppPropsWithLayout) {
   );
 }
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-assertions -- extend config type (readonly)
-const typedAppWithI18n = appWithI18n as unknown as (
-  nextComponent: NextComponentType<NextPageContext, unknown, AppProps>,
-  config?: ExtendedI18nConfig,
-) => ReturnType<typeof appWithI18n>;
-
-export const App = typedAppWithI18n(AppRoot, i18nConfig);
+export const App = appWithI18n(AppRoot, i18nConfig);
