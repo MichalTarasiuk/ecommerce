@@ -3,24 +3,13 @@
 import useTranslation from 'next-translate/useTranslation';
 
 import type {Namespaces} from './namespaces';
-import type {i18nConfig, ReadonlyPages} from 'config/i18n';
+import type {AnyNamespaceKey} from './types';
 
-export type InferNamespaceKey<AnyReadonlyPages extends ReadonlyPages> = {
-  readonly [Key in keyof AnyReadonlyPages]: AnyReadonlyPages[Key] extends ReadonlyArray<string>
-    ? Custom.ValueOf<AnyReadonlyPages[Key]>
-    : AnyReadonlyPages[Key] extends ((
-        context: Record<string, unknown>,
-      ) => infer Namespaces extends ReadonlyArray<string>)
-    ? Custom.ValueOf<Namespaces>
-    : never;
-}[keyof AnyReadonlyPages];
-
-type NamespaceKeyUnion = InferNamespaceKey<(typeof i18nConfig)['pages']>;
-
-export const useTranslate = <NamespaceKey extends NamespaceKeyUnion>(
+export const useTranslate = <NamespaceKey extends AnyNamespaceKey>(
   namespaceKey: NamespaceKey,
 ) => {
-  const translation = useTranslation(namespaceKey);
+  const unknownNamespaceKey: string = namespaceKey;
+  const translation = useTranslation(unknownNamespaceKey);
 
   return {
     translate: <

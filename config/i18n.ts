@@ -3,21 +3,33 @@ import {defaultLocale, locales, signs} from 'constants/constants';
 import {routes} from 'constants/routes';
 import {isError, isObject} from 'utils/utils';
 
+import type {Locale} from 'lib/translate/types';
 import type {I18nConfig} from 'next-translate';
 
-type Pages = Exclude<I18nConfig['pages'], undefined>;
+type InferPages<
+  Routes extends Record<string, unknown>,
+  Keys extends string = Extract<ObjectType.DeepValueOf<Routes>, string>,
+  Mapper extends Record<string, string> = {readonly '': 'home'},
+> = {
+  readonly [Key in Keys | '*']?: ReadonlyArray<
+    Custom.MapOverUnion<
+      StringType.ReplaceAll<
+        StringType.Replace<Keys | 'common', '/', ''>,
+        '/',
+        '.'
+      >,
+      Mapper
+    >
+  >;
+};
 
 type I18nProviderProps = Awaited<
   ReturnType<Exclude<I18nConfig['loadLocaleFrom'], undefined>>
 >;
 
-export type ReadonlyPages = {
-  readonly [Key in keyof Pages]: Custom.ReadonlyAll<Pages[Key]>;
-};
-
 export type ExtendedI18nConfig = Omit<I18nConfig, 'pages'> & {
-  readonly locales: ReadonlyArray<Custom.ValueOf<typeof locales>>;
-  readonly pages: ReadonlyPages;
+  readonly locales: ReadonlyArray<Locale>;
+  readonly pages: InferPages<typeof routes>;
   readonly skipInitialProps: boolean;
 };
 
@@ -28,12 +40,12 @@ export const i18nConfig = {
   locales,
   defaultLocale,
   pages: {
-    '*': ['common'] as const,
-    [routes.checkout]: ['checkout'] as const,
-    [routes.account.register]: ['account.register'] as const,
-    [routes.account.login]: ['account.login'] as const,
-    [routes.account.forgotPassword]: ['account.forgot-password'] as const,
-    [routes.account.changePassword]: ['account.change-password'] as const,
+    '*': ['common'],
+    [routes.checkout]: ['checkout'],
+    [routes.account.register]: ['account.register'],
+    [routes.account.login]: ['account.login'],
+    [routes.account.forgotPassword]: ['account.forgot-password'],
+    [routes.account.changePassword]: ['account.change-password'],
   },
   loadLocaleFrom: (locale = defaultLocale, namespace) => {
     return import(

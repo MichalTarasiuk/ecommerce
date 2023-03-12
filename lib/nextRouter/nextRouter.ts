@@ -71,6 +71,4 @@ export const useRouteChangeStart = (handler: RouteChangeStartHandler) => {
       router.events.off('routeChangeStart', currentHandler);
     };
   }, [router.events, syncedHandler]);
-
-  return {};
 };

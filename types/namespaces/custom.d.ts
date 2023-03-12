@@ -35,4 +35,9 @@ declare namespace Custom {
 
   type ValueOf<Value extends ArrayType.Any | Record<PropertyKey, unknown>> =
     Value extends ArrayType.Any ? Value[number] : Value[keyof Value];
+
+  type MapOverUnion<
+    Union extends PropertyKey,
+    Mapper extends Record<PropertyKey, PropertyKey>,
+  > = Union extends keyof Mapper ? Mapper[Union] : Union;
 }

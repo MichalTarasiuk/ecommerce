@@ -10,13 +10,10 @@ import checkoutNamespace from 'locales/en-US/checkout.json';
 import commonNamespace from 'locales/en-US/common.json';
 
 import type {StoryFn} from '@storybook/react';
-import type {InferNamespaceKey} from 'lib/translate/translate';
+import type {AnyNamespaceKey} from 'lib/translate/types';
 import type {I18nDictionary} from 'next-translate';
 
-const namespaces: Record<
-  InferNamespaceKey<(typeof i18nConfig)['pages']>,
-  I18nDictionary
-> = {
+const namespaces: Record<AnyNamespaceKey, I18nDictionary> = {
   common: commonNamespace,
   checkout: checkoutNamespace,
   'account.register': accountRegisterNamespace,
