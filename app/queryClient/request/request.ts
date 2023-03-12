@@ -13,7 +13,7 @@ import type {DocumentNode} from 'graphql';
 import type {
   RefreshTokenMutation,
   RefreshTokenMutationVariables,
-} from 'graphql/generated/graphql';
+} from 'types/generated/graphql';
 
 type AnyVariables = Record<string, unknown>;
 

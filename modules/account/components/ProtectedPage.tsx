@@ -1,5 +1,5 @@
 import {routes} from 'constants/constants';
-import {useMeQuery} from 'graphql/generated/graphql';
+import {useMe} from 'lib/generated/generated';
 import {useEffectOnce} from 'lib/lifecycle';
 import {useRouter} from 'lib/nextRouter/nextRouter';
 
@@ -10,11 +10,10 @@ type ProtectedPageProps = {
 };
 
 function ProtectedPage({children}: ProtectedPageProps) {
-  const meQuery = useMeQuery();
+  const {me, isLoading} = useMe();
   const router = useRouter();
 
   useEffectOnce(() => {
-    const {data: {me} = {}, isLoading} = meQuery;
     const shouldRedirect = me && !isLoading;
 
     if (shouldRedirect) {

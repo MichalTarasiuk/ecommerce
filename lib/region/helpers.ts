@@ -1,5 +1,5 @@
 import {defaultLocale, defaultRegion, locales} from 'constants/constants';
-import {LanguageCodeEnum} from 'graphql/generated/graphql';
+import {LanguageCodeEnum} from 'types/generated/graphql';
 import {isString} from 'utils/utils';
 
 import type {Locale} from 'lib/translate/types';
