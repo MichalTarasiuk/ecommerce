@@ -1,7 +1,7 @@
 import {useMemo} from 'react';
 import {FormProvider, useForm, useFormContext} from 'react-hook-form';
 
-import {Heading, TextInput, Link, Button} from 'components/components';
+import {H1, TextInput, Link, Button} from 'components/components';
 import {routes} from 'constants/constants';
 import {mergeRefs} from 'lib/mergeRefs';
 import {useRouteIsChanging} from 'lib/nextRouter/nextRouter';
@@ -44,9 +44,9 @@ function RegisterFormInner() {
       className='px-3 md:w-52 md:px-0 w-60'
       noValidate
     >
-      <Heading tag='h1' size='medium' weight='700'>
+      <H1 size='medium' weight='700'>
         {translate('form.title')}
-      </Heading>
+      </H1>
       <TextInput
         {...emailInputHandler}
         ref={emailInputRef}

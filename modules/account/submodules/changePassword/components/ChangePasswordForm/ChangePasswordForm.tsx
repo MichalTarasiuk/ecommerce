@@ -2,7 +2,7 @@ import {useRouter} from 'next/router';
 import {useMemo} from 'react';
 import {FormProvider, useForm, useFormContext} from 'react-hook-form';
 
-import {Heading, TextInput, Button} from 'components/components';
+import {TextInput, Button, H1} from 'components/components';
 import {mergeRefs} from 'lib/mergeRefs';
 import {useRouteIsChanging} from 'lib/nextRouter/nextRouter';
 import {useTranslate} from 'lib/translate/translate';
@@ -45,9 +45,9 @@ function ChangePasswordFormInner() {
       className='px-3 md:w-52 md:px-0 w-60'
       noValidate
     >
-      <Heading tag='h1' size='medium' weight='700'>
+      <H1 size='medium' weight='700'>
         {translate('form.title')}
-      </Heading>
+      </H1>
       <TextInput
         {...register(fieldNames.email, {
           required: true,

@@ -3,7 +3,7 @@ import {useMemo} from 'react';
 import {FormProvider, useForm, useFormContext} from 'react-hook-form';
 import {toast} from 'sonner';
 
-import {Heading, TextInput, Text, Link, Button} from 'components/components';
+import {TextInput, Text, Link, Button, H1} from 'components/components';
 import {routes, truthy} from 'constants/constants';
 import {useEffectOnce} from 'lib/lifecycle';
 import {mergeRefs} from 'lib/mergeRefs';
@@ -63,9 +63,9 @@ function LoginFormInner() {
         <Text tag='span' size='small'>
           {translate('form.pre_title')}
         </Text>
-        <Heading tag='h1' size='medium' weight='700'>
+        <H1 size='medium' weight='700'>
           {translate('form.title')}
-        </Heading>
+        </H1>
       </div>
       <TextInput
         {...emailInputHandler}
