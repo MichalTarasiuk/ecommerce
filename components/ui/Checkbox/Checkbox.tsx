@@ -13,7 +13,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
 
     return (
       <label
-        className='cursor-pointer relative flex items-center gap-1.5'
+        className='relative flex cursor-pointer items-center gap-1.5'
         htmlFor={id}
       >
         <div>
@@ -22,12 +22,12 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
             ref={ref}
             type='checkbox'
             checked={checked}
-            className={classNames('absolute invisible', className)}
+            className={classNames('invisible absolute', className)}
             {...props}
           />
           <div
             className={classNames(
-              'h-5 w-5 flex justify-center items-center',
+              'flex h-5 w-5 items-center justify-center',
               'border border-primary hover:border-active focus:border-active',
             )}
           >

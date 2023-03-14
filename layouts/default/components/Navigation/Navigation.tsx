@@ -16,7 +16,7 @@ export function Navigation() {
   };
 
   return (
-    <nav className='flex items-center justify-between h-20'>
+    <nav className='flex h-20 items-center justify-between'>
       {objectKeys(navigationListing).map((key) => {
         const isLeftColumn = key === 'left';
         const isRightColumn = key === 'right';
@@ -25,8 +25,8 @@ export function Navigation() {
           <ul
             key={key}
             className={classNames('flex', {
-              'gap-5 hidden lg:flex h-full': isLeftColumn,
-              'gap-3.5 ml-auto': isRightColumn,
+              'hidden h-full gap-5 lg:flex': isLeftColumn,
+              'ml-auto gap-3.5': isRightColumn,
             })}
           >
             {navigationListing[key].map((listed, index) => (

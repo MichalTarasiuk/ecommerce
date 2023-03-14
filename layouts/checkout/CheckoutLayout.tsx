@@ -9,7 +9,7 @@ type CheckoutLayoutProps = {
 export function CheckoutLayout({children}: CheckoutLayoutProps) {
   return (
     <main className='bg-snow-white'>
-      <div className='max-w-4xl min-h-screen mx-auto '>
+      <div className='mx-auto min-h-screen max-w-4xl '>
         <nav className='flex justify-end py-9'>
           <LanguageSelect />
         </nav>

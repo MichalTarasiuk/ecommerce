@@ -54,8 +54,8 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
           ref={ref}
           onChange={onChangeHandler}
           className={classNames(
-            'outline-none text-base p-2 w-full appearance-none cursor-pointer',
-            'border border-primary rounded hover:border-active focus:border-active',
+            'w-full cursor-pointer appearance-none p-2 text-base outline-none',
+            'rounded border border-primary hover:border-active focus:border-active',
             'disabled:pointer-events-none disabled:select-none disabled:text-secondary',
             selectClassName,
           )}
@@ -71,7 +71,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
             <option key={option.value?.toString()} {...option} />
           ))}
         </select>
-        <div className='absolute top-[calc(.5rem+1px)] right-2 pl-2 border-l pointer-events-none'>
+        <div className='pointer-events-none absolute top-[calc(.5rem+1px)] right-2 border-l pl-2'>
           <ChervonDownIcon />
         </div>
       </div>

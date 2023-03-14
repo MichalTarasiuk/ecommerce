@@ -12,7 +12,7 @@ export function Spinner() {
       <VisuallyHidden>
         <Paragraph size='small'>{translate('loading')}</Paragraph>
       </VisuallyHidden>
-      <RefreshIcon className='w-5 h-5 animate-spin' />
+      <RefreshIcon className='h-5 w-5 animate-spin' />
     </div>
   );
 }

@@ -27,18 +27,18 @@ export function Menu() {
   return (
     <div
       className={classNames(
-        'h-screen w-full absolute inset-0 transition-all bg-[rgb(57,64,82,.6)]',
+        'absolute inset-0 h-screen w-full bg-[rgb(57,64,82,.6)] transition-all',
         isMenuOpen ? 'visible opacity-100' : 'invisible opacity-0',
       )}
     >
       <nav
         ref={navigationRef}
-        className='h-screen max-w-sm px-8 ml-auto bg-white py-7'
+        className='ml-auto h-screen max-w-sm bg-white px-8 py-7'
       >
-        <button onClick={closeMenu} className='block ml-auto'>
+        <button onClick={closeMenu} className='ml-auto block'>
           <CloseIcon />
         </button>
-        <ul className='flex flex-col gap-4 mt-6'>
+        <ul className='mt-6 flex flex-col gap-4'>
           {navigationListing.left.map(({child, href}) => (
             <li key={href}>
               <Link href={href} className='block text-2xl font-semibold'>

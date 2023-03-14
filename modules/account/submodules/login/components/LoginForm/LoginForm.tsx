@@ -56,7 +56,7 @@ function LoginFormInner() {
   return (
     <form
       onSubmit={handleSubmit(loginSubmit)}
-      className='px-3 md:w-52 md:px-0 w-60'
+      className='w-60 px-3 md:w-52 md:px-0'
       noValidate
     >
       <div>
@@ -86,14 +86,14 @@ function LoginFormInner() {
       />
       <Link
         href={routes.account.forgotPassword}
-        className='block mb-4 text-xs text-blue-600'
+        className='mb-4 block text-xs text-blue-600'
       >
         {translate('form.forgot_password_text')}
       </Link>
       <Button type='submit' color='green' size='medium' disabled={disabled}>
         {translate('form.submit_button_text')}
       </Button>
-      <Link href={routes.account.register} className='block text-xs mt-9'>
+      <Link href={routes.account.register} className='mt-9 block text-xs'>
         {translate('form.register_link')}
       </Link>
     </form>

@@ -41,7 +41,7 @@ function RegisterFormInner() {
   return (
     <form
       onSubmit={handleSubmit(registerSubmit)}
-      className='px-3 md:w-52 md:px-0 w-60'
+      className='w-60 px-3 md:w-52 md:px-0'
       noValidate
     >
       <H1 size='medium' weight='700'>
@@ -67,7 +67,7 @@ function RegisterFormInner() {
       <Button type='submit' color='green' size='medium' disabled={disabled}>
         {translate('form.submit_button_text')}
       </Button>
-      <Link href={routes.account.login} className='block text-xs mt-9'>
+      <Link href={routes.account.login} className='mt-9 block text-xs'>
         {translate('form.login_link')}
       </Link>
     </form>

@@ -42,7 +42,7 @@ function ChangePasswordFormInner() {
   return (
     <form
       onSubmit={handleSubmit(changePasswordSubmit)}
-      className='px-3 md:w-52 md:px-0 w-60'
+      className='w-60 px-3 md:w-52 md:px-0'
       noValidate
     >
       <H1 size='medium' weight='700'>
