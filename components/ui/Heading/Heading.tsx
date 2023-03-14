@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 
 import type {ReactNode, HTMLAttributes} from 'react';
-import type {inconsolataWeight} from 'styles/Fonts';
+import type {InconsolataWeight} from 'styles/Fonts';
 
 type TextSize = 'small' | 'medium' | 'large';
 
@@ -14,8 +14,19 @@ type HeadingProps = {
   readonly children: ReactNode;
   readonly tag: HeadingTag;
   readonly size: TextSize;
-  readonly weight?: Custom.ValueOf<typeof inconsolataWeight>;
+  readonly weight?: InconsolataWeight;
 } & HTMLAttributes<HTMLHeadingElement>;
+
+const headingSizes: Record<TextSize, string> = {
+  small: 'text-sm',
+  medium: 'text-base',
+  large: 'text-lg',
+};
+
+const headingWeights: Record<InconsolataWeight, string> = {
+  '400': 'font-normal	',
+  '700': 'font-bold',
+};
 
 export function Heading({
   tag: Tag,
@@ -25,12 +36,7 @@ export function Heading({
 }: HeadingProps) {
   return (
     <Tag
-      className={classNames({
-        'text-sm': size === 'small',
-        'text-base': size === 'medium',
-        'text-lg': size === 'large',
-        'font-bold': weight === '700',
-      })}
+      className={classNames(headingSizes[size], headingWeights[weight])}
       {...props}
     />
   );

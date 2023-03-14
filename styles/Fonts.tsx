@@ -8,12 +8,14 @@ type InferFontWeighArrayt<Font> = Font extends (options: {
   ? Exclude<Weight, string>
   : never;
 
-type InconsolataWeight = InferFontWeighArrayt<typeof Inconsolata>;
+type AnyInconsolataWeight = InferFontWeighArrayt<typeof Inconsolata>;
 
-export const inconsolataWeight = [
+const inconsolataWeight = [
   '400',
   '700',
-] as const satisfies ArrayType.ToReadonly<InconsolataWeight>;
+] as const satisfies ArrayType.ToReadonly<AnyInconsolataWeight>;
+
+export type InconsolataWeight = Custom.ValueOf<typeof inconsolataWeight>;
 
 const inconsolata = Inconsolata({
   subsets: ['latin'],

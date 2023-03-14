@@ -1,11 +1,11 @@
 import classNames from 'classnames';
 
 import type {ReactNode} from 'react';
-import type {inconsolataWeight} from 'styles/Fonts';
+import type {InconsolataWeight} from 'styles/Fonts';
 
 type TextSize = 'small' | 'medium' | 'large';
 type TextPosition = 'left' | 'center' | 'right';
-type Variants = 'default' | 'error';
+type TextVariants = 'default' | 'error';
 
 type TextTag = keyof Pick<JSX.IntrinsicElements, 'p' | 'span'>;
 
@@ -13,34 +13,48 @@ type TextProps = {
   readonly tag: TextTag;
   readonly children: ReactNode;
   readonly size: TextSize;
-  readonly weight?: Custom.ValueOf<typeof inconsolataWeight>;
+  readonly weight?: InconsolataWeight;
   readonly position?: TextPosition;
-  readonly variant?: Variants;
+  readonly variant?: TextVariants;
+};
+
+const textSizes: Record<TextSize, string> = {
+  small: 'text-sm',
+  medium: 'text-base',
+  large: 'text-lg',
+};
+
+const textWeights: Record<InconsolataWeight, string> = {
+  '400': 'font-normal	',
+  '700': 'font-bold',
+};
+
+const textPositions: Record<TextPosition, string> = {
+  left: 'text-left',
+  center: 'text-cente',
+  right: 'text-right',
+};
+
+const textVariants: Record<TextVariants, string> = {
+  default: 'text-black',
+  error: 'text-error',
 };
 
 export function Text({
   tag: Tag,
   children,
   size,
-  position,
+  position = 'left',
   weight = '400',
   variant = 'default',
 }: TextProps) {
   return (
     <Tag
       className={classNames(
-        {
-          'text-sm': size === 'small',
-          'text-base': size === 'medium',
-          'text-lg': size === 'large',
-          'font-bold': weight === '700',
-          'text-left': position === 'left',
-          'text-center': position === 'center',
-          'text-right': position === 'right',
-          'text-error': variant === 'error',
-          'text-black': variant === 'default',
-        },
-        'p-0',
+        textSizes[size],
+        textWeights[weight],
+        textPositions[position],
+        textVariants[variant],
       )}
       role={variant === 'error' ? 'alert' : undefined}
     >
