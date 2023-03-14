@@ -27,8 +27,12 @@ const codegenConfig: CodegenConfig = {
       presetConfig: {
         fragmentMasking: false,
       },
-      plugins: [warningPlugin, '@graphql-codegen/typescript-react-query'],
-      // TODO: fix config of typescript-react-query
+      plugins: [
+        warningPlugin,
+        'typescript',
+        'typescript-operations',
+        'typescript-react-query',
+      ],
       config: {
         fetcher: {
           func: '../app/queryClient/request/request#request',
