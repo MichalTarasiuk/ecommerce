@@ -1,7 +1,7 @@
 import {useCallback, useEffect, useState} from 'react';
 
 import {useSyncedRef} from 'lib/state';
-import {isClient, parseJSON, resolve, toJSON} from 'utils/utils';
+import {isClient, logErrorInDev, parseJSON, resolve, toJSON} from 'utils/utils';
 
 import type {Resolvable} from 'utils/utils';
 
@@ -52,7 +52,7 @@ export const useLocalStorage = <Item>(
           return nextItem;
         }
 
-        console.error(`could not save ${key} to localStorage`);
+        logErrorInDev(`could not save ${key} to localStorage`);
 
         return item;
       });

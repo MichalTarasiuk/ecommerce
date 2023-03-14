@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access -- to unkown */
 import {defaultLocale, locales, signs} from 'constants/constants';
 import {routes} from 'constants/routes';
-import {isError, isObject} from 'utils/utils';
+import {isError, isObject, logErrorInDev} from 'utils/utils';
 
 import type {Locale} from 'lib/translate/types';
 import type {I18nConfig} from 'next-translate';
@@ -62,8 +62,9 @@ export const i18nConfig = {
       })
       .catch((error) => {
         if (isError(error)) {
-          console.error(error.message);
+          logErrorInDev(error.message);
         }
+
         return {};
       });
   },
