@@ -48,3 +48,11 @@ export function Text({
     </Tag>
   );
 }
+
+export function Paragraph(props: Omit<TextProps, 'tag'>) {
+  return <Text tag='p' {...props} />;
+}
+
+export function Inline(props: Omit<TextProps, 'tag'>) {
+  return <Text tag='p' {...props} />;
+}

@@ -2,11 +2,12 @@ import {forwardRef, useId} from 'react';
 
 import {isString} from 'utils/utils';
 
-import {Text} from '../Text/Text';
+import {Paragraph} from '../Text/Text';
 
 import type {InputHTMLAttributes} from 'react';
 
 type InputAttributes = InputHTMLAttributes<HTMLInputElement>;
+
 type InputProps = InputAttributes & {
   readonly type?: Extract<
     InputAttributes['type'],
@@ -37,9 +38,9 @@ export const TextInput = forwardRef<HTMLInputElement, InputProps>(
           {...props}
         />
         {hasError && (
-          <Text tag='p' size='small' variant='error'>
+          <Paragraph size='small' variant='error'>
             {errorMessage}
-          </Text>
+          </Paragraph>
         )}
       </div>
     );

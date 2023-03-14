@@ -65,7 +65,7 @@ function ChangePasswordFormInner() {
         errorMessage={errors.password?.message}
         disabled={disabled}
       />
-      <Button type='submit' variant='green' disabled={disabled}>
+      <Button type='submit' color='green' size='medium' disabled={disabled}>
         {translate('form.submit_button_text')}
       </Button>
     </form>

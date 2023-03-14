@@ -64,7 +64,7 @@ function RegisterFormInner() {
         errorMessage={errors.password?.message}
         disabled={disabled}
       />
-      <Button type='submit' variant='green' disabled={disabled}>
+      <Button type='submit' color='green' size='medium' disabled={disabled}>
         {translate('form.submit_button_text')}
       </Button>
       <Link href={routes.account.login} className='block text-xs mt-9'>

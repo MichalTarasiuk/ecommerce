@@ -1,4 +1,4 @@
-import {Text} from 'components/components';
+import {Paragraph} from 'components/components';
 import {DefaultLayout} from 'layouts/layouts';
 import {useTranslate} from 'lib/translate/translate';
 
@@ -12,11 +12,7 @@ type HomePageProps = InferGetStaticPropsType<typeof getStaticProps>;
 export const HomePage: NextPageWithLayout<HomePageProps> = ({}) => {
   const {translate} = useTranslate('common');
 
-  return (
-    <Text tag='p' size='small'>
-      {translate('title')}
-    </Text>
-  );
+  return <Paragraph size='small'>{translate('title')}</Paragraph>;
 };
 
 HomePage.getLayout = (page: ReactElement) => (

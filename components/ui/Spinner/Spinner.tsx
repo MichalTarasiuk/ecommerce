@@ -1,7 +1,7 @@
 import {useTranslate} from 'lib/translate/translate';
 import {ReactComponent as RefreshIcon} from 'public/icons/refresh.svg';
 
-import {Text} from '../Text/Text';
+import {Paragraph} from '../Text/Text';
 import {VisuallyHidden} from '../VisuallyHidden/VisuallyHidden';
 
 export function Spinner() {
@@ -10,9 +10,7 @@ export function Spinner() {
   return (
     <div className='flex items-center justify-center'>
       <VisuallyHidden>
-        <Text tag='p' size='small'>
-          {translate('loading')}
-        </Text>
+        <Paragraph size='small'>{translate('loading')}</Paragraph>
       </VisuallyHidden>
       <RefreshIcon className='w-5 h-5 animate-spin' />
     </div>

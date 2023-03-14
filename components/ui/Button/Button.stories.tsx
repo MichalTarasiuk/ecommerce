@@ -15,13 +15,15 @@ export const ButtonType = Template.bind(undefined);
 
 ButtonType.args = {
   type: 'button',
-  variant: 'green',
+  color: 'green',
+  size: 'medium',
 };
 
 export const LinkType = Template.bind(undefined);
 
 LinkType.args = {
   type: 'link',
-  variant: 'green',
+  color: 'green',
+  size: 'medium',
   href: '/',
 };

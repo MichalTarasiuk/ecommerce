@@ -1,7 +1,7 @@
 import {useMemo} from 'react';
 import {FormProvider, useForm, useFormContext} from 'react-hook-form';
 
-import {H1, TextInput, Text, Link, Button} from 'components/components';
+import {H1, TextInput, Link, Button, Paragraph} from 'components/components';
 import {routes} from 'constants/routes';
 import {mergeRefs} from 'lib/mergeRefs';
 import {useRouteIsChanging} from 'lib/nextRouter/nextRouter';
@@ -48,9 +48,7 @@ function ForgotPasswordFormInner() {
         <H1 size='medium' weight='700'>
           {translate('form.title')}
         </H1>
-        <Text tag='p' size='small'>
-          {translate('form.description')}
-        </Text>
+        <Paragraph size='small'>{translate('form.description')}</Paragraph>
       </div>
       <TextInput
         {...emailInputHandler}
@@ -60,7 +58,7 @@ function ForgotPasswordFormInner() {
         errorMessage={errors.email?.message}
         disabled={disabled}
       />
-      <Button type='submit' variant='green' disabled={disabled}>
+      <Button type='submit' color='green' size='medium' disabled={disabled}>
         {translate('form.submit_button_text')}
       </Button>
       <Link href={routes.account.login} className='block text-xs mt-9'>
