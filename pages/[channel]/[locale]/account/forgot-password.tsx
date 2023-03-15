@@ -1,5 +1,5 @@
 export {
   AccountForgotPasswordPage as default,
   getStaticProps,
-} from 'modules/account/submodules/forgotPassword/forgotPassword';
+} from 'modules/account/forgotPassword/forgotPassword';
 export {getStaticPaths} from 'modules/core/utils/utils';

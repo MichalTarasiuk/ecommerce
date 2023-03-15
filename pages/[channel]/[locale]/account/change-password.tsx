@@ -1,4 +1,4 @@
 export {
   AccountChangePasswordPage as default,
   getServerSideProps,
-} from 'modules/account/submodules/changePassword/changePassword';
+} from 'modules/account/changePassword/changePassword';
