@@ -68,5 +68,5 @@ export function Paragraph(props: Omit<TextProps, 'tag'>) {
 }
 
 export function Inline(props: Omit<TextProps, 'tag'>) {
-  return <Text tag='p' {...props} />;
+  return <Text tag='span' {...props} />;
 }
