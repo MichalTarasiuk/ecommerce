@@ -6,20 +6,21 @@ import {isError, isObject, logErrorInDev} from 'utils/utils';
 import type {Locale} from 'lib/translate/types';
 import type {I18nConfig} from 'next-translate';
 
+type ToNamespaceKey<
+  Keys extends string,
+  NamespaceKey extends string = StringType.ReplaceAll<
+    StringType.Replace<Keys, '/', ''>,
+    '/',
+    '.'
+  >,
+> = NamespaceKey | Omit<string, NamespaceKey>;
+
 type InferPages<
   Routes extends Record<string, unknown>,
   Keys extends string = Extract<ObjectType.DeepValueOf<Routes>, string>,
-  Mapper extends Record<string, string> = {readonly '': 'home'},
 > = {
-  readonly [Key in Keys | '*']?: ReadonlyArray<
-    Custom.MapOverUnion<
-      StringType.ReplaceAll<
-        StringType.Replace<Keys | 'common', '/', ''>,
-        '/',
-        '.'
-      >,
-      Mapper
-    >
+  readonly [Key in Keys | (Omit<string, Keys> & PropertyKey)]?: ReadonlyArray<
+    ToNamespaceKey<Keys>
   >;
 };
 
